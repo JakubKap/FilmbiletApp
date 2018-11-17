@@ -13,8 +13,76 @@ class DbOperation
         $db = new DbConnect();
         $this->con = $db->connect();
     }
+	
+	public function storeCustomer($name, $surname, $email, $password) {
+        $uuid = uniqid('', true);	//uniqueId
+        $hash = $this->hashSSHA($password);
+        $encryptedPassword = $hash["encrypted"]; // encrypted password
+        $salt = $hash["salt"]; // salt
 
-	function getCustomers(){
+        $results = $this->con->prepare("INSERT INTO customer(uniqueId, name, surname, email, encryptedPassword, salt, createdAt) VALUES(?, ?, ?, ?, ?, ?, NOW())");
+        $results->bind_param("ssssss", $uuid, $name, $surname, $email, $encryptedPassword, $salt);
+		
+		if ($results !== false){
+			$result = $results->execute();
+			$results->close();
+
+			// check for successful store
+			if ($result) {
+				$results = $this->con->prepare("SELECT * FROM customer WHERE email = ?");
+				$results->bind_param("s", $email);
+				$results->execute();
+				$customer = $results->get_result()->fetch_assoc();
+				$results->close();
+
+				return $customer;
+			} else {
+				return false;
+			}
+		}
+    }
+	
+	public function isCustomerExisted($email) {
+		$results = $this->con->prepare("SELECT email from customer WHERE email = ?");
+
+        $results->bind_param("s", $email);
+
+        $results->execute();
+
+        $results->store_result();
+
+        if ($results->num_rows > 0) {
+            $results->close();
+            return true;
+        } else {
+            $results->close();
+            return false;
+        }
+    }
+	
+	public function getCustomerByEmailAndPassword($email, $password) {
+
+        $results = $this->con->prepare("SELECT * FROM customer WHERE email = ?");
+
+        $results->bind_param("s", $email);
+
+        if ($results->execute()) {
+            $customer = $results->get_result()->fetch_assoc();
+            $results->close();
+
+            // verifying customer password
+            $salt = $customer['salt'];
+            $encryptedPassword = $customer['encryptedPassword'];
+            $hash = $this->checkhashSSHA($salt, $password);
+            if ($encryptedPassword == $hash) {
+                return $customer;
+            }
+        } else {
+            return NULL;
+        }
+    }
+
+	public function getCustomers(){
 		$results = $this->con->prepare("SELECT id, name, surname, email, createdAt, updatedAt FROM customer");
 		if ($results !== false){
 			$results->execute();
@@ -38,7 +106,7 @@ class DbOperation
 		} else return false;
 	}
 	
-	function getMovies(){
+	public function getMovies(){
 		$results = $this->con->prepare("select * from movie");
 		if ($results !== false){
 			$results->execute();
@@ -64,7 +132,7 @@ class DbOperation
 		} else return false;
 	}
 	
-	function getSeatTypes(){
+	public function getSeatTypes(){
 		$results = $this->con->prepare("select id, name, price from seatType");
 		if ($results !== false){
 			$results->execute();
@@ -86,7 +154,7 @@ class DbOperation
 		} else return false;
 	}
 	
-	function getGenres(){
+	public function getGenres(){
 		$results = $this->con->prepare("SELECT id, name FROM genre");
 		if ($results !== false){
 			$results->execute();
@@ -107,7 +175,7 @@ class DbOperation
 		} else return false;
 	}
 	
-	function getReservations(){
+	public function getReservations(){
 		$results = $this->con->prepare("SELECT * FROM reservation");
 		if ($results !== false){
 			$results->execute();
@@ -132,4 +200,22 @@ class DbOperation
 			return $reservations; 
 		} else return false;
 	}
+	
+	//Encrypting password
+    private function hashSSHA($password) {
+
+        $salt = sha1(rand());
+        $salt = substr($salt, 0, 10);
+        $encrypted = base64_encode(sha1($password . $salt, true) . $salt);
+        $hash = array("salt" => $salt, "encrypted" => $encrypted);
+        return $hash;
+    }
+
+    //Decrypting password
+    private function checkhashSSHA($salt, $password) {
+
+        $hash = base64_encode(sha1($password . $salt, true) . $salt);
+
+        return $hash;
+    }
 }
