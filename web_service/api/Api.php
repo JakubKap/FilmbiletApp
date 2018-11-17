@@ -5,27 +5,18 @@
 	
 	//api call
 	if(isset($_GET['q'])){
-		
+		$db = new DbOperation();
 		switch($_GET['q']){
 			case 'getCustomers':
-				$db = new DbOperation();
-				$response['error'] = false; 
-				$response['message'] = 'Request successfully completed';
-				$response['customers'] = $db->getCustomers();
+				$response = getSuccessfulResponse('customers', $db->getCustomers());
 			break; 
 			
 			case 'getMovies':
-				$db = new DbOperation();
-				$response['error'] = false; 
-				$response['message'] = 'Request successfully completed';
-				$response['movies'] = $db->getMovies();
+				$response = getSuccessfulResponse('movies', $db->getMovies());
 			break;
 			
 			case 'getSeatTypes':
-				$db = new DbOperation();
-				$response['error'] = false; 
-				$response['message'] = 'Request successfully completed';
-				$response['seatTypes'] = $db->getSeatTypes();
+				$response = getSuccessfulResponse('seatTypes', $db->getSeatTypes());
 			break;
 		}
 		
@@ -33,6 +24,13 @@
 		$response['error'] = true; 
 		$response['message'] = 'Invalid API Call';
 	}
+	
+	function getSuccessfulResponse($responseName, $getFunction) {
+        $response['error'] = false;
+        $response['message'] = 'Request successfully completed';
+        $response[$responseName] = $getFunction;
+        return $response;
+    }
 
 	echo json_encode($response);
 	
