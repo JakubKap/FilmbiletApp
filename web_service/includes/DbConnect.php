@@ -1,4 +1,5 @@
 <?php 
+	header('Content-Type: application/json; charset=utf-8');
 	
 	class DbConnect
 	{
@@ -18,6 +19,9 @@
 			if (mysqli_connect_errno()) {
 				echo "Failed to connect to MySQL: " . mysqli_connect_error();
 			}
+			
+			// Change character set to utf8
+			mysqli_set_charset($this->con,"utf8");
 	 
 			//return the connection link 
 			return $this->con;
