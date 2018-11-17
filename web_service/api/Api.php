@@ -11,8 +11,15 @@
 				$db = new DbOperation();
 				$response['error'] = false; 
 				$response['message'] = 'Request successfully completed';
-				$response['customers'] = $db->getCustomer();
+				$response['customers'] = $db->getCustomers();
 			break; 
+			
+			case 'getMovies':
+				$db = new DbOperation();
+				$response['error'] = false; 
+				$response['message'] = 'Request successfully completed';
+				$response['customers'] = $db->getMovies();
+			break;
 		}
 		
 	}else{
