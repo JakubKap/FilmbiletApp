@@ -23,6 +23,11 @@
 			case 'getGenres':
 				$response = getSuccessfulResponse('genres', $db->getGenres());
 			break;
+			
+			case 'getReservations':
+				$response = getSuccessfulResponse('reservations', $db->getReservations());
+			break;
+			
 		}
 		
 	}else{

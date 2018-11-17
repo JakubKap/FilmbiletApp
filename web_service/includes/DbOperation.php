@@ -106,4 +106,30 @@ class DbOperation
 			return $genres; 
 		} else return false;
 	}
+	
+	function getReservations(){
+		$results = $this->con->prepare("SELECT * FROM reservation");
+		if ($results !== false){
+			$results->execute();
+			
+			$results->bind_result($customerId, $movieId, $hall, $seatNumber, $row, $date, $seatTypeId);
+			
+			$reservations = array(); 
+			
+			while($results->fetch()){
+				$reservation  = array();
+				$reservation['customerId'] = $customerId; 
+				$reservation['movieId'] = $movieId; 
+				$reservation['hall'] = $hall; 
+				$reservation['seatNumber'] = $seatNumber; 
+				$reservation['row'] = $row; 
+				$reservation['date'] = $date; 
+				$reservation['seatTypeId'] = $seatTypeId; 
+				
+				array_push($reservations, $reservation); 
+			}
+			
+			return $reservations; 
+		} else return false;
+	}
 }
