@@ -63,4 +63,26 @@ class DbOperation
 			return $movies; 
 		} else return false;
 	}
+	
+	function getSeatTypes(){
+		$results = $this->con->prepare("select id, name, price from seatType");
+		if ($results !== false){
+			$results->execute();
+			
+			$results->bind_result($id, $name, $price);
+			
+			$seatTypes = array(); 
+			
+			while($results->fetch()){
+				$seatType  = array();
+				$seatType['id'] = $id;
+				$seatType['name'] = $name;
+				$seatType['price'] = $price;
+				
+				array_push($seatTypes, $seatType); 
+			}
+			
+			return $seatTypes; 
+		} else return false;
+	}
 }

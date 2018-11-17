@@ -18,7 +18,14 @@
 				$db = new DbOperation();
 				$response['error'] = false; 
 				$response['message'] = 'Request successfully completed';
-				$response['customers'] = $db->getMovies();
+				$response['movies'] = $db->getMovies();
+			break;
+			
+			case 'getSeatTypes':
+				$db = new DbOperation();
+				$response['error'] = false; 
+				$response['message'] = 'Request successfully completed';
+				$response['seatTypes'] = $db->getSeatTypes();
 			break;
 		}
 		
