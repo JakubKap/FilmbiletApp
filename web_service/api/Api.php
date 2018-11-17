@@ -1,4 +1,5 @@
 <?php 
+	header('Content-Type: application/json; charset=utf-8');
 
 	require_once '../includes/DbOperation.php';
 	$response = array();
@@ -17,6 +18,10 @@
 			
 			case 'getSeatTypes':
 				$response = getSuccessfulResponse('seatTypes', $db->getSeatTypes());
+			break;
+			
+			case 'getGenres':
+				$response = getSuccessfulResponse('genres', $db->getGenres());
 			break;
 		}
 		

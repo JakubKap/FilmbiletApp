@@ -85,4 +85,25 @@ class DbOperation
 			return $seatTypes; 
 		} else return false;
 	}
+	
+	function getGenres(){
+		$results = $this->con->prepare("SELECT id, name FROM genre");
+		if ($results !== false){
+			$results->execute();
+			
+			$results->bind_result($id, $name);
+			
+			$genres = array(); 
+			
+			while($results->fetch()){
+				$genre  = array();
+				$genre['id'] = $id; 
+				$genre['name'] = $name;
+				
+				array_push($genres, $genre); 
+			}
+			
+			return $genres; 
+		} else return false;
+	}
 }
