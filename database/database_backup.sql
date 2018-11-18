@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Lis 2018, 11:53
+-- Czas generowania: 18 Lis 2018, 17:16
 -- Wersja serwera: 10.1.29-MariaDB-6
 -- Wersja PHP: 7.1.24
 
@@ -141,6 +141,32 @@ INSERT INTO `movie` (`id`, `title`, `runningTimeMin`, `age`, `languageVersion`, 
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `repertoire`
+--
+
+CREATE TABLE `repertoire` (
+  `id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `repertoire`
+--
+
+INSERT INTO `repertoire` (`id`, `movie_id`, `date`) VALUES
+(1, 1, '2018-11-28 14:20:00'),
+(2, 7, '2018-11-28 19:20:00'),
+(3, 10, '2018-11-28 20:00:00'),
+(4, 5, '2018-11-09 15:00:00'),
+(5, 6, '2018-11-27 13:00:00'),
+(6, 2, '2018-11-23 11:00:00'),
+(7, 3, '2018-11-30 12:00:00'),
+(8, 4, '2018-11-26 14:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `reservation`
 --
 
@@ -209,6 +235,13 @@ ALTER TABLE `movie`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `repertoire`
+--
+ALTER TABLE `repertoire`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_repertoire_movie1_idx` (`movie_id`);
+
+--
 -- Indexes for table `reservation`
 --
 ALTER TABLE `reservation`
@@ -242,6 +275,11 @@ ALTER TABLE `genre`
 --
 ALTER TABLE `movie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT dla tabeli `repertoire`
+--
+ALTER TABLE `repertoire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT dla tabeli `seatType`
 --
