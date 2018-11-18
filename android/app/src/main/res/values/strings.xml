@@ -8,4 +8,5 @@
     <string name="hint_surname">Nazwisko</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Hasło</string>
+    <string name="book_ticket">zarezerwuj bilet</string>
 </resources>
