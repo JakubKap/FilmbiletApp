@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Lis 2018, 17:16
+-- Czas generowania: 18 Lis 2018, 18:18
 -- Wersja serwera: 10.1.29-MariaDB-6
 -- Wersja PHP: 7.1.24
 
@@ -146,23 +146,23 @@ INSERT INTO `movie` (`id`, `title`, `runningTimeMin`, `age`, `languageVersion`, 
 
 CREATE TABLE `repertoire` (
   `id` int(11) NOT NULL,
-  `movie_id` int(11) NOT NULL,
-  `date` datetime NOT NULL
+  `date` datetime NOT NULL,
+  `movie_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `repertoire`
 --
 
-INSERT INTO `repertoire` (`id`, `movie_id`, `date`) VALUES
-(1, 1, '2018-11-28 14:20:00'),
-(2, 7, '2018-11-28 19:20:00'),
-(3, 10, '2018-11-28 20:00:00'),
-(4, 5, '2018-11-09 15:00:00'),
-(5, 6, '2018-11-27 13:00:00'),
-(6, 2, '2018-11-23 11:00:00'),
-(7, 3, '2018-11-30 12:00:00'),
-(8, 4, '2018-11-26 14:00:00');
+INSERT INTO `repertoire` (`id`, `date`, `movie_id`) VALUES
+(1, '2018-11-28 14:20:00', 1),
+(2, '2018-11-28 19:20:00', 7),
+(3, '2018-11-28 20:00:00', 10),
+(4, '2018-11-09 15:00:00', 5),
+(5, '2018-11-27 13:00:00', 6),
+(6, '2018-11-23 11:00:00', 2),
+(7, '2018-11-30 12:00:00', 3),
+(8, '2018-11-26 14:00:00', 4);
 
 -- --------------------------------------------------------
 
@@ -172,12 +172,12 @@ INSERT INTO `repertoire` (`id`, `movie_id`, `date`) VALUES
 
 CREATE TABLE `reservation` (
   `customerId` int(11) NOT NULL,
-  `movieId` int(11) NOT NULL,
   `hall` int(11) NOT NULL,
   `seatNumber` int(11) NOT NULL,
   `row` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `seatTypeId` int(11) NOT NULL
+  `seatTypeId` int(11) NOT NULL,
+  `repertoire_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- --------------------------------------------------------
@@ -238,17 +238,17 @@ ALTER TABLE `movie`
 -- Indexes for table `repertoire`
 --
 ALTER TABLE `repertoire`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`,`movie_id`),
   ADD KEY `fk_repertoire_movie1_idx` (`movie_id`);
 
 --
 -- Indexes for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD PRIMARY KEY (`customerId`,`movieId`,`seatTypeId`),
-  ADD KEY `fk_Klient_has_Film_Film1_idx` (`movieId`),
+  ADD PRIMARY KEY (`customerId`,`seatTypeId`,`repertoire_id`),
   ADD KEY `fk_Klient_has_Film_Klient_idx` (`customerId`),
-  ADD KEY `fk_Rezerwacja_TypMiejsca1_idx` (`seatTypeId`);
+  ADD KEY `fk_Rezerwacja_TypMiejsca1_idx` (`seatTypeId`),
+  ADD KEY `fk_reservation_repertoire1_idx` (`repertoire_id`);
 
 --
 -- Indexes for table `seatType`
