@@ -1,39 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:background="@color/colorPrimary"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/email"
+        android:hint="@string/hint_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_success_string"
-            />
-    </LinearLayout>
+        android:background="@color/white"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        />
+    <EditText
+        android:id="@+id/password"
+        android:hint="@string/hint_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:layout_marginBottom="25dp"
 
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
         >
+
         <Button
-            android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/logout_btn"
+            android:background="@null"
+            android:text="@string/register_btn"
+            android:minHeight="30dip"
+            android:padding="10dp"
+            android:fontFamily="@font/opensans_bold"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_btn"
             android:background="@drawable/rounded_button"
             android:minHeight="40dip"
             android:paddingLeft="20dp"
@@ -44,7 +58,5 @@
             android:fontFamily="@font/opensans_bold"
             />
     </LinearLayout>
-
-
 
 </LinearLayout>
