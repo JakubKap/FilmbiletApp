@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:layout_margin="60sp"
     android:orientation="vertical"
+    android:background="@drawable/pop_bg"
     android:weightSum="100">
 
 
