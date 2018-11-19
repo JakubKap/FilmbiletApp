@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String TAG = SQLiteHandler.class.getSimpleName();
-    private static final int DATABASE_VERSION = 1;
     public SQLiteHandler(Context context) {
         super(context, "apiDB", null, 1);
     }
@@ -31,7 +30,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addUser (String name, String surname, String email, String uid){
+    public void addCustomer(String name, String surname, String email, String uid){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -46,7 +45,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "New customer inserted into DB: ");
     }
 
-    public HashMap<String, String> getUserDetails() {
+    public HashMap<String, String> getCustomer() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         HashMap<String, String> customer = new HashMap<String, String>();
@@ -67,7 +66,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return customer;
     }
 
-    public void deleteUsers(){
+    public void deleteCustomers(){
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete("customer", null, null);
