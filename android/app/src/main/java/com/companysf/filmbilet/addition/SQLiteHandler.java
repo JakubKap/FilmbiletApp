@@ -13,12 +13,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String TAG = SQLiteHandler.class.getSimpleName();
     private static final int DATABASE_VERSION = 1;
     public SQLiteHandler(Context context) {
-        super(context, "api", null, 1);
+        super(context, "apiDB", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createLoginTable = "CREATE TABLE customer(name TEXT, email TEXT UNIQUE, uid TEXT)";
+        String createLoginTable = "CREATE TABLE customer(name TEXT, surname TEXT, email TEXT UNIQUE, uid TEXT)";
         db.execSQL(createLoginTable);
         Log.d(TAG, "Database tables created");
     }
@@ -31,16 +31,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addUser (String name, String email, String uid){
+    public void addUser (String name, String surname, String email, String uid){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
+        contentValues.put("surname", surname);
         contentValues.put("email", email);
         contentValues.put("uid", uid);
 
         db.insert("customer", null, contentValues);
         db.close();
+
+        Log.d(TAG, "New customer inserted into DB: ");
     }
 
     public HashMap<String, String> getUserDetails() {
@@ -53,11 +56,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             customer.put("name", cursor.getString(1));
-            customer.put("email", cursor.getString(2));
-            customer.put("uid", cursor.getString(3));
+            customer.put("surname", cursor.getString(2));
+            customer.put("email", cursor.getString(3));
+            customer.put("uid", cursor.getString(4));
         }
         cursor.close();
         db.close();
+
+        Log.d(TAG, "Getting customer from Sqlite: ");
         return customer;
     }
 
@@ -66,5 +72,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         db.delete("customer", null, null);
         db.close();
+
+        Log.d(TAG, "Table customer was deleted from SQLite");
     }
 }
