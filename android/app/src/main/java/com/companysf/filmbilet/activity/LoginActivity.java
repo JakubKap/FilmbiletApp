@@ -5,21 +5,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
-import com.companysf.filmbilet.appLogic.Customer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputPassword;
     private SessionManager sManager;
     private static final String logTag = LoginActivity.class.getSimpleName();
+    private SQLiteHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         sManager = new SessionManager(getApplicationContext());
+        db = new SQLiteHandler(getApplicationContext());
 
         //if user is already logged in
         if (sManager.isLoggedIn()) {
@@ -95,6 +95,15 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                     } else{
                         sManager.setLogin(true);
+
+                        //add fields from MySQL to SQLite
+                        JSONObject customer = json.getJSONObject("customer");
+                        db.addCustomer(
+                                customer.getString("name"),
+                                customer.getString("surname"),
+                                customer.getString("email"),
+                                json.getString("uid"));
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

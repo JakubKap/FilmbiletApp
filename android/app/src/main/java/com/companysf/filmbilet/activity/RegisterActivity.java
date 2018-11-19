@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
@@ -98,17 +99,15 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject json = new JSONObject(response);
                             boolean error = json.getBoolean("error");
                             if (error){
-                                Toast.makeText(getApplicationContext(), json.getString("message"),
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        json.getString("message"),
                                         Toast.LENGTH_SHORT).show();
                             } else{
-
-                                //TODO dodanie uniqueID klienta do bazy sqLite
-//                                add fields from DB to class fields
-//                                JSONObject customer = json.getJSONObject("customer");
-//                                new Customer(customer.getString("name"),
-//                                        customer.getString("surname"), json.getString("uid"));
-
-                                Toast.makeText(getApplicationContext(), "Zostałeś pomyślnie zarejestrowany. Możesz się teraz zalogować", Toast.LENGTH_LONG).show();
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Zostałeś pomyślnie zarejestrowany. Możesz się teraz zalogować",
+                                        Toast.LENGTH_LONG).show();
 
                                 //toggle to LoginActivity
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -117,7 +116,10 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "Json error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
