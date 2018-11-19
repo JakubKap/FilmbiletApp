@@ -22,11 +22,11 @@
 			echo json_encode($response);
 		} else {
 			$response["error"] = TRUE;
-			$response["message"] = "Login credentials are wrong. Please try again!";
+			$response["message"] = "Dane do logowania są niepoprawne. Spróbuj ponownie.";
 			echo json_encode($response);
 		}
 	} else {
 		$response["error"] = TRUE;
-		$response["message"] = "Required parameters email or password is missing!";
+		$response["message"] = "Pola e-mail lub hasło zostały pominięte!";
 		echo json_encode($response);
 	}
