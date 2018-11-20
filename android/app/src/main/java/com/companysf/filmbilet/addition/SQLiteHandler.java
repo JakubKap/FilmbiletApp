@@ -11,13 +11,19 @@ import java.util.HashMap;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String TAG = SQLiteHandler.class.getSimpleName();
+
+    private static final String customerName = "name";
+    private static final String customerSurname = "surname";
+    private static final String customerEmail = "email";
+    //private static final String customeUid = "uid";
+
     public SQLiteHandler(Context context) {
         super(context, "apiDB", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createLoginTable = "CREATE TABLE customer(name TEXT, surname TEXT, email TEXT UNIQUE, uid TEXT)";
+        String createLoginTable = "CREATE TABLE customer(" + customerName +  "TEXT, " + customerSurname + "TEXT, " + customerEmail + "TEXT)";
         db.execSQL(createLoginTable);
         Log.d(TAG, "Database tables created");
     }
@@ -30,14 +36,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addCustomer(String name, String surname, String email, String uid){
+    public void addCustomer(String name, String surname, String email){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("surname", surname);
-        contentValues.put("email", email);
-        contentValues.put("uid", uid);
+        contentValues.put(customerName, name);
+        contentValues.put(customerSurname, surname);
+        contentValues.put(customerEmail, email);
+        //contentValues.put(customeUid, uid);
 
         db.insert("customer", null, contentValues);
         db.close();
@@ -54,10 +60,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         //move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            customer.put("name", cursor.getString(1));
-            customer.put("surname", cursor.getString(2));
-            customer.put("email", cursor.getString(3));
-            customer.put("uid", cursor.getString(4));
+            customer.put(customerName, cursor.getString(0));
+            customer.put(customerSurname, cursor.getString(1));
+            customer.put(customerEmail, cursor.getString(2));
+            //customer.put(customeUid, cursor.getString(4));
         }
         cursor.close();
         db.close();

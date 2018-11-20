@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
         Button btn_logout = findViewById(R.id.btn_logout);
         TextView customerInfo = findViewById(R.id.customer_info);
 
-        HashMap<String, String> customer = db.getCustomer();
-        String name = customer.get("name");
-        String surname = customer.get("surname");
-        String email = customer.get("email");
-        customerInfo.setText(name + surname + email);
-
         db = new SQLiteHandler(getApplicationContext());
+
+        HashMap<String, String> customer = db.getCustomer();
+        //String name = customer.get("name");
+        //String surname = customer.get("surname");
+        String email = customer.get("email");
+        //String uid = customer.get("uid");
+        customerInfo.setText(email);
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override

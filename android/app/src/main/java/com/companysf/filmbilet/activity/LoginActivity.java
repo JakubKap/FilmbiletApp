@@ -101,8 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         db.addCustomer(
                                 customer.getString("name"),
                                 customer.getString("surname"),
-                                customer.getString("email"),
-                                json.getString("uid"));
+                                customer.getString("email"));
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

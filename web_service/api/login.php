@@ -16,6 +16,7 @@
 			$response["error"] = FALSE;
 			$response["uid"] = $customer["uniqueId"];
 			$response["customer"]["name"] = $customer["name"];
+			$response["customer"]["surname"] = $customer["surname"];
 			$response["customer"]["email"] = $customer["email"];
 			$response["customer"]["createdAt"] = $customer["createdAt"];
 			$response["customer"]["updatedAt"] = $customer["updatedAt"];

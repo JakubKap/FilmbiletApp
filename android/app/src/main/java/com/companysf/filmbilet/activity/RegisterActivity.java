@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText inputPassword;
     private EditText inputEmail;
     private SessionManager sManager;
+    private SQLiteHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.password);
         inputSurname = findViewById(R.id.surname);
         sManager = new SessionManager(getApplicationContext());
+        db = new SQLiteHandler(getApplicationContext());
 
         if(sManager.isLoggedIn()){
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
@@ -104,6 +106,12 @@ public class RegisterActivity extends AppCompatActivity {
                                         json.getString("message"),
                                         Toast.LENGTH_SHORT).show();
                             } else{
+                                //add fields from MySQL to SQLite
+                                JSONObject customer = json.getJSONObject("customer");
+                                db.addCustomer(
+                                        customer.getString("name"),
+                                        customer.getString("surname"),
+                                        customer.getString("email"));
                                 Toast.makeText(
                                         getApplicationContext(),
                                         "Zostałeś pomyślnie zarejestrowany. Możesz się teraz zalogować",
