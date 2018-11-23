@@ -3,10 +3,13 @@
     <string name="login_btn"><b>Zaloguj się</b></string>
     <string name="logout_btn"><b>Wyloguj się</b></string>
     <string name="register_btn"><b>Zarejestruj się</b></string>
-    <string name="login_success_string">Udało się pomyślnie zalogować</string>
+    <string name="login_success_string">Witaj </string>
     <string name="hint_name">Imię</string>
     <string name="hint_surname">Nazwisko</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Hasło</string>
     <string name="book_ticket">zarezerwuj bilet</string>
+    <string name="movie_length">"długość filmu: "</string>
+    <string name="separator">|</string>
+    <string name="genres">"gatunki: "</string>
 </resources>
