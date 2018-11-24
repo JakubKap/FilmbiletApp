@@ -107,7 +107,7 @@ class DbOperation
 	}
 	
 	public function getMovies(){
-		$results = $this->con->prepare("select * from movie");
+		$results = $this->con->prepare("select id, title, runningTimeMin, age, languageVersion, releaseDate, description from movie");
 		if ($results !== false){
 			$results->execute();
 			
@@ -198,6 +198,42 @@ class DbOperation
 			}
 			
 			return $reservations; 
+		} else return false;
+	}
+	
+	public function getMoviesFromRepertoire(){
+		$results = $this->con->prepare
+		//("select id from genre");
+		(
+			"SELECT m.id, m.title, m.runningTimeMin, m.age, m.pictureUrl, GROUP_CONCAT(DISTINCT g.name SEPARATOR ', ') AS genres
+			FROM movie AS m
+			INNER JOIN repertoire AS rep ON rep.movieId = m.id
+			LEFT JOIN 
+			(
+				gatunekHasMovie AS gm INNER JOIN genre AS g ON gm.genreId = g.id
+			) ON m.id = gm.movieID
+			GROUP BY m.id, m.title, m.runningTimeMin, m.age, m.pictureUrl"
+		);
+		if ($results !== false){
+			$results->execute();
+			
+			$results->bind_result($id, $title, $runningTimeMin, $age, $pictureUrl, $genres);
+			
+			$movies = array(); 
+			
+			while($results->fetch()){
+				$movie  = array();
+				$movie['id'] = $id; 
+				$movie['title'] = $title; 
+				$movie['runningTimeMin'] = $runningTimeMin; 
+				$movie['age'] = $age; 
+				$movie['pictureUrl'] = $pictureUrl; 
+				$movie['genres'] = $genres;
+				
+				array_push($movies, $movie); 
+			}
+			
+			return $movies; 
 		} else return false;
 	}
 	

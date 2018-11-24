@@ -13,7 +13,13 @@
 			break; 
 			
 			case 'getMovies':
-				$response = getSuccessfulResponse('movies', $db->getMovies());
+				//$response = getSuccessfulResponse('moviesFromRepertoire', $db->getMoviesFromRepertoire());
+				if(!isset($_GET['from']))
+					$response = getSuccessfulResponse('movies', $db->getMovies());
+				else{
+					if($_GET['from'] === 'repertoire')
+						$response = getSuccessfulResponse('moviesFromRepertoire', $db->getMoviesFromRepertoire());
+				}
 			break;
 			
 			case 'getSeatTypes':
