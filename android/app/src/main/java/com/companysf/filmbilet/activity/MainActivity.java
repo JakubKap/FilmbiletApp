@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO remove fields from local databse
 
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+       // Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        //startActivity(intent);
+        //finish();
     }
 }

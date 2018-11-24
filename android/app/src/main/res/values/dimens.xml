@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="header">20sp</dimen>
+    <dimen name="buttons">10sp</dimen>
+    <dimen name = "summary">15sp</dimen>
+</resources>
