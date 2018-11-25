@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.companysf.filmbilet.addition.LruBitmapCache;
 
@@ -15,7 +16,7 @@ public class AppController extends Application {
     public static final String TAG = AppController.class.getSimpleName();
     private static AppController instance;
 
-    public static AppController getInstance() {
+    public static synchronized AppController getInstance() {
         return instance;
     }
 
@@ -37,10 +38,17 @@ public class AppController extends Application {
         getRequestQueue().add(req);
     }
 
+    public <T> void addToRequestQueue(Request<T> req) {
+        req.setTag(TAG);
+        getRequestQueue().add(req);
+    }
+
     public ImageLoader getImageLoader() {
         if (imageLoader == null){
             imageLoader = new ImageLoader(requestQueue, new LruBitmapCache());
         }
         return this.imageLoader;
     }
+
+
 }
