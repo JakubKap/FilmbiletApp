@@ -1,17 +1,38 @@
 package com.companysf.filmbilet.appLogic;
 
 public class Movie {
-    private String title, languageVersion, description, pictureURL;
+    private String title, pictureURL, genres;
     private int runningTimeMin, age;
-    private long unixTime;
 
-    public Movie(String title, String languageVersion, String description, String pictureURL, int runningTimeMin, int age, long unixTime) {
+    public Movie(String title, int runningTimeMin, int age, String pictureURL, String genres) {
         this.title = title;
-        this.languageVersion = languageVersion;
-        this.description = description;
-        this.pictureURL = pictureURL;
         this.runningTimeMin = runningTimeMin;
         this.age = age;
-        this.unixTime = unixTime;
+        this.pictureURL = pictureURL;
+        this.genres = genres;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPictureURL() {
+        return pictureURL;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
+
+    public int getRunningTimeMin() {
+        return runningTimeMin;
+    }
+
+    public int getAge() {
+        return age;
     }
 }
