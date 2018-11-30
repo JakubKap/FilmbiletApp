@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/list_row_selector">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/picture"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_toRightOf="@+id/picture"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Tytuł"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/second_row_next_to_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_toRightOf="@+id/picture"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/genres_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/genres"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/genres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_italic"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/second_row_next_to_picture"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_toRightOf="@+id/picture"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/movie_length_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/movie_length"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/movie_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_italic"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/separator"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/min_age_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/min_age"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/min_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_italic"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

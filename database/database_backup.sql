@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Lis 2018, 18:18
+-- Czas generowania: 19 Lis 2018, 23:28
 -- Wersja serwera: 10.1.29-MariaDB-6
 -- Wersja PHP: 7.1.24
 
@@ -119,24 +119,25 @@ CREATE TABLE `movie` (
   `age` int(11) NOT NULL,
   `languageVersion` varchar(45) COLLATE utf8_polish_ci NOT NULL,
   `releaseDate` date NOT NULL,
-  `description` varchar(600) COLLATE utf8_polish_ci NOT NULL
+  `description` varchar(600) COLLATE utf8_polish_ci NOT NULL,
+  `pictureUrl` varchar(2083) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `movie`
 --
 
-INSERT INTO `movie` (`id`, `title`, `runningTimeMin`, `age`, `languageVersion`, `releaseDate`, `description`) VALUES
-(1, 'Planeta Singli 2', 159, 15, 'Polska', '2018-11-09', 'Związek Ani i Tomka przeżywa kryzys, bo oboje mają względem siebie inne zamiary. Tymczasem na horyzoncie pojawia się zakochany w dziewczynie milioner. '),
-(2, 'Kler', 133, 15, 'Polska', '2018-09-28', 'Życie trzech księży ulega zmianie, kiedy ich drogi krzyżują się ponownie.'),
-(4, 'Bohemian Rhapsody', 134, 15, 'Angielska (polskie napisy)', '2018-11-02', 'Dzięki oryginalnemu brzmieniu Queen staje się jednym z najpopularniejszych zespołów w historii muzyki.'),
-(5, 'Król wyjęty spod prawa', 121, 18, 'Angielska (polskie napisy)', '2018-09-06', 'Dotychczas nieopowiedziana prawdziwa historia Roberta I Bruce’a, który w ciągu jednego roku z upadłego szlachcica stał się królem, a następnie wyjętym spod prawa bohaterem. W zniewolonej przez Anglię średniowiecznej Szkocji walczył, by ocalić swoją rodzinę, lud i kraj. Po przejęciu szkockiej korony, Robert i jego garstka sprzymierzeńców muszą stawić czoła najsilniejszej armii świata, dowodzonej przez króla Edwarda I oraz jego nieprzewidywalnego syna, księcia Walii.'),
-(6, 'Suspiria', 152, 18, 'Angielska (polskie napisy)', '2018-11-02', 'Amerykańska baletnica rozpoczyna naukę na prestiżowej niemieckiej akademii tańca. Niebawem odkrywa mroczne sekrety szkoły.'),
-(7, 'Climax', 90, 12, 'Angielska (polski dubbing)', '2018-10-19', 'Climax to inspirowana prawdziwymi wydarzeniami opowieść o grupie tancerzy, którzy w pewną zimową noc spotykają się w opuszczonej szkole na odludziu. Taneczna próba w rytm przebojów takich grup jak Daft Punk, Apex Twin i Soft Cell szybko zamienia się w pełną seksualnego napięcia imprezę. Gdy wychodzi na jaw, że domowej roboty sangrię ktoś \"doprawił\" narkotykami, dzika zabawa w zamkniętym budynku przeradza się w ekstremalną, psychodeliczną podróż.'),
-(8, 'Pierwszy człowiek', 141, 15, 'Angielska (polskie napisy)', '2018-10-19', 'Fragment życia astronauty Neila Armstronga i jego legendarnej misji kosmicznej, dzięki której jako pierwszy człowiek stanął na Księżycu.'),
-(9, 'Źle się dzieje w El Royale', 141, 18, 'Angielska (polskie napisy)', '2018-10-12', 'Siedmioro obcych sobie ludzi, z których każdy skrywa mroczną tajemnicę, spotyka się w El Royale.'),
-(10, 'Ocean ognia', 121, 15, 'Angielska (polskie napisy)', '2018-10-26', 'Kapitan okrętu podwodnego współpracuje z drużyną Navy SEAL w celu uratowania prezydenta Rosji, który podczas zamachu wzięty został do niewoli. '),
-(3, 'Winni', 85, 15, 'Duński (polskie napisy)', '2018-11-09', 'Dyspozytor linii 112 odbiera alarmowy telefon od porwanej kobiety. Połączenie zostaje przerwane i zaczyna się walka z czasem, by odnaleźć dzwoniącą oraz jej porywaczy.');
+INSERT INTO `movie` (`id`, `title`, `runningTimeMin`, `age`, `languageVersion`, `releaseDate`, `description`, `pictureUrl`) VALUES
+(1, 'Planeta Singli 2', 159, 15, 'Polska', '2018-11-09', 'Związek Ani i Tomka przeżywa kryzys, bo oboje mają względem siebie inne zamiary. Tymczasem na horyzoncie pojawia się zakochany w dziewczynie milioner. ', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(2, 'Kler', 133, 15, 'Polska', '2018-09-28', 'Życie trzech księży ulega zmianie, kiedy ich drogi krzyżują się ponownie.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(4, 'Bohemian Rhapsody', 134, 15, 'Angielska (polskie napisy)', '2018-11-02', 'Dzięki oryginalnemu brzmieniu Queen staje się jednym z najpopularniejszych zespołów w historii muzyki.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(5, 'Król wyjęty spod prawa', 121, 18, 'Angielska (polskie napisy)', '2018-09-06', 'Dotychczas nieopowiedziana prawdziwa historia Roberta I Bruce’a, który w ciągu jednego roku z upadłego szlachcica stał się królem, a następnie wyjętym spod prawa bohaterem. W zniewolonej przez Anglię średniowiecznej Szkocji walczył, by ocalić swoją rodzinę, lud i kraj. Po przejęciu szkockiej korony, Robert i jego garstka sprzymierzeńców muszą stawić czoła najsilniejszej armii świata, dowodzonej przez króla Edwarda I oraz jego nieprzewidywalnego syna, księcia Walii.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(6, 'Suspiria', 152, 18, 'Angielska (polskie napisy)', '2018-11-02', 'Amerykańska baletnica rozpoczyna naukę na prestiżowej niemieckiej akademii tańca. Niebawem odkrywa mroczne sekrety szkoły.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(7, 'Climax', 90, 12, 'Angielska (polski dubbing)', '2018-10-19', 'Climax to inspirowana prawdziwymi wydarzeniami opowieść o grupie tancerzy, którzy w pewną zimową noc spotykają się w opuszczonej szkole na odludziu. Taneczna próba w rytm przebojów takich grup jak Daft Punk, Apex Twin i Soft Cell szybko zamienia się w pełną seksualnego napięcia imprezę. Gdy wychodzi na jaw, że domowej roboty sangrię ktoś \"doprawił\" narkotykami, dzika zabawa w zamkniętym budynku przeradza się w ekstremalną, psychodeliczną podróż.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(8, 'Pierwszy człowiek', 141, 15, 'Angielska (polskie napisy)', '2018-10-19', 'Fragment życia astronauty Neila Armstronga i jego legendarnej misji kosmicznej, dzięki której jako pierwszy człowiek stanął na Księżycu.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(9, 'Źle się dzieje w El Royale', 141, 18, 'Angielska (polskie napisy)', '2018-10-12', 'Siedmioro obcych sobie ludzi, z których każdy skrywa mroczną tajemnicę, spotyka się w El Royale.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(10, 'Ocean ognia', 121, 15, 'Angielska (polskie napisy)', '2018-10-26', 'Kapitan okrętu podwodnego współpracuje z drużyną Navy SEAL w celu uratowania prezydenta Rosji, który podczas zamachu wzięty został do niewoli. ', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+(3, 'Winni', 85, 15, 'Duński (polskie napisy)', '2018-11-09', 'Dyspozytor linii 112 odbiera alarmowy telefon od porwanej kobiety. Połączenie zostaje przerwane i zaczyna się walka z czasem, by odnaleźć dzwoniącą oraz jej porywaczy.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg');
 
 -- --------------------------------------------------------
 
@@ -147,14 +148,14 @@ INSERT INTO `movie` (`id`, `title`, `runningTimeMin`, `age`, `languageVersion`, 
 CREATE TABLE `repertoire` (
   `id` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `movie_id` int(11) NOT NULL
+  `movieId` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `repertoire`
 --
 
-INSERT INTO `repertoire` (`id`, `date`, `movie_id`) VALUES
+INSERT INTO `repertoire` (`id`, `date`, `movieId`) VALUES
 (1, '2018-11-28 14:20:00', 1),
 (2, '2018-11-28 19:20:00', 7),
 (3, '2018-11-28 20:00:00', 10),
@@ -177,7 +178,7 @@ CREATE TABLE `reservation` (
   `row` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `seatTypeId` int(11) NOT NULL,
-  `repertoire_id` int(11) NOT NULL
+  `repertoireId` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- --------------------------------------------------------
@@ -238,17 +239,17 @@ ALTER TABLE `movie`
 -- Indexes for table `repertoire`
 --
 ALTER TABLE `repertoire`
-  ADD PRIMARY KEY (`id`,`movie_id`),
-  ADD KEY `fk_repertoire_movie1_idx` (`movie_id`);
+  ADD PRIMARY KEY (`id`,`movieId`),
+  ADD KEY `fk_repertoire_movie1_idx` (`movieId`);
 
 --
 -- Indexes for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD PRIMARY KEY (`customerId`,`seatTypeId`,`repertoire_id`),
+  ADD PRIMARY KEY (`customerId`,`seatTypeId`,`repertoireId`),
   ADD KEY `fk_Klient_has_Film_Klient_idx` (`customerId`),
   ADD KEY `fk_Rezerwacja_TypMiejsca1_idx` (`seatTypeId`),
-  ADD KEY `fk_reservation_repertoire1_idx` (`repertoire_id`);
+  ADD KEY `fk_reservation_repertoire1_idx` (`repertoireId`);
 
 --
 -- Indexes for table `seatType`
