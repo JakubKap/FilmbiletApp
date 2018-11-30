@@ -287,7 +287,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/opensans_bold"
         android:text="Podsumowanie:"
-      android:textSize="@dimen/summary"
+        android:textSize="@dimen/summary"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.11"

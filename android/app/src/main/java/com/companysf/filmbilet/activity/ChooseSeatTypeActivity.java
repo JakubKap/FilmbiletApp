@@ -2,11 +2,20 @@ package com.companysf.filmbilet.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.companysf.filmbilet.R;
@@ -22,7 +31,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_seat_type2);
 
-       // btnNext = (Button) findViewById(R.id.btnNext);
+        // btnNext = (Button) findViewById(R.id.btnNext);
 
         //adjusting size of  the buttons
 
@@ -117,13 +126,60 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         }
 
-       btn_next.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent i= new Intent(getApplicationContext(),ChooseSeatActivity.class);
-               startActivity(i);
-           }
-       });
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                Intent i= new Intent(getApplicationContext(),ChooseSeatActivity.class);
+                startActivity(i);*/
+
+                // inflate the layout of the popup window
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.activity_choose_seat, null);
+
+                // create the popup window
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true; // lets taps outside the popup also dismiss it
+                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                // show the popup window
+                // which view you pass in doesn't matter, it is only used for the window tolken
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.clear));
+               /* popupWindow.setBackgroundDrawable(new ColorDrawable(
+                        android.graphics.Color.TRANSPARENT));*/
+
+
+
+
+                Drawable d = new ColorDrawable(Color.WHITE);
+
+                d.setAlpha(130);
+
+                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+               // popupWindow.showAsDropDown(mBtnPopUpWindow, 0, 0,Gravity.LEFT);
+
+                getWindow().setBackgroundDrawable(d);
+
+                // dismiss the popup window when touched
+                popupView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.dismiss();
+                        Drawable d = new ColorDrawable(Color.WHITE);
+                        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                        getWindow().setBackgroundDrawable(d);
+                        return true;
+                    }
+                });
+            }
+
+
+        });
 
 
     }
