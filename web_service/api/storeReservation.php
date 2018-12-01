@@ -5,18 +5,18 @@ header('Content-Type: application/json; charset=utf-8');
 	$db = new DbOperation();
 
 	$response = array("error" => FALSE);
-	if (isset($_POST['customerId']) && isset($_POST['hall']) && isset($_POST['seatNumber']) && isset($_POST['row']) && isset($_POST['seatTypeId']) && isset($_POST['repertoireId'])) {
+	if (isset($_GET['customerId']) && isset($_GET['hall']) && isset($_GET['seatNumber']) && isset($_GET['row']) && isset($_GET['seatTypeId']) && isset($_GET['repertoireId'])) {
 
-		$reservationId = $_POST['customerId'];
-		$hall = $_POST['hall'];
-		$seatNumber = $_POST['seatNumber'];
-		$row = $_POST['row'];
-		$seatTypeId = $_POST['seatTypeId'];
-		$repertoireId = $_POST['repertoireId'];
+		$customerId = $_GET['customerId'];
+		$hall = $_GET['hall'];
+		$seatNumber = $_GET['seatNumber'];
+		$row = $_GET['row'];
+		$seatTypeId = $_GET['seatTypeId'];
+		$repertoireId = $_GET['repertoireId'];
 		
 		
 		// check if reservation exist in database
-		if ($db->isReservationExisted($reservationId, $hall, $seatNumber, $row, $date, $seatTypeId, $repertoireId)) {
+		if ($db->isReservationExisted($hall, $seatNumber, $row, $seatTypeId, $repertoireId)) {
 			$response["error"] = TRUE;
 			$response["message"] = "Taka rezerwacja już istnieje";
 			echo json_encode($response);
@@ -28,9 +28,11 @@ header('Content-Type: application/json; charset=utf-8');
 				$response["reservation"]["hall"] = $reservation["hall"];
 				$response["reservation"]["seatNumber"] = $reservation["seatNumber"];
 				$response["reservation"]["row"] = $reservation["row"];
+				$response["reservation"]["date"] = $reservation["date"];
 				$response["reservation"]["seatTypeId"] = $reservation["seatTypeId"];
 				$response["reservation"]["repertoireId"] = $reservation["repertoireId"];
 				echo json_encode($response);
+
 			} else {
 				$response["error"] = TRUE;
 				$response["message"] = "Wystąpił nieznany błąd!";

@@ -244,8 +244,8 @@ class DbOperation
 
 			// check for successful store
 			if ($result) {
-				$results = $this->con->prepare("SELECT * FROM reservation WHERE customerId = ? AND date = ?");
-				$results->bind_param("ss", $customerId, $date);
+				$results = $this->con->prepare("SELECT * FROM reservation WHERE customerId = ? AND hall = ? AND seatNumber = ? AND row = ? AND seatTypeId = ? AND repertoireId = ?");
+				$results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
 				$results->execute();
 				$reservation = $results->get_result()->fetch_assoc();
 				$results->close();
@@ -257,10 +257,10 @@ class DbOperation
 		}
     }
 	
-	public function isReservationExisted($customerId, $hall, $seatNumber, $row, $date, $seatTypeId, $repertoireId) {
-		$results = $this->con->prepare("SELECT customerId from reservation WHERE customerId = ?, hall = ?, seatNumber=?, row=?, date=?, seatTypeId = ?, repertoireId=?");
+	public function isReservationExisted($hall, $seatNumber, $row, $seatTypeId, $repertoireId) {
+		$results = $this->con->prepare("SELECT customerId from reservation WHERE hall = ? AND seatNumber=? AND row=? AND seatTypeId = ? AND repertoireId=?");
 
-        $results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $date, $seatTypeId, $repertoireId);
+        $results->bind_param("sssss", $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
 
         $results->execute();
 
