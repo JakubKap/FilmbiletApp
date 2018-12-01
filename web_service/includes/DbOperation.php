@@ -201,6 +201,36 @@ class DbOperation
 		} else return false;
 	}
 	
+	public function getReservationsFromRepertoire($repertoireId){
+		
+		 $results = $this->con->prepare("SELECT * FROM reservation WHERE repertoireId = ?");
+		
+		 $results->bind_param("s", $repertoireId);
+		 	
+		if ($results !== false){
+			$results->execute();
+			
+			$results->bind_result($customerId, $movieId, $hall, $seatNumber, $row, $date, $seatTypeId);
+			
+			$reservations = array(); 
+			
+			while($results->fetch()){
+				$reservation  = array();
+				$reservation['customerId'] = $customerId; 
+				$reservation['movieId'] = $movieId; 
+				$reservation['hall'] = $hall; 
+				$reservation['seatNumber'] = $seatNumber; 
+				$reservation['row'] = $row; 
+				$reservation['date'] = $date; 
+				$reservation['seatTypeId'] = $seatTypeId; 
+				
+				array_push($reservations, $reservation); 
+			}
+			
+			return $reservation; 
+		} else return false;
+	}
+	
 	public function getMoviesFromRepertoire(){
 		$results = $this->con->prepare
 		//("select id from genre");
