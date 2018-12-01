@@ -231,6 +231,50 @@ class DbOperation
 		} else return false;
 	}
 	
+	public function storeReservation($customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId) {
+       
+		$results = $this->con->prepare("INSERT INTO reservation(customerId, hall, seatNumber, row, date, seatTypeId, repertoireId) VALUES(?, ?, ?, ?, NOW(), ?, ?)");
+		
+		
+        $results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
+		
+		if ($results !== false){
+			$result = $results->execute();
+			$results->close();
+
+			// check for successful store
+			if ($result) {
+				$results = $this->con->prepare("SELECT * FROM reservation WHERE customerId = ? AND date = ?");
+				$results->bind_param("ss", $customerId, $date);
+				$results->execute();
+				$reservation = $results->get_result()->fetch_assoc();
+				$results->close();
+
+				return $reservation;
+			} else {
+				return false;
+			}
+		}
+    }
+	
+	public function isReservationExisted($customerId, $hall, $seatNumber, $row, $date, $seatTypeId, $repertoireId) {
+		$results = $this->con->prepare("SELECT customerId from reservation WHERE customerId = ?, hall = ?, seatNumber=?, row=?, date=?, seatTypeId = ?, repertoireId=?");
+
+        $results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $date, $seatTypeId, $repertoireId);
+
+        $results->execute();
+
+        $results->store_result();
+
+        if ($results->num_rows > 0) {
+            $results->close();
+            return true;
+        } else {
+            $results->close();
+            return false;
+        }
+    }
+	
 	public function getMoviesFromRepertoire(){
 		$results = $this->con->prepare
 		//("select id from genre");
