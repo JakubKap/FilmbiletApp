@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,15 +18,38 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
+import com.companysf.filmbilet.app.AppConfig;
+import com.companysf.filmbilet.app.AppController;
+import com.companysf.filmbilet.appLogic.Movie;
+import com.companysf.filmbilet.appLogic.Reservation;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.android.volley.Request.Method.GET;
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
 
+    private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
-    private SQLiteHandler db;
+    private List<Reservation> reservationList = new ArrayList<>();
+
 
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
 
@@ -109,6 +133,13 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             params10.height=((getResources().getDisplayMetrics().heightPixels/3))/6;
             btn_next.setLayoutParams(params10);
 
+
+
+            checkReservations("1");
+
+
+
+
         }
         else
         {
@@ -136,8 +167,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         if (!sManager.isLoggedIn()) {
             logOutCustomer();
         }
-
 */
+
+
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,14 +228,71 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     }
 
-    private void logOutCustomer(){
-        sManager.setLogin(false);
+    private void checkReservations(final String repertoireId) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                AppConfig.GET_RESERVATIONS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(logTag, "Reservation request: " + response);
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            boolean error = json.getBoolean("error");
+                            if (error){
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        json.getString("message"),
+                                        Toast.LENGTH_SHORT).show();
+                            } else{
+                                JSONArray reservationsJson = json.getJSONArray("reservation");
+                                for (int i = 0; i < reservationsJson.length(); i++) {
+                                    Log.d(logTag, "moviesJsonLOG " + reservationsJson.length());
+                                    JSONObject reservationJSON = reservationsJson.getJSONObject(i);
+                                    Reservation reservation = new Reservation(
+                                            reservationJSON.getInt("customerId"),
+                                            reservationJSON.getInt("hall"),
+                                            reservationJSON.getInt("searNumber"),
+                                            reservationJSON.getInt("row"),
+                                            reservationJSON.getInt("TypeId"),
+                                            reservationJSON.getInt("repertoireId"),
+                                            (SimpleDateFormat) reservationJSON.get("date")
 
-        db.deleteCustomers();
+                                    );
 
-        // Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        //startActivity(intent);
-        //finish();
+                                    reservationList.add(reservation);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "Json error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(logTag, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("repertoireId", repertoireId);
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
     }
+    public void buttonClicked(View view){
+
+
+
+    }
+
 }
 
