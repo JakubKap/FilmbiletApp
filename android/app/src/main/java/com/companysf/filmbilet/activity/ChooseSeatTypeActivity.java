@@ -19,10 +19,13 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.addition.SQLiteHandler;
+import com.companysf.filmbilet.addition.SessionManager;
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
 
-    //Button btnNext;
+    private SessionManager sManager;
+    private SQLiteHandler db;
 
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
 
@@ -126,6 +129,15 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         }
 
+/*
+
+        sManager = new SessionManager(getApplicationContext());
+
+        if (!sManager.isLoggedIn()) {
+            logOutCustomer();
+        }
+
+*/
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,6 +194,16 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void logOutCustomer(){
+        sManager.setLogin(false);
+
+        db.deleteCustomers();
+
+        // Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        //startActivity(intent);
+        //finish();
     }
 }
 
