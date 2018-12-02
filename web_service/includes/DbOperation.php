@@ -227,7 +227,7 @@ class DbOperation
 				array_push($reservations, $reservation); 
 			}
 			
-			return $reservation; 
+			return $reservations; 
 		} else return false;
 	}
 	
