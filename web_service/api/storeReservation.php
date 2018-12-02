@@ -5,14 +5,14 @@ header('Content-Type: application/json; charset=utf-8');
 	$db = new DbOperation();
 
 	$response = array("error" => FALSE);
-	if (isset($_GET['customerId']) && isset($_GET['hall']) && isset($_GET['seatNumber']) && isset($_GET['row']) && isset($_GET['seatTypeId']) && isset($_GET['repertoireId'])) {
+	if (isset($_POST['customerId']) && isset($_POST['hall']) && isset($_POST['seatNumber']) && isset($_POST['row']) && isset($_POST['seatTypeId']) && isset($_POST['repertoireId'])) {
 
-		$customerId = $_GET['customerId'];
-		$hall = $_GET['hall'];
-		$seatNumber = $_GET['seatNumber'];
-		$row = $_GET['row'];
-		$seatTypeId = $_GET['seatTypeId'];
-		$repertoireId = $_GET['repertoireId'];
+		$customerId = $_POST['customerId'];
+		$hall = $_POST['hall'];
+		$seatNumber = $_POST['seatNumber'];
+		$row = $_POST['row'];
+		$seatTypeId = $_POST['seatTypeId'];
+		$repertoireId = $_POST['repertoireId'];
 		
 		
 		// check if reservation exist in database
