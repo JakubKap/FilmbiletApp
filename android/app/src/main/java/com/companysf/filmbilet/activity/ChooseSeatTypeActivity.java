@@ -134,13 +134,66 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             btn_next.setLayoutParams(params10);
 
 
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    AppConfig.GET_RESERVATIONS,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d(logTag, "Reservation request: " + response);
+                            try {
+                                JSONObject json = new JSONObject(response);
+                                boolean error = json.getBoolean("error");
+                                if (error){
+                                    Toast.makeText(
+                                            getApplicationContext(),
+                                            json.getString("message"),
+                                            Toast.LENGTH_SHORT).show();
+                                } else{
+                                    JSONArray reservationsJson = json.getJSONArray("reservation"); //?
+                                    for (int i = 0; i < reservationsJson.length(); i++) {
+                                        Log.d(logTag, "reservationJsonLOG " + reservationsJson.length());
+                                        JSONObject reservationJSON = reservationsJson.getJSONObject(i);
+                                        Reservation reservation = new Reservation(
+                                                reservationJSON.getInt("customerId"),
+                                                reservationJSON.getInt("hall"),
+                                                reservationJSON.getInt("searNumber"),
+                                                reservationJSON.getInt("row"),
+                                                reservationJSON.getInt("TypeId"),
+                                                reservationJSON.getInt("repertoireId"),
+                                                (SimpleDateFormat) reservationJSON.get("date")
 
-            checkReservations("1");
+                                        );
 
+                                        reservationList.add(reservation);
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Json error: " + e.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(logTag, "Registration Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("repertoireId", "1");
+                    return params;
+                }
+            };
 
+            AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
 
-
-        }
+        }//endif
         else
         {
 
@@ -228,66 +281,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     }
 
-    private void checkReservations(final String repertoireId) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                AppConfig.GET_RESERVATIONS,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(logTag, "Reservation request: " + response);
-                        try {
-                            JSONObject json = new JSONObject(response);
-                            boolean error = json.getBoolean("error");
-                            if (error){
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        json.getString("message"),
-                                        Toast.LENGTH_SHORT).show();
-                            } else{
-                                JSONArray reservationsJson = json.getJSONArray("reservation");
-                                for (int i = 0; i < reservationsJson.length(); i++) {
-                                    Log.d(logTag, "moviesJsonLOG " + reservationsJson.length());
-                                    JSONObject reservationJSON = reservationsJson.getJSONObject(i);
-                                    Reservation reservation = new Reservation(
-                                            reservationJSON.getInt("customerId"),
-                                            reservationJSON.getInt("hall"),
-                                            reservationJSON.getInt("searNumber"),
-                                            reservationJSON.getInt("row"),
-                                            reservationJSON.getInt("TypeId"),
-                                            reservationJSON.getInt("repertoireId"),
-                                            (SimpleDateFormat) reservationJSON.get("date")
-
-                                    );
-
-                                    reservationList.add(reservation);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    "Json error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(logTag, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("repertoireId", repertoireId);
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
-    }
     public void buttonClicked(View view){
 
 
