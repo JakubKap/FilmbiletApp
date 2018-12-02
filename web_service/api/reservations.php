@@ -5,9 +5,9 @@
 
 	$response = array("error" => FALSE);
 
-	if (isset($_GET['repertoireId'])) {
+	if (isset($_POST['repertoireId'])) {
 
-		$repertoireId = $_GET['repertoireId'];
+		$repertoireId = $_POST['repertoireId'];
 
 		$reservation = $db->getReservationsFromRepertoire($repertoireId);
 
