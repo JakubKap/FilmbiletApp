@@ -26,7 +26,7 @@
 			$response["reservation"]["seatTypeId"] = $arr['seatTypeId'];
 			array_push($reservations,$response);
 			}
-			echo json_encode($reservations);
+			echo json_encode($reservations,JSON_FORCE_OBJECT);
 		} else {
 			$response["error"] = TRUE;
 			$response["message"] = "Nie ma rezerwacji dla podanego repertuaru. Spróbuj ponownie.";
