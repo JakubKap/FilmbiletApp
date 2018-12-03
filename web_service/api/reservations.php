@@ -3,7 +3,7 @@
 	require_once '../includes/DbOperation.php';
 	$db = new DbOperation();
 
-	$response = array("error" => FALSE);
+	$response = array("error" => FALSE, "reservation" => $reservations = array());
 
 	if (isset($_POST['repertoireId'])) {
 
@@ -11,21 +11,25 @@
 
 		$reservation = $db->getReservationsFromRepertoire($repertoireId);
 	
-		$reservations=array();
+		
 		if ($reservation != false) {
-
+		
+		
 			foreach($reservation as $arr){
-			$response2 = array(); 
-			$response2["reservation"]["customerId"] = $arr['customerId'];
-			$response2["reservation"]["movieId"] = $arr['movieId']; 
-			$response2["reservation"]["hall"] = $arr['hall'];
-			$response2["reservation"]["seatNumber"] = $arr['seatNumber'];
-			$response2["reservation"]["row"] = $arr['row'];
-			$response2["reservation"]["date"] = $arr['date'];
-			$response2["reservation"]["seatTypeId"] = $arr['seatTypeId'];
-			array_push($response,$response2);
+				$response2 = array(
+				"customerId" => $arr['customerId'],
+				"movieId" => $arr['movieId'],
+				"hall" => $arr['hall'],
+				"seatNumber" => $arr['seatNumber'],
+				"row" => $arr['row'],
+				"date" => $arr['date'],
+				"seatTypeId" => $arr['seatTypeId']
+				);
+				array_push($response["reservation"],$response2);
 			}
+			
 			echo json_encode($response,JSON_FORCE_OBJECT);
+			
 		} else {
 			$response["error"] = TRUE;
 			$response["message"] = "Nie ma rezerwacji dla podanego repertuaru. Spróbuj ponownie.";
