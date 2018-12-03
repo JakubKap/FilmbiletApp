@@ -3,7 +3,7 @@
 	require_once '../includes/DbOperation.php';
 	$db = new DbOperation();
 
-	$response = array("error" => FALSE, "reservation" => $reservations = array());
+	$response = array("error" => FALSE, "reservation" => array());
 
 	if (isset($_POST['repertoireId'])) {
 
@@ -28,7 +28,7 @@
 				array_push($response["reservation"],$response2);
 			}
 			
-			echo json_encode($response,JSON_FORCE_OBJECT);
+			echo json_encode($response);
 			
 		} else {
 			$response["error"] = TRUE;
