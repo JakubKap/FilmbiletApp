@@ -4,17 +4,16 @@ import java.text.SimpleDateFormat;
 
 public class Reservation {
 
-    private int customerId, hall, seatNumber, row, seatTypeId, repertoireId;
-    SimpleDateFormat date;
+    private int customerId, hall, seatNumber, row, seatTypeId;
+    String datePom;
 
-    public Reservation(int customerId, int hall, int seatNumber, int row, int seatTypeId, int repertoireId, SimpleDateFormat date) {
+    public Reservation(int customerId, int hall, int seatNumber, int row, int seatTypeId, String datePom) {
         this.customerId = customerId;
         this.hall = hall;
         this.seatNumber = seatNumber;
         this.row = row;
         this.seatTypeId = seatTypeId;
-        this.repertoireId = repertoireId;
-        this.date = date;
+        this.datePom = datePom;
     }
 
     public int getCustomerId() {
@@ -57,19 +56,11 @@ public class Reservation {
         this.seatTypeId = seatTypeId;
     }
 
-    public int getRepertoireId() {
-        return repertoireId;
+    public String getDatePom() {
+        return datePom;
     }
 
-    public void setRepertoireId(int repertoireId) {
-        this.repertoireId = repertoireId;
-    }
-
-    public SimpleDateFormat getDate() {
-        return date;
-    }
-
-    public void setDate(SimpleDateFormat date) {
-        this.date = date;
+    public void setDatePom(String datePom) {
+        this.datePom = datePom;
     }
 }

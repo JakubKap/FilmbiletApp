@@ -149,19 +149,17 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                             json.getString("message"),
                                             Toast.LENGTH_SHORT).show();
                                 } else{
-                                    JSONArray reservationsJson = json.getJSONArray("reservation"); //?
+                                    JSONArray reservationsJson = json.getJSONArray("reservation");
                                     for (int i = 0; i < reservationsJson.length(); i++) {
                                         Log.d(logTag, "reservationJsonLOG " + reservationsJson.length());
                                         JSONObject reservationJSON = reservationsJson.getJSONObject(i);
                                         Reservation reservation = new Reservation(
                                                 reservationJSON.getInt("customerId"),
                                                 reservationJSON.getInt("hall"),
-                                                reservationJSON.getInt("searNumber"),
-                                                reservationJSON.getInt("row"),
-                                                reservationJSON.getInt("TypeId"),
-                                                reservationJSON.getInt("repertoireId"),
-                                                (SimpleDateFormat) reservationJSON.get("date")
-
+                                                reservationJSON.getInt("seatNumber"),
+                                                reservationJSON.getInt("date"),
+                                                reservationJSON.getInt("seatTypeId"),
+                                                reservationJSON.getString("row")
                                         );
 
                                         reservationList.add(reservation);
