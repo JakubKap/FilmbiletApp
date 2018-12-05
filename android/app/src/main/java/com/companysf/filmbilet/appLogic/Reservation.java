@@ -7,13 +7,13 @@ public class Reservation {
     private int customerId, hall, seatNumber, row, seatTypeId;
     String datePom;
 
-    public Reservation(int customerId, int hall, int seatNumber, int row, int seatTypeId, String datePom) {
+    public Reservation(int customerId, int hall, int seatNumber, int row, String datePom, int seatTypeId) {
         this.customerId = customerId;
         this.hall = hall;
         this.seatNumber = seatNumber;
         this.row = row;
-        this.seatTypeId = seatTypeId;
         this.datePom = datePom;
+        this.seatTypeId = seatTypeId;
     }
 
     public int getCustomerId() {
@@ -63,4 +63,6 @@ public class Reservation {
     public void setDatePom(String datePom) {
         this.datePom = datePom;
     }
+
+
 }

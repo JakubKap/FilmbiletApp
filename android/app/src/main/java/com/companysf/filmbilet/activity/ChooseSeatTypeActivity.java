@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +51,28 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
-    private List<Reservation> reservationList = new ArrayList<>();
-
+    private ArrayList<Reservation> reservationList = new ArrayList<>();
+    private ArrayList<Reservation> nowa_lista = new ArrayList<>();
 
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
+
+    public int freeSectorSlots(int slot_number, boolean isLeft)
+    {
+        int takenLeft=0;
+        int takenRight=0;
+
+        for(Reservation r : reservationList){
+            if((r.getSeatTypeId() == slot_number) && isLeft && r.getSeatNumber()<=7){
+                takenLeft++;
+            }
+            else if((r.getSeatTypeId() == slot_number) && !isLeft && r.getSeatNumber()>7){
+                takenRight++;
+            }
+        }
+
+        if(isLeft) return 35 - takenLeft;
+            else return 35 - takenRight;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,12 +178,18 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                                 reservationJSON.getInt("customerId"),
                                                 reservationJSON.getInt("hall"),
                                                 reservationJSON.getInt("seatNumber"),
-                                                reservationJSON.getInt("date"),
-                                                reservationJSON.getInt("seatTypeId"),
-                                                reservationJSON.getString("row")
+                                                reservationJSON.getInt("row"),
+                                                reservationJSON.getString("date"),
+                                                reservationJSON.getInt("seatTypeId")
                                         );
 
+                                        String text =  "Sprawdź rezerwację " + reservation.getCustomerId()+ " " + reservation.getHall()
+                                                + " " + reservation.getSeatNumber()+ " " + reservation.getRow() + " " + reservation.getDatePom() + " "
+                                                + reservation.getSeatTypeId();
+
                                         reservationList.add(reservation);
+                                        String text2 = "moj text2" + reservationList.get(i).getCustomerId();
+                                        Log.d(logTag,text2);
                                     }
                                 }
                             } catch (JSONException e) {
@@ -190,6 +217,17 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             };
 
             AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
+
+
+            String text1Left =
+                    freeSectorSlots(1, true)+ " 10 ZŁ";
+            button1.setText(text1Left);
+
+
+            String text3Right =
+                    freeSectorSlots(3, false)+ " 10 ZŁ";
+            button6.setText(text3Right);
+
 
         }//endif
         else
@@ -281,7 +319,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     public void buttonClicked(View view){
 
-
+        boolean flag = reservationList.isEmpty();
+        String text = "n" + flag;
+        button7.setText(text);
 
     }
 

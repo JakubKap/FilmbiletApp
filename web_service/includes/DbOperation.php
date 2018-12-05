@@ -203,21 +203,20 @@ class DbOperation
 	
 	public function getReservationsFromRepertoire($repertoireId){
 		
-		 $results = $this->con->prepare("SELECT * FROM reservation WHERE repertoireId = ?");
+		 $results = $this->con->prepare("SELECT customerId, hall, seatNumber, row, date, seatTypeId FROM reservation WHERE repertoireId = ?");
 		
 		 $results->bind_param("s", $repertoireId);
 		 	
 		if ($results !== false){
 			$results->execute();
 			
-			$results->bind_result($customerId, $movieId, $hall, $seatNumber, $row, $date, $seatTypeId);
+			$results->bind_result($customerId, $hall, $seatNumber, $row, $date, $seatTypeId);
 			
 			$reservations = array(); 
 			
 			while($results->fetch()){
 				$reservation  = array();
 				$reservation['customerId'] = $customerId; 
-				$reservation['movieId'] = $movieId; 
 				$reservation['hall'] = $hall; 
 				$reservation['seatNumber'] = $seatNumber; 
 				$reservation['row'] = $row; 
@@ -227,7 +226,7 @@ class DbOperation
 				array_push($reservations, $reservation); 
 			}
 			
-			return $reservation; 
+			return $reservations; 
 		} else return false;
 	}
 	
