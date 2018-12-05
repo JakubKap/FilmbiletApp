@@ -201,6 +201,79 @@ class DbOperation
 		} else return false;
 	}
 	
+	public function getReservationsFromRepertoire($repertoireId){
+		
+		 $results = $this->con->prepare("SELECT customerId, hall, seatNumber, row, date, seatTypeId FROM reservation WHERE repertoireId = ?");
+		
+		 $results->bind_param("s", $repertoireId);
+		 	
+		if ($results !== false){
+			$results->execute();
+			
+			$results->bind_result($customerId, $hall, $seatNumber, $row, $date, $seatTypeId);
+			
+			$reservations = array(); 
+			
+			while($results->fetch()){
+				$reservation  = array();
+				$reservation['customerId'] = $customerId; 
+				$reservation['hall'] = $hall; 
+				$reservation['seatNumber'] = $seatNumber; 
+				$reservation['row'] = $row; 
+				$reservation['date'] = $date; 
+				$reservation['seatTypeId'] = $seatTypeId; 
+				
+				array_push($reservations, $reservation); 
+			}
+			
+			return $reservations; 
+		} else return false;
+	}
+	
+	public function storeReservation($customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId) {
+       
+		$results = $this->con->prepare("INSERT INTO reservation(customerId, hall, seatNumber, row, date, seatTypeId, repertoireId) VALUES(?, ?, ?, ?, NOW(), ?, ?)");
+		
+		
+        $results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
+		
+		if ($results !== false){
+			$result = $results->execute();
+			$results->close();
+
+			// check for successful store
+			if ($result) {
+				$results = $this->con->prepare("SELECT * FROM reservation WHERE customerId = ? AND hall = ? AND seatNumber = ? AND row = ? AND seatTypeId = ? AND repertoireId = ?");
+				$results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
+				$results->execute();
+				$reservation = $results->get_result()->fetch_assoc();
+				$results->close();
+
+				return $reservation;
+			} else {
+				return false;
+			}
+		}
+    }
+	
+	public function isReservationExisted($hall, $seatNumber, $row, $seatTypeId, $repertoireId) {
+		$results = $this->con->prepare("SELECT customerId from reservation WHERE hall = ? AND seatNumber=? AND row=? AND seatTypeId = ? AND repertoireId=?");
+
+        $results->bind_param("sssss", $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
+
+        $results->execute();
+
+        $results->store_result();
+
+        if ($results->num_rows > 0) {
+            $results->close();
+            return true;
+        } else {
+            $results->close();
+            return false;
+        }
+    }
+	
 	public function getMoviesFromRepertoire(){
 		$results = $this->con->prepare
 		//("select id from genre");
