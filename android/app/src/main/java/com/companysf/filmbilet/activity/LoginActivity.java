@@ -1,6 +1,9 @@
 package com.companysf.filmbilet.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.addition.ConnectionDetector;
 import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
@@ -31,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private SessionManager sManager;
     private static final String logTag = LoginActivity.class.getSimpleName();
     private SQLiteHandler db;
+    private ConnectionDetector cd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.password);
         sManager = new SessionManager(getApplicationContext());
         db = new SQLiteHandler(getApplicationContext());
+        cd = new ConnectionDetector(this);
 
         //if user is already logged in
         if (sManager.isLoggedIn()) {
@@ -58,14 +64,19 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-                if (!email.isEmpty() && !password.isEmpty()) {
-                    // login user
-                    checkLogin(email, password);
+                if (cd.connected()){
+                    if (!email.isEmpty() && !password.isEmpty()) {
+                        // login user
+                        checkLogin(email, password);
+                    } else {
+                        // Prompt user to enter credentials
+                        Toast.makeText(getApplicationContext(),
+                                "Proszę wprowadzić E-mail i hasło ", Toast.LENGTH_LONG)
+                                .show();
+                    }
                 } else {
-                    // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
-                            "Proszę wprowadzić E-mail i hasło ", Toast.LENGTH_LONG)
-                            .show();
+                    //TODO polaczenie internetowe
+                    buildDialog(LoginActivity.this).show();
                 }
             }
         });
@@ -128,5 +139,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         AppController.getInstance().addToRequestQueue(stringRequest, "req_login");
+    }
+
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Błąd połączenia internetowego");
+        builder.setMessage("Potrzebujesz dostępu do internetu, żeby móc się zalogować");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        return builder;
     }
 }

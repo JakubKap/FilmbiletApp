@@ -30,6 +30,7 @@
         android:background="@color/white"
         android:padding="10dp"
         android:layout_marginBottom="10dp"
+        android:inputType="textEmailAddress"
         />
     <EditText
         android:id="@+id/name"
@@ -39,6 +40,7 @@
         android:background="@color/white"
         android:padding="10dp"
         android:layout_marginBottom="10dp"
+        android:inputType="text"
         />
     <EditText
         android:id="@+id/surname"
@@ -48,6 +50,7 @@
         android:background="@color/white"
         android:padding="10dp"
         android:layout_marginBottom="10dp"
+        android:inputType="text"
         />
     <EditText
         android:id="@+id/password"
@@ -57,7 +60,7 @@
         android:background="@color/white"
         android:padding="10dp"
         android:layout_marginBottom="25dp"
-
+        android:inputType="textPassword"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,7 +68,6 @@
         android:orientation="horizontal"
         android:gravity="end"
         >
-
         <Button
             android:id="@+id/btn_register"
             android:layout_width="wrap_content"
@@ -90,6 +92,5 @@
             android:padding="10dp"
             android:fontFamily="@font/opensans_bold"
             />
-
     </LinearLayout>
 </LinearLayout>
