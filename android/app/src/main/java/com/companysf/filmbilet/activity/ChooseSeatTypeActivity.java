@@ -1,5 +1,6 @@
 package com.companysf.filmbilet.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,61 +20,46 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
-import com.companysf.filmbilet.appLogic.Movie;
 import com.companysf.filmbilet.appLogic.Reservation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
-import java.text.SimpleDateFormat;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
+
 import java.util.Map;
 
-import static com.android.volley.Request.Method.GET;
+
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
-    private ArrayList<Reservation> reservationList = new ArrayList<>();
-    private ArrayList<Reservation> nowa_lista = new ArrayList<>();
+    //private ArrayList<Reservation> reservationList = new ArrayList<>();
 
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
+    ProgressBar progressBar;
 
-    public int freeSectorSlots(int slot_number, boolean isLeft)
-    {
-        int takenLeft=0;
-        int takenRight=0;
 
-        for(Reservation r : reservationList){
-            if((r.getSeatTypeId() == slot_number) && isLeft && r.getSeatNumber()<=7){
-                takenLeft++;
-            }
-            else if((r.getSeatTypeId() == slot_number) && !isLeft && r.getSeatNumber()>7){
-                takenRight++;
-            }
-        }
-
-        if(isLeft) return 35 - takenLeft;
-            else return 35 - takenRight;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +81,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_next=(Button) findViewById(R.id.btn_next);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+
 
         //ConstraintLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)button1.getLayoutParams();
 
@@ -101,7 +90,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         int orientation = getResources().getConfiguration().orientation;
         if(orientation == Configuration.ORIENTATION_PORTRAIT)
         {
-
+            //wielkość elementów
             ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams)button1.getLayoutParams();
             params1.width=(getResources().getDisplayMetrics().widthPixels)/4;
             params1.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
@@ -154,79 +143,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             params10.height=((getResources().getDisplayMetrics().heightPixels/3))/6;
             btn_next.setLayoutParams(params10);
 
+            //execute(nr_repertuaru z poprzedniuego intentu)
+            new FreeSectorsTask(getApplicationContext(), button1, button2, button3, button4,
+                    button5, button6, button7, button8, progressBar).execute(1);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    AppConfig.GET_RESERVATIONS,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d(logTag, "Reservation request: " + response);
-                            try {
-                                JSONObject json = new JSONObject(response);
-                                boolean error = json.getBoolean("error");
-                                if (error){
-                                    Toast.makeText(
-                                            getApplicationContext(),
-                                            json.getString("message"),
-                                            Toast.LENGTH_SHORT).show();
-                                } else{
-                                    JSONArray reservationsJson = json.getJSONArray("reservation");
-                                    for (int i = 0; i < reservationsJson.length(); i++) {
-                                        Log.d(logTag, "reservationJsonLOG " + reservationsJson.length());
-                                        JSONObject reservationJSON = reservationsJson.getJSONObject(i);
-                                        Reservation reservation = new Reservation(
-                                                reservationJSON.getInt("customerId"),
-                                                reservationJSON.getInt("hall"),
-                                                reservationJSON.getInt("seatNumber"),
-                                                reservationJSON.getInt("row"),
-                                                reservationJSON.getString("date"),
-                                                reservationJSON.getInt("seatTypeId")
-                                        );
-
-                                        String text =  "Sprawdź rezerwację " + reservation.getCustomerId()+ " " + reservation.getHall()
-                                                + " " + reservation.getSeatNumber()+ " " + reservation.getRow() + " " + reservation.getDatePom() + " "
-                                                + reservation.getSeatTypeId();
-
-                                        reservationList.add(reservation);
-                                        String text2 = "moj text2" + reservationList.get(i).getCustomerId();
-                                        Log.d(logTag,text2);
-                                    }
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        "Json error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e(logTag, "Registration Error: " + error.getMessage());
-                    Toast.makeText(getApplicationContext(),
-                            error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("repertoireId", "1");
-                    return params;
-                }
-            };
-
-            AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
-
-
-            String text1Left =
-                    freeSectorSlots(1, true)+ " 10 ZŁ";
-            button1.setText(text1Left);
-
-
-            String text3Right =
-                    freeSectorSlots(3, false)+ " 10 ZŁ";
-            button6.setText(text3Right);
 
 
         }//endif
@@ -318,10 +238,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     }
 
     public void buttonClicked(View view){
-
+/*
         boolean flag = reservationList.isEmpty();
         String text = "n" + flag;
-        button7.setText(text);
+        button7.setText(text);*/
 
     }
 
