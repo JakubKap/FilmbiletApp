@@ -9,10 +9,10 @@
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Hasło</string>
     <string name="book_ticket">zarezerwuj bilet</string>
-    <string name = "first_sector">S1 dost.:\n10 zł</string>
-    <string name = "second_sector">S2 dost.:\n15 zł</string>
-    <string name="third_sector">S3 dost.:\n20 zł</string>
-    <string name="fourth_sector">S4 dost.:\n30 zł</string>
+    <string name = "first_sector">\n10 zł</string>
+    <string name = "second_sector">\n15 zł</string>
+    <string name="third_sector">\n20 zł</string>
+    <string name="fourth_sector">\n30 zł</string>
 
     <string name="movie_length">"długość filmu: "</string>
     <string name="separator">|</string>

@@ -56,10 +56,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private SessionManager sManager;
     //private ArrayList<Reservation> reservationList = new ArrayList<>();
 
+    ConstraintLayout constraintLayout;
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
     ProgressBar progressBar;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +68,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         // btnNext = (Button) findViewById(R.id.btnNext);
 
         //adjusting size of  the buttons
+
+        constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
 
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
@@ -82,6 +83,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_next=(Button) findViewById(R.id.btn_next);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
+
 
 
         //ConstraintLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)button1.getLayoutParams();
@@ -144,7 +146,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             btn_next.setLayoutParams(params10);
 
             //execute(nr_repertuaru z poprzedniuego intentu)
-            new FreeSectorsTask(getApplicationContext(), button1, button2, button3, button4,
+            new FreeSectorsTask(getApplicationContext(),constraintLayout, button1, button2, button3, button4,
                     button5, button6, button7, button8, progressBar).execute(1);
 
 
