@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -239,13 +242,24 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     }
 
+
+
     public void buttonClicked(View view){
-/*
-        boolean flag = reservationList.isEmpty();
-        String text = "n" + flag;
-        button7.setText(text);*/
+
+        String free ="#6bb9f0";
+
+        Button btn = (Button) findViewById(view.getId());
+        //btn.setEnabled(false);
+
+        Animation animation = new AlphaAnimation(1.0f, 0.0f);
+        animation.setDuration(200);
+
+        btn.startAnimation(animation);
+
 
     }
 
 }
+
+
 
