@@ -16,7 +16,7 @@ header('Content-Type: application/json; charset=utf-8');
 		// check if email exist in database
 		if ($db->isCustomerExisted($email)) {
 			$response["error"] = TRUE;
-			$response["message"] = "Użytkownik o adresie: " . $email . "już istnieje w systemie";
+			$response["message"] = "Użytkownik o adresie: " . $email . " już istnieje w systemie";
 			echo json_encode($response);
 		} else {		
 			$customer = $db->storeCustomer($name, $surname, $email, $password);
