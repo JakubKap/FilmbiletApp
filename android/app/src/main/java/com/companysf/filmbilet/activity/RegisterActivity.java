@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -83,6 +84,32 @@ public class RegisterActivity extends AppCompatActivity {
                 } else{
                     cd.buildDialog(RegisterActivity.this).show();
                 }
+            }
+        });
+
+        inputPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //on enter click
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                    if (cd.connected()){
+                        String name = inputName.getText().toString().trim();
+                        String surname = inputSurname.getText().toString().trim();
+                        String email = inputEmail.getText().toString().trim();
+                        String password = inputPassword.getText().toString().trim();
+
+                        if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                            registerUser(name, surname, email, password);
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Proszę uzupełnić wszystkie pola!", Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    } else{
+                        cd.buildDialog(RegisterActivity.this).show();
+                    }
+                }
+                return false;
             }
         });
 

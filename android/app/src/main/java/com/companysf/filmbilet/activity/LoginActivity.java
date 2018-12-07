@@ -7,7 +7,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -52,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
         db = new SQLiteHandler(getApplicationContext());
         cd = new ConnectionDetector(this);
 
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(inputEmail.getWindowToken(), 0);
+
         //if user is already logged in
         if (sManager.isLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -77,6 +82,32 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     cd.buildDialog(LoginActivity.this).show();
                 }
+            }
+        });
+
+        inputPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
+
+                //on enter click
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                    if (cd.connected()){
+                        if (!email.isEmpty() && !password.isEmpty()) {
+                            // login user
+                            checkLogin(email, password);
+                        } else {
+                            // Prompt user to enter credentials
+                            Toast.makeText(getApplicationContext(),
+                                    "Proszę wprowadzić E-mail i hasło ", Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    } else {
+                        cd.buildDialog(LoginActivity.this).show();
+                    }
+                }
+                return false;
             }
         });
 
