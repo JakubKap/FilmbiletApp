@@ -149,8 +149,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             btn_next.setLayoutParams(params10);
 
             //execute(nr_repertuaru z poprzedniuego intentu)
-            new FreeSectorsTask(getApplicationContext(),constraintLayout, button1, button2, button3, button4,
-                    button5, button6, button7, button8, progressBar).execute(1);
+            new FreeSectorsTask(getApplicationContext(),constraintLayout).execute(1);
 
 
 
@@ -253,6 +252,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         Animation animation = new AlphaAnimation(1.0f, 0.0f);
         animation.setDuration(200);
+        btn.setBackgroundResource(R.drawable.taken);
 
         btn.startAnimation(animation);
 

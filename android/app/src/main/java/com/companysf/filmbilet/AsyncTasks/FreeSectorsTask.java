@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +34,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import com.companysf.filmbilet.R;
 
 public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
@@ -39,26 +42,38 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     private  ArrayList<Reservation> reservationList = new ArrayList<>();
     private ArrayList<Integer> freeSeats = new ArrayList<>();
     private WeakReference<Context> contextref;
-    private Toast toast;
-    ConstraintLayout constraintLayout;
-    Button button1, button2, button3, button4, button5, button6, button7, button8;
-    ProgressBar progressBar;
+    private ConstraintLayout constraintLayout;
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
+    private ProgressBar progressBar;
+    private TextView textView1, textView2, textView3;
+    LinearLayout linearLayout;
 
-    public FreeSectorsTask(Context context,  ConstraintLayout constraintLayout, Button button1, Button button2, Button button3,
-                           Button button4, Button button5, Button button6, Button button7,
-                           Button button8, ProgressBar progressBar) {
+
+
+    public FreeSectorsTask(Context context,  ConstraintLayout constraintLayout) {
 
         contextref = new WeakReference<>(context);
         this.constraintLayout = constraintLayout;
-        this.button1=button1;
-        this.button2=button2;
-        this.button3=button3;
-        this.button4=button4;
-        this.button5=button5;
-        this.button6=button6;
-        this.button7=button7;
-        this.button8=button8;
-        this.progressBar=progressBar;
+
+        this.button1=(Button) constraintLayout.findViewById(R.id.button1);
+        this.button2=(Button) constraintLayout.findViewById(R.id.button2);
+        this.button3=(Button) constraintLayout.findViewById(R.id.button3);
+        this.button4=(Button) constraintLayout.findViewById(R.id.button4);
+        this.button5=(Button) constraintLayout.findViewById(R.id.button5);
+        this.button6=(Button) constraintLayout.findViewById(R.id.button6);
+        this.button7=(Button) constraintLayout.findViewById(R.id.button7);
+        this.button8=(Button) constraintLayout.findViewById(R.id.button8);
+        this.btn_back=(Button) constraintLayout.findViewById(R.id.btn_back);
+        this.btn_next=(Button) constraintLayout.findViewById(R.id.btn_next);
+
+        this.progressBar=(ProgressBar) constraintLayout.findViewById(R.id.progressBar);
+
+        this.textView1=(TextView) constraintLayout.findViewById(R.id.textView1);
+        this.textView2=(TextView) constraintLayout.findViewById(R.id.textView2);
+        this.textView3=(TextView) constraintLayout.findViewById(R.id.textView3);
+
+        this.linearLayout=(LinearLayout)constraintLayout.findViewById(R.id.linearLayout);
+
     }
 
     public int freeSectorSlots(int slot_number, boolean isLeft) {
@@ -82,7 +97,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
     public void changeColorOfButton(Button button, int index){
         String taken="#ff9478";
-
         int freeSlots = freeSeats.get(index);
         if(freeSlots == 0)
         {
@@ -94,11 +108,26 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        toast =  Toast.makeText(contextref.get(),
-                "Ładowanie danych o rezerwacjach ", Toast.LENGTH_LONG);
 
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        this.button1.setVisibility(View.INVISIBLE);
+        this.button2.setVisibility(View.INVISIBLE);
+        this.button3.setVisibility(View.INVISIBLE);
+        this.button4.setVisibility(View.INVISIBLE);
+        this.button5.setVisibility(View.INVISIBLE);
+        this.button6.setVisibility(View.INVISIBLE);
+        this.button7.setVisibility(View.INVISIBLE);
+        this.button8.setVisibility(View.INVISIBLE);
+        this.btn_back.setVisibility(View.INVISIBLE);
+        this.btn_next.setVisibility(View.INVISIBLE);
+
+        this.progressBar.setVisibility(View.VISIBLE);
+
+        this.textView1.setVisibility(View.INVISIBLE);
+        this.textView2.setVisibility(View.INVISIBLE);
+        this.textView3.setVisibility(View.INVISIBLE);
+
+        this.linearLayout.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -154,6 +183,52 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                                     "Json error: " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
+
+
+                        for(int i=0; i<4; i++){
+                            freeSeats.add(freeSectorSlots(i+1, true));
+                            freeSeats.add(freeSectorSlots(i+1, false));
+                        }
+
+                        for (Integer f: freeSeats) {
+                                Log.d("Zawartość freeSeats", "" + f);
+                        }
+
+
+
+                        String buttonText = "S1 DOST.: " + freeSeats.get(0) + "\n10 zł";
+                        button1.setText(buttonText);
+                        changeColorOfButton(button1, 0);
+
+                        buttonText = "S1 DOST.: " + freeSeats.get(1) + "\n10 zł";
+                        button2.setText(buttonText);
+                        changeColorOfButton(button2, 1);
+
+                        buttonText = "S2 DOST.: " + freeSeats.get(2) + "\n15 zł";
+                        button3.setText(buttonText);
+                        changeColorOfButton(button3, 2);
+
+                        buttonText = "S2 DOST.: " + freeSeats.get(3) + "\n15 zł";
+                        button4.setText(buttonText);
+                        changeColorOfButton(button4, 3);
+
+                        buttonText = "S3 DOST.: " + freeSeats.get(4) + "\n20 zł";
+                        button5.setText(buttonText);
+                        changeColorOfButton(button5, 4);
+
+                        buttonText = "S3 DOST.: " + freeSeats.get(5) + "\n20 zł";
+                        button6.setText(buttonText);
+                        changeColorOfButton(button6, 5);
+
+                        buttonText = "S4 DOST.: " + freeSeats.get(6) + "\n30 zł";
+                        button7.setText(buttonText);
+                        changeColorOfButton(button7, 6);
+
+                        buttonText = "S4 DOST.: " + freeSeats.get(7) + "\n30 zł";
+                        button8.setText(buttonText);
+                        changeColorOfButton(button8, 7);
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -172,13 +247,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         };
 
         AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
-        //String text2 = "moj text2" + reservationList.get(0).getCustomerId();
-       // Log.d(logTag, text2);
-        try {
-            Thread.sleep(500);
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
         return null;
     }
 
@@ -187,62 +255,31 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         progressBar.setVisibility(View.VISIBLE);
         super.onProgressUpdate(values);
         progressBar.setProgress(values[0]);
-        Log.d("Progress value: ", ""+values[0]);
+
     }
 
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
-        toast.cancel();
 
-        String text ="" + freeSectorSlots(1,true);
-        button1.setText(text);
+        this.button1.setVisibility(View.VISIBLE);
+        this.button2.setVisibility(View.VISIBLE);
+        this.button3.setVisibility(View.VISIBLE);
+        this.button4.setVisibility(View.VISIBLE);
+        this.button5.setVisibility(View.VISIBLE);
+        this.button6.setVisibility(View.VISIBLE);
+        this.button7.setVisibility(View.VISIBLE);
+        this.button8.setVisibility(View.VISIBLE);
+        this.btn_back.setVisibility(View.VISIBLE);
+        this.btn_next.setVisibility(View.VISIBLE);
 
-        for(int i=0; i<4; i++){
-            freeSeats.add(freeSectorSlots(i+1, true));
-            freeSeats.add(freeSectorSlots(i+1, false));
-        }
-/*
-        for (Integer f: freeSeats) {
-                Log.d("Zawartość listy freeSeats", "" + f);
-        }
-*/
+        this.progressBar.setVisibility(View.INVISIBLE);
 
-    String buttonText = "S1 DOST.: " + freeSeats.get(0) + "\n10 zł";
-    button1.setText(buttonText);
-    changeColorOfButton(button1, 0);
+        this.textView1.setVisibility(View.VISIBLE);
+        this.textView2.setVisibility(View.VISIBLE);
+        this.textView3.setVisibility(View.VISIBLE);
 
-    buttonText = "S1 DOST.: " + freeSeats.get(1) + "\n10 zł";
-    button2.setText(buttonText);
-    changeColorOfButton(button2, 1);
-
-    buttonText = "S2 DOST.: " + freeSeats.get(2) + "\n15 zł";
-    button3.setText(buttonText);
-    changeColorOfButton(button3, 2);
-
-    buttonText = "S2 DOST.: " + freeSeats.get(3) + "\n15 zł";
-    button4.setText(buttonText);
-    changeColorOfButton(button4, 3);
-
-    buttonText = "S3 DOST.: " + freeSeats.get(4) + "\n20 zł";
-    button5.setText(buttonText);
-    changeColorOfButton(button5, 4);
-
-    buttonText = "S3 DOST.: " + freeSeats.get(5) + "\n20 zł";
-    button6.setText(buttonText);
-    changeColorOfButton(button6, 5);
-
-    buttonText = "S4 DOST.: " + freeSeats.get(6) + "\n30 zł";
-    button7.setText(buttonText);
-    changeColorOfButton(button7, 6);
-
-    buttonText = "S4 DOST.: " + freeSeats.get(7) + "\n30 zł";
-    button8.setText(buttonText);
-    changeColorOfButton(button8, 7);
-
-
-
-        constraintLayout.setVisibility(View.VISIBLE);
+        this.linearLayout.setVisibility(View.VISIBLE);
 
     }
 }
