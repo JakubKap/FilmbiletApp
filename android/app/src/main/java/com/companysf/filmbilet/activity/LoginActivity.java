@@ -75,8 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                                 .show();
                     }
                 } else {
-                    //TODO polaczenie internetowe
-                    buildDialog(LoginActivity.this).show();
+                    cd.buildDialog(LoginActivity.this).show();
                 }
             }
         });
@@ -141,19 +140,5 @@ public class LoginActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(stringRequest, "req_login");
     }
 
-    public AlertDialog.Builder buildDialog(Context c) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle("Błąd połączenia internetowego");
-        builder.setMessage("Potrzebujesz dostępu do internetu, żeby móc się zalogować");
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        return builder;
-    }
 }

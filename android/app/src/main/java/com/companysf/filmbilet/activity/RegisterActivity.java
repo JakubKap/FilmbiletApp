@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.addition.ConnectionDetector;
 import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
@@ -38,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText inputEmail;
     private SessionManager sManager;
     private SQLiteHandler db;
+    private ConnectionDetector cd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputSurname = findViewById(R.id.surname);
         sManager = new SessionManager(getApplicationContext());
         db = new SQLiteHandler(getApplicationContext());
+        cd = new ConnectionDetector(this);
 
         if(sManager.isLoggedIn()){
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
@@ -64,17 +67,21 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = inputName.getText().toString().trim();
-                String surname = inputSurname.getText().toString().trim();
-                String email = inputEmail.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
+                if (cd.connected()){
+                    String name = inputName.getText().toString().trim();
+                    String surname = inputSurname.getText().toString().trim();
+                    String email = inputEmail.getText().toString().trim();
+                    String password = inputPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(name, surname, email, password);
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Proszę uzupełnić wszystkie pola!", Toast.LENGTH_LONG)
-                            .show();
+                    if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                        registerUser(name, surname, email, password);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Proszę uzupełnić wszystkie pola!", Toast.LENGTH_LONG)
+                                .show();
+                    }
+                } else{
+                    cd.buildDialog(RegisterActivity.this).show();
                 }
             }
         });
