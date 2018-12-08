@@ -49,6 +49,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -84,8 +85,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         button8 = (Button) findViewById(R.id.button8);
 
         btn_back = (Button) findViewById(R.id.btn_back);
-        btn_next=(Button) findViewById(R.id.btn_next);
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        btn_next = (Button) findViewById(R.id.btn_next);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         buttons.put(button1, false);
         buttons.put(button2, false);
@@ -97,74 +98,70 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         buttons.put(button8, false);
 
 
-
         //ConstraintLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)button1.getLayoutParams();
 
 
         int orientation = getResources().getConfiguration().orientation;
-        if(orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             //wielkość elementów
-            ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams)button1.getLayoutParams();
-            params1.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params1.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams) button1.getLayoutParams();
+            params1.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params1.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button1.setLayoutParams(params1);
 
-            ConstraintLayout.LayoutParams params2 = (ConstraintLayout.LayoutParams)button2.getLayoutParams();
-            params2.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params2.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params2 = (ConstraintLayout.LayoutParams) button2.getLayoutParams();
+            params2.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params2.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button2.setLayoutParams(params2);
 
-            ConstraintLayout.LayoutParams params3 = (ConstraintLayout.LayoutParams)button3.getLayoutParams();
-            params3.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params3.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params3 = (ConstraintLayout.LayoutParams) button3.getLayoutParams();
+            params3.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params3.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button3.setLayoutParams(params3);
 
-            ConstraintLayout.LayoutParams params4 = (ConstraintLayout.LayoutParams)button4.getLayoutParams();
-            params4.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params4.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params4 = (ConstraintLayout.LayoutParams) button4.getLayoutParams();
+            params4.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params4.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button4.setLayoutParams(params4);
 
 
-            ConstraintLayout.LayoutParams params5 = (ConstraintLayout.LayoutParams)button5.getLayoutParams();
-            params5.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params5.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params5 = (ConstraintLayout.LayoutParams) button5.getLayoutParams();
+            params5.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params5.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button5.setLayoutParams(params5);
 
-            ConstraintLayout.LayoutParams params6 = (ConstraintLayout.LayoutParams)button6.getLayoutParams();
-            params6.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params6.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params6 = (ConstraintLayout.LayoutParams) button6.getLayoutParams();
+            params6.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params6.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button6.setLayoutParams(params6);
 
-            ConstraintLayout.LayoutParams params7 = (ConstraintLayout.LayoutParams)button7.getLayoutParams();
-            params7.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params7.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params7 = (ConstraintLayout.LayoutParams) button7.getLayoutParams();
+            params7.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params7.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button7.setLayoutParams(params7);
 
-            ConstraintLayout.LayoutParams params8 = (ConstraintLayout.LayoutParams)button8.getLayoutParams();
-            params8.width=(getResources().getDisplayMetrics().widthPixels)/4;
-            params8.height=((getResources().getDisplayMetrics().heightPixels/3))/4;
+            ConstraintLayout.LayoutParams params8 = (ConstraintLayout.LayoutParams) button8.getLayoutParams();
+            params8.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params8.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button8.setLayoutParams(params8);
 
-            ConstraintLayout.LayoutParams params9 = (ConstraintLayout.LayoutParams)btn_back.getLayoutParams();
-            params9.width=(getResources().getDisplayMetrics().widthPixels)/6;
-            params9.height=((getResources().getDisplayMetrics().heightPixels/3))/6;
+            ConstraintLayout.LayoutParams params9 = (ConstraintLayout.LayoutParams) btn_back.getLayoutParams();
+            params9.width = (getResources().getDisplayMetrics().widthPixels) / 6;
+            params9.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 6;
             btn_back.setLayoutParams(params9);
 
 
-            ConstraintLayout.LayoutParams params10 = (ConstraintLayout.LayoutParams)btn_next.getLayoutParams();
-            params10.width=(getResources().getDisplayMetrics().widthPixels)/6;
-            params10.height=((getResources().getDisplayMetrics().heightPixels/3))/6;
+            ConstraintLayout.LayoutParams params10 = (ConstraintLayout.LayoutParams) btn_next.getLayoutParams();
+            params10.width = (getResources().getDisplayMetrics().widthPixels) / 6;
+            params10.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 6;
             btn_next.setLayoutParams(params10);
 
             //execute(nr_repertuaru z poprzedniuego intentu)
-            new FreeSectorsTask(getApplicationContext(),constraintLayout).execute(1);
-
+            new FreeSectorsTask(getApplicationContext(), constraintLayout).execute(1);
 
 
         }//endif
-        else
-        {
+        else {
 
             button1.setText("S1 dost.: 10 zł");
             button2.setText("S1 dost.: 10 zł");
@@ -200,55 +197,72 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 startActivity(i);*/
 
                 // inflate the layout of the popup window
-                LayoutInflater inflater = (LayoutInflater)
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.activity_choose_seat, null);
 
-                // create the popup window
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup also dismiss it
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-                // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
-                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                //dodanie warunku na to, że tylko jeden z sektorów może być zaznaczony
 
-                //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.clear));
+                int selected = 0;
+                for (Map.Entry<Button, Boolean> entry : buttons.entrySet()) {
+                    Button key = entry.getKey();
+                    Boolean value = entry.getValue();
+
+                    if (value) selected++;
+
+                }
+
+                if (selected == 0 || selected > 1)
+                    Toast.makeText(getApplicationContext(), "Wybierz jeden sektor, aby przejść dalej.", Toast.LENGTH_SHORT).show();
+
+                else {
+                    LayoutInflater inflater = (LayoutInflater)
+                            getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View popupView = inflater.inflate(R.layout.activity_choose_seat, null);
+
+                    // create the popup window
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true; // lets taps outside the popup also dismiss it
+                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                    // show the popup window
+                    // which view you pass in doesn't matter, it is only used for the window tolken
+                    popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                    //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.clear));
                /* popupWindow.setBackgroundDrawable(new ColorDrawable(
                         android.graphics.Color.TRANSPARENT));*/
 
 
+                    Drawable d = new ColorDrawable(Color.WHITE);
 
+                    d.setAlpha(130);
 
-                Drawable d = new ColorDrawable(Color.WHITE);
+                    popupWindow.setBackgroundDrawable(new BitmapDrawable());
 
-                d.setAlpha(130);
+                    // popupWindow.showAsDropDown(mBtnPopUpWindow, 0, 0,Gravity.LEFT);
 
-                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                    getWindow().setBackgroundDrawable(d);
 
-               // popupWindow.showAsDropDown(mBtnPopUpWindow, 0, 0,Gravity.LEFT);
-
-                getWindow().setBackgroundDrawable(d);
-
-                // dismiss the popup window when touched
-                popupView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        popupWindow.dismiss();
-                        Drawable d = new ColorDrawable(Color.WHITE);
-                        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                        getWindow().setBackgroundDrawable(d);
-                        return true;
-                    }
-                });
+                    // dismiss the popup window when touched
+                    popupView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            popupWindow.dismiss();
+                            Drawable d = new ColorDrawable(Color.WHITE);
+                            popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                            getWindow().setBackgroundDrawable(d);
+                            return true;
+                        }
+                    });
+                }
             }
-
 
         });
 
-
     }
+
+
+
 
 
 
