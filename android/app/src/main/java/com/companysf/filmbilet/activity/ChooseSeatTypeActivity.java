@@ -1,19 +1,13 @@
 package com.companysf.filmbilet.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -24,34 +18,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
-import com.companysf.filmbilet.app.AppConfig;
-import com.companysf.filmbilet.app.AppController;
-import com.companysf.filmbilet.appLogic.Reservation;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
@@ -216,7 +192,18 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 else {
                     LayoutInflater inflater = (LayoutInflater)
                             getSystemService(LAYOUT_INFLATER_SERVICE);
-                    View popupView = inflater.inflate(R.layout.activity_choose_seat, null);
+
+
+                    boolean flag1 = buttons.get(button1);
+                    boolean flag3 = buttons.get(button3);
+                    boolean flag5 = buttons.get(button5);
+                    boolean flag7 = buttons.get(button7);
+
+                    View popupView;
+                    if(flag1 || flag3 || flag5 || flag7)
+                        popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
+                    else
+                        popupView = inflater.inflate(R.layout.activity_choose_seat_right, null);
 
                     // create the popup window
                     int width = LinearLayout.LayoutParams.WRAP_CONTENT;

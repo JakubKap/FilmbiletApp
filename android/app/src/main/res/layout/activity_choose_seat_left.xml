@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="60sp"
+    android:orientation="vertical"
+    android:background="@drawable/pop_bg"
+    android:weightSum="100">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:text="Sektor A1"
+            android:fontFamily="@font/opensans_bold"
+            android:layout_weight="3"
+            android:layout_marginBottom="10sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:layout_weight="2"
+            android:text="Cena: "
+            android:fontFamily="@font/opensans_bold"
+            android:layout_marginBottom="10sp"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:layout_margin="10sp"
+            android:columnCount="8"
+            android:rowCount="6"
+            android:textSize="10sp"
+            android:background="@drawable/customborder"
+            android:layout_gravity="center">
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:enabled="false"
+                android:text="I"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="1"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="2"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="3"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="4"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="5"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="6"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="7"/>
+
+<!-- Nowy rząd -->
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:enabled="false"
+                android:text="II"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="1"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="2"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="3"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="4"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="5"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="6"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="7"/>
+
+
+
+            <!-- Nowy rząd -->
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:enabled="false"
+                android:text="III"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="1"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="2"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="3"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="4"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="5"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="6"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="7"/>
+
+
+
+            <!-- Nowy rząd -->
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:enabled="false"
+                android:text="IV"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="1"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="2"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="3"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="4"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="5"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="6"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="7"/>
+
+
+            <!-- Nowy rząd -->
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:enabled="false"
+                android:text="V"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="1"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="2"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="3"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="4"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="5"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="6"/>
+
+            <Button
+                android:minWidth="25sp"
+                android:minHeight="25sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@color/button_normal"
+                android:text="7"/>
+
+
+        </GridLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5sp"
+        android:layout_weight="80">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wybrałeś 2 miejsca"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:fontFamily="@font/opensans_bold"
+            android:layout_marginBottom="10sp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_light"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="#f9f9f9"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Przejdź do płatności"
+            android:minHeight="40dip"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>
