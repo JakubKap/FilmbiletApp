@@ -296,6 +296,10 @@ class DbOperation
 			
 			while($results->fetch()){
 				$movie  = array();
+				
+				if (is_null($genres))
+					$genres = "-";
+				
 				$movie['id'] = $id; 
 				$movie['title'] = $title; 
 				$movie['runningTimeMin'] = $runningTimeMin; 

@@ -1,9 +1,7 @@
 package com.companysf.filmbilet.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,7 +78,10 @@ public class LoginActivity extends AppCompatActivity {
                                 .show();
                     }
                 } else {
-                    cd.buildDialog(LoginActivity.this).show();
+                    cd.buildDialog(LoginActivity.this,
+                            "Błąd połączenia internetowego",
+                            "Żeby móc się zalogować, potrzebujesz dostępu do internetu"
+                    ).show();
                 }
             }
         });
@@ -104,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                                     .show();
                         }
                     } else {
-                        cd.buildDialog(LoginActivity.this).show();
+                        cd.buildDialog(LoginActivity.this, "Błąd połączenia internetowego", "Potrzebujesz dostępu do internetu, żeby móc się zalogować").show();
                     }
                 }
                 return false;

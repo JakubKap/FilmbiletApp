@@ -13,4 +13,5 @@
     <string name="separator">|</string>
     <string name="genres">"gatunki: "</string>
     <string name="min_age">od lat:</string>
+    <string name="connection_error">Nie można nawiązać połączenia</string>
 </resources>

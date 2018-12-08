@@ -6,12 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,7 +20,6 @@ import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
-import com.companysf.filmbilet.appLogic.Customer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 .show();
                     }
                 } else{
-                    cd.buildDialog(RegisterActivity.this).show();
+                    cd.buildDialog(RegisterActivity.this, "Błąd połączenia internetowego", "Potrzebujesz dostępu do internetu, żeby móc się zalogować").show();
                 }
             }
         });
@@ -106,7 +103,11 @@ public class RegisterActivity extends AppCompatActivity {
                                     .show();
                         }
                     } else{
-                        cd.buildDialog(RegisterActivity.this).show();
+                        cd.buildDialog(RegisterActivity.this,
+                                "Błąd połączenia internetowego",
+                                "Żeby móc się zarejestrować" +
+                                        " potrzebujesz dostępu do internetu"
+                        ).show();
                     }
                 }
                 return false;

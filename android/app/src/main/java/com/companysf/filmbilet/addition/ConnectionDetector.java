@@ -28,13 +28,13 @@ public class ConnectionDetector {
         );
     }
 
-    public AlertDialog.Builder buildDialog(Context c) {
+    public AlertDialog.Builder buildDialog(Context c, String title, String message) {
 
         Log.d(logTag, "przed wywolaniem buildera");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle("Błąd połączenia internetowego");
-        builder.setMessage("Potrzebujesz dostępu do internetu, żeby móc się zalogować");
+        builder.setTitle(title);
+        builder.setMessage(message);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
