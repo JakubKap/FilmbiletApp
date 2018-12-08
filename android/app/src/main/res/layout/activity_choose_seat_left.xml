@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/linearLayout1"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="60sp"
@@ -9,6 +10,7 @@
 
 
         <TextView
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -19,6 +21,7 @@
             android:layout_marginBottom="10sp"/>
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -29,6 +32,7 @@
             android:layout_marginBottom="10sp"/>
 
         <GridLayout
+            android:id="@+id/gridLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="15"
@@ -40,6 +44,7 @@
             android:layout_gravity="center">
 
             <Button
+                android:id="@+id/IR"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -51,6 +56,7 @@
                 android:text="I"/>
 
             <Button
+                android:id="@+id/IR_1"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -59,6 +65,7 @@
                 android:text="1"/>
 
             <Button
+                android:id="@+id/IR_2"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -67,6 +74,7 @@
                 android:text="2"/>
 
             <Button
+                android:id="@+id/IR_3"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -75,6 +83,7 @@
                 android:text="3"/>
 
             <Button
+                android:id="@+id/IR_4"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -83,6 +92,7 @@
                 android:text="4"/>
 
             <Button
+                android:id="@+id/IR_5"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -91,6 +101,7 @@
                 android:text="5"/>
 
             <Button
+                android:id="@+id/IR_6"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -99,6 +110,7 @@
                 android:text="6"/>
 
             <Button
+                android:id="@+id/IR_7"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -108,6 +120,7 @@
 
 <!-- Nowy rząd -->
             <Button
+                android:id="@+id/IIR"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -119,6 +132,7 @@
                 android:text="II"/>
 
             <Button
+                android:id="@+id/IIR_1"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -127,6 +141,7 @@
                 android:text="1"/>
 
             <Button
+                android:id="@+id/IIR_2"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -135,6 +150,7 @@
                 android:text="2"/>
 
             <Button
+                android:id="@+id/IIR_3"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -143,6 +159,7 @@
                 android:text="3"/>
 
             <Button
+                android:id="@+id/IIR_4"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -151,6 +168,7 @@
                 android:text="4"/>
 
             <Button
+                android:id="@+id/IIR_5"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -159,6 +177,7 @@
                 android:text="5"/>
 
             <Button
+                android:id="@+id/IIR_6"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -167,6 +186,7 @@
                 android:text="6"/>
 
             <Button
+                android:id="@+id/IIR_7"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -178,6 +198,7 @@
 
             <!-- Nowy rząd -->
             <Button
+                android:id="@+id/IIIR"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -189,6 +210,7 @@
                 android:text="III"/>
 
             <Button
+                android:id="@+id/IIIR_1"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -197,6 +219,7 @@
                 android:text="1"/>
 
             <Button
+                android:id="@+id/IIIR_2"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -205,6 +228,7 @@
                 android:text="2"/>
 
             <Button
+                android:id="@+id/IIIR_3"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -213,6 +237,7 @@
                 android:text="3"/>
 
             <Button
+                android:id="@+id/IIIR_4"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -221,6 +246,7 @@
                 android:text="4"/>
 
             <Button
+                android:id="@+id/IIIR_5"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -229,6 +255,7 @@
                 android:text="5"/>
 
             <Button
+                android:id="@+id/IIIR_6"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -237,6 +264,7 @@
                 android:text="6"/>
 
             <Button
+                android:id="@+id/IIIR_7"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -245,9 +273,9 @@
                 android:text="7"/>
 
 
-
             <!-- Nowy rząd -->
             <Button
+                android:id="@+id/IVR"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -259,6 +287,7 @@
                 android:text="IV"/>
 
             <Button
+                android:id="@+id/IVR_1"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -267,6 +296,7 @@
                 android:text="1"/>
 
             <Button
+                android:id="@+id/IVR_2"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -275,6 +305,7 @@
                 android:text="2"/>
 
             <Button
+                android:id="@+id/IVR_3"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -283,6 +314,7 @@
                 android:text="3"/>
 
             <Button
+                android:id="@+id/IVR_4"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -291,6 +323,7 @@
                 android:text="4"/>
 
             <Button
+                android:id="@+id/IVR_5"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -299,6 +332,7 @@
                 android:text="5"/>
 
             <Button
+                android:id="@+id/IVR_6"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -307,6 +341,7 @@
                 android:text="6"/>
 
             <Button
+                android:id="@+id/IVR_7"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -317,6 +352,7 @@
 
             <!-- Nowy rząd -->
             <Button
+                android:id="@+id/VR"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -328,6 +364,7 @@
                 android:text="V"/>
 
             <Button
+                android:id="@+id/VR_1"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -336,6 +373,7 @@
                 android:text="1"/>
 
             <Button
+                android:id="@+id/VR_2"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -344,6 +382,7 @@
                 android:text="2"/>
 
             <Button
+                android:id="@+id/VR_3"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -352,6 +391,7 @@
                 android:text="3"/>
 
             <Button
+                android:id="@+id/VR_4"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -360,6 +400,7 @@
                 android:text="4"/>
 
             <Button
+                android:id="@+id/VR_5"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -368,6 +409,7 @@
                 android:text="5"/>
 
             <Button
+                android:id="@+id/VR_6"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -376,6 +418,7 @@
                 android:text="6"/>
 
             <Button
+                android:id="@+id/VR_7"
                 android:minWidth="25sp"
                 android:minHeight="25sp"
                 android:layout_marginBottom="5sp"
@@ -388,6 +431,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -395,6 +439,7 @@
         android:layout_weight="80">
 
         <TextView
+            android:id="@id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Wybrałeś 2 miejsca"
@@ -404,6 +449,7 @@
             android:layout_marginBottom="10sp"/>
 
         <Button
+            android:id="@+id/btnPayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button_light"

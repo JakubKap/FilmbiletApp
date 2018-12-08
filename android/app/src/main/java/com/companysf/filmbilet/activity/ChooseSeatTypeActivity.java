@@ -195,21 +195,28 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
                     boolean flag1 = buttons.get(button1);
+                    boolean flag2 = buttons.get(button2);
                     boolean flag3 = buttons.get(button3);
+                    boolean flag4 = buttons.get(button4);
                     boolean flag5 = buttons.get(button5);
+                    boolean flag6 = buttons.get(button6);
                     boolean flag7 = buttons.get(button7);
-
+                    boolean flag8 = buttons.get(button8);
                     View popupView;
+
                     if(flag1 || flag3 || flag5 || flag7)
-                        popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
+                     popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
                     else
                         popupView = inflater.inflate(R.layout.activity_choose_seat_right, null);
+
+
 
                     // create the popup window
                     int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     boolean focusable = true; // lets taps outside the popup also dismiss it
                     final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
 
                     // show the popup window
                     // which view you pass in doesn't matter, it is only used for the window tolken
