@@ -50,14 +50,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.Map;
-
+import java.util.TreeMap;
 
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
-    //private ArrayList<Reservation> reservationList = new ArrayList<>();
+    private Map<Button, Boolean> buttons = new HashMap<>();
 
     ConstraintLayout constraintLayout;
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
@@ -86,6 +86,15 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_next=(Button) findViewById(R.id.btn_next);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
+
+        buttons.put(button1, false);
+        buttons.put(button2, false);
+        buttons.put(button3, false);
+        buttons.put(button4, false);
+        buttons.put(button5, false);
+        buttons.put(button6, false);
+        buttons.put(button7, false);
+        buttons.put(button8, false);
 
 
 
@@ -252,9 +261,24 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         Animation animation = new AlphaAnimation(1.0f, 0.0f);
         animation.setDuration(200);
-        btn.setBackgroundResource(R.drawable.taken);
 
         btn.startAnimation(animation);
+
+        if(!buttons.get(btn)){
+            buttons.put(btn,true);
+            btn.setBackgroundResource(R.drawable.button_light);
+        }
+        else{
+            buttons.put(btn,false);
+            btn.setBackgroundResource(R.drawable.button_normal);
+        }
+
+
+
+
+
+
+
 
 
     }

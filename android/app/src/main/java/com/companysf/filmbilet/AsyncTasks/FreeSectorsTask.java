@@ -277,7 +277,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.textView1.setVisibility(View.VISIBLE);
         this.textView2.setVisibility(View.VISIBLE);
-        this.textView3.setVisibility(View.VISIBLE);
 
         this.linearLayout.setVisibility(View.VISIBLE);
 
