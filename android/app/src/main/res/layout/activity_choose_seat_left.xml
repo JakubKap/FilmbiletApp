@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/linearLayout1"
+    android:id="@+id/linearLayoutSeats"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="60sp"
@@ -9,457 +9,464 @@
     android:weightSum="100">
 
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:text="Sektor A1"
-            android:fontFamily="@font/opensans_bold"
-            android:layout_weight="3"
-            android:layout_marginBottom="10sp"/>
+    <TextView
+        android:id="@+id/textView1Seats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
+        android:layout_weight="3"
+        android:fontFamily="@font/opensans_bold"
+        android:text="Sektor A1"
+        android:textAlignment="center"
+        android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:layout_weight="2"
-            android:text="Cena: "
-            android:fontFamily="@font/opensans_bold"
-            android:layout_marginBottom="10sp"/>
+    <TextView
+        android:id="@+id/textView2Seats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
+        android:layout_weight="2"
+        android:fontFamily="@font/opensans_bold"
+        android:text="Cena: "
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
-        <GridLayout
-            android:id="@+id/gridLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="15"
-            android:layout_margin="10sp"
-            android:columnCount="8"
-            android:rowCount="6"
-            android:textSize="10sp"
-            android:background="@drawable/customborder"
-            android:layout_gravity="center">
-
-            <Button
-                android:id="@+id/IR"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="0sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:enabled="false"
-                android:text="I"/>
-
-            <Button
-                android:id="@+id/IR_1"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="1"/>
-
-            <Button
-                android:id="@+id/IR_2"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="2"/>
-
-            <Button
-                android:id="@+id/IR_3"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="3"/>
-
-            <Button
-                android:id="@+id/IR_4"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="4"/>
-
-            <Button
-                android:id="@+id/IR_5"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="5"/>
-
-            <Button
-                android:id="@+id/IR_6"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="6"/>
-
-            <Button
-                android:id="@+id/IR_7"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="7"/>
-
-<!-- Nowy rząd -->
-            <Button
-                android:id="@+id/IIR"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="0sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:enabled="false"
-                android:text="II"/>
-
-            <Button
-                android:id="@+id/IIR_1"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="1"/>
-
-            <Button
-                android:id="@+id/IIR_2"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="2"/>
-
-            <Button
-                android:id="@+id/IIR_3"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="3"/>
-
-            <Button
-                android:id="@+id/IIR_4"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="4"/>
-
-            <Button
-                android:id="@+id/IIR_5"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="5"/>
-
-            <Button
-                android:id="@+id/IIR_6"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="6"/>
-
-            <Button
-                android:id="@+id/IIR_7"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="7"/>
+    <ProgressBar
+        android:id="@+id/progressBarSeats"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:visibility="visible" />
 
 
+    <GridLayout
+        android:id="@+id/gridLayoutSeats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10sp"
+        android:layout_weight="15"
+        android:background="@drawable/customborder"
+        android:columnCount="8"
+        android:rowCount="6"
+        android:textSize="10sp">
 
-            <!-- Nowy rząd -->
-            <Button
-                android:id="@+id/IIIR"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="0sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:enabled="false"
-                android:text="III"/>
+        <Button
+            android:id="@+id/buttonIR"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="I"
+            android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/IIIR_1"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="1"/>
+        <Button
+            android:id="@+id/buttonIR_1"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="1" />
 
-            <Button
-                android:id="@+id/IIIR_2"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="2"/>
+        <Button
+            android:id="@+id/buttonIR_2"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="2" />
 
-            <Button
-                android:id="@+id/IIIR_3"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="3"/>
+        <Button
+            android:id="@+id/buttonIR_3"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="3" />
 
-            <Button
-                android:id="@+id/IIIR_4"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="4"/>
+        <Button
+            android:id="@+id/buttonIR_4"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="4" />
 
-            <Button
-                android:id="@+id/IIIR_5"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="5"/>
+        <Button
+            android:id="@+id/buttonIR_5"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="5" />
 
-            <Button
-                android:id="@+id/IIIR_6"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="6"/>
+        <Button
+            android:id="@+id/buttonIR_6"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="6" />
 
-            <Button
-                android:id="@+id/IIIR_7"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="7"/>
+        <Button
+            android:id="@+id/buttonIR_7"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="7" />
 
+        <!-- Nowy rząd -->
+        <Button
+            android:id="@+id/buttonIIR"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="II"
+            android:textColor="@color/white" />
 
-            <!-- Nowy rząd -->
-            <Button
-                android:id="@+id/IVR"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="0sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:enabled="false"
-                android:text="IV"/>
+        <Button
+            android:id="@+id/buttonIIR_1"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="1" />
 
-            <Button
-                android:id="@+id/IVR_1"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="1"/>
+        <Button
+            android:id="@+id/buttonIIR_2"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="2" />
 
-            <Button
-                android:id="@+id/IVR_2"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="2"/>
+        <Button
+            android:id="@+id/buttonIIR_3"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="3" />
 
-            <Button
-                android:id="@+id/IVR_3"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="3"/>
+        <Button
+            android:id="@+id/buttonIIR_4"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="4" />
 
-            <Button
-                android:id="@+id/IVR_4"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="4"/>
+        <Button
+            android:id="@+id/buttonIIR_5"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="5" />
 
-            <Button
-                android:id="@+id/IVR_5"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="5"/>
+        <Button
+            android:id="@+id/buttonIIR_6"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="6" />
 
-            <Button
-                android:id="@+id/IVR_6"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="6"/>
-
-            <Button
-                android:id="@+id/IVR_7"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="7"/>
-
-
-            <!-- Nowy rząd -->
-            <Button
-                android:id="@+id/VR"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="0sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:enabled="false"
-                android:text="V"/>
-
-            <Button
-                android:id="@+id/VR_1"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="1"/>
-
-            <Button
-                android:id="@+id/VR_2"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="2"/>
-
-            <Button
-                android:id="@+id/VR_3"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="3"/>
-
-            <Button
-                android:id="@+id/VR_4"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="4"/>
-
-            <Button
-                android:id="@+id/VR_5"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="5"/>
-
-            <Button
-                android:id="@+id/VR_6"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="6"/>
-
-            <Button
-                android:id="@+id/VR_7"
-                android:minWidth="25sp"
-                android:minHeight="25sp"
-                android:layout_marginBottom="5sp"
-                android:layout_marginRight="5sp"
-                android:background="@color/button_normal"
-                android:text="7"/>
+        <Button
+            android:id="@+id/buttonIIR_7"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="7" />
 
 
-        </GridLayout>
+        <!-- Nowy rząd -->
+        <Button
+            android:id="@+id/buttonIIIR"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="III"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonIIIR_1"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/buttonIIIR_2"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/buttonIIIR_3"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/buttonIIIR_4"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/buttonIIIR_5"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/buttonIIIR_6"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/buttonIIIR_7"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="7" />
+
+
+        <!-- Nowy rząd -->
+        <Button
+            android:id="@+id/buttonIVR"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="IV"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonIVR_1"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/buttonIVR_2"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/buttonIVR_3"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/buttonIVR_4"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/buttonIVR_5"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/buttonIVR_6"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/buttonIVR_7"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="7" />
+
+
+        <!-- Nowy rząd -->
+        <Button
+            android:id="@+id/buttonVR"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="V"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonVR_1"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/buttonVR_2"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/buttonVR_3"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/buttonVR_4"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/buttonVR_5"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/buttonVR_6"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/buttonVR_7"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/button_normal"
+            android:minWidth="25sp"
+            android:minHeight="25sp"
+            android:text="7" />
+
+
+    </GridLayout>
 
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayoutSummary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="5sp"
-        android:layout_weight="80">
+        android:layout_weight="80"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@id/textView3"
+            android:id="@+id/textView3Seats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:fontFamily="@font/opensans_bold"
             android:text="Wybrałeś 2 miejsca"
             android:textAlignment="center"
-            android:textSize="20sp"
-            android:fontFamily="@font/opensans_bold"
-            android:layout_marginBottom="10sp"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnPayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button_light"
+            android:fontFamily="@font/opensans_bold"
+            android:minHeight="40dip"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textColor="#f9f9f9"
-            android:fontFamily="@font/opensans_bold"
             android:text="Przejdź do płatności"
-            android:minHeight="40dip"
-            />
+            android:textColor="#f9f9f9" />
 
 
     </LinearLayout>

@@ -23,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
@@ -152,9 +153,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     Map<Button, Boolean> previousButtons = new HashMap<>(buttons);
                     new FreeSectorsTask(getApplicationContext(), constraintLayout, false).execute(1);
                     //dodanie zabezpieczenia przed wybraniem miejsca które, akurat zostało zajęte
-                    handler.postDelayed(this, 500); //now is every 2 sceonds
+                    handler.postDelayed(this, 500); //now is every 500 ms
                 }
-            }, 500); //Every 2000 ms (2000s)
+            }, 500); //Every 500 ms
 
 
         }//endif
@@ -232,25 +233,46 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     boolean flag6 = buttons.get(button6);
                     boolean flag7 = buttons.get(button7);
                     boolean flag8 = buttons.get(button8);
-                    View popupView;
+
+                    //wykrycie, który typ miejsca został wybrany
+
+                    int seatTypeId=1;
+
+                    if(flag1 || flag2)
+                        seatTypeId=1;
+                    else if(flag3 || flag4)
+                        seatTypeId=2;
+                    else if(flag5 || flag6)
+                        seatTypeId=3;
+                    else if (flag7 || flag8)
+                        seatTypeId=4;
+
+                    View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
+
+                    LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
+
+
 
                     if(flag1 || flag3 || flag5 || flag7)
-                     popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
-                    else
-                        popupView = inflater.inflate(R.layout.activity_choose_seat_right, null);
+                    {
+                        new FreeSeatsTask(getApplicationContext(), popupView, true, true, seatTypeId).execute(1);
+                    }
 
-
-
+                    else {
+                        new FreeSeatsTask(getApplicationContext(), popupView, true, false, seatTypeId).execute(1);
+                    }
                     // create the popup window
                     int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     boolean focusable = true; // lets taps outside the popup also dismiss it
                     final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-
                     // show the popup window
                     // which view you pass in doesn't matter, it is only used for the window tolken
                     popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+
+
 
                     //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.clear));
                /* popupWindow.setBackgroundDrawable(new ColorDrawable(
