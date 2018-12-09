@@ -100,11 +100,18 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
     public void changeColorOfButton(Button button, int index){
         String taken="#ff9478";
+        String free = "#bdc3c7";
+
         int freeSlots = freeSeats.get(index);
+
         if(freeSlots == 0)
         {
             button.setEnabled(false);
             button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
+        }
+        else if (!button.isEnabled() && freeSlots == 1){
+            button.setEnabled(true);
+            button.getBackground().setColorFilter(Color.parseColor(free),PorterDuff.Mode.SRC);
         }
 
     }
