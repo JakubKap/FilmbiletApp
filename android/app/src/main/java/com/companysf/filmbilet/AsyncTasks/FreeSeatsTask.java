@@ -82,80 +82,80 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         this.btnPayment=linearLayout.findViewById(R.id.btnPayment);
 
             this.buttonIR_1 = (Button) linearLayout.findViewById(R.id.buttonIR_1);
-           // buttons.add(buttonIR_1);
+            buttons.add(buttonIR_1);
             this.buttonIR_2 = (Button) linearLayout.findViewById(R.id.buttonIR_2);
-           // buttons.add(buttonIR_2);
+            buttons.add(buttonIR_2);
             this.buttonIR_3 = (Button) linearLayout.findViewById(R.id.buttonIR_3);
-            //buttons.add(buttonIR_3);
+            buttons.add(buttonIR_3);
             this.buttonIR_4 = (Button) linearLayout.findViewById(R.id.buttonIR_4);
-            // buttons.add(buttonIR_4);
+            buttons.add(buttonIR_4);
             this.buttonIR_5 = (Button) linearLayout.findViewById(R.id.buttonIR_5);
-           // buttons.add(buttonIR_5);
+            buttons.add(buttonIR_5);
             this.buttonIR_6 = (Button) linearLayout.findViewById(R.id.buttonIR_6);
-           // buttons.add(buttonIR_6);
+            buttons.add(buttonIR_6);
             this.buttonIR_7 = (Button) linearLayout.findViewById(R.id.buttonIR_7);
-           // buttons.add(buttonIR_7);
+            buttons.add(buttonIR_7);
 
             this.buttonIIR_1 = (Button) linearLayout.findViewById(R.id.buttonIIR_1);
-           // buttons.add(buttonIIR_1);
+            buttons.add(buttonIIR_1);
             this.buttonIIR_2 = (Button) linearLayout.findViewById(R.id.buttonIIR_2);
-           // buttons.add(buttonIIR_2);
+            buttons.add(buttonIIR_2);
             this.buttonIIR_3 = (Button) linearLayout.findViewById(R.id.buttonIIR_3);
-           // buttons.add(buttonIIR_3);
+            buttons.add(buttonIIR_3);
             this.buttonIIR_4 = (Button) linearLayout.findViewById(R.id.buttonIIR_4);
-           // buttons.add(buttonIIR_4);
+            buttons.add(buttonIIR_4);
             this.buttonIIR_5 = (Button) linearLayout.findViewById(R.id.buttonIIR_5);
-           // buttons.add(buttonIIR_5);
+            buttons.add(buttonIIR_5);
             this.buttonIIR_6 = (Button) linearLayout.findViewById(R.id.buttonIIR_6);
-           // buttons.add(buttonIIR_6);
+            buttons.add(buttonIIR_6);
             this.buttonIIR_7 = (Button) linearLayout.findViewById(R.id.buttonIIR_7);
-           // buttons.add(buttonIIR_7);
+            buttons.add(buttonIIR_7);
 
             this.buttonIIIR_1 = (Button) linearLayout.findViewById(R.id.buttonIIIR_1);
-            //buttons.add(buttonIIIR_1);
+            buttons.add(buttonIIIR_1);
             this.buttonIIIR_2 = (Button) linearLayout.findViewById(R.id.buttonIIIR_2);
-          //  buttons.add(buttonIIIR_2);
+            buttons.add(buttonIIIR_2);
             this.buttonIIIR_3 = (Button) linearLayout.findViewById(R.id.buttonIIIR_3);
-           // buttons.add(buttonIIIR_3);
+            buttons.add(buttonIIIR_3);
             this.buttonIIIR_4 = (Button) linearLayout.findViewById(R.id.buttonIIIR_4);
-           // buttons.add(buttonIIIR_4);
+            buttons.add(buttonIIIR_4);
             this.buttonIIIR_5 = (Button) linearLayout.findViewById(R.id.buttonIIIR_5);
-           // buttons.add(buttonIIIR_5);
+            buttons.add(buttonIIIR_5);
             this.buttonIIIR_6 = (Button) linearLayout.findViewById(R.id.buttonIIIR_6);
-            //buttons.add(buttonIIIR_6);
+            buttons.add(buttonIIIR_6);
             this.buttonIIIR_7 = (Button) linearLayout.findViewById(R.id.buttonIIIR_7);
-           // buttons.add(buttonIIIR_7);
+            buttons.add(buttonIIIR_7);
 
             this.buttonIVR_1 = (Button) linearLayout.findViewById(R.id.buttonIVR_1);
-           // buttons.add(buttonIVR_1);
+            buttons.add(buttonIVR_1);
             this.buttonIVR_2 = (Button) linearLayout.findViewById(R.id.buttonIVR_2);
-           // buttons.add(buttonIVR_2);
+            buttons.add(buttonIVR_2);
             this.buttonIVR_3 = (Button) linearLayout.findViewById(R.id.buttonIVR_3);
-           // buttons.add(buttonIVR_3);
+            buttons.add(buttonIVR_3);
             this.buttonIVR_4 = (Button) linearLayout.findViewById(R.id.buttonIVR_4);
-            //buttons.add(buttonIVR_4);
+            buttons.add(buttonIVR_4);
             this.buttonIVR_5 = (Button) linearLayout.findViewById(R.id.buttonIVR_5);
-           // buttons.add(buttonIVR_5);
+            buttons.add(buttonIVR_5);
             this.buttonIVR_6 = (Button) linearLayout.findViewById(R.id.buttonIVR_6);
-           // buttons.add(buttonIVR_6);
+            buttons.add(buttonIVR_6);
             this.buttonIVR_7 = (Button) linearLayout.findViewById(R.id.buttonIVR_7);
-            //buttons.add(buttonIVR_7);
+            buttons.add(buttonIVR_7);
 
             this.buttonVR_1 = (Button) linearLayout.findViewById(R.id.buttonVR_1);
-            //buttons.add(buttonVR_1);
+            buttons.add(buttonVR_1);
             this.buttonVR_2 = (Button) linearLayout.findViewById(R.id.buttonVR_2);
-           // buttons.add(buttonVR_2);
+            buttons.add(buttonVR_2);
             this.buttonVR_3 = (Button) linearLayout.findViewById(R.id.buttonVR_3);
-           // buttons.add(buttonVR_3);
+            buttons.add(buttonVR_3);
             this.buttonVR_4 = (Button) linearLayout.findViewById(R.id.buttonVR_4);
-           // buttons.add(buttonVR_4);
+            buttons.add(buttonVR_4);
             this.buttonVR_5 = (Button) linearLayout.findViewById(R.id.buttonVR_5);
-           // buttons.add(buttonVR_5);
+            buttons.add(buttonVR_5);
             this.buttonVR_6 = (Button) linearLayout.findViewById(R.id.buttonVR_6);
-           // buttons.add(buttonVR_6);
+            buttons.add(buttonVR_6);
             this.buttonVR_7 = (Button) linearLayout.findViewById(R.id.buttonVR_7);
-           // buttons.add(buttonVR_7);
-/*
+            buttons.add(buttonVR_7);
+
             Log.d(logTag, "Czy buttons empty: " + buttons.isEmpty());
 
 
@@ -171,23 +171,26 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                         if(begin == 15) begin=8;
                     }
             }
-*/
+
 
         }
 
 
-
-    public boolean isTaken(int row, int seatNumber)
-    {
-        for(Reservation r : reservationList)
-        {
-            if(r.getSeatTypeId() == this.seatTypeId && r.getRow()==row && r.getSeatNumber() == seatNumber)
-                return true; //znaleziono takie miejsce
+    public boolean isTaken(int row, int seatNumber) {
+        if (this.isLeft) {
+            for (Reservation r : reservationList) {
+                if (r.getSeatTypeId() == this.seatTypeId && r.getRow() == row && r.getSeatNumber() == seatNumber && r.getSeatNumber() < 8)
+                    return true; //znaleziono takie miejsce
+            }
+        } else {
+            for (Reservation r : reservationList) {
+                if (r.getSeatTypeId() == this.seatTypeId && r.getRow() == row && r.getSeatNumber() == seatNumber && r.getSeatNumber() >= 8)
+                    return true; //znaleziono takie miejsce
+            }
         }
         return false; //nie znalezniono takiego miejsca
+
     }
-
-
     public void changeColorOfButton(Button button, int index){
         String taken="#ff9478";
         String free = "#bdc3c7";
@@ -197,7 +200,9 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         if(isTaken)
         {
             button.setEnabled(false);
-            button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
+            button.setBackgroundColor(Color.RED);
+            button.setTextColor(Color.WHITE);
+//            button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
         }
         else if (!button.isEnabled() && isTaken){
             button.setEnabled(true);
@@ -211,65 +216,11 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         super.onPreExecute();
 
         Log.d(logTag, "Rozpoczęcie onPreExecute");
-        buttons.add(buttonIR_1);
-        buttons.add(buttonIR_2);
-        buttons.add(buttonIR_3);
-        buttons.add(buttonIR_4);
-        buttons.add(buttonIR_5);
-        buttons.add(buttonIR_6);
-        buttons.add(buttonIR_7);
-
-        buttons.add(buttonIIR_1);
-        buttons.add(buttonIIR_2);
-        buttons.add(buttonIIR_3);
-        buttons.add(buttonIIR_4);
-        buttons.add(buttonIIR_5);
-        buttons.add(buttonIIR_6);
-        buttons.add(buttonIIR_7);
-
-        buttons.add(buttonIIIR_1);
-        buttons.add(buttonIIIR_2);
-        buttons.add(buttonIIIR_3);
-        buttons.add(buttonIIIR_4);
-        buttons.add(buttonIIIR_5);
-        buttons.add(buttonIIIR_6);
-        buttons.add(buttonIIIR_7);
-
-        buttons.add(buttonIVR_1);
-        buttons.add(buttonIVR_2);
-        buttons.add(buttonIVR_3);
-        buttons.add(buttonIVR_4);
-        buttons.add(buttonIVR_5);
-        buttons.add(buttonIVR_6);
-        buttons.add(buttonIVR_7);
-
-        buttons.add(buttonVR_1);
-        buttons.add(buttonVR_2);
-        buttons.add(buttonVR_3);
-        buttons.add(buttonVR_4);
-        buttons.add(buttonVR_5);
-        buttons.add(buttonVR_6);
-        buttons.add(buttonVR_7);
 
         Log.d(logTag, "Czy buttons empty: " + buttons.isEmpty());
         Log.d(logTag, "buttons size: " + buttons.size());
 
         if(this.start){
-
-            /*
-            //dostosowanie jednego layout do obydwu stron sali
-            if(!this.isLeft)
-            {
-                int begin = 8;
-                for(Button b : buttons)
-                {
-                    Log.d(logTag, "Wartość begin " + begin);
-                    b.setText("" + begin);
-                    begin++;
-                    if(begin == 15) begin=8;
-                }
-            }*/
-
 
             this.linearLayout1.setVisibility(View.INVISIBLE);
 
@@ -295,6 +246,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         int repertoireId = integers[0];
         final String repertoireIdString = "" + repertoireId;
 
+        /*
     //dostosowanie jednego layout do obydwu stron sali
         if(!this.isLeft)
         {
@@ -307,7 +259,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                 if(begin == 15) begin=8;
             }
         }
-
+*/
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 AppConfig.GET_RESERVATIONS,
                 new Response.Listener<String>() {
@@ -355,11 +307,26 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
 
                         //isTaken == 1 (miejsce zajęte)
-                        boolean taken=false;
-                        for(int i=0; i<5; i++) {
-                            for (int j = 0; j < 7; j++) {
-                                taken=isTaken(i,j);
-                                takenSeats.add(taken);
+
+                        if(isLeft) { //lewy sektor
+                            boolean taken = false;
+                            for (int i = 1; i < 6; i++) {
+                                for (int j = 1; j < 8; j++) {
+                                    taken = isTaken(i, j);
+                                    Log.d(logTag, "isTaken dla (" + i + "," + j + ") = " + taken);
+                                    takenSeats.add(taken);
+                                }
+                            }
+                        }
+                        else //prawy sektor
+                        {
+                            boolean taken = false;
+                            for (int i = 1; i < 6; i++) {
+                                for (int j = 8; j < 15; j++) {
+                                    taken = isTaken(i, j);
+                                    Log.d(logTag, "isTaken dla (" + i + "," + j + ") = " + taken);
+                                    takenSeats.add(taken);
+                                }
                             }
                         }
 
