@@ -48,9 +48,11 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     private TextView textView1, textView2, textView3;
     LinearLayout linearLayout;
 
+    boolean start;
 
 
-    public FreeSectorsTask(Context context,  ConstraintLayout constraintLayout) {
+
+    public FreeSectorsTask(Context context,  ConstraintLayout constraintLayout, boolean start) {
 
         contextref = new WeakReference<>(context);
         this.constraintLayout = constraintLayout;
@@ -73,6 +75,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         this.textView3=(TextView) constraintLayout.findViewById(R.id.textView3);
 
         this.linearLayout=(LinearLayout)constraintLayout.findViewById(R.id.linearLayout);
+        this.start = start;
 
     }
 
@@ -109,25 +112,26 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        this.button1.setVisibility(View.INVISIBLE);
-        this.button2.setVisibility(View.INVISIBLE);
-        this.button3.setVisibility(View.INVISIBLE);
-        this.button4.setVisibility(View.INVISIBLE);
-        this.button5.setVisibility(View.INVISIBLE);
-        this.button6.setVisibility(View.INVISIBLE);
-        this.button7.setVisibility(View.INVISIBLE);
-        this.button8.setVisibility(View.INVISIBLE);
-        this.btn_back.setVisibility(View.INVISIBLE);
-        this.btn_next.setVisibility(View.INVISIBLE);
+        if(this.start){
+            this.button1.setVisibility(View.INVISIBLE);
+            this.button2.setVisibility(View.INVISIBLE);
+            this.button3.setVisibility(View.INVISIBLE);
+            this.button4.setVisibility(View.INVISIBLE);
+            this.button5.setVisibility(View.INVISIBLE);
+            this.button6.setVisibility(View.INVISIBLE);
+            this.button7.setVisibility(View.INVISIBLE);
+            this.button8.setVisibility(View.INVISIBLE);
+            this.btn_back.setVisibility(View.INVISIBLE);
+            this.btn_next.setVisibility(View.INVISIBLE);
 
-        this.progressBar.setVisibility(View.VISIBLE);
+            this.progressBar.setVisibility(View.VISIBLE);
 
-        this.textView1.setVisibility(View.INVISIBLE);
-        this.textView2.setVisibility(View.INVISIBLE);
-        this.textView3.setVisibility(View.INVISIBLE);
+            this.textView1.setVisibility(View.INVISIBLE);
+            this.textView2.setVisibility(View.INVISIBLE);
+            this.textView3.setVisibility(View.INVISIBLE);
 
-        this.linearLayout.setVisibility(View.INVISIBLE);
-
+            this.linearLayout.setVisibility(View.INVISIBLE);
+        }
 
     }
 

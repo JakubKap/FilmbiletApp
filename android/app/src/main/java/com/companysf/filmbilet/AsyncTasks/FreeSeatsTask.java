@@ -18,7 +18,7 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
     TextView textView1, textView2, textView3;
     GridLayout gridLayout;
 
-    Button btnPayment;
+    Button buttonIR_1, btnPayment;
 
     public FreeSeatsTask(Context context, ArrayList<Reservation> reservations, LinearLayout linearLayout) {
     }

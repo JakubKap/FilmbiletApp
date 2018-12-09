@@ -6,6 +6,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -25,9 +27,12 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 
 
+import java.sql.Time;
 import java.util.HashMap;
 
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
@@ -133,7 +138,17 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             btn_next.setLayoutParams(params10);
 
             //execute(nr_repertuaru z poprzedniuego intentu)
-            new FreeSectorsTask(getApplicationContext(), constraintLayout).execute(1);
+            new FreeSectorsTask(getApplicationContext(), constraintLayout, true).execute(1);
+
+            //odświeżanie wolnych sektorów co 2 sekundy
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    new FreeSectorsTask(getApplicationContext(), constraintLayout, false).execute(1);
+                    handler.postDelayed(this, 2000); //now is every 2 sceonds
+                }
+            }, 2000); //Every 2000 ms (2000s)
 
 
         }//endif
@@ -282,14 +297,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
-
-
-
     }
+
 
 }
 
