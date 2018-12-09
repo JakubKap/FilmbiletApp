@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -142,13 +143,18 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             //odświeżanie wolnych sektorów co 2 sekundy
 
+
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
+
                 public void run() {
+                    //zapisanie poprzedniego stanu sektorów
+                    Map<Button, Boolean> previousButtons = new HashMap<>(buttons);
                     new FreeSectorsTask(getApplicationContext(), constraintLayout, false).execute(1);
-                    handler.postDelayed(this, 2000); //now is every 2 sceonds
+                    //dodanie zabezpieczenia przed wybraniem miejsca które, akurat zostało zajęte
+                    handler.postDelayed(this, 500); //now is every 2 sceonds
                 }
-            }, 2000); //Every 2000 ms (2000s)
+            }, 500); //Every 2000 ms (2000s)
 
 
         }//endif
@@ -193,18 +199,27 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 //dodanie warunku na to, że tylko jeden z sektorów może być zaznaczony
 
                 int selected = 0;
+                boolean isButtonChanged = false;
                 for (Map.Entry<Button, Boolean> entry : buttons.entrySet()) {
                     Button key = entry.getKey();
                     Boolean value = entry.getValue();
 
-                    if (value) selected++;
+                    if (value && key.isEnabled())
+                        selected++;
 
+                    else if(value && !key.isEnabled()){
+                        buttons.put(key, false);
+                        Toast.makeText(getApplicationContext(),
+                                "Ostatnie miejsce z wybranego sektora zostało zarezerwowane. Wybierz inny sektor.", Toast.LENGTH_SHORT).show();
+                    Log.d("Przegląd buttonów", "" + key +" " + value);
+                    isButtonChanged=true;
+                    }
                 }
 
-                if (selected == 0 || selected > 1)
+                if ((selected == 0 || selected > 1) && !isButtonChanged)
                     Toast.makeText(getApplicationContext(), "Wybierz jeden sektor, aby przejść dalej.", Toast.LENGTH_SHORT).show();
 
-                else {
+                else if(selected == 1 && !isButtonChanged){
                     LayoutInflater inflater = (LayoutInflater)
                             getSystemService(LAYOUT_INFLATER_SERVICE);
 
