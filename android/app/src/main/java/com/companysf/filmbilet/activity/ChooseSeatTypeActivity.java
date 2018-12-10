@@ -153,9 +153,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     Map<Button, Boolean> previousButtons = new HashMap<>(buttons);
                     new FreeSectorsTask(getApplicationContext(), constraintLayout, false).execute(1);
                     //dodanie zabezpieczenia przed wybraniem miejsca które, akurat zostało zajęte
-                    handler.postDelayed(this, 500); //now is every 500 ms
+                    handler.postDelayed(this, 2000); //now is every 500 ms
                 }
-            }, 500); //Every 500 ms
+            }, 2000); //Every 500 ms
 
 
         }//endif
