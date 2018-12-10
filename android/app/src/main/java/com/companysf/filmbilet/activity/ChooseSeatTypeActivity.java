@@ -144,7 +144,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             //odświeżanie wolnych sektorów co 2 sekundy
 
-
+/*
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
 
@@ -156,6 +156,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     handler.postDelayed(this, 2000); //now is every 500 ms
                 }
             }, 2000); //Every 500 ms
+            */
 
 
         }//endif
