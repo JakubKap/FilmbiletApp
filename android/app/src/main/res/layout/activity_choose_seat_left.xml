@@ -457,7 +457,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnPayment"
+            android:id="@+id/btnReserve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button_light"
@@ -465,7 +465,7 @@
             android:minHeight="40dip"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Przejdź do płatności"
+            android:text="Zarezerwuj"
             android:textColor="#f9f9f9" />
 
 

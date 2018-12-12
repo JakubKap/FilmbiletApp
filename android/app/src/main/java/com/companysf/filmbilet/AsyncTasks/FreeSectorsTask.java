@@ -1,14 +1,11 @@
-package com.companysf.filmbilet.AsyncTasks;
+package com.companysf.filmbilet.asyncTasks;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
-import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,7 +17,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.companysf.filmbilet.activity.MainActivity;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.appLogic.Reservation;

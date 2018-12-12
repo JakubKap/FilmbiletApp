@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -23,18 +23,18 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
-import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
+import com.companysf.filmbilet.asyncTasks.FreeSeatsTask;
+import com.companysf.filmbilet.asyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 
 
-import java.sql.Time;
+import java.lang.reflect.Array;
+import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
@@ -47,9 +47,22 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
     ProgressBar progressBar;
 
+
+    //seats
+    private Button buttonIR_1, buttonIR_2, buttonIR_3, buttonIR_4, buttonIR_5,buttonIR_6, buttonIR_7,
+            buttonIIR_1, buttonIIR_2, buttonIIR_3, buttonIIR_4, buttonIIR_5,buttonIIR_6, buttonIIR_7,
+            buttonIIIR_1, buttonIIIR_2, buttonIIIR_3, buttonIIIR_4, buttonIIIR_5,buttonIIIR_6, buttonIIIR_7,
+            buttonIVR_1, buttonIVR_2, buttonIVR_3, buttonIVR_4, buttonIVR_5,buttonIVR_6, buttonIVR_7,
+            buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
+            btnReserve;
+
+
+    ArrayList<Button> seatsButtons = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_choose_seat_type2);
 
         // btnNext = (Button) findViewById(R.id.btnNext);
@@ -188,6 +201,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 */
 
 
+
+
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,9 +263,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     else if (flag7 || flag8)
                         seatTypeId=4;
 
-                    View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
+                    final View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
 
                     LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
+
 
 
 
@@ -273,12 +289,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
 
-
-
                     //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.clear));
                /* popupWindow.setBackgroundDrawable(new ColorDrawable(
                         android.graphics.Color.TRANSPARENT));*/
-
 
                     Drawable d = new ColorDrawable(Color.WHITE);
 
@@ -290,6 +303,97 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                     getWindow().setBackgroundDrawable(d);
 
+                    //dodanie słuchacza do przycisków oraz textView popupview
+
+                    buttonIR_1 = (Button) popupView.findViewById(R.id.buttonIR_1);
+                    seatsButtons.add(buttonIR_1);
+                    buttonIR_2 = (Button) popupView.findViewById(R.id.buttonIR_2);
+                    seatsButtons.add(buttonIR_2);
+                    buttonIR_3 = (Button) popupView.findViewById(R.id.buttonIR_3);
+                    seatsButtons.add(buttonIR_3);
+                    buttonIR_4 = (Button) popupView.findViewById(R.id.buttonIR_4);
+                    seatsButtons.add(buttonIR_4);
+                    buttonIR_5 = (Button) popupView.findViewById(R.id.buttonIR_5);
+                    seatsButtons.add(buttonIR_5);
+                    buttonIR_6 = (Button) popupView.findViewById(R.id.buttonIR_6);
+                    seatsButtons.add(buttonIR_6);
+                    buttonIR_7 = (Button) popupView.findViewById(R.id.buttonIR_7);
+                    seatsButtons.add(buttonIR_7);
+
+                    buttonIIR_1 = (Button) popupView.findViewById(R.id.buttonIIR_1);
+                    seatsButtons.add(buttonIIR_1);
+                    buttonIIR_2 = (Button) popupView.findViewById(R.id.buttonIIR_2);
+                    seatsButtons.add(buttonIIR_2);
+                    buttonIIR_3 = (Button) popupView.findViewById(R.id.buttonIIR_3);
+                    seatsButtons.add(buttonIIR_3);
+                    buttonIIR_4 = (Button) popupView.findViewById(R.id.buttonIIR_4);
+                    seatsButtons.add(buttonIIR_4);
+                    buttonIIR_5 = (Button) popupView.findViewById(R.id.buttonIIR_5);
+                    seatsButtons.add(buttonIIR_5);
+                    buttonIIR_6 = (Button) popupView.findViewById(R.id.buttonIIR_6);
+                    seatsButtons.add(buttonIIR_6);
+                    buttonIIR_7 = (Button) popupView.findViewById(R.id.buttonIIR_7);
+                    seatsButtons.add(buttonIIR_7);
+
+                    buttonIIIR_1 = (Button) popupView.findViewById(R.id.buttonIIIR_1);
+                    seatsButtons.add(buttonIIIR_1);
+                    buttonIIIR_2 = (Button) popupView.findViewById(R.id.buttonIIIR_2);
+                    seatsButtons.add(buttonIIIR_2);
+                    buttonIIIR_3 = (Button) popupView.findViewById(R.id.buttonIIIR_3);
+                    seatsButtons.add(buttonIIIR_3);
+                    buttonIIIR_4 = (Button) popupView.findViewById(R.id.buttonIIIR_4);
+                    seatsButtons.add(buttonIIIR_4);
+                    buttonIIIR_5 = (Button) popupView.findViewById(R.id.buttonIIIR_5);
+                    seatsButtons.add(buttonIIIR_5);
+                    buttonIIIR_6 = (Button) popupView.findViewById(R.id.buttonIIIR_6);
+                    seatsButtons.add(buttonIIIR_6);
+                    buttonIIIR_7 = (Button) popupView.findViewById(R.id.buttonIIIR_7);
+                    seatsButtons.add(buttonIIIR_7);
+
+                    buttonIVR_1 = (Button) popupView.findViewById(R.id.buttonIVR_1);
+                    seatsButtons.add(buttonIVR_1);
+                    buttonIVR_2 = (Button) popupView.findViewById(R.id.buttonIVR_2);
+                    seatsButtons.add(buttonIVR_2);
+                    buttonIVR_3 = (Button) popupView.findViewById(R.id.buttonIVR_3);
+                    seatsButtons.add(buttonIVR_3);
+                    buttonIVR_4 = (Button) popupView.findViewById(R.id.buttonIVR_4);
+                    seatsButtons.add(buttonIVR_4);
+                    buttonIVR_5 = (Button) popupView.findViewById(R.id.buttonIVR_5);
+                    seatsButtons.add(buttonIVR_5);
+                    buttonIVR_6 = (Button) popupView.findViewById(R.id.buttonIVR_6);
+                    seatsButtons.add(buttonIVR_6);
+                    buttonIVR_7 = (Button) popupView.findViewById(R.id.buttonIVR_7);
+                    seatsButtons.add(buttonIVR_7);
+
+                    buttonVR_1 = (Button) popupView.findViewById(R.id.buttonVR_1);
+                    seatsButtons.add(buttonVR_1);
+                    buttonVR_2 = (Button) popupView.findViewById(R.id.buttonVR_2);
+                    seatsButtons.add(buttonVR_2);
+                    buttonVR_3 = (Button) popupView.findViewById(R.id.buttonVR_3);
+                    seatsButtons.add(buttonVR_3);
+                    buttonVR_4 = (Button) popupView.findViewById(R.id.buttonVR_4);
+                    seatsButtons.add(buttonVR_4);
+                    buttonVR_5 = (Button) popupView.findViewById(R.id.buttonVR_5);
+                    seatsButtons.add(buttonVR_5);
+                    buttonVR_6 = (Button) popupView.findViewById(R.id.buttonVR_6);
+                    seatsButtons.add(buttonVR_6);
+                    buttonVR_7 = (Button) popupView.findViewById(R.id.buttonVR_7);
+                    seatsButtons.add(buttonVR_7);
+
+
+                    View.OnClickListener seatBtnClick=new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                           Button btn = (Button) popupView.findViewById(v.getId());
+                            btn.setBackgroundColor(Color.GREEN);
+                        }
+                    };
+
+                    for(Button b : seatsButtons)
+                        b.setOnClickListener(seatBtnClick);
+
+
                     // dismiss the popup window when touched
                     popupView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
@@ -298,6 +402,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             Drawable d = new ColorDrawable(Color.WHITE);
                             popupWindow.setBackgroundDrawable(new BitmapDrawable());
                             getWindow().setBackgroundDrawable(d);
+
+
                             return true;
                         }
                     });
@@ -307,6 +413,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         });
 
     }
+
 
 
 
@@ -337,7 +444,15 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     }
 
+/*
+    private View.OnClickListener seatButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Button btn = (Button) findViewById(v.getId());
+             btn.setBackgroundColor(Color.GREEN);
 
+        }
+    };*/
 }
 
 

@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.AsyncTasks;
+package com.companysf.filmbilet.asyncTasks;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.content.Context;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,19 +39,19 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     private ArrayList<Button> buttons = new ArrayList<>();
     private boolean isLeft;
     private int seatTypeId;
-    private LinearLayout  linearLayout1;
+    private LinearLayout linearLayoutSeats;
     private ArrayList<Reservation> reservationList = new ArrayList<>();
-    private TextView textView1, textView2, textView3;
-    private GridLayout gridLayout;
+    private TextView textView1Seats, textView2Seats, textView3Seats;
+    private GridLayout gridLayoutSeats;
 
     private Button buttonIR_1, buttonIR_2, buttonIR_3, buttonIR_4, buttonIR_5,buttonIR_6, buttonIR_7,
             buttonIIR_1, buttonIIR_2, buttonIIR_3, buttonIIR_4, buttonIIR_5,buttonIIR_6, buttonIIR_7,
             buttonIIIR_1, buttonIIIR_2, buttonIIIR_3, buttonIIIR_4, buttonIIIR_5,buttonIIIR_6, buttonIIIR_7,
             buttonIVR_1, buttonIVR_2, buttonIVR_3, buttonIVR_4, buttonIVR_5,buttonIVR_6, buttonIVR_7,
             buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
-            btnPayment;
+            btnReserve;
 
-    ProgressBar progressBar;
+    ProgressBar progressBarSeats;
 
     View linearLayout; //dodane
     private boolean start;
@@ -67,19 +66,19 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.linearLayout = linearLayout;
 
-        this.linearLayout1=(LinearLayout) linearLayout.findViewById(R.id.linearLayoutSummary);
+        this.linearLayoutSeats =(LinearLayout) linearLayout.findViewById(R.id.linearLayoutSummary);
 
-        this.progressBar=(ProgressBar) linearLayout.findViewById(R.id.progressBarSeats);
+        this.progressBarSeats =(ProgressBar) linearLayout.findViewById(R.id.progressBarSeats);
 
-        this.textView1=(TextView)linearLayout.findViewById(R.id.textView1Seats);
-        this.textView2=(TextView)linearLayout.findViewById(R.id.textView2Seats);
-        this.textView3=(TextView)linearLayout.findViewById(R.id.textView3Seats);
+        this.textView1Seats =(TextView)linearLayout.findViewById(R.id.textView1Seats);
+        this.textView2Seats =(TextView)linearLayout.findViewById(R.id.textView2Seats);
+        this.textView3Seats =(TextView)linearLayout.findViewById(R.id.textView3Seats);
 
-        this.gridLayout=(GridLayout)linearLayout.findViewById(R.id.gridLayoutSeats);
+        this.gridLayoutSeats =(GridLayout)linearLayout.findViewById(R.id.gridLayoutSeats);
 
         this.seatTypeId=seatTypeId;
 
-        this.btnPayment=linearLayout.findViewById(R.id.btnPayment);
+        this.btnReserve =linearLayout.findViewById(R.id.btnReserve);
 
             this.buttonIR_1 = (Button) linearLayout.findViewById(R.id.buttonIR_1);
             buttons.add(buttonIR_1);
@@ -222,20 +221,20 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         if(this.start){
 
-            this.linearLayout1.setVisibility(View.INVISIBLE);
+            this.linearLayoutSeats.setVisibility(View.INVISIBLE);
 
-            this.textView1.setVisibility(View.INVISIBLE);
-            this.textView2.setVisibility(View.INVISIBLE);
-            this.textView3.setVisibility(View.INVISIBLE);
+            this.textView1Seats.setVisibility(View.INVISIBLE);
+            this.textView2Seats.setVisibility(View.INVISIBLE);
+            this.textView3Seats.setVisibility(View.INVISIBLE);
 
-            this.gridLayout.setVisibility(View.INVISIBLE);
+            this.gridLayoutSeats.setVisibility(View.INVISIBLE);
 
             Log.d(logTag, "OnPreExecute przed zmianą buttonów");
             for(Button b : buttons)
                 b.setVisibility(View.INVISIBLE);
 
             Log.d(logTag, "OnPreExecute po zminie buttonów");
-            this.btnPayment.setVisibility(View.INVISIBLE);
+            this.btnReserve.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -246,20 +245,6 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         int repertoireId = integers[0];
         final String repertoireIdString = "" + repertoireId;
 
-        /*
-    //dostosowanie jednego layout do obydwu stron sali
-        if(!this.isLeft)
-        {
-            int begin = 8;
-            for(Button b : buttons)
-            {
-                Log.d(logTag, "Wartość begin " + begin);
-                b.setText("" + begin);
-                begin++;
-                if(begin == 15) begin=8;
-            }
-        }
-*/
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 AppConfig.GET_RESERVATIONS,
                 new Response.Listener<String>() {
@@ -438,9 +423,9 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     }
 
     protected void onProgressUpdate(Integer... values) {
-        progressBar.setVisibility(View.VISIBLE);
+        progressBarSeats.setVisibility(View.VISIBLE);
         super.onProgressUpdate(values);
-        progressBar.setProgress(values[0]);
+        progressBarSeats.setProgress(values[0]);
 
     }
 
@@ -450,17 +435,45 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         for(Button b : buttons)
             b.setVisibility(View.VISIBLE);
 
-        this.btnPayment.setVisibility(View.VISIBLE);
+        this.btnReserve.setVisibility(View.VISIBLE);
 
-        this.linearLayout1.setVisibility(View.VISIBLE);
+        this.linearLayoutSeats.setVisibility(View.VISIBLE);
 
-        this.textView1.setVisibility(View.VISIBLE);
-        this.textView2.setVisibility(View.VISIBLE);
-        this.textView3.setVisibility(View.VISIBLE);
+        this.textView1Seats.setVisibility(View.VISIBLE);
+        this.textView2Seats.setVisibility(View.VISIBLE);
+        this.textView3Seats.setVisibility(View.VISIBLE);
 
-        this.gridLayout.setVisibility(View.VISIBLE);
+        this.gridLayoutSeats.setVisibility(View.VISIBLE);
 
-        this.progressBar.setVisibility(View.INVISIBLE);
+        this.progressBarSeats.setVisibility(View.INVISIBLE);
+
+
+
+        textView1Seats.setText("Sektor S" + seatTypeId);
+
+        int cena=10;
+
+        switch(seatTypeId){
+            case 1:
+                cena=10;
+                break;
+
+            case 2:
+                cena=15;
+                break;
+
+            case 3:
+                cena=20;
+                break;
+
+            case 4:
+                cena=30;
+                break;
+        }
+
+        textView2Seats.setText("Cena: " + cena + "zł");
+
+
 
 
     }
