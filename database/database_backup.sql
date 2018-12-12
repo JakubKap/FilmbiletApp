@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 19 Lis 2018, 23:28
--- Wersja serwera: 10.1.29-MariaDB-6
--- Wersja PHP: 7.1.24
+-- Czas generowania: 12 Gru 2018, 22:20
+-- Wersja serwera: 10.1.37-MariaDB-2.cba
+-- Wersja PHP: 7.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,6 +38,18 @@ CREATE TABLE `customer` (
   `uniqueId` varchar(23) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `customer`
+--
+
+INSERT INTO `customer` (`id`, `name`, `surname`, `email`, `encryptedPassword`, `salt`, `createdAt`, `updatedAt`, `uniqueId`) VALUES
+(1, 'Seba', 'Folusz', 'seba@mail.com', '/ud6N2EIan3rZBbKq1BQKTJXMhEwMjg1N2ZmOWE0', '02857ff9a4', '2018-11-19 23:52:53', NULL, '5bf33ec5d3dc25.73669269'),
+(2, 'Seba', 'Folusz', 'seba2@mail.com', 'IgcBMhy3dA81JqkX477UDtcZgbE4NDYzZDVlYmQ4', '8463d5ebd8', '2018-11-20 00:50:47', NULL, '5bf34c574f87b0.21435215'),
+(3, 'Jakub', 'Kapusta', 'jakub1996k@gmail.com', 'Z2DY/YEy1nKd17yFENuhxSc8zPViN2IxYWNhZjQ1', 'b7b1acaf45', '2018-12-02 10:58:13', NULL, '5c03acb592cd25.86037913'),
+(4, 'jakub', 'Kapusta', 'jakub19896k@gmail.com', 'xUvg5BWIw5B7d39k0FMT458tPzE3NTY2OWY2NGIw', '75669f64b0', '2018-12-04 00:00:22', NULL, '5c05b5861b6a83.32272349'),
+(5, 'Sebastian', 'nazwisko', 'kuba@mail.com', '+/+JV+lTnEem5ag45rVxRhvnWtJiMmQ5ZTE5NGYy', 'b2d9e194f2', '2018-12-07 20:04:10', NULL, '5c0ac42a7625c5.51833012'),
+(6, 'hdjd', 'hxjd', 'nie_mail', 'kkJ7JflYn/4fOj0m8X1Kx8JxFSdkYzhlN2E2NzM3', 'dc8e7a6737', '2018-12-07 20:48:31', NULL, '5c0ace8f976b43.26374653');
+
 -- --------------------------------------------------------
 
 --
@@ -56,12 +68,10 @@ CREATE TABLE `gatunekHasMovie` (
 INSERT INTO `gatunekHasMovie` (`genreId`, `movieId`) VALUES
 (2, 5),
 (2, 7),
-(2, 8),
 (5, 6),
 (7, 3),
 (7, 9),
 (7, 10),
-(14, 1),
 (20, 5),
 (22, 2),
 (23, 4);
@@ -128,16 +138,16 @@ CREATE TABLE `movie` (
 --
 
 INSERT INTO `movie` (`id`, `title`, `runningTimeMin`, `age`, `languageVersion`, `releaseDate`, `description`, `pictureUrl`) VALUES
-(1, 'Planeta Singli 2', 159, 15, 'Polska', '2018-11-09', 'Związek Ani i Tomka przeżywa kryzys, bo oboje mają względem siebie inne zamiary. Tymczasem na horyzoncie pojawia się zakochany w dziewczynie milioner. ', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(2, 'Kler', 133, 15, 'Polska', '2018-09-28', 'Życie trzech księży ulega zmianie, kiedy ich drogi krzyżują się ponownie.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(4, 'Bohemian Rhapsody', 134, 15, 'Angielska (polskie napisy)', '2018-11-02', 'Dzięki oryginalnemu brzmieniu Queen staje się jednym z najpopularniejszych zespołów w historii muzyki.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(5, 'Król wyjęty spod prawa', 121, 18, 'Angielska (polskie napisy)', '2018-09-06', 'Dotychczas nieopowiedziana prawdziwa historia Roberta I Bruce’a, który w ciągu jednego roku z upadłego szlachcica stał się królem, a następnie wyjętym spod prawa bohaterem. W zniewolonej przez Anglię średniowiecznej Szkocji walczył, by ocalić swoją rodzinę, lud i kraj. Po przejęciu szkockiej korony, Robert i jego garstka sprzymierzeńców muszą stawić czoła najsilniejszej armii świata, dowodzonej przez króla Edwarda I oraz jego nieprzewidywalnego syna, księcia Walii.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(6, 'Suspiria', 152, 18, 'Angielska (polskie napisy)', '2018-11-02', 'Amerykańska baletnica rozpoczyna naukę na prestiżowej niemieckiej akademii tańca. Niebawem odkrywa mroczne sekrety szkoły.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(7, 'Climax', 90, 12, 'Angielska (polski dubbing)', '2018-10-19', 'Climax to inspirowana prawdziwymi wydarzeniami opowieść o grupie tancerzy, którzy w pewną zimową noc spotykają się w opuszczonej szkole na odludziu. Taneczna próba w rytm przebojów takich grup jak Daft Punk, Apex Twin i Soft Cell szybko zamienia się w pełną seksualnego napięcia imprezę. Gdy wychodzi na jaw, że domowej roboty sangrię ktoś \"doprawił\" narkotykami, dzika zabawa w zamkniętym budynku przeradza się w ekstremalną, psychodeliczną podróż.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(8, 'Pierwszy człowiek', 141, 15, 'Angielska (polskie napisy)', '2018-10-19', 'Fragment życia astronauty Neila Armstronga i jego legendarnej misji kosmicznej, dzięki której jako pierwszy człowiek stanął na Księżycu.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(9, 'Źle się dzieje w El Royale', 141, 18, 'Angielska (polskie napisy)', '2018-10-12', 'Siedmioro obcych sobie ludzi, z których każdy skrywa mroczną tajemnicę, spotyka się w El Royale.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(10, 'Ocean ognia', 121, 15, 'Angielska (polskie napisy)', '2018-10-26', 'Kapitan okrętu podwodnego współpracuje z drużyną Navy SEAL w celu uratowania prezydenta Rosji, który podczas zamachu wzięty został do niewoli. ', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
-(3, 'Winni', 85, 15, 'Duński (polskie napisy)', '2018-11-09', 'Dyspozytor linii 112 odbiera alarmowy telefon od porwanej kobiety. Połączenie zostaje przerwane i zaczyna się walka z czasem, by odnaleźć dzwoniącą oraz jej porywaczy.', 'https://m.media-amazon.com/images/M/MV5BY2RlMDhlY2MtMjQ1Zi00NzI5LTgxOTgtZjliNWMzYTY3NWZkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg');
+(1, 'Planeta Singli 2', 159, 15, 'Polska', '2018-11-09', 'Związek Ani i Tomka przeżywa kryzys, bo oboje mają względem siebie inne zamiary. Tymczasem na horyzoncie pojawia się zakochany w dziewczynie milioner. ', 'http://filmbilet.cba.pl/images/planeta-singli-2.jpeg'),
+(2, 'Kler', 133, 15, 'Polska', '2018-09-28', 'Życie trzech księży ulega zmianie, kiedy ich drogi krzyżują się ponownie.', 'http://filmbilet.cba.pl/images/kler.jpg'),
+(4, 'Bohemian Rhapsody', 134, 15, 'Angielska (polskie napisy)', '2018-11-02', 'Dzięki oryginalnemu brzmieniu Queen staje się jednym z najpopularniejszych zespołów w historii muzyki.', 'http://filmbilet.cba.pl/images/bohemian.jpg'),
+(5, 'Król wyjęty spod prawa', 121, 18, 'Angielska (polskie napisy)', '2018-09-06', 'Dotychczas nieopowiedziana prawdziwa historia Roberta I Bruce’a, który w ciągu jednego roku z upadłego szlachcica stał się królem, a następnie wyjętym spod prawa bohaterem. W zniewolonej przez Anglię średniowiecznej Szkocji walczył, by ocalić swoją rodzinę, lud i kraj. Po przejęciu szkockiej korony, Robert i jego garstka sprzymierzeńców muszą stawić czoła najsilniejszej armii świata, dowodzonej przez króla Edwarda I oraz jego nieprzewidywalnego syna, księcia Walii.', 'http://filmbilet.cba.pl/images/krol-wyjety-spod-prawa.jpg'),
+(6, 'Suspiria', 152, 18, 'Angielska (polskie napisy)', '2018-11-02', 'Amerykańska baletnica rozpoczyna naukę na prestiżowej niemieckiej akademii tańca. Niebawem odkrywa mroczne sekrety szkoły.', 'http://filmbilet.cba.pl/images/suspiria.jpg'),
+(7, 'Climax', 90, 12, 'Angielska (polski dubbing)', '2018-10-19', 'Climax to inspirowana prawdziwymi wydarzeniami opowieść o grupie tancerzy, którzy w pewną zimową noc spotykają się w opuszczonej szkole na odludziu. Taneczna próba w rytm przebojów takich grup jak Daft Punk, Apex Twin i Soft Cell szybko zamienia się w pełną seksualnego napięcia imprezę. Gdy wychodzi na jaw, że domowej roboty sangrię ktoś \"doprawił\" narkotykami, dzika zabawa w zamkniętym budynku przeradza się w ekstremalną, psychodeliczną podróż.', 'http://filmbilet.cba.pl/images/climax.jpg'),
+(8, 'Pierwszy człowiek', 141, 15, 'Angielska (polskie napisy)', '2018-10-19', 'Fragment życia astronauty Neila Armstronga i jego legendarnej misji kosmicznej, dzięki której jako pierwszy człowiek stanął na Księżycu.', 'http://filmbilet.cba.pl/images/pierwszy-czlowiek.jpg'),
+(9, 'Źle się dzieje w El Royale', 141, 18, 'Angielska (polskie napisy)', '2018-10-12', 'Siedmioro obcych sobie ludzi, z których każdy skrywa mroczną tajemnicę, spotyka się w El Royale.', 'http://filmbilet.cba.pl/images/zle-sie-dzieje-w-el-royale.jpg'),
+(10, 'Ocean ognia', 121, 15, 'Angielska (polskie napisy)', '2018-10-26', 'Kapitan okrętu podwodnego współpracuje z drużyną Navy SEAL w celu uratowania prezydenta Rosji, który podczas zamachu wzięty został do niewoli. ', 'http://filmbilet.cba.pl/images/ocean-ognia.jpg'),
+(3, 'Winni', 85, 15, 'Duński (polskie napisy)', '2018-11-09', 'Dyspozytor linii 112 odbiera alarmowy telefon od porwanej kobiety. Połączenie zostaje przerwane i zaczyna się walka z czasem, by odnaleźć dzwoniącą oraz jej porywaczy.', 'http://filmbilet.cba.pl/images/winni.jpg');
 
 -- --------------------------------------------------------
 
@@ -161,7 +171,7 @@ INSERT INTO `repertoire` (`id`, `date`, `movieId`) VALUES
 (3, '2018-11-28 20:00:00', 10),
 (4, '2018-11-09 15:00:00', 5),
 (5, '2018-11-27 13:00:00', 6),
-(6, '2018-11-23 11:00:00', 2),
+(6, '2018-11-23 11:00:00', 5),
 (7, '2018-11-30 12:00:00', 3),
 (8, '2018-11-26 14:00:00', 4);
 
@@ -180,6 +190,20 @@ CREATE TABLE `reservation` (
   `seatTypeId` int(11) NOT NULL,
   `repertoireId` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `reservation`
+--
+
+INSERT INTO `reservation` (`customerId`, `hall`, `seatNumber`, `row`, `date`, `seatTypeId`, `repertoireId`) VALUES
+(1, 1, 1, 1, '2018-12-20 18:00:00', 1, 1),
+(1, 2, 12, 2, '2018-12-01 17:58:11', 3, 1),
+(2, 2, 13, 2, '2018-12-01 18:07:00', 3, 1),
+(25, 2, 1, 1, '2018-12-12 20:59:45', 1, 1),
+(3, 2, 1, 1, '2018-12-01 22:43:24', 4, 1),
+(4, 2, 5, 1, '2018-12-02 09:23:28', 1, 1),
+(26, 2, 1, 1, '2018-12-12 21:04:34', 2, 1),
+(2, 2, 55, 11, '2018-12-02 11:05:22', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -265,7 +289,7 @@ ALTER TABLE `seatType`
 -- AUTO_INCREMENT dla tabeli `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT dla tabeli `genre`
 --
