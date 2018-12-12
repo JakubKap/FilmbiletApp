@@ -6,7 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -29,9 +27,6 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 
 
-import java.lang.reflect.Array;
-import java.net.ServerSocket;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.Map;
@@ -41,7 +36,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
-    private Map<Button, Boolean> buttons = new HashMap<>();
+    private Map<Button, Boolean> sectorButtons = new HashMap<>();
 
     ConstraintLayout constraintLayout;
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
@@ -56,8 +51,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
             btnReserve;
 
-
-    ArrayList<Button> seatsButtons = new ArrayList<>();
+    private Map<Button, Boolean> seatButtons = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +61,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         // btnNext = (Button) findViewById(R.id.btnNext);
 
-        //adjusting size of  the buttons
+        //adjusting size of  the sectorButtons
 
         constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
 
@@ -84,14 +78,14 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         btn_next = (Button) findViewById(R.id.btn_next);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        buttons.put(button1, false);
-        buttons.put(button2, false);
-        buttons.put(button3, false);
-        buttons.put(button4, false);
-        buttons.put(button5, false);
-        buttons.put(button6, false);
-        buttons.put(button7, false);
-        buttons.put(button8, false);
+        sectorButtons.put(button1, false);
+        sectorButtons.put(button2, false);
+        sectorButtons.put(button3, false);
+        sectorButtons.put(button4, false);
+        sectorButtons.put(button5, false);
+        sectorButtons.put(button6, false);
+        sectorButtons.put(button7, false);
+        sectorButtons.put(button8, false);
 
 
         //ConstraintLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)button1.getLayoutParams();
@@ -163,7 +157,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                 public void run() {
                     //zapisanie poprzedniego stanu sektorów
-                    Map<Button, Boolean> previousButtons = new HashMap<>(buttons);
+                    Map<Button, Boolean> previousButtons = new HashMap<>(sectorButtons);
                     new FreeSectorsTask(getApplicationContext(), constraintLayout, false).execute(1);
                     //dodanie zabezpieczenia przed wybraniem miejsca które, akurat zostało zajęte
                     handler.postDelayed(this, 2000); //now is every 500 ms
@@ -217,7 +211,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                 int selected = 0;
                 boolean isButtonChanged = false;
-                for (Map.Entry<Button, Boolean> entry : buttons.entrySet()) {
+                for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
                     Button key = entry.getKey();
                     Boolean value = entry.getValue();
 
@@ -225,7 +219,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                         selected++;
 
                     else if(value && !key.isEnabled()){
-                        buttons.put(key, false);
+                        sectorButtons.put(key, false);
                         Toast.makeText(getApplicationContext(),
                                 "Ostatnie miejsce z wybranego sektora zostało zarezerwowane. Wybierz inny sektor.", Toast.LENGTH_SHORT).show();
                     Log.d("Przegląd buttonów", "" + key +" " + value);
@@ -241,14 +235,14 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             getSystemService(LAYOUT_INFLATER_SERVICE);
 
 
-                    boolean flag1 = buttons.get(button1);
-                    boolean flag2 = buttons.get(button2);
-                    boolean flag3 = buttons.get(button3);
-                    boolean flag4 = buttons.get(button4);
-                    boolean flag5 = buttons.get(button5);
-                    boolean flag6 = buttons.get(button6);
-                    boolean flag7 = buttons.get(button7);
-                    boolean flag8 = buttons.get(button8);
+                    boolean flag1 = sectorButtons.get(button1);
+                    boolean flag2 = sectorButtons.get(button2);
+                    boolean flag3 = sectorButtons.get(button3);
+                    boolean flag4 = sectorButtons.get(button4);
+                    boolean flag5 = sectorButtons.get(button5);
+                    boolean flag6 = sectorButtons.get(button6);
+                    boolean flag7 = sectorButtons.get(button7);
+                    boolean flag8 = sectorButtons.get(button8);
 
                     //wykrycie, który typ miejsca został wybrany
 
@@ -306,79 +300,79 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     //dodanie słuchacza do przycisków oraz textView popupview
 
                     buttonIR_1 = (Button) popupView.findViewById(R.id.buttonIR_1);
-                    seatsButtons.add(buttonIR_1);
+                    seatButtons.put(buttonIR_1,false);
                     buttonIR_2 = (Button) popupView.findViewById(R.id.buttonIR_2);
-                    seatsButtons.add(buttonIR_2);
+                    seatButtons.put(buttonIR_2,false);
                     buttonIR_3 = (Button) popupView.findViewById(R.id.buttonIR_3);
-                    seatsButtons.add(buttonIR_3);
+                    seatButtons.put(buttonIR_3,false);
                     buttonIR_4 = (Button) popupView.findViewById(R.id.buttonIR_4);
-                    seatsButtons.add(buttonIR_4);
+                    seatButtons.put(buttonIR_4,false);
                     buttonIR_5 = (Button) popupView.findViewById(R.id.buttonIR_5);
-                    seatsButtons.add(buttonIR_5);
+                    seatButtons.put(buttonIR_5,false);
                     buttonIR_6 = (Button) popupView.findViewById(R.id.buttonIR_6);
-                    seatsButtons.add(buttonIR_6);
+                    seatButtons.put(buttonIR_6,false);
                     buttonIR_7 = (Button) popupView.findViewById(R.id.buttonIR_7);
-                    seatsButtons.add(buttonIR_7);
+                    seatButtons.put(buttonIR_7,false);
 
                     buttonIIR_1 = (Button) popupView.findViewById(R.id.buttonIIR_1);
-                    seatsButtons.add(buttonIIR_1);
+                    seatButtons.put(buttonIIR_1,false);
                     buttonIIR_2 = (Button) popupView.findViewById(R.id.buttonIIR_2);
-                    seatsButtons.add(buttonIIR_2);
+                    seatButtons.put(buttonIIR_2,false);
                     buttonIIR_3 = (Button) popupView.findViewById(R.id.buttonIIR_3);
-                    seatsButtons.add(buttonIIR_3);
+                    seatButtons.put(buttonIIR_3,false);
                     buttonIIR_4 = (Button) popupView.findViewById(R.id.buttonIIR_4);
-                    seatsButtons.add(buttonIIR_4);
+                    seatButtons.put(buttonIIR_4,false);
                     buttonIIR_5 = (Button) popupView.findViewById(R.id.buttonIIR_5);
-                    seatsButtons.add(buttonIIR_5);
+                    seatButtons.put(buttonIIR_5,false);
                     buttonIIR_6 = (Button) popupView.findViewById(R.id.buttonIIR_6);
-                    seatsButtons.add(buttonIIR_6);
+                    seatButtons.put(buttonIIR_6,false);
                     buttonIIR_7 = (Button) popupView.findViewById(R.id.buttonIIR_7);
-                    seatsButtons.add(buttonIIR_7);
+                    seatButtons.put(buttonIIR_7,false);
 
                     buttonIIIR_1 = (Button) popupView.findViewById(R.id.buttonIIIR_1);
-                    seatsButtons.add(buttonIIIR_1);
+                    seatButtons.put(buttonIIIR_1,false);
                     buttonIIIR_2 = (Button) popupView.findViewById(R.id.buttonIIIR_2);
-                    seatsButtons.add(buttonIIIR_2);
+                    seatButtons.put(buttonIIIR_2,false);
                     buttonIIIR_3 = (Button) popupView.findViewById(R.id.buttonIIIR_3);
-                    seatsButtons.add(buttonIIIR_3);
+                    seatButtons.put(buttonIIIR_3,false);
                     buttonIIIR_4 = (Button) popupView.findViewById(R.id.buttonIIIR_4);
-                    seatsButtons.add(buttonIIIR_4);
+                    seatButtons.put(buttonIIIR_4,false);
                     buttonIIIR_5 = (Button) popupView.findViewById(R.id.buttonIIIR_5);
-                    seatsButtons.add(buttonIIIR_5);
+                    seatButtons.put(buttonIIIR_5,false);
                     buttonIIIR_6 = (Button) popupView.findViewById(R.id.buttonIIIR_6);
-                    seatsButtons.add(buttonIIIR_6);
+                    seatButtons.put(buttonIIIR_6,false);
                     buttonIIIR_7 = (Button) popupView.findViewById(R.id.buttonIIIR_7);
-                    seatsButtons.add(buttonIIIR_7);
+                    seatButtons.put(buttonIIIR_7,false);
 
                     buttonIVR_1 = (Button) popupView.findViewById(R.id.buttonIVR_1);
-                    seatsButtons.add(buttonIVR_1);
+                    seatButtons.put(buttonIVR_1,false);
                     buttonIVR_2 = (Button) popupView.findViewById(R.id.buttonIVR_2);
-                    seatsButtons.add(buttonIVR_2);
+                    seatButtons.put(buttonIVR_2,false);
                     buttonIVR_3 = (Button) popupView.findViewById(R.id.buttonIVR_3);
-                    seatsButtons.add(buttonIVR_3);
+                    seatButtons.put(buttonIVR_3,false);
                     buttonIVR_4 = (Button) popupView.findViewById(R.id.buttonIVR_4);
-                    seatsButtons.add(buttonIVR_4);
+                    seatButtons.put(buttonIVR_4,false);
                     buttonIVR_5 = (Button) popupView.findViewById(R.id.buttonIVR_5);
-                    seatsButtons.add(buttonIVR_5);
+                    seatButtons.put(buttonIVR_5,false);
                     buttonIVR_6 = (Button) popupView.findViewById(R.id.buttonIVR_6);
-                    seatsButtons.add(buttonIVR_6);
+                    seatButtons.put(buttonIVR_6,false);
                     buttonIVR_7 = (Button) popupView.findViewById(R.id.buttonIVR_7);
-                    seatsButtons.add(buttonIVR_7);
+                    seatButtons.put(buttonIVR_7,false);
 
                     buttonVR_1 = (Button) popupView.findViewById(R.id.buttonVR_1);
-                    seatsButtons.add(buttonVR_1);
+                    seatButtons.put(buttonVR_1,false);
                     buttonVR_2 = (Button) popupView.findViewById(R.id.buttonVR_2);
-                    seatsButtons.add(buttonVR_2);
+                    seatButtons.put(buttonVR_2,false);
                     buttonVR_3 = (Button) popupView.findViewById(R.id.buttonVR_3);
-                    seatsButtons.add(buttonVR_3);
+                    seatButtons.put(buttonVR_3,false);
                     buttonVR_4 = (Button) popupView.findViewById(R.id.buttonVR_4);
-                    seatsButtons.add(buttonVR_4);
+                    seatButtons.put(buttonVR_4,false);
                     buttonVR_5 = (Button) popupView.findViewById(R.id.buttonVR_5);
-                    seatsButtons.add(buttonVR_5);
+                    seatButtons.put(buttonVR_5,false);
                     buttonVR_6 = (Button) popupView.findViewById(R.id.buttonVR_6);
-                    seatsButtons.add(buttonVR_6);
+                    seatButtons.put(buttonVR_6,false);
                     buttonVR_7 = (Button) popupView.findViewById(R.id.buttonVR_7);
-                    seatsButtons.add(buttonVR_7);
+                    seatButtons.put(buttonVR_7,false);
 
 
                     View.OnClickListener seatBtnClick=new View.OnClickListener() {
@@ -386,12 +380,25 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                            Button btn = (Button) popupView.findViewById(v.getId());
-                            btn.setBackgroundColor(Color.GREEN);
+
+                            //String free ="#6bb9f0";
+
+                            Animation animation = new AlphaAnimation(1.0f, 0.0f);
+                            animation.setDuration(200);
+
+                            btn.startAnimation(animation);
+
+                            btn.setBackgroundResource(R.drawable.button_light);
+
                         }
                     };
 
-                    for(Button b : seatsButtons)
-                        b.setOnClickListener(seatBtnClick);
+                    for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+                        Button key = entry.getKey();
+                        Boolean value = entry.getValue();
+                        key.setOnClickListener(seatBtnClick);
+                    }
+
 
 
                     // dismiss the popup window when touched
@@ -432,12 +439,12 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         btn.startAnimation(animation);
 
-        if(!buttons.get(btn)){
-            buttons.put(btn,true);
+        if(!sectorButtons.get(btn)){
+            sectorButtons.put(btn,true);
             btn.setBackgroundResource(R.drawable.button_light);
         }
         else{
-            buttons.put(btn,false);
+            sectorButtons.put(btn,false);
             btn.setBackgroundResource(R.drawable.button_normal);
         }
 
