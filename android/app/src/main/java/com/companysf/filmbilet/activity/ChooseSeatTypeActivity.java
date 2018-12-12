@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.companysf.filmbilet.asyncTasks.FreeSeatsTask;
@@ -26,6 +27,8 @@ import com.companysf.filmbilet.asyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -42,6 +45,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
     ProgressBar progressBar;
 
+    TextView textView3, textView4;
 
     //seats
     private Button buttonIR_1, buttonIR_2, buttonIR_3, buttonIR_4, buttonIR_5,buttonIR_6, buttonIR_7,
@@ -49,10 +53,51 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             buttonIIIR_1, buttonIIIR_2, buttonIIIR_3, buttonIIIR_4, buttonIIIR_5,buttonIIIR_6, buttonIIIR_7,
             buttonIVR_1, buttonIVR_2, buttonIVR_3, buttonIVR_4, buttonIVR_5,buttonIVR_6, buttonIVR_7,
             buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
-            btnReserve;
+            btnReserve, btnAccept;
+
+    private TextView textView3Seats;
 
     private Map<Button, Boolean> seatButtons = new HashMap<>();
 
+
+    public int selectedSeats() {
+
+        int selected = 0;
+        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+            Button key = entry.getKey();
+            Boolean value = entry.getValue();
+
+            if(value) selected++;
+
+        }
+        return selected;
+    }
+
+    public int selectedSector(){
+        boolean flag1 = sectorButtons.get(button1);
+        boolean flag2 = sectorButtons.get(button2);
+        boolean flag3 = sectorButtons.get(button3);
+        boolean flag4 = sectorButtons.get(button4);
+        boolean flag5 = sectorButtons.get(button5);
+        boolean flag6 = sectorButtons.get(button6);
+        boolean flag7 = sectorButtons.get(button7);
+        boolean flag8 = sectorButtons.get(button8);
+
+        //wykrycie, który typ miejsca został wybrany
+        int seatTypeId=1;
+
+        if(flag1 || flag2)
+            seatTypeId=1;
+        else if(flag3 || flag4)
+            seatTypeId=2;
+        else if(flag5 || flag6)
+            seatTypeId=3;
+        else if (flag7 || flag8)
+            seatTypeId=4;
+
+        return seatTypeId;
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +121,12 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_next = (Button) findViewById(R.id.btn_next);
+        btnAccept = (Button) findViewById(R.id.btnAccept);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        textView3=(TextView) findViewById(R.id.textView3);
+        textView4=(TextView) findViewById(R.id.textView4);
 
         sectorButtons.put(button1, false);
         sectorButtons.put(button2, false);
@@ -235,6 +285,14 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             getSystemService(LAYOUT_INFLATER_SERVICE);
 
 
+
+                    int seatTypeId=selectedSector();
+
+                    final View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
+
+                    LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
+
+
                     boolean flag1 = sectorButtons.get(button1);
                     boolean flag2 = sectorButtons.get(button2);
                     boolean flag3 = sectorButtons.get(button3);
@@ -243,25 +301,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     boolean flag6 = sectorButtons.get(button6);
                     boolean flag7 = sectorButtons.get(button7);
                     boolean flag8 = sectorButtons.get(button8);
-
-                    //wykrycie, który typ miejsca został wybrany
-
-                    int seatTypeId=1;
-
-                    if(flag1 || flag2)
-                        seatTypeId=1;
-                    else if(flag3 || flag4)
-                        seatTypeId=2;
-                    else if(flag5 || flag6)
-                        seatTypeId=3;
-                    else if (flag7 || flag8)
-                        seatTypeId=4;
-
-                    final View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
-
-                    LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
-
-
 
 
                     if(flag1 || flag3 || flag5 || flag7)
@@ -374,6 +413,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     buttonVR_7 = (Button) popupView.findViewById(R.id.buttonVR_7);
                     seatButtons.put(buttonVR_7,false);
 
+                    textView3Seats = (TextView) popupView.findViewById(R.id.textView3Seats);
+
 
                     View.OnClickListener seatBtnClick=new View.OnClickListener() {
                         @Override
@@ -381,14 +422,26 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                            Button btn = (Button) popupView.findViewById(v.getId());
 
-                            //String free ="#6bb9f0";
 
                             Animation animation = new AlphaAnimation(1.0f, 0.0f);
                             animation.setDuration(200);
 
                             btn.startAnimation(animation);
 
-                            btn.setBackgroundResource(R.drawable.button_light);
+
+                            if(!seatButtons.get(btn)){
+                                seatButtons.put(btn,true);
+                                btn.setBackgroundResource(R.drawable.button_light);
+                            }
+                            else{
+                                seatButtons.put(btn,false);
+                                btn.setBackgroundResource(R.drawable.button_normal);
+                            }
+
+
+                            int selected = selectedSeats();
+
+                            textView3Seats.setText("Liczba wybranych miejsc: " + selected);
 
                         }
                     };
@@ -400,6 +453,67 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     }
 
 
+                    btnReserve = (Button) popupView.findViewById(R.id.btnReserve);
+
+                    //dodanie obsługi klawisza zarezerwuj
+                    btnReserve.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if(selectedSeats() > 0)
+                            {
+                                popupWindow.dismiss();
+                                Drawable d = new ColorDrawable(Color.WHITE);
+                                popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                                getWindow().setBackgroundDrawable(d);
+
+                                //Wyświetlenie podsumowania
+                                btn_back.setVisibility(View.INVISIBLE);
+                                btn_next.setVisibility(View.INVISIBLE);
+                                textView3.setVisibility(View.VISIBLE);
+
+                                for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
+                                    Button key = entry.getKey();
+                                    Boolean value = entry.getValue();
+                                    key.setEnabled(false);
+                                }
+
+                                textView4.setVisibility(View.VISIBLE);
+
+                                //obliczenie ceny
+
+                                int price = 1;
+                                int seatTypeId = selectedSector();
+
+                                if(seatTypeId == 1)
+                                    price = selectedSeats() * 10;
+                                else if(seatTypeId == 2)
+                                    price = selectedSeats() * 15;
+                                else if(seatTypeId == 3)
+                                    price = selectedSeats() * 20;
+                                else if(seatTypeId == 4)
+                                    price = selectedSeats() * 30;
+
+
+
+                               textView4.setText("Liczba miejsc: " + selectedSeats()
+                               + "\nCena: " + price + " zł");
+
+                                btnAccept.setVisibility(View.VISIBLE);
+
+
+                                //ustalenie które rzędy
+
+                            }
+                            else{
+                                textView3Seats.setText("Musisz wybrać co najmniej 1 miejsce.");
+                            }
+
+
+
+                        }
+                    });
+
 
                     // dismiss the popup window when touched
                     popupView.setOnTouchListener(new View.OnTouchListener() {
@@ -409,7 +523,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             Drawable d = new ColorDrawable(Color.WHITE);
                             popupWindow.setBackgroundDrawable(new BitmapDrawable());
                             getWindow().setBackgroundDrawable(d);
-
+                            //usunięcie historii wybranych miejsc po kliknięciu poza popup
+                            seatButtons.clear();
 
                             return true;
                         }

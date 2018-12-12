@@ -39,9 +39,9 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     private ArrayList<Integer> freeSeats = new ArrayList<>();
     private WeakReference<Context> contextref;
     private ConstraintLayout constraintLayout;
-    private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next, btnAccept;
     private ProgressBar progressBar;
-    private TextView textView1, textView2, textView3;
+    private TextView textView1, textView2, textView3, textView4;
     LinearLayout linearLayout;
 
     boolean start;
@@ -63,12 +63,14 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         this.button8=(Button) constraintLayout.findViewById(R.id.button8);
         this.btn_back=(Button) constraintLayout.findViewById(R.id.btn_back);
         this.btn_next=(Button) constraintLayout.findViewById(R.id.btn_next);
+        this.btnAccept = (Button) constraintLayout.findViewById(R.id.btnAccept);
 
         this.progressBar=(ProgressBar) constraintLayout.findViewById(R.id.progressBar);
 
         this.textView1=(TextView) constraintLayout.findViewById(R.id.textView1);
         this.textView2=(TextView) constraintLayout.findViewById(R.id.textView2);
         this.textView3=(TextView) constraintLayout.findViewById(R.id.textView3);
+        this.textView4=(TextView) constraintLayout.findViewById(R.id.textView4);
 
         this.linearLayout=(LinearLayout)constraintLayout.findViewById(R.id.linearLayout);
         this.start = start;
@@ -126,12 +128,14 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
             this.button8.setVisibility(View.INVISIBLE);
             this.btn_back.setVisibility(View.INVISIBLE);
             this.btn_next.setVisibility(View.INVISIBLE);
+            this.btnAccept.setVisibility(View.INVISIBLE);
 
             this.progressBar.setVisibility(View.VISIBLE);
 
             this.textView1.setVisibility(View.INVISIBLE);
             this.textView2.setVisibility(View.INVISIBLE);
             this.textView3.setVisibility(View.INVISIBLE);
+            this.textView4.setVisibility(View.INVISIBLE);
 
             this.linearLayout.setVisibility(View.INVISIBLE);
         }

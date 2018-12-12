@@ -449,7 +449,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
 
 
-        textView1Seats.setText("Sektor S" + seatTypeId);
+        textView1Seats.append(""+seatTypeId);
+        textView3Seats.append(""+0);
 
         int cena=10;
 
@@ -471,7 +472,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                 break;
         }
 
-        textView2Seats.setText("Cena: " + cena + "zł");
+        textView2Seats.append(cena + " zł");
 
 
 

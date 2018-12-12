@@ -16,7 +16,7 @@
         android:layout_marginBottom="10sp"
         android:layout_weight="3"
         android:fontFamily="@font/opensans_bold"
-        android:text="Sektor A1"
+        android:text="Sektor S"
         android:textAlignment="center"
         android:textSize="30sp" />
 
@@ -452,7 +452,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
             android:fontFamily="@font/opensans_bold"
-            android:text="Wybrałeś 2 miejsca"
+            android:text="Wybrane miejsca: "
             android:textAlignment="center"
             android:textSize="20sp" />
 
