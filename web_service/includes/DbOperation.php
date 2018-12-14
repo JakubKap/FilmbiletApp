@@ -180,19 +180,19 @@ class DbOperation
 		if ($results !== false){
 			$results->execute();
 			
-			$results->bind_result($customerId, $movieId, $hall, $seatNumber, $row, $date, $seatTypeId);
+			$results->bind_result($id, $customerId, $seatNumber, $row, $date, $seatTypeId, $repertoireId);
 			
 			$reservations = array(); 
 			
 			while($results->fetch()){
 				$reservation  = array();
+				$reservation['id'] = $id; 
 				$reservation['customerId'] = $customerId; 
-				$reservation['movieId'] = $movieId; 
-				$reservation['hall'] = $hall; 
 				$reservation['seatNumber'] = $seatNumber; 
 				$reservation['row'] = $row; 
 				$reservation['date'] = $date; 
 				$reservation['seatTypeId'] = $seatTypeId; 
+				$reservation['repertoireId'] = $seatNumber; 
 				
 				array_push($reservations, $reservation); 
 			}
@@ -203,21 +203,21 @@ class DbOperation
 	
 	public function getReservationsFromRepertoire($repertoireId){
 		
-		 $results = $this->con->prepare("SELECT customerId, hall, seatNumber, row, date, seatTypeId FROM reservation WHERE repertoireId = ?");
+		 $results = $this->con->prepare("SELECT id, customerId, seatNumber, row, date, seatTypeId FROM reservation WHERE repertoireId = ?");
 		
 		 $results->bind_param("s", $repertoireId);
 		 	
 		if ($results !== false){
 			$results->execute();
 			
-			$results->bind_result($customerId, $hall, $seatNumber, $row, $date, $seatTypeId);
+			$results->bind_result($id, $customerId, $seatNumber, $row, $date, $seatTypeId);
 			
 			$reservations = array(); 
 			
 			while($results->fetch()){
 				$reservation  = array();
+				$reservation['id'] = $id; 
 				$reservation['customerId'] = $customerId; 
-				$reservation['hall'] = $hall; 
 				$reservation['seatNumber'] = $seatNumber; 
 				$reservation['row'] = $row; 
 				$reservation['date'] = $date; 
@@ -230,12 +230,12 @@ class DbOperation
 		} else return false;
 	}
 	
-	public function storeReservation($customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId) {
+	public function storeReservation($customerId, $seatNumber, $row, $seatTypeId, $repertoireId) {
        
-		$results = $this->con->prepare("INSERT INTO reservation(customerId, hall, seatNumber, row, date, seatTypeId, repertoireId) VALUES(?, ?, ?, ?, NOW(), ?, ?)");
+		$results = $this->con->prepare("INSERT INTO reservation(customerId, seatNumber, row, date, seatTypeId, repertoireId) VALUES(?, ?, ?, NOW(), ?, ?)");
 		
 		
-        $results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
+        $results->bind_param("sssss", $customerId, $seatNumber, $row, $seatTypeId, $repertoireId);
 		
 		if ($results !== false){
 			$result = $results->execute();
@@ -243,8 +243,8 @@ class DbOperation
 
 			// check for successful store
 			if ($result) {
-				$results = $this->con->prepare("SELECT * FROM reservation WHERE customerId = ? AND hall = ? AND seatNumber = ? AND row = ? AND seatTypeId = ? AND repertoireId = ?");
-				$results->bind_param("ssssss", $customerId, $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
+				$results = $this->con->prepare("SELECT * FROM reservation WHERE seatNumber = ? AND repertoireId = ?");
+				$results->bind_param("ss", $seatNumber, $repertoireId);
 				$results->execute();
 				$reservation = $results->get_result()->fetch_assoc();
 				$results->close();
@@ -256,10 +256,10 @@ class DbOperation
 		}
     }
 	
-	public function isReservationExisted($hall, $seatNumber, $row, $seatTypeId, $repertoireId) {
-		$results = $this->con->prepare("SELECT customerId from reservation WHERE hall = ? AND seatNumber=? AND row=? AND seatTypeId = ? AND repertoireId=?");
+	public function isReservationExisted($seatNumber, $repertoireId) {
+		$results = $this->con->prepare("SELECT customerId from reservation WHERE seatNumber = ? AND repertoireId = ?");
 
-        $results->bind_param("sssss", $hall, $seatNumber, $row, $seatTypeId, $repertoireId);
+        $results->bind_param("ss", $seatNumber, $repertoireId);
 
         $results->execute();
 
@@ -296,6 +296,10 @@ class DbOperation
 			
 			while($results->fetch()){
 				$movie  = array();
+				
+				if (is_null($genres))
+					$genres = "-";
+				
 				$movie['id'] = $id; 
 				$movie['title'] = $title; 
 				$movie['runningTimeMin'] = $runningTimeMin; 

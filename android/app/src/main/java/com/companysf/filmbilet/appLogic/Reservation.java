@@ -4,16 +4,25 @@ import java.text.SimpleDateFormat;
 
 public class Reservation {
 
-    private int customerId, hall, seatNumber, row, seatTypeId;
+    private int id, customerId, seatNumber, row, seatTypeId;
     String datePom;
 
-    public Reservation(int customerId, int hall, int seatNumber, int row, String datePom, int seatTypeId) {
+    public Reservation(int id, int customerId, int hall, int seatNumber, int row, String datePom, int seatTypeId) {
+        this.id = id;
+
         this.customerId = customerId;
-        this.hall = hall;
         this.seatNumber = seatNumber;
         this.row = row;
         this.datePom = datePom;
         this.seatTypeId = seatTypeId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCustomerId() {
@@ -22,14 +31,6 @@ public class Reservation {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }
-
-    public int getHall() {
-        return hall;
-    }
-
-    public void setHall(int hall) {
-        this.hall = hall;
     }
 
     public int getSeatNumber() {

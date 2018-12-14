@@ -16,7 +16,7 @@ header('Content-Type: application/json; charset=utf-8');
 		// check if email exist in database
 		if ($db->isCustomerExisted($email)) {
 			$response["error"] = TRUE;
-			$response["message"] = "customer already existed with " . $email;
+			$response["message"] = "Użytkownik o adresie: " . $email . " już istnieje w systemie";
 			echo json_encode($response);
 		} else {		
 			$customer = $db->storeCustomer($name, $surname, $email, $password);
@@ -31,7 +31,7 @@ header('Content-Type: application/json; charset=utf-8');
 				echo json_encode($response);
 			} else {
 				$response["error"] = TRUE;
-				$response["message"] = "Unknown error occurred in registration!";
+				$response["message"] = "Błąd serwera!";
 				echo json_encode($response);
 			}
 		}
