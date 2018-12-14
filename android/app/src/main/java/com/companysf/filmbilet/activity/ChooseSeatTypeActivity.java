@@ -22,8 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.companysf.filmbilet.asyncTasks.FreeSeatsTask;
-import com.companysf.filmbilet.asyncTasks.FreeSectorsTask;
+import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
+import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 

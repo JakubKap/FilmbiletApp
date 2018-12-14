@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.asyncTasks;
+package com.companysf.filmbilet.AsyncTasks;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -40,6 +40,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     private WeakReference<Context> contextref;
     private ConstraintLayout constraintLayout;
     private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next, btnAccept;
+    private ArrayList<Button> buttons = new ArrayList<>();
     private ProgressBar progressBar;
     private TextView textView1, textView2, textView3, textView4;
     LinearLayout linearLayout;
@@ -54,13 +55,29 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         this.constraintLayout = constraintLayout;
 
         this.button1=(Button) constraintLayout.findViewById(R.id.button1);
+        buttons.add(button1);
+
         this.button2=(Button) constraintLayout.findViewById(R.id.button2);
+        buttons.add(button2);
+
         this.button3=(Button) constraintLayout.findViewById(R.id.button3);
+        buttons.add(button3);
+
         this.button4=(Button) constraintLayout.findViewById(R.id.button4);
+        buttons.add(button4);
+
         this.button5=(Button) constraintLayout.findViewById(R.id.button5);
+        buttons.add(button5);
+
         this.button6=(Button) constraintLayout.findViewById(R.id.button6);
+        buttons.add(button6);
+
         this.button7=(Button) constraintLayout.findViewById(R.id.button7);
+        buttons.add(button7);
+
         this.button8=(Button) constraintLayout.findViewById(R.id.button8);
+        buttons.add(button8);
+
         this.btn_back=(Button) constraintLayout.findViewById(R.id.btn_back);
         this.btn_next=(Button) constraintLayout.findViewById(R.id.btn_next);
         this.btnAccept = (Button) constraintLayout.findViewById(R.id.btnAccept);
@@ -77,11 +94,33 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
     }
 
-    public int freeSectorSlots(int slot_number, boolean isLeft) {
-        int takenLeft = 0;
-        int takenRight = 0;
+    public int freeSectorSlots(int slot_number, int firstSeat) {
+        int taken=0;
+
+        //zbudowanie siatki miejsc
+
+        ArrayList<Integer> seatNumber = new ArrayList<>();
+        int seatNr = firstSeat;
+
+        for(int i=1; i<=35; i++){
+
+            if(i==8 || i==15 || i==22 || i==29) {
+                seatNr += 7;
+                seatNumber.add(seatNr);
+                Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
+                seatNr++;
+            }
+                else{
+                seatNumber.add(seatNr);
+                Log.d(logTag, "Dodana wartość do siatki: " + seatNr+ " dla i = " + i);
+                seatNr++;
+            }
+
+        }
+
         String text;
 
+/*
         for (Reservation r : reservationList) {
             if ((r.getSeatTypeId() == slot_number) && isLeft && r.getSeatNumber() <= 7) {
                 takenLeft++;
@@ -91,9 +130,17 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
             text="" + r.getCustomerId();
             Log.d("Zawartość listy: ", text);
         }
+*/
 
-        if (isLeft) return 35 - takenLeft;
-        else return 35 - takenRight;
+
+        for (Reservation r : reservationList) {
+            if ((r.getSeatTypeId() == slot_number) && seatNumber.contains(r.getSeatNumber()))
+                taken++;
+
+            text="" + seatNumber.contains(r.getSeatNumber());
+            Log.d("Zawartość listy: ", text);
+        }
+       return 35-taken;
     }
 
     public void changeColorOfButton(Button button, int index){
@@ -196,9 +243,17 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                         }
 
 
-                        for(int i=0; i<4; i++){
-                            freeSeats.add(freeSectorSlots(i+1, true));
-                            freeSeats.add(freeSectorSlots(i+1, false));
+                        int firstSeat = 1;
+                        int j = 1;
+
+                        for(int i=1; i<9; i++){
+                            freeSeats.add(freeSectorSlots(j, firstSeat));
+
+                            if(i%2 != 0) firstSeat+= 7;
+                                else {
+                                    firstSeat+=63;
+                                    j++;
+                                }
                         }
 
                         for (Integer f: freeSeats) {
@@ -207,7 +262,17 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
 
 
-                        String buttonText = "S1 DOST.: " + freeSeats.get(0) + "\n10 zł";
+                        String buttonText;
+
+                        int i=0;
+                        for(Button b : buttons){
+                            buttonText=freeSeats.get(i) + "/35";
+                            b.setText(buttonText);
+                            changeColorOfButton(b, i);
+                            i++;
+                        }
+
+                        /*
                         button1.setText(buttonText);
                         changeColorOfButton(button1, 0);
 
@@ -238,6 +303,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                         buttonText = "S4 DOST.: " + freeSeats.get(7) + "\n30 zł";
                         button8.setText(buttonText);
                         changeColorOfButton(button8, 7);
+                        */
 
 
                     }
