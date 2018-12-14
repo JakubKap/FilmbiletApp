@@ -170,20 +170,20 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                                     Log.d(logTag, "reservationJsonLOG " + reservationsJson.length());
                                     JSONObject reservationJSON = reservationsJson.getJSONObject(i);
                                     Reservation reservation = new Reservation(
+                                            reservationJSON.getInt("id"),
                                             reservationJSON.getInt("customerId"),
-                                            reservationJSON.getInt("hall"),
                                             reservationJSON.getInt("seatNumber"),
                                             reservationJSON.getInt("row"),
                                             reservationJSON.getString("date"),
                                             reservationJSON.getInt("seatTypeId")
                                     );
 
-                                    String text = "Sprawdź rezerwację " + reservation.getCustomerId() + " " + reservation.getHall()
+                                    String text = "Sprawdź rezerwację " + reservation.getId() + " " + reservation.getCustomerId()
                                             + " " + reservation.getSeatNumber() + " " + reservation.getRow() + " " + reservation.getDatePom() + " "
                                             + reservation.getSeatTypeId();
 
                                     reservationList.add(reservation);
-                                    String text2 = "moj text2" + reservationList.get(i).getCustomerId();
+                                    String text2 = "moj text2: " + reservationList.get(i).getId();
                                     Log.d(logTag, text2);
                                 }
                             }

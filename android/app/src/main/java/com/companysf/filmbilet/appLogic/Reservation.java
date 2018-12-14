@@ -7,7 +7,7 @@ public class Reservation {
     private int id, customerId, seatNumber, row, seatTypeId;
     String datePom;
 
-    public Reservation(int id, int customerId, int hall, int seatNumber, int row, String datePom, int seatTypeId) {
+    public Reservation(int id, int customerId, int seatNumber, int row, String datePom, int seatTypeId) {
         this.id = id;
 
         this.customerId = customerId;
