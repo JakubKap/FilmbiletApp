@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 12 Gru 2018, 23:30
+-- Czas generowania: 14 Gru 2018, 18:17
 -- Wersja serwera: 10.1.37-MariaDB-2.cba
 -- Wersja PHP: 7.1.25
 
@@ -184,7 +184,6 @@ INSERT INTO `repertoire` (`id`, `date`, `movieId`) VALUES
 CREATE TABLE `reservation` (
   `id` int(11) NOT NULL,
   `customerId` int(11) NOT NULL,
-  `hall` int(11) NOT NULL,
   `seatNumber` int(11) NOT NULL,
   `row` int(11) NOT NULL,
   `date` datetime NOT NULL,
@@ -196,15 +195,15 @@ CREATE TABLE `reservation` (
 -- Zrzut danych tabeli `reservation`
 --
 
-INSERT INTO `reservation` (`id`, `customerId`, `hall`, `seatNumber`, `row`, `date`, `seatTypeId`, `repertoireId`) VALUES
-(1, 1, 1, 1, 1, '2018-12-20 18:00:00', 1, 1),
-(2, 1, 2, 12, 2, '2018-12-01 17:58:11', 3, 1),
-(3, 2, 2, 13, 2, '2018-12-01 18:07:00', 3, 1),
-(4, 25, 2, 1, 1, '2018-12-12 20:59:45', 1, 1),
-(5, 3, 2, 1, 1, '2018-12-01 22:43:24', 4, 1),
-(6, 4, 2, 5, 1, '2018-12-02 09:23:28', 1, 1),
-(7, 26, 2, 1, 1, '2018-12-12 21:04:34', 2, 1),
-(8, 2, 2, 55, 11, '2018-12-02 11:05:22', 1, 2);
+INSERT INTO `reservation` (`id`, `customerId`, `seatNumber`, `row`, `date`, `seatTypeId`, `repertoireId`) VALUES
+(1, 1, 1, 1, '2018-12-20 18:00:00', 1, 1),
+(2, 1, 12, 2, '2018-12-01 17:58:11', 3, 1),
+(3, 2, 13, 2, '2018-12-01 18:07:00', 3, 1),
+(4, 25, 1, 1, '2018-12-12 20:59:45', 1, 1),
+(5, 3, 1, 1, '2018-12-01 22:43:24', 4, 1),
+(6, 4, 5, 1, '2018-12-02 09:23:28', 1, 1),
+(7, 26, 1, 1, '2018-12-12 21:04:34', 2, 1),
+(8, 2, 55, 11, '2018-12-02 11:05:22', 1, 2);
 
 -- --------------------------------------------------------
 
