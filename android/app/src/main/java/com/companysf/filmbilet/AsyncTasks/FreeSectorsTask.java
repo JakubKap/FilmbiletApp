@@ -32,6 +32,10 @@ import java.util.HashMap;
 import java.util.Map;
 import com.companysf.filmbilet.R;
 
+import static android.graphics.Color.rgb;
+import android.graphics.drawable.Drawable;
+import com.companysf.filmbilet.R;
+
 public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
     private static final String logTag = FreeSectorsTask.class.getSimpleName();
@@ -151,13 +155,16 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
         if(freeSlots == 0)
         {
+            //button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
             button.setEnabled(false);
-            button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
+            button.setBackgroundColor(rgb(207, 0, 15)); //Monza
         }
         else if (!button.isEnabled() && freeSlots == 1){
             button.setEnabled(true);
-            button.getBackground().setColorFilter(Color.parseColor(free),PorterDuff.Mode.SRC);
+            //button.getBackground().setColorFilter(Color.parseColor(free),PorterDuff.Mode.SRC);
+
         }
+
 
     }
     @Override
@@ -263,7 +270,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
 
                         String buttonText;
-
                         int i=0;
                         for(Button b : buttons){
                             buttonText=freeSeats.get(i) + "/35";
@@ -339,15 +345,36 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
+        Drawable drawable = constraintLayout.getResources().getDrawable(R.drawable.button_normal);
+
         this.button1.setVisibility(View.VISIBLE);
+       this.button1.setBackgroundResource(R.drawable.button_normal);
+       //this.button1.setBackground();
+
         this.button2.setVisibility(View.VISIBLE);
+        this.button2.setBackgroundResource(R.drawable.button_normal);
+
         this.button3.setVisibility(View.VISIBLE);
+        this.button3.setBackgroundResource(R.drawable.button_normal);
+
         this.button4.setVisibility(View.VISIBLE);
+        this.button4.setBackgroundResource(R.drawable.button_normal);
+
         this.button5.setVisibility(View.VISIBLE);
+        this.button5.setBackgroundResource(R.drawable.button_normal);
+
         this.button6.setVisibility(View.VISIBLE);
+        this.button6.setBackgroundResource(R.drawable.button_normal);
+
         this.button7.setVisibility(View.VISIBLE);
+        this.button7.setBackgroundResource(R.drawable.button_normal);
+
         this.button8.setVisibility(View.VISIBLE);
+        this.button8.setBackgroundResource(R.drawable.button_normal);
+
         this.btn_back.setVisibility(View.VISIBLE);
+        this.button1.setBackgroundResource(R.drawable.button_normal);
+
         this.btn_next.setVisibility(View.VISIBLE);
 
         this.progressBar.setVisibility(View.INVISIBLE);
