@@ -283,7 +283,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                     final View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
 
-                    LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
+                    //LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
 
 
                     boolean flag1 = sectorButtons.get(button1);
@@ -575,7 +575,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             final View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
 
-            LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
+           // LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
 
 
             boolean flag1 = sectorButtons.get(button1);

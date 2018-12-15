@@ -62,7 +62,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="3"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,92 +70,14 @@
         app:layout_constraintVertical_bias="1.0" />
 
 
-
-
-    <Button
-        android:id="@+id/buttonIR"
-        android:layout_marginLeft="0sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginBottom="5sp"
-        android:background="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:minWidth="25sp"
-        android:minHeight="25sp"
-        android:text="I"
-        android:textColor="@color/white" />
-
-    <Button
-        android:id="@+id/buttonIIR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginBottom="5sp"
-        android:background="@color/black"
-        android:enabled="false"
-        android:minWidth="25sp"
-        android:minHeight="25sp"
-        android:text="II"
-        android:textColor="@color/white" />
-
-    <Button
-        android:id="@+id/buttonIIIR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginBottom="5sp"
-        android:background="@color/black"
-        android:enabled="false"
-        android:minWidth="25sp"
-        android:minHeight="25sp"
-        android:text="III"
-        android:textColor="@color/white" />
-
-
-    <Button
-        android:id="@+id/buttonIVR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginBottom="5sp"
-        android:background="@color/black"
-        android:enabled="false"
-        android:minWidth="25sp"
-        android:minHeight="25sp"
-        android:text="IV"
-        android:textColor="@color/white" />
-
-
-    <Button
-        android:id="@+id/buttonVR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginBottom="5sp"
-        android:background="@color/black"
-        android:enabled="false"
-        android:minWidth="25sp"
-        android:minHeight="25sp"
-        android:text="V"
-        android:textColor="@color/white" />
-
-
     <GridLayout
         android:id="@+id/gridLayoutSeats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="188dp"
+        android:layout_height="171dp"
         android:layout_gravity="center"
-        android:layout_margin="10sp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="15"
         android:background="@drawable/customborder"
@@ -164,10 +86,9 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_row_symbols"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
 
 
         <Button
@@ -175,8 +96,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="1" />
 
         <Button
@@ -184,8 +106,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="2" />
 
         <Button
@@ -193,8 +116,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="3" />
 
         <Button
@@ -202,8 +126,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="4" />
 
         <Button
@@ -211,8 +136,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="5" />
 
         <Button
@@ -220,8 +146,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="6" />
 
         <Button
@@ -229,8 +156,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="7" />
 
         <!-- Nowy rząd -->
@@ -240,8 +168,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="1" />
 
         <Button
@@ -249,8 +178,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="2" />
 
         <Button
@@ -258,8 +188,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="3" />
 
         <Button
@@ -267,8 +198,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="4" />
 
         <Button
@@ -276,8 +208,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="5" />
 
         <Button
@@ -285,8 +218,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="6" />
 
         <Button
@@ -294,8 +228,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="7" />
 
 
@@ -306,8 +241,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="1" />
 
         <Button
@@ -315,8 +251,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="2" />
 
         <Button
@@ -324,8 +261,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="3" />
 
         <Button
@@ -333,8 +271,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="4" />
 
         <Button
@@ -342,8 +281,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="5" />
 
         <Button
@@ -351,8 +291,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="6" />
 
         <Button
@@ -360,8 +301,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="7" />
 
 
@@ -372,8 +314,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="1" />
 
         <Button
@@ -381,8 +324,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="2" />
 
         <Button
@@ -390,8 +334,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="3" />
 
         <Button
@@ -399,8 +344,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="4" />
 
         <Button
@@ -408,8 +354,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="5" />
 
         <Button
@@ -417,8 +364,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="6" />
 
         <Button
@@ -426,8 +374,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="7" />
 
 
@@ -438,8 +387,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="1" />
 
         <Button
@@ -447,8 +397,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="2" />
 
         <Button
@@ -456,8 +407,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="3" />
 
         <Button
@@ -465,8 +417,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="4" />
 
         <Button
@@ -474,8 +427,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="5" />
 
         <Button
@@ -483,8 +437,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="6" />
 
         <Button
@@ -492,8 +447,9 @@
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp"
             android:background="@color/button_normal"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
             android:text="7" />
 
 
@@ -573,11 +529,100 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="375dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"></LinearLayout>
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_row_symbols"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
+
+        <Button
+            android:id="@+id/buttonIR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
+            android:text="I"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonIIR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
+            android:text="II"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonIIIR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
+            android:text="III"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonIVR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
+            android:text="IV"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonVR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginBottom="5sp"
+            android:background="@color/black"
+            android:enabled="false"
+            android:minWidth="16sp"
+            android:minHeight="16sp"
+            android:textSize="10sp"
+            android:text="V"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_row_symbols"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="39dp" />
 
 
 </android.support.constraint.ConstraintLayout>
