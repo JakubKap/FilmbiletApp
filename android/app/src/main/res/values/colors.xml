@@ -11,5 +11,12 @@
     <color name="list_row_end_color">#EBEEF0</color>
     <color name="list_row_hover_start_color">#e0e3e4</color>
     <color name="list_row_hover_end_color">#d3d6d7</color>
+    <color name="button_taken">#cf000f</color>
+    <color name="first_seat_type">#22a7f0</color>
+    <color name="second_seat_type">#66cc99</color>
+    <color name="third_seat_type">#fad859</color>
+    <color name="fourth_seat_type">#e47833</color>
+
+
 
 </resources>

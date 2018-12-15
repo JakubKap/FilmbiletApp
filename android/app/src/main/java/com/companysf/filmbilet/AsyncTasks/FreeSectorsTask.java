@@ -155,9 +155,10 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
         if(freeSlots == 0)
         {
-            //button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
+            Drawable drawable = constraintLayout.getResources().getDrawable(R.drawable.button_taken);
             button.setEnabled(false);
-            button.setBackgroundColor(rgb(207, 0, 15)); //Monza
+            //button.setBackgroundColor(rgb(207, 0, 15)); //Monza
+            button.setBackgroundResource(R.drawable.button_taken); //Monza
         }
         else if (!button.isEnabled() && freeSlots == 1){
             button.setEnabled(true);
@@ -268,7 +269,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                         }
 
 
-
                         String buttonText;
                         int i=0;
                         for(Button b : buttons){
@@ -345,11 +345,11 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
-        Drawable drawable = constraintLayout.getResources().getDrawable(R.drawable.button_normal);
 
         this.button1.setVisibility(View.VISIBLE);
        this.button1.setBackgroundResource(R.drawable.button_normal);
        //this.button1.setBackground();
+
 
         this.button2.setVisibility(View.VISIBLE);
         this.button2.setBackgroundResource(R.drawable.button_normal);
