@@ -28,8 +28,6 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 
 import java.util.Map;
@@ -430,7 +428,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             }
                             else{
                                 seatButtons.put(btn,false);
-                                btn.setBackgroundResource(R.drawable.button_normal);
+                                btn.setBackgroundResource(R.drawable.button_normal_first);
                             }
 
 
@@ -554,7 +552,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         }
         else{
             sectorButtons.put(btn,false);
-            btn.setBackgroundResource(R.drawable.button_normal);
+            btn.setBackgroundResource(R.drawable.button_normal_first);
         }
 
 

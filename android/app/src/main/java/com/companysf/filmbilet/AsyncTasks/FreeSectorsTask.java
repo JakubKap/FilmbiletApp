@@ -1,8 +1,6 @@
 package com.companysf.filmbilet.AsyncTasks;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
@@ -34,7 +32,6 @@ import com.companysf.filmbilet.R;
 
 import static android.graphics.Color.rgb;
 import android.graphics.drawable.Drawable;
-import com.companysf.filmbilet.R;
 
 public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
@@ -345,32 +342,32 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
 
         this.button1.setVisibility(View.VISIBLE);
-       this.button1.setBackgroundResource(R.drawable.button_normal);
+       this.button1.setBackgroundResource(R.drawable.button_normal_first);
        //this.button1.setBackground();
 
 
         this.button2.setVisibility(View.VISIBLE);
-        this.button2.setBackgroundResource(R.drawable.button_normal);
+        this.button2.setBackgroundResource(R.drawable.button_normal_first);
 
         this.button3.setVisibility(View.VISIBLE);
-        this.button3.setBackgroundResource(R.drawable.button_normal);
+        this.button3.setBackgroundResource(R.drawable.button_normal_second);
 
         this.button4.setVisibility(View.VISIBLE);
-        this.button4.setBackgroundResource(R.drawable.button_normal);
+        this.button4.setBackgroundResource(R.drawable.button_normal_second);
 
         this.button5.setVisibility(View.VISIBLE);
-        this.button5.setBackgroundResource(R.drawable.button_normal);
+        this.button5.setBackgroundResource(R.drawable.button_normal_third);
 
         this.button6.setVisibility(View.VISIBLE);
-        this.button6.setBackgroundResource(R.drawable.button_normal);
+        this.button6.setBackgroundResource(R.drawable.button_normal_third);
 
         this.button7.setVisibility(View.VISIBLE);
-        this.button7.setBackgroundResource(R.drawable.button_normal);
+        this.button7.setBackgroundResource(R.drawable.button_normal_fourth);
 
         this.button8.setVisibility(View.VISIBLE);
-        this.button8.setBackgroundResource(R.drawable.button_normal);
+        this.button8.setBackgroundResource(R.drawable.button_normal_fourth);
 
-        this.button1.setBackgroundResource(R.drawable.button_normal);
+        this.button1.setBackgroundResource(R.drawable.button_normal_first);
 
         this.btn_next.setVisibility(View.VISIBLE);
 
