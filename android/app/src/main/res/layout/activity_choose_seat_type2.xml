@@ -145,7 +145,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:fontFamily="@font/opensans_bold"
-    android:text="Wybierz typ miejsca"
+    android:text="Wybierz sektor"
     android:textSize="@dimen/header"
     app:layout_constraintBottom_toTopOf="@+id/guideline1"
     app:layout_constraintEnd_toEndOf="parent"
