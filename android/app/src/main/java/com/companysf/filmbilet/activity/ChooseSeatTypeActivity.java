@@ -42,7 +42,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private Map<Button, Boolean> sectorButtons = new HashMap<>();
 
     ConstraintLayout constraintLayout;
-    Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next;
+    Button button1, button2, button3, button4, button5, button6, button7, button8, btn_next;
     ProgressBar progressBar;
 
     TextView textView3, textView4;
@@ -119,7 +119,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         button7 = (Button) findViewById(R.id.button7);
         button8 = (Button) findViewById(R.id.button8);
 
-        btn_back = (Button) findViewById(R.id.btn_back);
         btn_next = (Button) findViewById(R.id.btn_next);
         btnAccept = (Button) findViewById(R.id.btnAccept);
 
@@ -185,15 +184,11 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             params8.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             button8.setLayoutParams(params8);
 
-            ConstraintLayout.LayoutParams params9 = (ConstraintLayout.LayoutParams) btn_back.getLayoutParams();
-            params9.width = (getResources().getDisplayMetrics().widthPixels) / 6;
-            params9.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 6;
-            btn_back.setLayoutParams(params9);
 
 
             ConstraintLayout.LayoutParams params10 = (ConstraintLayout.LayoutParams) btn_next.getLayoutParams();
-            params10.width = (getResources().getDisplayMetrics().widthPixels) / 6;
-            params10.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 6;
+            params10.width = (getResources().getDisplayMetrics().widthPixels) / 4;
+            params10.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             btn_next.setLayoutParams(params10);
 
             //execute(nr_repertuaru z poprzedniuego intentu)
@@ -468,7 +463,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                 getWindow().setBackgroundDrawable(d);
 
                                 //Wyświetlenie podsumowania
-                                btn_back.setVisibility(View.INVISIBLE);
                                 btn_next.setVisibility(View.INVISIBLE);
                                 textView3.setVisibility(View.VISIBLE);
 

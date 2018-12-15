@@ -43,7 +43,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     private ArrayList<Integer> freeSeats = new ArrayList<>();
     private WeakReference<Context> contextref;
     private ConstraintLayout constraintLayout;
-    private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_back, btn_next, btnAccept;
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_next, btnAccept;
     private ArrayList<Button> buttons = new ArrayList<>();
     private ProgressBar progressBar;
     private TextView textView1, textView2, textView3, textView4;
@@ -82,7 +82,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         this.button8=(Button) constraintLayout.findViewById(R.id.button8);
         buttons.add(button8);
 
-        this.btn_back=(Button) constraintLayout.findViewById(R.id.btn_back);
         this.btn_next=(Button) constraintLayout.findViewById(R.id.btn_next);
         this.btnAccept = (Button) constraintLayout.findViewById(R.id.btnAccept);
 
@@ -181,7 +180,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
             this.button6.setVisibility(View.INVISIBLE);
             this.button7.setVisibility(View.INVISIBLE);
             this.button8.setVisibility(View.INVISIBLE);
-            this.btn_back.setVisibility(View.INVISIBLE);
             this.btn_next.setVisibility(View.INVISIBLE);
             this.btnAccept.setVisibility(View.INVISIBLE);
 
@@ -372,7 +370,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         this.button8.setVisibility(View.VISIBLE);
         this.button8.setBackgroundResource(R.drawable.button_normal);
 
-        this.btn_back.setVisibility(View.VISIBLE);
         this.button1.setBackgroundResource(R.drawable.button_normal);
 
         this.btn_next.setVisibility(View.VISIBLE);
