@@ -66,7 +66,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.linearLayout = linearLayout;
 
-        this.linearLayoutSeats =(LinearLayout) linearLayout.findViewById(R.id.linearLayoutSummary);
+        //this.linearLayoutSeats =(LinearLayout) linearLayout.findViewById(R.id.linearLayoutSummary);
 
         this.progressBarSeats =(ProgressBar) linearLayout.findViewById(R.id.progressBarSeats);
 

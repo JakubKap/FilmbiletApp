@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutSeats"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,58 +12,163 @@
 
     <TextView
         android:id="@+id/textView1Seats"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="3"
         android:fontFamily="@font/opensans_bold"
         android:text="Sektor S"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2Seats"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="2"
         android:fontFamily="@font/opensans_bold"
         android:text="Cena: "
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
     <ProgressBar
         android:id="@+id/progressBarSeats"
         style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="3"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+
+
+    <Button
+        android:id="@+id/buttonIR"
+        android:layout_marginLeft="0sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginBottom="5sp"
+        android:background="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:minWidth="25sp"
+        android:minHeight="25sp"
+        android:text="I"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/buttonIIR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginBottom="5sp"
+        android:background="@color/black"
+        android:enabled="false"
+        android:minWidth="25sp"
+        android:minHeight="25sp"
+        android:text="II"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/buttonIIIR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginBottom="5sp"
+        android:background="@color/black"
+        android:enabled="false"
+        android:minWidth="25sp"
+        android:minHeight="25sp"
+        android:text="III"
+        android:textColor="@color/white" />
+
+
+    <Button
+        android:id="@+id/buttonIVR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginBottom="5sp"
+        android:background="@color/black"
+        android:enabled="false"
+        android:minWidth="25sp"
+        android:minHeight="25sp"
+        android:text="IV"
+        android:textColor="@color/white" />
+
+
+    <Button
+        android:id="@+id/buttonVR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginBottom="5sp"
+        android:background="@color/black"
+        android:enabled="false"
+        android:minWidth="25sp"
+        android:minHeight="25sp"
+        android:text="V"
+        android:textColor="@color/white" />
 
 
     <GridLayout
         android:id="@+id/gridLayoutSeats"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="15"
         android:background="@drawable/customborder"
-        android:columnCount="8"
-        android:rowCount="6"
-        android:textSize="10sp">
+        android:columnCount="7"
+        android:rowCount="5"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.0">
 
-        <Button
-            android:id="@+id/buttonIR"
-            android:layout_marginLeft="0sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp"
-            android:background="@color/black"
-            android:enabled="false"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
-            android:text="I"
-            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/buttonIR_1"
@@ -128,17 +234,6 @@
             android:text="7" />
 
         <!-- Nowy rząd -->
-        <Button
-            android:id="@+id/buttonIIR"
-            android:layout_marginLeft="0sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp"
-            android:background="@color/black"
-            android:enabled="false"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
-            android:text="II"
-            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/buttonIIR_1"
@@ -205,17 +300,6 @@
 
 
         <!-- Nowy rząd -->
-        <Button
-            android:id="@+id/buttonIIIR"
-            android:layout_marginLeft="0sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp"
-            android:background="@color/black"
-            android:enabled="false"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
-            android:text="III"
-            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/buttonIIIR_1"
@@ -282,17 +366,6 @@
 
 
         <!-- Nowy rząd -->
-        <Button
-            android:id="@+id/buttonIVR"
-            android:layout_marginLeft="0sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp"
-            android:background="@color/black"
-            android:enabled="false"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
-            android:text="IV"
-            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/buttonIVR_1"
@@ -359,17 +432,6 @@
 
 
         <!-- Nowy rząd -->
-        <Button
-            android:id="@+id/buttonVR"
-            android:layout_marginLeft="0sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp"
-            android:background="@color/black"
-            android:enabled="false"
-            android:minWidth="25sp"
-            android:minHeight="25sp"
-            android:text="V"
-            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/buttonVR_1"
@@ -438,44 +500,84 @@
     </GridLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linearLayoutSummary"
-        android:layout_width="match_parent"
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5sp"
-        android:layout_weight="80"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="65dp"
+        app:layout_constraintGuide_percent="0.15" />
 
-        <TextView
-            android:id="@+id/textView3Seats"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
-            android:fontFamily="@font/opensans_bold"
-            android:text="Wybrane miejsca: "
-            android:textAlignment="center"
-            android:textSize="20sp" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="65dp"
+        app:layout_constraintGuide_percent="0.25" />
 
-        <Button
-            android:id="@+id/btnReserve"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button_light"
-            android:fontFamily="@font/opensans_bold"
-            android:minHeight="40dip"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="Zarezerwuj"
-            android:textColor="#f9f9f9" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="65dp"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="65dp"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <TextView
+        android:id="@+id/textView3Seats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/opensans_bold"
+        android:text="Wybrane miejsca: "
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <Button
+        android:id="@+id/btnReserve"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_button_light"
+        android:fontFamily="@font/opensans_bold"
+        android:minHeight="40dip"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Zarezerwuj"
+        android:textColor="#f9f9f9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="375dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp"></LinearLayout>
 
 
-    </LinearLayout>
-
-
-
-
-
-
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
