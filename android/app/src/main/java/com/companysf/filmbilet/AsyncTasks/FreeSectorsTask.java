@@ -144,14 +144,11 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     }
 
     public void changeColorOfButton(Button button, int index){
-        String taken="#ff9478";
-        String free = "#bdc3c7";
 
         int freeSlots = freeSeats.get(index);
 
         if(freeSlots == 0)
         {
-            Drawable drawable = constraintLayout.getResources().getDrawable(R.drawable.button_taken);
             button.setEnabled(false);
             //button.setBackgroundColor(rgb(207, 0, 15)); //Monza
             button.setBackgroundResource(R.drawable.button_taken); //Monza

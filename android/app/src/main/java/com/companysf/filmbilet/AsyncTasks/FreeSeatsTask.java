@@ -37,13 +37,13 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
     private static final String logTag = FreeSeatsTask.class.getSimpleName();
     private WeakReference<Context> contextref;
-    private ArrayList<Boolean> takenSeats = new ArrayList<>();
     private ArrayList<Button> buttons = new ArrayList<>();
     private int startSeat;
     private int seatTypeId;
-    private ArrayList<Integer> seatNumber = new ArrayList<>(); //kolekcja zawierająca nr siedzień
+    private Map<Button, Integer> seatNumber = new HashMap<>();//mapa zawierająca button oraz odpowiadający mu nr siedzenia
     private LinearLayout linearLayoutRows;
     private ArrayList<Reservation> reservationList = new ArrayList<>();
+    private ArrayList<Integer> takenSeats = new ArrayList<>();
     private TextView textView1Seats, textView2Seats, textView3Seats;
     private GridLayout gridLayoutSeats;
 
@@ -218,8 +218,38 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         return false; //nie znalezniono takiego miejsca
 
     }
-    public void changeColorOfButton(Button button, int index){
 
+    public void changeColorOfButton(Button button, int index){
+/*
+        for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
+            Button key = entry.getKey();
+            Boolean value = entry.getValue();
+            key.setEnabled(false);
+        }*/
+
+
+/*
+        for(Reservation r : reservationList){
+            if(r.getSeatNumber() == seatNumber.get(index) && r.getSeatTypeId()==this.seatTypeId){ //znaleziono taki numer w rezerwacjach, czyli miejsce zajęte
+                button.setEnabled(false);
+                button.setTextColor(Color.WHITE);
+                button.setBackgroundResource(R.drawable.button_taken);
+                Log.d(logTag, "Zawartość reservationList: " + r.getSeatNumber());
+            }
+            else if (!button.isEnabled() && seatNumber.get(index) == r.getSeatNumber()){ //miejsca zostao właśnie odblokowane
+                button.setEnabled(true);
+                button.setBackgroundResource(R.drawable.button_normal_seat);
+            }
+            else{ //miejsce, które w momencie załadowanie popupu jest wolne
+                button.setEnabled(true);
+                button.setBackgroundResource(R.drawable.button_normal_seat);
+                Log.d(logTag, "Napis na buttonie" + button.getText());
+            }
+        }
+*/
+
+
+/*
        boolean isTaken = takenSeats.get(index);
 
         if(isTaken)
@@ -234,6 +264,17 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
             button.setBackgroundResource(R.drawable.button_normal_seat);
         }
         else{ //miejsce, które w momencie załadowanie popupu jest wolne
+            button.setBackgroundResource(R.drawable.button_normal_seat);
+        }*/
+
+
+
+        if(takenSeats.contains(seatNumber.get(button))){ //zajęte miejsce
+            button.setEnabled(false);
+            button.setBackgroundResource(R.drawable.button_taken);
+            button.setTextColor(Color.WHITE);
+        }
+        else { //miejsce, które w momencie załadowanie popupu jest wolne
             button.setBackgroundResource(R.drawable.button_normal_seat);
         }
 
@@ -253,19 +294,21 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         //wypełnienie buttonów opodwiednimi nr siedzień
         int seatNr = this.startSeat;
 
+
         for(int i=1; i<=35; i++){
 
             if(i==8 || i==15 || i==22 || i==29) {
                 seatNr += 7;
-                seatNumber.add(seatNr);
+                seatNumber.put(buttons.get(i-1),seatNr);
                 Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
                 seatNr++;
             }
             else{
-                seatNumber.add(seatNr);
+                seatNumber.put(buttons.get(i-1), seatNr);
                 Log.d(logTag, "Dodana wartość do siatki: " + seatNr+ " dla i = " + i);
                 seatNr++;
             }
+
 
         }
 
@@ -276,8 +319,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
             if(text.length() == 3)
                 buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
 
-            buttons.get(i).setText(""+seatNumber.get(i));
-            Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get(logNr) );
+            buttons.get(i).setText(""+seatNumber.get( buttons.get(i)));
+            Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get( buttons.get(logNr)) );
             logNr++;
         }
 
@@ -370,7 +413,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                                             + reservation.getSeatTypeId();
 
                                     reservationList.add(reservation);
-                                    String text2 = "moj text2" + reservationList.get(i).getId();
+                                    String text2 = "Zawartość reservationList(seatNumber) po pobraniu z JSON" + reservationList.get(i).getSeatNumber();
                                     Log.d(logTag, text2);
                                 }
                             }
@@ -384,7 +427,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
 
                         //isTaken == 1 (miejsce zajęte)
-
+/*
                         if(true) { //lewy sektor
                             boolean taken = false;
                             for (int i = 1; i < 6; i++) {
@@ -410,88 +453,17 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                         for (Boolean t: takenSeats) {
                             Log.d("Zawartość isTaken", "" + t);
                         }
+*/
 
+                        //dodanie do kolekcji Integer'ów zajęte numery miejsc
+                        for(Reservation r : reservationList)
+                            takenSeats.add(r.getSeatNumber());
 
                         int index = 0;
                         for(Button b  : buttons) {
                             changeColorOfButton(b, index);
                             index++;
                         }
-                        /*
-                        changeColorOfButton(buttonIR_1, 0);
-
-                        changeColorOfButton(buttonIR_2, 1);
-
-                        changeColorOfButton(buttonIR_3, 2);
-
-                        changeColorOfButton(buttonIR_4, 3);
-
-                        changeColorOfButton(buttonIR_5, 4);
-
-                        changeColorOfButton(buttonIR_6, 5);
-
-                        changeColorOfButton(buttonIR_7, 6);
-
-
-                        changeColorOfButton(buttonIIR_1, 7);
-
-                        changeColorOfButton(buttonIIR_2, 8);
-
-                        changeColorOfButton(buttonIIR_3, 9);
-
-                        changeColorOfButton(buttonIIR_4, 10);
-
-                        changeColorOfButton(buttonIIR_5, 11);
-
-                        changeColorOfButton(buttonIIR_6, 12);
-
-                        changeColorOfButton(buttonIIR_7, 13);
-
-
-                        changeColorOfButton(buttonIIIR_1, 14);
-
-                        changeColorOfButton(buttonIIIR_2, 15);
-
-                        changeColorOfButton(buttonIIIR_3, 16);
-
-                        changeColorOfButton(buttonIIIR_4, 17);
-
-                        changeColorOfButton(buttonIIIR_5, 18);
-
-                        changeColorOfButton(buttonIIIR_6, 19);
-
-                        changeColorOfButton(buttonIIIR_7, 20);
-
-
-                        changeColorOfButton(buttonIVR_1, 21);
-
-                        changeColorOfButton(buttonIVR_2, 22);
-
-                        changeColorOfButton(buttonIVR_3, 23);
-
-                        changeColorOfButton(buttonIVR_4, 24);
-
-                        changeColorOfButton(buttonIVR_5, 25);
-
-                        changeColorOfButton(buttonIVR_6, 26);
-
-                        changeColorOfButton(buttonIVR_7, 27);
-
-
-                        changeColorOfButton(buttonVR_1, 28);
-
-                        changeColorOfButton(buttonVR_2, 29);
-
-                        changeColorOfButton(buttonVR_3, 30);
-
-                        changeColorOfButton(buttonVR_4, 31);
-
-                        changeColorOfButton(buttonVR_5, 32);
-
-                        changeColorOfButton(buttonVR_6, 33);
-
-                        changeColorOfButton(buttonVR_7, 34);
-                        */
 
                     }
                 }, new Response.ErrorListener() {
