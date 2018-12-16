@@ -59,6 +59,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     private int overallPrice=0;
     private int overallSeats=0;
+    private Map<Integer, Integer> selectedSeats = new HashMap<>();
+    private Map<Integer, Integer> seatAndRowMap = new HashMap<>();
 
     public int selectedSeats() {
 
@@ -98,6 +100,23 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         return seatTypeId;
 
     }
+
+    public void saveSeats(int seatType){
+
+        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+            Button key = entry.getKey();
+            Boolean value = entry.getValue();
+
+            if(value){
+                int number =  Integer.parseInt(key.getText().toString()); //parsowanie nr miejsca do int
+                selectedSeats.put(number, seatType);
+
+                Log.d(logTag, "Zapisane miejsce (nr, seatTypeId) = (" + number + ", " +  seatType + ")");
+            }
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +155,19 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         sectorButtons.put(button7, false);
         sectorButtons.put(button8, false);
 
+        //wypełnienie mapy <Nr_miejsca, Rząd> potrzebenej do znalezienia wiersza dla konkretnego miejsca
+        int value=1;
+
+        for(int i=1; i<=280; i++){
+            if ((i-1) % 14 == 0 && i!=1)
+                value++;
+
+            if(value==6) value =1;
+            seatAndRowMap.put(i, value);
+
+            Log.d(logTag, "Wstawiona wartość <Nr_miejsca, Rząd>= " + "<" + i + ", " + value + ">");
+
+        }
 
         //ConstraintLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)button1.getLayoutParams();
 
@@ -506,6 +538,15 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     if (selectedSeats() > 0) {
+                        //pobranie informacji o wybranych miejscach i zapisanie
+
+                        //pobranie informacji o seatTypeId (przez pobranie informacji o sektorze)
+                        int seatType = selectedSector();
+
+                        //pobranie informacji o nr_miejsca
+                        saveSeats(seatType);
+
+
                         popupWindow.dismiss();
                         Drawable d = new ColorDrawable(Color.WHITE);
                         popupWindow.setBackgroundDrawable(new BitmapDrawable());
