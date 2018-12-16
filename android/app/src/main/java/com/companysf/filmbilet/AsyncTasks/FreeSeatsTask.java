@@ -499,20 +499,18 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         for(Button b : buttons)
             b.setVisibility(View.VISIBLE);
 
-        this.btnReserve.setVisibility(View.VISIBLE);
 
-        //this.linearLayoutSeats.setVisibility(View.VISIBLE);
         this.linearLayoutRows.setVisibility(View.VISIBLE);
 
         this.textView1Seats.setVisibility(View.VISIBLE);
         this.textView2Seats.setVisibility(View.VISIBLE);
-        this.textView3Seats.setVisibility(View.VISIBLE);
+
 
         this.gridLayoutSeats.setVisibility(View.VISIBLE);
 
         this.progressBarSeats.setVisibility(View.INVISIBLE);
-
-
+        this.textView3Seats.setVisibility(View.INVISIBLE);
+        this.btnReserve.setVisibility(View.INVISIBLE);
 
         textView3Seats.append(""+0);
 

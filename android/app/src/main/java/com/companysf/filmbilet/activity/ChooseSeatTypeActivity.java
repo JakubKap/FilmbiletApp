@@ -192,6 +192,11 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             //execute(nr_repertuaru z poprzedniuego intentu)
             new FreeSectorsTask(getApplicationContext(), constraintLayout, true).execute(1);
 
+
+            //button wyłączony do czasu wyboru miejsca
+            this.btn_next.setEnabled(false);
+
+
             //odświeżanie wolnych sektorów co 2 sekundy
 
 /*
@@ -705,6 +710,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             buttonVR_7 = (Button) popupView.findViewById(R.id.buttonVR_7);
             seatButtons.put(buttonVR_7,false);
 
+            btnReserve = (Button) popupView.findViewById(R.id.btnReserve);
+
             textView3Seats = (TextView) popupView.findViewById(R.id.textView3Seats);
 
 
@@ -733,6 +740,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                     int selected = selectedSeats();
 
+
+                    btnReserve.setVisibility(View.VISIBLE);
+                    textView3Seats.setVisibility(View.VISIBLE);
                     textView3Seats.setText("Wybrane miejsca: " + selected);
 
                 }
@@ -745,7 +755,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             }
 
 
-            btnReserve = (Button) popupView.findViewById(R.id.btnReserve);
+
 
             //dodanie obsługi klawisza zarezerwuj
             btnReserve.setOnClickListener(new View.OnClickListener() {
