@@ -10,6 +10,7 @@
     <corners
     android:radius="20dp"
   />
+    <stroke android:width="5px" android:color="#000000" />
 
 
 
