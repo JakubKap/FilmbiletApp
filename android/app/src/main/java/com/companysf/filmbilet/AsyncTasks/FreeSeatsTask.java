@@ -317,7 +317,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         for(int i=0; i<35; i++){
             text = "" + seatNumber.get(i);
             if(text.length() == 3)
-                buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+                buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
 
             buttons.get(i).setText(""+seatNumber.get( buttons.get(i)));
             Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get( buttons.get(logNr)) );
