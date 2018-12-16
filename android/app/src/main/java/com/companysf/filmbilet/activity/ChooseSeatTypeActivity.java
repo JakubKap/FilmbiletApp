@@ -58,6 +58,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private Map<Button, Boolean> seatButtons = new HashMap<>();
 
     private int overallPrice=0;
+    private int overallSeats=0;
 
     public int selectedSeats() {
 
@@ -452,8 +453,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                   getWindow().setBackgroundDrawable(d);
 
                   //usunięcie historii wybranych miejsc po kliknięciu poza popup
-                  //seatButtons.clear();
+                  seatButtons.clear();
 
+                  sectorButtons.put(btn,false);
                   constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
 
               }
@@ -547,8 +549,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             price = selectedSeats() * 30;
 
                         overallPrice+=price;
+                        overallSeats+=selectedSeats();
 
-                        textView4.setText("Liczba miejsc: " + selectedSeats()
+                        textView4.setText("Liczba miejsc: " + overallSeats
                                 + "\nCena: " + overallPrice + " zł");
 
                         btnAccept.setVisibility(View.VISIBLE);
