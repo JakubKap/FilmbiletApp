@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -38,8 +39,9 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     private WeakReference<Context> contextref;
     private ArrayList<Boolean> takenSeats = new ArrayList<>();
     private ArrayList<Button> buttons = new ArrayList<>();
-    private boolean isLeft;
+    private int startSeat;
     private int seatTypeId;
+    private ArrayList<Integer> seatNumber = new ArrayList<>(); //kolekcja zawierająca nr siedzień
     private LinearLayout linearLayoutRows;
     private ArrayList<Reservation> reservationList = new ArrayList<>();
     private TextView textView1Seats, textView2Seats, textView3Seats;
@@ -57,13 +59,13 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     View linearLayout; //dodane
     private boolean start;
 
-    public FreeSeatsTask(Context context, View linearLayout, boolean start, boolean isLeft, int seatTypeId) {
+    public FreeSeatsTask(Context context, View linearLayout, int startSeat, int seatTypeId) {
 
         contextref = new WeakReference<>(context);
 
         this.start=start;
 
-        this.isLeft = isLeft;
+        this.startSeat = startSeat;
 
         this.linearLayout = linearLayout;
 
@@ -158,26 +160,51 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
             Log.d(logTag, "Czy buttons empty: " + buttons.isEmpty());
 
-
-            //dostosowanie jednego layout do obydwu stron sali
-            if(!this.isLeft)
-            {
-                    int begin = 8;
-                    for(Button b : buttons)
-                    {
-                        Log.d(logTag, "Wartość begin " + begin);
-                        b.setText("" + begin);
-                        begin++;
-                        if(begin == 15) begin=8;
-                    }
-            }
-
-
         }
 
 
+/*
+    public int freeSectorSlots(int slot_number, int firstSeat) {
+        int taken=0;
+
+        //zbudowanie siatki miejsc
+
+        ArrayList<Integer> seatNumber = new ArrayList<>();
+        int seatNr = firstSeat;
+
+        for(int i=1; i<=35; i++){
+
+            if(i==8 || i==15 || i==22 || i==29) {
+                seatNr += 7;
+                seatNumber.add(seatNr);
+                Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
+                seatNr++;
+            }
+            else{
+                seatNumber.add(seatNr);
+                Log.d(logTag, "Dodana wartość do siatki: " + seatNr+ " dla i = " + i);
+                seatNr++;
+            }
+
+        }
+
+        String text;
+
+
+        for (Reservation r : reservationList) {
+            if ((r.getSeatTypeId() == slot_number) && seatNumber.contains(r.getSeatNumber()))
+                taken++;
+
+            text="" + seatNumber.contains(r.getSeatNumber());
+            Log.d("Zawartość listy: ", text);
+        }
+        return 35-taken;
+    }*/
+
     public boolean isTaken(int row, int seatNumber) {
-        if (this.isLeft) {
+
+
+        if (true) {
             for (Reservation r : reservationList) {
                 if (r.getSeatTypeId() == this.seatTypeId && r.getRow() == row && r.getSeatNumber() == seatNumber && r.getSeatNumber() < 8)
                     return true; //znaleziono takie miejsce
@@ -220,6 +247,68 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         Log.d(logTag, "Czy buttons empty: " + buttons.isEmpty());
         Log.d(logTag, "buttons size: " + buttons.size());
+
+
+
+        //wypełnienie buttonów opodwiednimi nr siedzień
+        int seatNr = this.startSeat;
+
+        for(int i=1; i<=35; i++){
+
+            if(i==8 || i==15 || i==22 || i==29) {
+                seatNr += 7;
+                seatNumber.add(seatNr);
+                Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
+                seatNr++;
+            }
+            else{
+                seatNumber.add(seatNr);
+                Log.d(logTag, "Dodana wartość do siatki: " + seatNr+ " dla i = " + i);
+                seatNr++;
+            }
+
+        }
+
+        String text = "";
+        int logNr=0;
+        for(int i=0; i<35; i++){
+            text = "" + seatNumber.get(i);
+            if(text.length() == 3)
+                buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+
+            buttons.get(i).setText(""+seatNumber.get(i));
+            Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get(logNr) );
+            logNr++;
+        }
+
+        //ustawienie prawidłowej nazwy sektora
+
+        switch(startSeat){
+            case 1:
+                textView1Seats.setText("Sektor 1");
+                break;
+            case 8:
+                textView1Seats.setText("Sektor 2");
+                break;
+            case 71:
+                textView1Seats.setText("Sektor 3");
+                break;
+            case 78:
+                textView1Seats.setText("Sektor 4");
+                break;
+            case 141:
+                textView1Seats.setText("Sektor 5");
+                break;
+            case 148:
+                textView1Seats.setText("Sektor 6");
+                break;
+            case 211:
+                textView1Seats.setText("Sektor 7");
+                break;
+            case 218:
+                textView1Seats.setText("Sektor 8");
+                break;
+        }
 
         if(this.start){
 
@@ -296,7 +385,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
                         //isTaken == 1 (miejsce zajęte)
 
-                        if(isLeft) { //lewy sektor
+                        if(true) { //lewy sektor
                             boolean taken = false;
                             for (int i = 1; i < 6; i++) {
                                 for (int j = 1; j < 8; j++) {
@@ -453,7 +542,6 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
 
 
-        textView1Seats.append(""+seatTypeId);
         textView3Seats.append(""+0);
 
         int cena=10;

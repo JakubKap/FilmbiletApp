@@ -295,7 +295,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     boolean flag7 = sectorButtons.get(button7);
                     boolean flag8 = sectorButtons.get(button8);
 
-
+/*
                     if(flag1 || flag3 || flag5 || flag7)
                     {
                         new FreeSeatsTask(getApplicationContext(), popupView, true, true, seatTypeId).execute(1);
@@ -303,7 +303,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                     else {
                         new FreeSeatsTask(getApplicationContext(), popupView, true, false, seatTypeId).execute(1);
-                    }
+                    }*/
                     // create the popup window
                     int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -564,7 +564,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         }
 
 
-           //po kliknięciu dowolnego "aktywnego" sektora od razu pokazuje się popup
+           //po kliknięciu dowolnego "aktywnego" sektora od razu pokazuje się popup oraz "chowają" elementy pod nim
+
+            constraintLayout.setVisibility(View.INVISIBLE); //schowanie dolnej warstwy
 
             LayoutInflater inflater = (LayoutInflater)
                     getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -587,15 +589,20 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             boolean flag7 = sectorButtons.get(button7);
             boolean flag8 = sectorButtons.get(button8);
 
+            int startSeat = 1;
 
-            if(flag1 || flag3 || flag5 || flag7)
-            {
-                new FreeSeatsTask(getApplicationContext(), popupView, true, true, seatTypeId).execute(1);
-            }
+            if (flag1) startSeat=1;
+                else if(flag2) startSeat=8;
+                else if (flag3) startSeat=71;
+                else if(flag4) startSeat=78;
+                else if(flag5) startSeat=141;
+                else if(flag6) startSeat=148;
+                else if(flag7) startSeat=211;
+                else  startSeat=218;
 
-            else {
-                new FreeSeatsTask(getApplicationContext(), popupView, true, false, seatTypeId).execute(1);
-            }
+
+                new FreeSeatsTask(getApplicationContext(), popupView, startSeat, seatTypeId).execute(1);
+
             // create the popup window
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
             int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -810,6 +817,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     //usunięcie historii wybranych miejsc po kliknięciu poza popup
                     seatButtons.clear();
 
+                    constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
                     return true;
                 }
             });
