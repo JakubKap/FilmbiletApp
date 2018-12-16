@@ -62,7 +62,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="3"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -529,6 +529,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <LinearLayout
+        android:id="@+id/linearLayoutRows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -552,9 +553,9 @@
             android:enabled="false"
             android:minWidth="16sp"
             android:minHeight="16sp"
-            android:textSize="10sp"
             android:text="I"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/buttonIIR"
@@ -567,9 +568,9 @@
             android:enabled="false"
             android:minWidth="16sp"
             android:minHeight="16sp"
-            android:textSize="10sp"
             android:text="II"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/buttonIIIR"
@@ -582,9 +583,9 @@
             android:enabled="false"
             android:minWidth="16sp"
             android:minHeight="16sp"
-            android:textSize="10sp"
             android:text="III"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/buttonIVR"
@@ -597,9 +598,9 @@
             android:enabled="false"
             android:minWidth="16sp"
             android:minHeight="16sp"
-            android:textSize="10sp"
             android:text="IV"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/buttonVR"
@@ -612,9 +613,9 @@
             android:enabled="false"
             android:minWidth="16sp"
             android:minHeight="16sp"
-            android:textSize="10sp"
             android:text="V"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <android.support.constraint.Guideline

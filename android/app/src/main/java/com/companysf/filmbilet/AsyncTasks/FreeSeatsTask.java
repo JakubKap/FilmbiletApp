@@ -39,7 +39,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     private ArrayList<Button> buttons = new ArrayList<>();
     private boolean isLeft;
     private int seatTypeId;
-    private LinearLayout linearLayoutSeats;
+    private LinearLayout linearLayoutRows;
     private ArrayList<Reservation> reservationList = new ArrayList<>();
     private TextView textView1Seats, textView2Seats, textView3Seats;
     private GridLayout gridLayoutSeats;
@@ -66,7 +66,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.linearLayout = linearLayout;
 
-        //this.linearLayoutSeats =(LinearLayout) linearLayout.findViewById(R.id.linearLayoutSummary);
+        this.linearLayoutRows = (LinearLayout) linearLayout.findViewById(R.id.linearLayoutRows);
 
         this.progressBarSeats =(ProgressBar) linearLayout.findViewById(R.id.progressBarSeats);
 
@@ -221,7 +221,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         if(this.start){
 
-            this.linearLayoutSeats.setVisibility(View.INVISIBLE);
+            //this.linearLayoutSeats.setVisibility(View.INVISIBLE);
+            this.linearLayoutRows.setVisibility(View.INVISIBLE);
 
             this.textView1Seats.setVisibility(View.INVISIBLE);
             this.textView2Seats.setVisibility(View.INVISIBLE);
@@ -437,7 +438,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.btnReserve.setVisibility(View.VISIBLE);
 
-        this.linearLayoutSeats.setVisibility(View.VISIBLE);
+        //this.linearLayoutSeats.setVisibility(View.VISIBLE);
+        this.linearLayoutRows.setVisibility(View.VISIBLE);
 
         this.textView1Seats.setVisibility(View.VISIBLE);
         this.textView2Seats.setVisibility(View.VISIBLE);
