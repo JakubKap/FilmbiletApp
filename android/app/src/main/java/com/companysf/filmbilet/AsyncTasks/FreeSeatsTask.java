@@ -30,6 +30,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import android.graphics.drawable.Drawable;
 
 public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
@@ -191,21 +192,22 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
     }
     public void changeColorOfButton(Button button, int index){
-        String taken="#ff9478";
-        String free = "#bdc3c7";
 
        boolean isTaken = takenSeats.get(index);
 
         if(isTaken)
         {
             button.setEnabled(false);
-            button.setBackgroundColor(Color.RED);
+            button.setBackgroundResource(R.drawable.button_taken);
             button.setTextColor(Color.WHITE);
 //            button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
         }
-        else if (!button.isEnabled() && isTaken){
+        else if (!button.isEnabled() && isTaken){ //miejsca zostao właśnie odblokowane
             button.setEnabled(true);
-            button.getBackground().setColorFilter(Color.parseColor(free),PorterDuff.Mode.SRC);
+            button.setBackgroundResource(R.drawable.button_normal_seat);
+        }
+        else{ //miejsce, które w momencie załadowanie popupu jest wolne
+            button.setBackgroundResource(R.drawable.button_normal_seat);
         }
 
     }

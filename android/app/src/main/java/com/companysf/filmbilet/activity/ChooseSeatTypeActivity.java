@@ -726,7 +726,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                     int selected = selectedSeats();
 
-                    textView3Seats.setText("Liczba wybranych miejsc: " + selected);
+                    textView3Seats.setText("Wybrane miejsca: " + selected);
 
                 }
             };
