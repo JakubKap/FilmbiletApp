@@ -58,16 +58,20 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
     View linearLayout; //dodane
     private boolean start;
+    private Map<Integer, Integer> selectedSeats = new HashMap<>();
 
-    public FreeSeatsTask(Context context, View linearLayout, int startSeat, int seatTypeId) {
+
+
+    public FreeSeatsTask(Context context, View linearLayout, Map<Integer, Integer> selectedSeats, int startSeat, int seatTypeId) {
 
         contextref = new WeakReference<>(context);
 
-        this.start=start;
 
         this.startSeat = startSeat;
 
         this.linearLayout = linearLayout;
+
+        this.selectedSeats=selectedSeats;
 
         this.linearLayoutRows = (LinearLayout) linearLayout.findViewById(R.id.linearLayoutRows);
 
@@ -163,110 +167,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         }
 
 
-/*
-    public int freeSectorSlots(int slot_number, int firstSeat) {
-        int taken=0;
-
-        //zbudowanie siatki miejsc
-
-        ArrayList<Integer> seatNumber = new ArrayList<>();
-        int seatNr = firstSeat;
-
-        for(int i=1; i<=35; i++){
-
-            if(i==8 || i==15 || i==22 || i==29) {
-                seatNr += 7;
-                seatNumber.add(seatNr);
-                Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
-                seatNr++;
-            }
-            else{
-                seatNumber.add(seatNr);
-                Log.d(logTag, "Dodana wartość do siatki: " + seatNr+ " dla i = " + i);
-                seatNr++;
-            }
-
-        }
-
-        String text;
-
-
-        for (Reservation r : reservationList) {
-            if ((r.getSeatTypeId() == slot_number) && seatNumber.contains(r.getSeatNumber()))
-                taken++;
-
-            text="" + seatNumber.contains(r.getSeatNumber());
-            Log.d("Zawartość listy: ", text);
-        }
-        return 35-taken;
-    }*/
-
-    public boolean isTaken(int row, int seatNumber) {
-
-
-        if (true) {
-            for (Reservation r : reservationList) {
-                if (r.getSeatTypeId() == this.seatTypeId && r.getRow() == row && r.getSeatNumber() == seatNumber && r.getSeatNumber() < 8)
-                    return true; //znaleziono takie miejsce
-            }
-        } else {
-            for (Reservation r : reservationList) {
-                if (r.getSeatTypeId() == this.seatTypeId && r.getRow() == row && r.getSeatNumber() == seatNumber && r.getSeatNumber() >= 8)
-                    return true; //znaleziono takie miejsce
-            }
-        }
-        return false; //nie znalezniono takiego miejsca
-
-    }
-
     public void changeColorOfButton(Button button, int index){
-/*
-        for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
-            Button key = entry.getKey();
-            Boolean value = entry.getValue();
-            key.setEnabled(false);
-        }*/
-
-
-/*
-        for(Reservation r : reservationList){
-            if(r.getSeatNumber() == seatNumber.get(index) && r.getSeatTypeId()==this.seatTypeId){ //znaleziono taki numer w rezerwacjach, czyli miejsce zajęte
-                button.setEnabled(false);
-                button.setTextColor(Color.WHITE);
-                button.setBackgroundResource(R.drawable.button_taken);
-                Log.d(logTag, "Zawartość reservationList: " + r.getSeatNumber());
-            }
-            else if (!button.isEnabled() && seatNumber.get(index) == r.getSeatNumber()){ //miejsca zostao właśnie odblokowane
-                button.setEnabled(true);
-                button.setBackgroundResource(R.drawable.button_normal_seat);
-            }
-            else{ //miejsce, które w momencie załadowanie popupu jest wolne
-                button.setEnabled(true);
-                button.setBackgroundResource(R.drawable.button_normal_seat);
-                Log.d(logTag, "Napis na buttonie" + button.getText());
-            }
-        }
-*/
-
-
-/*
-       boolean isTaken = takenSeats.get(index);
-
-        if(isTaken)
-        {
-            button.setEnabled(false);
-            button.setBackgroundResource(R.drawable.button_taken);
-            button.setTextColor(Color.WHITE);
-//            button.getBackground().setColorFilter(Color.parseColor(taken),PorterDuff.Mode.SRC);
-        }
-        else if (!button.isEnabled() && isTaken){ //miejsca zostao właśnie odblokowane
-            button.setEnabled(true);
-            button.setBackgroundResource(R.drawable.button_normal_seat);
-        }
-        else{ //miejsce, które w momencie załadowanie popupu jest wolne
-            button.setBackgroundResource(R.drawable.button_normal_seat);
-        }*/
-
 
 
         if(takenSeats.contains(seatNumber.get(button))){ //zajęte miejsce
@@ -353,9 +254,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                 break;
         }
 
-        if(this.start){
 
-            //this.linearLayoutSeats.setVisibility(View.INVISIBLE);
             this.linearLayoutRows.setVisibility(View.INVISIBLE);
 
             this.textView1Seats.setVisibility(View.INVISIBLE);
@@ -370,6 +269,14 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
             Log.d(logTag, "OnPreExecute po zminie buttonów");
             this.btnReserve.setVisibility(View.INVISIBLE);
+
+            //w celach testowych
+        for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
+            int number = entry.getKey();
+            int seatType = entry.getValue();
+
+            Log.d(logTag, "Przekazana wartość (nr, seatTypeId) do popup = (" + number + ", " +  seatType + ")");
+
         }
 
     }
@@ -465,6 +372,20 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                             index++;
                         }
 
+
+                        // pętla służąca do pokazania użytkownikowi miejsc,które wcześniej wybrał (miejsca są
+                        // zaznaczane na nowo w momencie ponownego kliknięcia w sektor)
+                        for (Button b : buttons) {
+                            int number =  Integer.parseInt(b.getText().toString()); //parsowanie nr miejsca do int
+                            if(selectedSeats.containsKey(number)){
+                                b.setBackgroundResource(R.drawable.button_light);
+                                Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
+                            }
+
+                        }
+
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -535,8 +456,6 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         }
 
         textView2Seats.append(cena + " zł");
-
-
 
 
     }

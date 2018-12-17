@@ -369,7 +369,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             else startSeat = 218;
 
 
-            new FreeSeatsTask(getApplicationContext(), popupView, startSeat, seatTypeId).execute(1);
+            new FreeSeatsTask(getApplicationContext(), popupView,selectedSeats, startSeat, seatTypeId).execute(1);
 
 
 
@@ -478,6 +478,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             textView3Seats = (TextView) popupView.findViewById(R.id.textView3Seats);
 
             buttonClose = (Button) popupView.findViewById(R.id.buttonClose);
+
+
 
             //wciśnięcie przycisku zamykającego popup, przywraca dolną warstwę
           buttonClose.setOnClickListener(new View.OnClickListener() {
