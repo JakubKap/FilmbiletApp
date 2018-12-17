@@ -382,7 +382,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             // show the popup window
             // which view you pass in doesn't matter, it is only used for the window tolken
-            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+
+            //prawidłowe położenia popup
+            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 40);
 
 
 
