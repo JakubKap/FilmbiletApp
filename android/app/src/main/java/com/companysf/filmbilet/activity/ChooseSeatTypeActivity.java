@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 
 
@@ -34,6 +35,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
+    private SQLiteHandler db;
     private Map<Button, Boolean> sectorButtons = new HashMap<>();
 
     ConstraintLayout constraintLayout;
@@ -59,6 +61,14 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private int overallSeats=0;
     private Map<Integer, Integer> selectedSeats = new HashMap<>();
     private Map<Integer, Integer> seatAndRowMap = new HashMap<>();
+
+
+    private void logOutCustomer(){
+        sManager.setLogin(false);
+
+        db.deleteCustomers();
+
+    }
 
     public int selectedSeats() {
 
@@ -118,6 +128,16 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //sprawdzenie zalogowania
+
+        sManager = new SessionManager(getApplicationContext());
+        db = new SQLiteHandler(getApplicationContext());
+
+        if (!sManager.isLoggedIn()) {
+            logOutCustomer();
+        }
+
 
         setContentView(R.layout.activity_choose_seat_type2);
 
@@ -268,14 +288,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         }
 
-/*
 
-        sManager = new SessionManager(getApplicationContext());
 
-        if (!sManager.isLoggedIn()) {
-            logOutCustomer();
-        }
-*/
 
 
 
