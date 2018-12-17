@@ -3,15 +3,12 @@ package com.companysf.filmbilet.activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -20,17 +17,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -56,7 +49,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             buttonIIIR_1, buttonIIIR_2, buttonIIIR_3, buttonIIIR_4, buttonIIIR_5,buttonIIIR_6, buttonIIIR_7,
             buttonIVR_1, buttonIVR_2, buttonIVR_3, buttonIVR_4, buttonIVR_5,buttonIVR_6, buttonIVR_7,
             buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
-            btnReserve, btnAccept, buttonClose;
+            btnApprove, btnReserve, buttonClose;
 
     private TextView textView3Seats;
 
@@ -144,7 +137,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         button8 = (Button) findViewById(R.id.button8);
 
         btn_next = (Button) findViewById(R.id.btn_next);
-        btnAccept = (Button) findViewById(R.id.btnAccept);
+        btnReserve = (Button) findViewById(R.id.btnReserve);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -473,7 +466,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             buttonVR_7 = (Button) popupView.findViewById(R.id.buttonVR_7);
             seatButtons.put(buttonVR_7, false);
 
-            btnReserve = (Button) popupView.findViewById(R.id.btnReserve);
+            btnApprove = (Button) popupView.findViewById(R.id.btnApprove);
 
             textView3Seats = (TextView) popupView.findViewById(R.id.textView3Seats);
 
@@ -544,7 +537,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     int selected = selectedSeats();
 
 
-                    btnReserve.setVisibility(View.VISIBLE);
+                    btnApprove.setVisibility(View.VISIBLE);
                     textView3Seats.setVisibility(View.VISIBLE);
                     textView3Seats.setText("Wybrane miejsca: " + selected);
 
@@ -559,7 +552,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
             //dodanie obsługi klawisza zarezerwuj
-            btnReserve.setOnClickListener(new View.OnClickListener() {
+            btnApprove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -591,9 +584,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                         }*/
 
                         //po wyborze miejsc wyświetlamy podsumowanie oraz nadajemy kolor przyciskowi akceptacji
-                        btnAccept.setBackgroundResource(R.drawable.rounded_bordered_button_light);
-                        btnAccept.setEnabled(true);
-                        btnAccept.setTextColor(Color.WHITE);
+                        btnReserve.setBackgroundResource(R.drawable.rounded_bordered_button_light);
+                        btnReserve.setEnabled(true);
+                        btnReserve.setTextColor(Color.WHITE);
                         textView4.setVisibility(View.VISIBLE);
 
                         //obliczenie ceny
@@ -635,7 +628,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                 + "\nCena: " + price + " zł");
 
 
-                        btnAccept.setVisibility(View.VISIBLE);
+                        btnReserve.setVisibility(View.VISIBLE);
 
                         sectorButtons.put(btn,false);
                         seatButtons.clear();

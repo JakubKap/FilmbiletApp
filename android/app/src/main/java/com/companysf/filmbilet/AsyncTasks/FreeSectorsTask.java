@@ -31,7 +31,6 @@ import java.util.Map;
 import com.companysf.filmbilet.R;
 
 import static android.graphics.Color.rgb;
-import android.graphics.drawable.Drawable;
 
 public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
@@ -40,7 +39,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     private ArrayList<Integer> freeSeats = new ArrayList<>();
     private WeakReference<Context> contextref;
     private ConstraintLayout constraintLayout;
-    private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_next, btnAccept;
+    private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_next, btnReserve;
     private ArrayList<Button> buttons = new ArrayList<>();
     private ProgressBar progressBar;
     private TextView textView1, textView2, textView3, textView4;
@@ -80,7 +79,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         buttons.add(button8);
 
         this.btn_next=(Button) constraintLayout.findViewById(R.id.btn_next);
-        this.btnAccept = (Button) constraintLayout.findViewById(R.id.btnAccept);
+        this.btnReserve = (Button) constraintLayout.findViewById(R.id.btnReserve);
 
         this.progressBar=(ProgressBar) constraintLayout.findViewById(R.id.progressBar);
 
@@ -175,7 +174,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
             this.button7.setVisibility(View.INVISIBLE);
             this.button8.setVisibility(View.INVISIBLE);
             this.btn_next.setVisibility(View.INVISIBLE);
-            this.btnAccept.setVisibility(View.INVISIBLE);
+            this.btnReserve.setVisibility(View.INVISIBLE);
 
             this.progressBar.setVisibility(View.VISIBLE);
 

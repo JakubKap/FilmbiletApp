@@ -1,7 +1,6 @@
 package com.companysf.filmbilet.AsyncTasks;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.TypedValue;
@@ -31,7 +30,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import android.graphics.drawable.Drawable;
 
 public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
@@ -52,7 +50,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
             buttonIIIR_1, buttonIIIR_2, buttonIIIR_3, buttonIIIR_4, buttonIIIR_5,buttonIIIR_6, buttonIIIR_7,
             buttonIVR_1, buttonIVR_2, buttonIVR_3, buttonIVR_4, buttonIVR_5,buttonIVR_6, buttonIVR_7,
             buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
-            btnReserve;
+            btnApprove;
 
     ProgressBar progressBarSeats;
 
@@ -85,7 +83,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.seatTypeId=seatTypeId;
 
-        this.btnReserve =linearLayout.findViewById(R.id.btnReserve);
+        this.btnApprove =linearLayout.findViewById(R.id.btnApprove);
 
             this.buttonIR_1 = (Button) linearLayout.findViewById(R.id.buttonIR_1);
             buttons.add(buttonIR_1);
@@ -268,7 +266,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                 b.setVisibility(View.INVISIBLE);
 
             Log.d(logTag, "OnPreExecute po zminie buttonów");
-            this.btnReserve.setVisibility(View.INVISIBLE);
+            this.btnApprove.setVisibility(View.INVISIBLE);
 
             //w celach testowych
         for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
@@ -382,7 +380,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                                 Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
 
                                 textView3Seats.setVisibility(View.VISIBLE);
-                                btnReserve.setVisibility(View.VISIBLE);
+                                btnApprove.setVisibility(View.VISIBLE);
                             }
 
                         }
@@ -434,7 +432,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.progressBarSeats.setVisibility(View.INVISIBLE);
         this.textView3Seats.setVisibility(View.INVISIBLE);
-        this.btnReserve.setVisibility(View.INVISIBLE);
+        this.btnApprove.setVisibility(View.INVISIBLE);
 
        //textView3Seats.append(""+0);
 

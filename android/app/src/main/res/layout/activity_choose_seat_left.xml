@@ -580,7 +580,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
-        android:id="@+id/btnReserve"
+        android:id="@+id/btnApprove"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -594,7 +594,7 @@
         android:minHeight="40dip"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Zarezerwuj"
+        android:text="ZATWIERDŹ"
         android:textColor="#f9f9f9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
