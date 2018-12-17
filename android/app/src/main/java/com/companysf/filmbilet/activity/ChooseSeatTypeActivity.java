@@ -16,9 +16,11 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SessionManager;
 
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -40,6 +44,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private Map<Button, Boolean> sectorButtons = new HashMap<>();
 
     ConstraintLayout constraintLayout;
+    FrameLayout frameLayout; //używany do przyciemnienia backgroundu w popup
     Button button1, button2, button3, button4, button5, button6, button7, button8, btn_next;
     ProgressBar progressBar;
 
@@ -145,6 +150,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         textView3=(TextView) findViewById(R.id.textView3);
         textView4=(TextView) findViewById(R.id.textView4);
+
+        frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+        frameLayout.getForeground().setAlpha( 0);
 
         sectorButtons.put(button1, false);
         sectorButtons.put(button2, false);
@@ -319,14 +327,15 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             sectorButtons.put(btn, true);
 
-            btn.setBackgroundResource(R.drawable.button_light);
+            //btn.setBackgroundResource(R.drawable.button_light);
 
-            btn.setEnabled(false);
+            //po wciśnięciu button, następuje zmiana jego przezroczystości (bez zmiany koloru)
+            btn.getBackground().setAlpha(128);
 
 
             //po kliknięciu dowolnego "aktywnego" sektora od razu pokazuje się popup oraz "chowają" elementy pod nim
 
-            constraintLayout.setVisibility(View.INVISIBLE); //schowanie dolnej warstwy
+           // constraintLayout.setVisibility(View.INVISIBLE); //schowanie dolnej warstwy
 
             LayoutInflater inflater = (LayoutInflater)
                     getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -373,22 +382,16 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             // show the popup window
             // which view you pass in doesn't matter, it is only used for the window tolken
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
-            //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.clear));
-               /* popupWindow.setBackgroundDrawable(new ColorDrawable(
-                        android.graphics.Color.TRANSPARENT));*/
 
-            Drawable d = new ColorDrawable(Color.WHITE);
 
-            d.setAlpha(180);
+            //przyciemnienie backgroundu pod popupem
+            frameLayout.getForeground().setAlpha(165);
+
 
             popupWindow.setBackgroundDrawable(new BitmapDrawable());
 
-            // popupWindow.showAsDropDown(mBtnPopUpWindow, 0, 0,Gravity.LEFT);
-
-
-            getWindow().setBackgroundDrawable(d);
 
             //dodanie słuchacza do przycisków oraz textView popupview
 
@@ -480,9 +483,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
                   popupWindow.dismiss();
-                  Drawable d = new ColorDrawable(Color.WHITE);
-                  popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                  getWindow().setBackgroundDrawable(d);
+
+                  //rozjaśnienie backgroundu pod popupem
+                  frameLayout.getForeground().setAlpha(0);
 
                   //usunięcie historii wybranych miejsc po kliknięciu poza popup
                   seatButtons.clear();
@@ -548,9 +551,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
                         popupWindow.dismiss();
-                        Drawable d = new ColorDrawable(Color.WHITE);
-                        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                        getWindow().setBackgroundDrawable(d);
+
+                        //rozjaśnienie backgroundu pod popupem
+                        frameLayout.getForeground().setAlpha(0);
 
 
 
