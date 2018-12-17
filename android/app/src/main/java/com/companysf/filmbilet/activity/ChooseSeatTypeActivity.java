@@ -481,6 +481,22 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
 
+            //po ponownym otwarciu popupu zaliczenie ponownie wybranego buttona jako wciśnięty
+            for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+                Button button = entry.getKey();
+
+                int number =  Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
+                if(selectedSeats.containsKey(number)) {
+                    seatButtons.put(button, true);
+                    int selected = selectedSeats();
+                    textView3Seats.setText("Wybrane miejsca: " + selected);
+
+                    Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
+
+                }
+
+            }
+
             //wciśnięcie przycisku zamykającego popup, przywraca dolną warstwę
           buttonClose.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -519,6 +535,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                         btn.setBackgroundResource(R.drawable.button_light);
                     } else {
                         seatButtons.put(btn, false);
+                        int number =  Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
+                        selectedSeats.remove(number); //usunięcie z Mapy odznaczonego miejsca
                         btn.setBackgroundResource(R.drawable.button_normal);
                     }
 
@@ -545,7 +563,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if (selectedSeats() > 0) {
                         //pobranie informacji o wybranych miejscach i zapisanie
 
                         //pobranie informacji o seatTypeId (przez pobranie informacji o sektorze)
@@ -560,9 +577,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                         //rozjaśnienie backgroundu pod popupem
                         frameLayout.getForeground().setAlpha(0);
 
-
-
-                        constraintLayout.setVisibility(View.VISIBLE);
 
                         //Wyświetlenie podsumowania
                         btn_next.setVisibility(View.INVISIBLE);
@@ -584,24 +598,42 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                         //obliczenie ceny
 
-                        int price = 1;
-                        int seatTypeId = selectedSector();
 
 
-                        if (seatTypeId == 1)
-                            price = selectedSeats() * 10;
-                        else if (seatTypeId == 2)
-                            price = selectedSeats() * 15;
-                        else if (seatTypeId == 3)
-                            price = selectedSeats() * 20;
-                        else if (seatTypeId == 4)
-                            price = selectedSeats() * 30;
+                        int numberOfSeats = 0;
+                        int price = 0;
+                       // int seatTypeId = selectedSector();
 
-                        overallPrice+=price;
-                        overallSeats+=selectedSeats();
 
-                        textView4.setText("Liczba miejsc: " + overallSeats
-                                + "\nCena: " + overallPrice + " zł");
+                        for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
+                            int seatTypeId = entry.getValue();
+
+                            numberOfSeats++;
+
+                            switch(seatTypeId) {
+                                case 1:
+                                    price += 10;
+                                    break;
+                                case 2:
+                                    price += 15;
+                                    break;
+
+                                case 3:
+                                    price += 20;
+                                    break;
+
+                                case 4:
+                                    price += 30;
+                                    break;
+                            }
+
+                            }
+
+
+
+                        textView4.setText("Liczba miejsc: " + numberOfSeats
+                                + "\nCena: " + price + " zł");
+
 
                         btnAccept.setVisibility(View.VISIBLE);
 
@@ -611,8 +643,12 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                         //ustalenie które rzędy
 
+
+
+
                     }
-                }
+
+
             });
 
         }

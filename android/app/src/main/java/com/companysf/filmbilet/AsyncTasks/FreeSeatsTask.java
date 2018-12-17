@@ -380,6 +380,9 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                             if(selectedSeats.containsKey(number)){
                                 b.setBackgroundResource(R.drawable.button_light);
                                 Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
+
+                                textView3Seats.setVisibility(View.VISIBLE);
+                                btnReserve.setVisibility(View.VISIBLE);
                             }
 
                         }
@@ -433,7 +436,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         this.textView3Seats.setVisibility(View.INVISIBLE);
         this.btnReserve.setVisibility(View.INVISIBLE);
 
-        textView3Seats.append(""+0);
+       //textView3Seats.append(""+0);
 
         int cena=10;
 
