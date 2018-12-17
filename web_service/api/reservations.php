@@ -17,8 +17,8 @@
 		
 			foreach($reservation as $arr){
 				$response2 = array(
+				"id" => $arr['id'],
 				"customerId" => $arr['customerId'],
-				"hall" => $arr['hall'],
 				"seatNumber" => $arr['seatNumber'],
 				"row" => $arr['row'],
 				"date" => $arr['date'],
