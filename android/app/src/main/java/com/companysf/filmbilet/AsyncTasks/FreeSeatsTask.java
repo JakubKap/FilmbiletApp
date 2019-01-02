@@ -36,6 +36,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     private static final String logTag = FreeSeatsTask.class.getSimpleName();
     private WeakReference<Context> contextref;
     private ArrayList<Button> buttons = new ArrayList<>();
+
+    private ArrayList<Button> columnButtons = new ArrayList<>();
     private int startSeat;
     private int seatTypeId;
     private Map<Button, Integer> seatNumber = new HashMap<>();//mapa zawierająca button oraz odpowiadający mu nr siedzenia
@@ -50,6 +52,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
             buttonIIIR_1, buttonIIIR_2, buttonIIIR_3, buttonIIIR_4, buttonIIIR_5,buttonIIIR_6, buttonIIIR_7,
             buttonIVR_1, buttonIVR_2, buttonIVR_3, buttonIVR_4, buttonIVR_5,buttonIVR_6, buttonIVR_7,
             buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
+            button1C, button2C, button3C, button4C, button5C, button6C, button7C,
+            buttonIR, buttonIIR, buttonIIIR, buttonIVR, buttonVR,
             btnApprove;
 
     ProgressBar progressBarSeats;
@@ -160,6 +164,28 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
             this.buttonVR_7 = (Button) linearLayout.findViewById(R.id.buttonVR_7);
             buttons.add(buttonVR_7);
 
+            this.button1C = (Button) linearLayout.findViewById(R.id.button1C);
+            columnButtons.add(button1C);
+            this.button2C = (Button) linearLayout.findViewById(R.id.button2C);
+            columnButtons.add(button2C);
+            this.button3C = (Button) linearLayout.findViewById(R.id.button3C);
+            columnButtons.add(button3C);
+            this.button4C = (Button) linearLayout.findViewById(R.id.button4C);
+            columnButtons.add(button4C);
+            this.button5C = (Button) linearLayout.findViewById(R.id.button5C);
+            columnButtons.add(button5C);
+            this.button6C = (Button) linearLayout.findViewById(R.id.button6C);
+            columnButtons.add(button6C);
+            this.button7C = (Button) linearLayout.findViewById(R.id.button7C);
+            columnButtons.add(button7C);
+
+            this.buttonIR = (Button) linearLayout.findViewById(R.id.buttonIR);
+            this.buttonIIR = (Button) linearLayout.findViewById(R.id.buttonIIR);
+            this.buttonIIIR = (Button) linearLayout.findViewById(R.id.buttonIIIR);
+            this.buttonIVR = (Button) linearLayout.findViewById(R.id.buttonIVR);
+            this.buttonVR = (Button) linearLayout.findViewById(R.id.buttonVR);
+
+
             Log.d(logTag, "Czy buttons empty: " + buttons.isEmpty());
 
         }
@@ -187,7 +213,6 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         Log.d(logTag, "Czy buttons empty: " + buttons.isEmpty());
         Log.d(logTag, "buttons size: " + buttons.size());
-
 
 
         //wypełnienie buttonów opodwiednimi nr siedzień
@@ -277,6 +302,51 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         }
 
+        //zmiana numerów kolumn
+        int number = 1;
+        if(buttonIR_1.getText().equals("1") || buttonIR_1.getText().equals("71") || buttonIR_1.getText().equals("141") || buttonIR_1.getText().equals("211")){
+            for(Button cb : columnButtons){
+                cb.setText(number+"");
+                number++;
+            }
+        }
+        else{
+            number = 8;
+            for(Button cb : columnButtons){
+                cb.setText(number+"");
+                number++;
+            }
+        }
+
+        //zmiana numerów rzędów
+        if(buttonIR_1.getText().equals("1") || buttonIR_1.getText().equals("8")) {
+            buttonIR.setText("I");
+            buttonIIR.setText("II");
+            buttonIIIR.setText("III");
+            buttonIVR.setText("IV");
+            buttonVR.setText("V");
+        }
+        else if(buttonIR_1.getText().equals("71") || buttonIR_1.getText().equals("78")){
+            buttonIR.setText("VI");
+            buttonIIR.setText("VII");
+            buttonIIIR.setText("VIII");
+            buttonIVR.setText("IX");
+            buttonVR.setText("X");
+        }
+        else if(buttonIR_1.getText().equals("141") || buttonIR_1.getText().equals("148")){
+            buttonIR.setText("XI");
+            buttonIIR.setText("XII");
+            buttonIIIR.setText("XIII");
+            buttonIVR.setText("XIV");
+            buttonVR.setText("XV");
+        }
+        else if(buttonIR_1.getText().equals("211") || buttonIR_1.getText().equals("218")){
+            buttonIR.setText("XVI");
+            buttonIIR.setText("XVII");
+            buttonIIIR.setText("XVIII");
+            buttonIVR.setText("XIX");
+            buttonVR.setText("XX");
+        }
     }
 
     @Override
