@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -33,10 +34,14 @@ import java.util.Map;
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
 
+    private View popupView;
+    private boolean isPopupActive;
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
     private SQLiteHandler db;
     private Map<Button, Boolean> sectorButtons = new HashMap<>();
+
+    private PopupWindow popupWindow=null;
 
     ConstraintLayout constraintLayout;
     FrameLayout frameLayout; //używany do przyciemnienia backgroundu w popup
@@ -51,7 +56,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             buttonIIIR_1, buttonIIIR_2, buttonIIIR_3, buttonIIIR_4, buttonIIIR_5,buttonIIIR_6, buttonIIIR_7,
             buttonIVR_1, buttonIVR_2, buttonIVR_3, buttonIVR_4, buttonIVR_5,buttonIVR_6, buttonIVR_7,
             buttonVR_1, buttonVR_2, buttonVR_3, buttonVR_4, buttonVR_5,buttonVR_6, buttonVR_7,
-            btnApprove, btnReserve, buttonClose;
+            btnApprove, btnReserve, buttonClose, btn;
 
     private TextView textView3Seats;
 
@@ -128,6 +133,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isPopupActive=false;
 
         //sprawdzenie zalogowania
 
@@ -301,7 +308,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         String free = "#6bb9f0";
 
-       final Button btn = (Button) findViewById(view.getId());
+        btn = (Button) findViewById(view.getId());
+
         //btn.setEnabled(false);
 
         //Animation animation = new AlphaAnimation(1.0f, 0.0f);
@@ -350,7 +358,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             int seatTypeId = selectedSector();
 
-            final View popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
+            popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
 
             // LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
 
@@ -384,8 +392,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
             int height = LinearLayout.LayoutParams.WRAP_CONTENT;
             boolean focusable = true; // lets taps outside the popup also dismiss it
-            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+            popupWindow  = new PopupWindow(popupView, width, height, focusable);
+            //globalPopUpWindow = popupWindow;
 
+            isPopupActive=true;
 
             // show the popup window
             // which view you pass in doesn't matter, it is only used for the window tolken
@@ -401,6 +411,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
             popupWindow.setBackgroundDrawable(new BitmapDrawable());
+            popupWindow.setFocusable(false);
 
 
             //dodanie słuchacza do przycisków oraz textView popupview
@@ -504,6 +515,36 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             }
 
+            //popupWindow.set
+
+            popupView.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                    if(keyCode == KeyEvent.KEYCODE_BACK){
+
+                        Log.d(logTag, "onBackPressed1");
+
+                        popupWindow.dismiss();
+
+                        //rozjaśnienie backgroundu pod popupem
+                        frameLayout.getForeground().setAlpha(0);
+
+                        //usunięcie historii wybranych miejsc po kliknięciu poza popup
+                        seatButtons.clear();
+
+                        sectorButtons.put(btn,false);
+                        constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
+
+                        isPopupActive=false;
+
+                        return true;
+                    }
+
+                    else return false;
+                }
+            });
+
             //wciśnięcie przycisku zamykającego popup, przywraca dolną warstwę
           buttonClose.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -521,8 +562,11 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                   sectorButtons.put(btn,false);
                   constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
 
+                  isPopupActive=false;
+
               }
           });
+
 
             View.OnClickListener seatBtnClick = new View.OnClickListener() {
                 @Override
@@ -656,12 +700,41 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     }
 
 
+
             });
 
         }
 
       }
+
+      //obsługa systemowego przycisku wstecz
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+/*
+            Log.d(logTag, "onBackPressed1");
+
+            popupWindow.dismiss();
+
+            //rozjaśnienie backgroundu pod popupem
+            frameLayout.getForeground().setAlpha(0);
+
+            //usunięcie historii wybranych miejsc po kliknięciu poza popup
+            seatButtons.clear();
+
+            sectorButtons.put(btn,false);
+            constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
+
+            isPopupActive=false;*/
+
+        if(popupWindow != null && popupWindow.isShowing()){
+            //btn
+        }
+        else
+            super.onBackPressed();
+
     }
+}
 
 
 
