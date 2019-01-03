@@ -44,6 +44,12 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request.Builder;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+import okio.ByteString;
+
 
 public class ChooseSeatTypeActivity extends AppCompatActivity {
 
@@ -84,7 +90,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     //zmienne służace do komunikacji z socketem
 
     private boolean choosedPlaces [] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu)
-    private boolean myChoosedPaces[] = new boolean[280]; //zajęte miejsca przez użytkownika
+    private boolean myChoosedPlaces[] = new boolean[280]; //zajęte miejsca przez użytkownika
 
     private final String websocketURL = "ws://35.204.119.131:8080/";
 
@@ -316,14 +322,14 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         }
 
 
-
         //obługa związana z socketem
 
         for(int i=0; i<choosedPlaces.length; i++){
-            myChoosedPaces[i]=false;
+            myChoosedPlaces[i]=false;
         }
 
         //pobranie informacji z bazy danych na temat pobranych miejsc (DLA DANEGO REPERTUARU)
+
 
         int repertoireId = 1;
 
@@ -399,6 +405,71 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
 
 
+
+/*
+        final OkHttpClient httpClient = new OkHttpClient();
+        okhttp3.Request request = new okhttp3.Request.Builder().url(websocketURL).build();
+
+        WebSocketListener webSocketListener = new WebSocketListener() {
+            @Override
+            public void onOpen(WebSocket webSocket, okhttp3.Response response) {
+
+              // if(!seatButtons.isEmpty()) {
+
+                    //rozpatrywane tylko wtedy, gdy jest wyświetlony popup, czyli do seatButtons są dodane Buttony
+
+                    for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+                        final Button button = entry.getKey();
+
+                        if(button.isEnabled())  Log.d(logTag, "isEnabled");
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                int index = Integer.valueOf(button.getText().toString())-1;
+                                boolean value = !myChoosedPlaces[index];
+                                myChoosedPlaces[index] = value;
+
+                                Log.d(logTag, "myChoosedPlaces[ " + index + " ] = "  +  myChoosedPlaces[index]);
+                            }
+                        });
+
+                    }
+
+                //}
+
+                Log.d(logTag, "Udało się");
+
+            }
+
+            @Override
+            public void onMessage(WebSocket webSocket, String text) {
+                super.onMessage(webSocket, text);
+            }
+
+            @Override
+            public void onMessage(WebSocket webSocket, ByteString bytes) {
+                super.onMessage(webSocket, bytes);
+            }
+
+            @Override
+            public void onClosing(WebSocket webSocket, int code, String reason) {
+                super.onClosing(webSocket, code, reason);
+            }
+
+            @Override
+            public void onClosed(WebSocket webSocket, int code, String reason) {
+                super.onClosed(webSocket, code, reason);
+            }
+
+            @Override
+            public void onFailure(WebSocket webSocket, Throwable t, okhttp3.Response response) {
+                super.onFailure(webSocket, t, response);
+            }
+        };
+
+        httpClient.newWebSocket(request, webSocketListener);
+        httpClient.dispatcher().executorService().shutdown();*/
     }
 
 
@@ -614,6 +685,101 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             }
 
+            //here
+
+            final OkHttpClient httpClient = new OkHttpClient();
+            okhttp3.Request request = new okhttp3.Request.Builder().url(websocketURL).build();
+
+            WebSocketListener webSocketListener = new WebSocketListener() {
+                @Override
+                public void onOpen(WebSocket webSocket, okhttp3.Response response) {
+
+
+                    //foreach po mapie zawierającej nr_miejsca oraz informację, czy został wciśnięty
+                    for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+                        final Button button = entry.getKey();
+
+                        if(button.isEnabled())  Log.d(logTag, "isEnabled");
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Button btn = (Button) popupView.findViewById(v.getId());
+
+
+                                Animation animation = new AlphaAnimation(1.0f, 0.0f);
+                                animation.setDuration(200);
+
+                                btn.startAnimation(animation);
+
+
+                                if (!seatButtons.get(btn)) {
+                                    seatButtons.put(btn, true);
+                                    btn.setBackgroundResource(R.drawable.button_light);
+                                }
+                                else {
+                                    seatButtons.put(btn, false);
+                                    int number =  Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
+                                    selectedSeats.remove(number); //usunięcie z Mapy odznaczonego miejsca
+                                    btn.setBackgroundResource(R.drawable.button_normal);
+                                }
+
+
+                                int selected = selectedSeats();
+
+
+                                btnApprove.setVisibility(View.VISIBLE);
+                                textView3Seats.setVisibility(View.VISIBLE);
+                                textView3Seats.setText("Wybrane miejsca: " + selected);
+
+
+                                //uzupełnienie tablicy potrzebnej do komunikacji przez Socket
+                                int index = Integer.valueOf(button.getText().toString())-1;
+                                boolean value = !myChoosedPlaces[index];
+                                myChoosedPlaces[index] = value;
+
+                                Log.d(logTag, "myChoosedPlaces[ " + index + " ] = "  +  myChoosedPlaces[index]);
+                            }
+                        });
+
+                    }
+
+
+                }
+
+                @Override
+                public void onMessage(WebSocket webSocket, String text) {
+                    super.onMessage(webSocket, text);
+                }
+
+                @Override
+                public void onMessage(WebSocket webSocket, ByteString bytes) {
+                    super.onMessage(webSocket, bytes);
+
+                }
+
+                @Override
+                public void onClosing(WebSocket webSocket, int code, String reason) {
+                    super.onClosing(webSocket, code, reason);
+                }
+
+                @Override
+                public void onClosed(WebSocket webSocket, int code, String reason) {
+                    super.onClosed(webSocket, code, reason);
+                }
+
+                @Override
+                public void onFailure(WebSocket webSocket, Throwable t, okhttp3.Response response) {
+                    super.onFailure(webSocket, t, response);
+                }
+            };
+
+            httpClient.newWebSocket(request, webSocketListener);
+            httpClient.dispatcher().executorService().shutdown();
+
+
+            //here
+
             //popupWindow.set
 
             popupView.setOnKeyListener(new View.OnKeyListener() {
@@ -666,7 +832,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
               }
           });
 
-
+/*
             View.OnClickListener seatBtnClick = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -706,7 +872,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 Boolean value = entry.getValue();
                 key.setOnClickListener(seatBtnClick);
             }
-
+*/
 
             //dodanie obsługi klawisza zarezerwuj
             btnApprove.setOnClickListener(new View.OnClickListener() {
