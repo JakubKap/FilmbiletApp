@@ -19,14 +19,27 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
+import com.companysf.filmbilet.app.AppConfig;
+import com.companysf.filmbilet.app.AppController;
+import com.companysf.filmbilet.appLogic.Reservation;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.Map;
@@ -67,6 +80,13 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private Map<Integer, Integer> selectedSeats = new HashMap<>();
     private Map<Integer, Integer> seatAndRowMap = new HashMap<>();
 
+
+    //zmienne służace do komunikacji z socketem
+
+    private boolean choosedPlaces [] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu)
+    private boolean myChoosedPaces[] = new boolean[280]; //zajęte miejsca przez użytkownika
+
+    private final String websocketURL = "ws://35.204.119.131:8080/";
 
     private void logOutCustomer(){
         sManager.setLogin(false);
@@ -297,7 +317,86 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
 
+        //obługa związana z socketem
 
+        for(int i=0; i<choosedPlaces.length; i++){
+            myChoosedPaces[i]=false;
+        }
+
+        //pobranie informacji z bazy danych na temat pobranych miejsc (DLA DANEGO REPERTUARU)
+
+        int repertoireId = 1;
+
+        final String repertoireIdString = "" + repertoireId;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                AppConfig.GET_RESERVATIONS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(logTag, "Reservation request: " + response);
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            boolean error = json.getBoolean("error");
+                            if (error) {
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        json.getString("message"),
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                JSONArray reservationsJson = json.getJSONArray("reservation");
+                                for (int i = 0; i < reservationsJson.length(); i++) {
+                                    Log.d(logTag, "reservationJsonLOG " + reservationsJson.length());
+                                    JSONObject reservationJSON = reservationsJson.getJSONObject(i);
+                                    Reservation reservation = new Reservation(
+                                            reservationJSON.getInt("id"),
+                                            reservationJSON.getInt("customerId"),
+                                            reservationJSON.getInt("seatNumber"),
+                                            reservationJSON.getInt("row"),
+                                            reservationJSON.getString("date"),
+                                            reservationJSON.getInt("seatTypeId")
+                                    );
+
+                                    String text = "Sprawdź rezerwację " + reservation.getId() + " " + reservation.getCustomerId()
+                                            + " " + reservation.getSeatNumber() + " " + reservation.getRow() + " " + reservation.getDatePom() + " "
+                                            + reservation.getSeatTypeId();
+
+
+                                    choosedPlaces[reservation.getSeatNumber()-1]=true;
+                                    int number = reservation.getSeatNumber()-1;
+                                    String index = "" + number;
+
+                                    Log.d(logTag, "choosedPlaces[ " + number + " ] = "  +  choosedPlaces[number]);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "Json error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(logTag, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("repertoireId", repertoireIdString);
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
 
 
     }
