@@ -844,11 +844,19 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                     if (!seatButtons.get(btn)) {
                                         seatButtons.put(btn, true);
                                         btn.setBackgroundResource(R.drawable.button_light);
-                                    } else {
+
+                                        int number = Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
+                                        myChoosedPlaces[number - 1] = true; //zmiana wartości w tablicy Socketu na true
+                                        Log.d(logTag, "Zmieniona wartość myChoosedPlaces[ " + (number-1) + " ] = " +  myChoosedPlaces[number - 1]);
+                                    }
+                                    else {
                                         seatButtons.put(btn, false);
+                                        btn.setBackgroundResource(R.drawable.button_normal);
+
                                         int number = Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
                                         selectedSeats.remove(number); //usunięcie z Mapy odznaczonego miejsca
-                                        btn.setBackgroundResource(R.drawable.button_normal);
+                                        myChoosedPlaces[number - 1] = false; //zmiana wartości w tablicy Socketu na false
+                                        Log.d(logTag, "Zmieniona wartość myChoosedPlaces[ " + (number-1) + " ] = " +  myChoosedPlaces[number - 1]);
                                     }
 
 
