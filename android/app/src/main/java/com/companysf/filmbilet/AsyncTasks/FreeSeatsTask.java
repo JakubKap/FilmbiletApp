@@ -196,8 +196,9 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
         if(takenSeats.contains(seatNumber.get(button))){ //zajęte miejsce
             button.setEnabled(false);
-            button.setBackgroundResource(R.drawable.button_taken);
             button.setTextColor(Color.WHITE);
+            button.setBackgroundResource(R.drawable.button_taken);
+
         }
         else { //miejsce, które w momencie załadowanie popupu jest wolne
             button.setBackgroundResource(R.drawable.button_normal_seat);
@@ -526,7 +527,7 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
                 break;
         }
 
-        textView2Seats.append(cena + " zł");
+        textView2Seats.setText("Cena za miejsce: " + cena + " zł");
 
 
     }
