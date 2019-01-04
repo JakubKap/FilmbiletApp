@@ -90,7 +90,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     //zmienne służace do komunikacji z socketem
 
-    private boolean choosedPlaces [] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu)
+    private boolean choosedPlaces [] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu i z BD)
     private boolean myChoosedPlaces[] = new boolean[280]; //zajęte miejsca przez użytkownika
 
     private final String websocketURL = "ws://35.204.119.131:8080/";
@@ -981,6 +981,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 button7.setOnClickListener(buttonClicked);
                 button8.setOnClickListener(buttonClicked);
 
+
+
             }
 
             @Override
@@ -991,6 +993,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 //asyncTask i kolko do momentu ...
                 for (int i = 0; i < choosedPlaces.length; i++) {
                     choosedPlaces [i] = message.getChoosedPlaces()[i];
+                    Log.d(logTag, "choosedPlaces [ " + i + " ] = " + choosedPlaces [i]);
                 }
                 markChoosedPlaces(choosedPlaces);
                 //... oznaczenia wszystkich zajetych miejsc
@@ -998,11 +1001,19 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 //myChoosedPlaces without places from websocket
                 for (int i = 0; i < choosedPlaces.length; i++) {
                     myChoosedPlaces [i] = ( myChoosedPlaces[i] ^ choosedPlaces[i] ) & myChoosedPlaces[i];
+                    Log.d(logTag, "myChoosedPlaces [ " + i + " ] = " + myChoosedPlaces[i]);
                 }
                 //TODO sprawdzic czy ktores miejsce nie zostalo juz zajete i jesli tak to dac komunikat
 
                 for (int i = 0; i < choosedPlaces.length; i++) {
-                    if (myChoosedPlaces[i] & choosedPlaces[i]) {/*komunikat*/}
+                    if (myChoosedPlaces[i] & choosedPlaces[i]) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Wybrane przez ciebie miejsce " + (i+1) + " zostało właśnie zajęte.",
+                                Toast.LENGTH_SHORT).show();
+
+                        Log.d(logTag, "Wybrane przez ciebie miejsce " + (i+1) + "zostało właśnie zajęte.");
+                    }
                 }
             }
 
