@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
@@ -180,6 +181,48 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         }
     }
 
+
+    public void updateSummary(){
+
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int numberOfSeats = 0;
+                int price = 0;
+
+                //aktualizacja podsumowania
+
+                for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
+                    int seatTypeId = entry.getValue();
+
+                    numberOfSeats++;
+
+                    switch (seatTypeId) {
+                        case 1:
+                            price += 10;
+                            break;
+                        case 2:
+                            price += 15;
+                            break;
+
+                        case 3:
+                            price += 20;
+                            break;
+
+                        case 4:
+                            price += 30;
+                            break;
+                    }
+
+                }
+
+                textView4.setText("Liczba miejsc: " + numberOfSeats
+                        + "\nCena: " + price + " zł");
+            }
+            });
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -386,6 +429,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             params10.height = ((getResources().getDisplayMetrics().heightPixels / 3)) / 4;
             btn_next.setLayoutParams(params10);
 
+
             //execute(nr_repertuaru z poprzedniuego intentu)
             new FreeSectorsTask(getApplicationContext(), constraintLayout, true).execute(1);
 
@@ -513,12 +557,14 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
 
+
         final OkHttpClient httpClient = new OkHttpClient();
         okhttp3.Request request = new okhttp3.Request.Builder().url(websocketURL).build();
 
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
             public void onOpen(WebSocket webSocket, okhttp3.Response response) {
+
 
                 //foreach po mapie zawierającej nr_miejsca oraz informację, czy został wciśnięty
                 /*for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
@@ -1004,17 +1050,24 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     Log.d(logTag, "myChoosedPlaces [ " + i + " ] = " + myChoosedPlaces[i]);
                 }
                 //TODO sprawdzic czy ktores miejsce nie zostalo juz zajete i jesli tak to dac komunikat
+                for (int i = 0; i < choosedPlaces.length; i++) {
+                    if (myChoosedPlaces[i] & choosedPlaces[i]) {/*komunikat*/}
+                }
+
+
+                //moje
+                //Sytuacja, gdy ktoś po wyborze miejsca, i zatwierdzeniu (popupu) przejdzie do ekranu z sektorami. Następie ktoś zarezerwuje wybrane przez niego miejsce.
 
                 for (int i = 0; i < choosedPlaces.length; i++) {
-                    if (myChoosedPlaces[i] & choosedPlaces[i]) {
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "Wybrane przez ciebie miejsce " + (i+1) + " zostało właśnie zajęte.",
-                                Toast.LENGTH_SHORT).show();
+                    if (selectedSeats.containsKey(i+1) && choosedPlaces[i]) {
+                        Log.d(logTag, "Wybrane przez ciebie miejsce " + (i+1) + " zostało właśnie zajęte.");
 
-                        Log.d(logTag, "Wybrane przez ciebie miejsce " + (i+1) + "zostało właśnie zajęte.");
+                        selectedSeats.remove(i+1);
+                        //updateSummary();
                     }
                 }
+                updateSummary();
+
             }
 
             @Override

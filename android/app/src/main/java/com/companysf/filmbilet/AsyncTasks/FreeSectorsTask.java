@@ -109,7 +109,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                 Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
                 seatNr++;
             }
-                else{
+            else{
                 seatNumber.add(seatNr);
                 Log.d(logTag, "Dodana wartość do siatki: " + seatNr+ " dla i = " + i);
                 seatNr++;
@@ -139,7 +139,7 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
             text="" + seatNumber.contains(r.getSeatNumber());
             Log.d("Zawartość listy: ", text);
         }
-       return 35-taken;
+        return 35-taken;
     }
 
     public void changeColorOfButton(Button button, int index){
@@ -249,14 +249,14 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                             freeSeats.add(freeSectorSlots(j, firstSeat));
 
                             if(i%2 != 0) firstSeat+= 7;
-                                else {
-                                    firstSeat+=63;
-                                    j++;
-                                }
+                            else {
+                                firstSeat+=63;
+                                j++;
+                            }
                         }
 
                         for (Integer f: freeSeats) {
-                                Log.d("Zawartość freeSeats", "" + f);
+                            Log.d("Zawartość freeSeats", "" + f);
                         }
 
 
@@ -338,8 +338,8 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
 
         this.button1.setVisibility(View.VISIBLE);
-       this.button1.setBackgroundResource(R.drawable.button_normal_first);
-       //this.button1.setBackground();
+        this.button1.setBackgroundResource(R.drawable.button_normal_first);
+        //this.button1.setBackground();
 
 
         this.button2.setVisibility(View.VISIBLE);
