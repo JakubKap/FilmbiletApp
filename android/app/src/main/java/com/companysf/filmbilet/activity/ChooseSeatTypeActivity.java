@@ -64,6 +64,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private SQLiteHandler db;
     private ErrorDetector ed;
     private Map<Button, Boolean> sectorButtons = new HashMap<>();
+    private Map<Integer, Integer> sectorAndSeat = new HashMap<>();
 
     private PopupWindow popupWindow=null;
 
@@ -262,6 +263,49 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         });
 
     }
+
+
+    public void updateSectors(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                int sectorNumber = 1;
+
+                for (Map.Entry<Button, Boolean> entry1 : sectorButtons.entrySet()) {
+                    Button btn = entry1.getKey();
+
+                    int takenSeats=0;
+                    for(Map.Entry<Integer, Integer> entry2 : sectorAndSeat.entrySet()){
+                        int seatNumber = entry2.getKey();
+                        int sector = entry2.getValue();
+
+
+                        if(sector == sectorNumber){
+                            if(choosedPlaces[seatNumber-1]){
+                                takenSeats++;
+                                Log.d(logTag, "choosedPlaces[(seatNumber-1) = " + (seatNumber-1) + " ] = true oraz takenSeats = "  + takenSeats);
+                            }
+
+                        }
+                    }
+
+                    int free = 35 - takenSeats;
+                    String prepText = free + "/35";
+                    btn.setText(prepText);
+
+                    //w przypadku zajęcia wszystkich miejsc, przycisk staje się nieaktywny
+                    if(free==0) btn.setEnabled(false);
+
+                        sectorNumber++;
+                }
+
+            }
+
+        });
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -413,6 +457,56 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             Log.d(logTag, "Wstawiona wartość <Nr_miejsca, Rząd>= " + "<" + i + ", " + value + ">");
 
+        }
+
+        //wypełnienie mapy <NrMiejsca, Sektor> potrzebnej do obliczenia liczby wolnych miejsc w sektorze po otrzymaniu wiadomości
+
+        //rzędy parzyste
+        int sectorNumber = 1;
+        for(int i=1; i<=211; i+=70) {
+                int firstSeat = i;
+
+                for (int j = 1; j <= 35; j++) {
+                     if(j==8 || j==15 || j==22 || j==29) {
+                         firstSeat += 7;
+                         sectorAndSeat.put(firstSeat,sectorNumber);
+                         firstSeat++;
+                     }
+                     else{
+                         sectorAndSeat.put(firstSeat,sectorNumber);
+                         firstSeat++;
+                     }
+
+                }
+                    sectorNumber+=2;
+            }
+
+            sectorNumber=2;
+        for(int i=8; i<=218; i+=70){
+            int firstSeat = i;
+
+            for (int j = 1; j <= 35; j++) {
+                if(j==8 || j==15 || j==22 || j==29) {
+                    firstSeat += 7;
+                    sectorAndSeat.put(firstSeat, sectorNumber);
+                    firstSeat++;
+                }
+                else{
+                    sectorAndSeat.put(firstSeat, sectorNumber);
+                    firstSeat++;
+                }
+            }
+            sectorNumber+=2;
+        }
+
+        //test
+
+        for (Map.Entry<Integer, Integer> entry : sectorAndSeat.entrySet()) {
+            int seatNumber = entry.getKey();
+            int sector = entry.getValue();
+
+            if(sector==1)Log.d(logTag, "sectorAndSeat<seatNumber, sector> = "+ "< " + seatNumber + ", "
+                    + sector  + " >");
         }
 
         //ConstraintLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)button1.getLayoutParams();
@@ -1109,8 +1203,14 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     }
                 }
 
+                //aktualizacja podsumowania
                 updateSummary();
+
+                //wyświetlenie komunikatu o zajętym miejscu (o ile to konieczne)
                 buildDialog(takenYourSeats);
+
+                //aktualizacja buttonów sektorów
+                updateSectors();
 
             }
 
