@@ -29,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.addition.ErrorDetector;
 import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
@@ -41,6 +42,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -60,6 +62,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
     private SQLiteHandler db;
+    private ErrorDetector ed;
     private Map<Button, Boolean> sectorButtons = new HashMap<>();
 
     private PopupWindow popupWindow=null;
@@ -223,11 +226,48 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             });
 
     }
+
+    public void buildDialog(ArrayList<Integer> list){
+        final ArrayList<Integer> takenYourSeats = new ArrayList<>(list);
+        //final ErrorDetector det = new ErrorDetector(this);
+
+        for(Integer i :takenYourSeats)
+            Log.d(logTag, "Zawartość takenYourSeats = " + i);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                    if(takenYourSeats.size()==0)
+                        return;
+                    else if(takenYourSeats.size() == 1) {
+                        ed.buildDialog(ChooseSeatTypeActivity.this, "Zajęcie miejsca",
+                                "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze " + takenYourSeats.get(0) + ".").show();
+                    }
+                        else{
+
+                        String text="";
+                        int i=0;
+                        for(Integer in : takenYourSeats) {
+                            if(i>0)
+                                text += ", " + in;
+                                else text = "" + in;
+
+                            i++;
+                        }
+
+                        ed.buildDialog(ChooseSeatTypeActivity.this, "Zajęcie miejsc", "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach: " + text + ".").show();
+
+                    }
+            }
+        });
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         isPopupActive=false;
+        ed = new ErrorDetector(this);
 
         //sprawdzenie zalogowania
 
@@ -1055,6 +1095,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 }
 
 
+                ArrayList<Integer> takenYourSeats = new ArrayList<>();
                 //moje
                 //Sytuacja, gdy ktoś po wyborze miejsca, i zatwierdzeniu (popupu) przejdzie do ekranu z sektorami. Następie ktoś zarezerwuje wybrane przez niego miejsce.
 
@@ -1063,10 +1104,13 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                         Log.d(logTag, "Wybrane przez ciebie miejsce " + (i+1) + " zostało właśnie zajęte.");
 
                         selectedSeats.remove(i+1);
-                        //updateSummary();
+                        takenYourSeats.add(i+1);
+
                     }
                 }
+
                 updateSummary();
+                buildDialog(takenYourSeats);
 
             }
 
