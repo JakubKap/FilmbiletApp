@@ -3,7 +3,7 @@
     package="com.companysf.filmbilet">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission  android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".app.AppController"
@@ -13,20 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        
         <activity android:name=".activity.ChooseSeatTypeActivity"
-            android:launchMode="singleTop"
             android:label="@string/app_name"
-            >
-            <!--android:label="@string/app_name"-->
+            android:launchMode="singleTop">
+
+            <!-- android:label="@string/app_name" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ChooseSeatActivity"
-        android:theme="@style/AppTheme.PopMe"
-        ></activity>
-    </application>
+        <activity
+            android:name=".activity.ChooseSeatActivity"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity
+            android:name=".activity.ReservationsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"></activity>
 
+    </application>
 </manifest>

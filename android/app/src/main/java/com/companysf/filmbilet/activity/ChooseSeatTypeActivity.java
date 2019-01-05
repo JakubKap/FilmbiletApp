@@ -1,5 +1,6 @@
 package com.companysf.filmbilet.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -1379,6 +1380,11 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                                 //wysłanie wiadomości do Socketu
                                 sendMessageToServer(httpClient, webSocket);
+
+                                //przejście do kolejnego ekranu - Moje rezerwacje
+
+                                Intent intent = new Intent(ChooseSeatTypeActivity.this, ReservationsActivity.class);
+                                startActivity(intent);
 
 
                             }
