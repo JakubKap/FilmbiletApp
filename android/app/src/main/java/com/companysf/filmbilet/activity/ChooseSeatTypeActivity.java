@@ -1301,9 +1301,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                     final String customerId = currentCustomerId + "";
                                     final String seatNumber = entry.getKey() + "";
                                     final String seatTypeId = entry.getValue() + "";
-                                    final String row = seatAndRowMap.get(seatNumber) + "";
+                                    final String row = seatAndRowMap.get(entry.getKey()) + "";
                                     final String repertoireId = currentRepertoireId + "";
 
+                                    Log.d(logTag, "Pobrana wartość row =  " + row);
 
                                      //zapisanie do bazy
                                     StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -1321,10 +1322,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                                                     json.getString("message"),
                                                                     Toast.LENGTH_SHORT).show();
                                                         } else {
-                                                            JSONArray reservationsJson = json.getJSONArray("reservation");
-                                                            for (int i = 0; i < reservationsJson.length(); i++) {
-                                                                Log.d(logTag, "reservationSavedJsonLOG " + reservationsJson.length());
-                                                                JSONObject reservationJSON = reservationsJson.getJSONObject(i);
+                                                                JSONObject reservationJSON = json.getJSONObject("reservation");
                                                                 Reservation reservation = new Reservation(
                                                                         reservationJSON.getInt("id"),
                                                                         reservationJSON.getInt("customerId"),
@@ -1335,8 +1333,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                                                         reservationJSON.getInt("repertoireId")
                                                                 );
 
-
-                                                            }
                                                         }
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
