@@ -852,7 +852,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             else startSeat = 218;
 
 
-                            new FreeSeatsTask(getApplicationContext(), popupView, selectedSeats, startSeat, seatTypeId).execute(1);
+                            new FreeSeatsTask(getApplicationContext(), popupView, selectedSeats,choosedPlaces, startSeat, seatTypeId).execute(1);
 
 
                             // create the popup window

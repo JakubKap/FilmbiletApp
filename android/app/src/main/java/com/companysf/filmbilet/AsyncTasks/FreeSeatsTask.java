@@ -61,10 +61,11 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     View linearLayout; //dodane
     private boolean start;
     private Map<Integer, Integer> selectedSeats = new HashMap<>();
+    private boolean[] choosedPlaces = new boolean[280];
 
 
 
-    public FreeSeatsTask(Context context, View linearLayout, Map<Integer, Integer> selectedSeats, int startSeat, int seatTypeId) {
+    public FreeSeatsTask(Context context, View linearLayout, Map<Integer, Integer> selectedSeats, boolean [] choosedPlaces, int startSeat, int seatTypeId) {
 
         contextref = new WeakReference<>(context);
 
@@ -74,6 +75,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         this.linearLayout = linearLayout;
 
         this.selectedSeats=selectedSeats;
+
+        this.choosedPlaces=choosedPlaces;
 
         this.linearLayoutRows = (LinearLayout) linearLayout.findViewById(R.id.linearLayoutRows);
 
@@ -191,10 +194,9 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
         }
 
 
-    public void changeColorOfButton(Button button, int index){
+    public void changeColorOfButton(Button button){
 
-
-        if(takenSeats.contains(seatNumber.get(button))){ //zajęte miejsce
+        if(choosedPlaces[seatNumber.get(button)-1]){
             button.setEnabled(false);
             button.setTextColor(Color.WHITE);
             button.setBackgroundResource(R.drawable.button_taken);
@@ -353,94 +355,12 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     @Override
     protected Void doInBackground(Integer... integers) {
 
-        int repertoireId = integers[0];
-        final String repertoireIdString = "" + repertoireId;
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                AppConfig.GET_RESERVATIONS,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(logTag, "Reservation request: " + response);
-                        try {
-                            JSONObject json = new JSONObject(response);
-                            boolean error = json.getBoolean("error");
-                            if (error) {
-                                Toast.makeText(
-                                        contextref.get(),
-                                        json.getString("message"),
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                JSONArray reservationsJson = json.getJSONArray("reservation");
-                                for (int i = 0; i < reservationsJson.length(); i++) {
-                                    Log.d(logTag, "reservationJsonLOG " + reservationsJson.length());
-                                    JSONObject reservationJSON = reservationsJson.getJSONObject(i);
-                                    Reservation reservation = new Reservation(
-                                            reservationJSON.getInt("id"),
-                                            reservationJSON.getInt("customerId"),
-                                            reservationJSON.getInt("seatNumber"),
-                                            reservationJSON.getInt("row"),
-                                            reservationJSON.getString("date"),
-                                            reservationJSON.getInt("seatTypeId")
-                                    );
-
-                                    String text = "Sprawdź rezerwację " + reservation.getId() + " " + reservation.getCustomerId()
-                                            + " " + reservation.getSeatNumber() + " " + reservation.getRow() + " " + reservation.getDatePom() + " "
-                                            + reservation.getSeatTypeId();
-
-                                    reservationList.add(reservation);
-                                    String text2 = "Zawartość reservationList(seatNumber) po pobraniu z JSON" + reservationList.get(i).getSeatNumber();
-                                    Log.d(logTag, text2);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(
-                                    contextref.get(),
-                                    "Json error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-
-                        //isTaken == 1 (miejsce zajęte)
-/*
-                        if(true) { //lewy sektor
-                            boolean taken = false;
-                            for (int i = 1; i < 6; i++) {
-                                for (int j = 1; j < 8; j++) {
-                                    taken = isTaken(i, j);
-                                    Log.d(logTag, "isTaken dla (" + i + "," + j + ") = " + taken);
-                                    takenSeats.add(taken);
-                                }
-                            }
-                        }
-                        else //prawy sektor
-                        {
-                            boolean taken = false;
-                            for (int i = 1; i < 6; i++) {
-                                for (int j = 8; j < 15; j++) {
-                                    taken = isTaken(i, j);
-                                    Log.d(logTag, "isTaken dla (" + i + "," + j + ") = " + taken);
-                                    takenSeats.add(taken);
-                                }
-                            }
-                        }
-
-                        for (Boolean t: takenSeats) {
-                            Log.d("Zawartość isTaken", "" + t);
-                        }
-*/
-
-                        //dodanie do kolekcji Integer'ów zajęte numery miejsc
-                        for(Reservation r : reservationList)
-                            takenSeats.add(r.getSeatNumber());
 
                         int index = 0;
                         for(Button b  : buttons) {
-                            changeColorOfButton(b, index);
+                            changeColorOfButton(b);
                             index++;
                         }
-
 
                         // pętla służąca do pokazania użytkownikowi miejsc,które wcześniej wybrał (miejsca są
                         // zaznaczane na nowo w momencie ponownego kliknięcia w sektor)
@@ -456,27 +376,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
 
                         }
 
+    return null;
 
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(logTag, "Registration Error: " + error.getMessage());
-                Toast.makeText(contextref.get(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("repertoireId", repertoireIdString);
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
-        return null;
     }
 
     protected void onProgressUpdate(Integer... values) {
