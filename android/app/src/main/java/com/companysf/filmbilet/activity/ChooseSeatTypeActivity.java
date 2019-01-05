@@ -525,7 +525,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             if ((i-1) % 14 == 0 && i!=1)
                 value++;
 
-            if(value==6) value =1;
             seatAndRowMap.put(i, value);
 
             Log.d(logTag, "Wstawiona wartość <Nr_miejsca, Rząd>= " + "<" + i + ", " + value + ">");
@@ -774,7 +773,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         WebSocketListener webSocketListener = new WebSocketListener() {
             @Override
-            public void onOpen(WebSocket webSocket, okhttp3.Response response) {
+            public void onOpen(final WebSocket webSocket, okhttp3.Response response) {
 
 
                 //foreach po mapie zawierającej nr_miejsca oraz informację, czy został wciśnięty
@@ -1182,6 +1181,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
 
+
+
                         /*
                         for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
                             Button key = entry.getKey();
@@ -1260,6 +1261,130 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 button6.setOnClickListener(buttonClicked);
                 button7.setOnClickListener(buttonClicked);
                 button8.setOnClickListener(buttonClicked);
+
+
+                btnReserve.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(selectedSeats.size()==0)
+                            ed.buildDialog(ChooseSeatTypeActivity.this, "Brak wybranych miejsc",
+                                    "Nie wybrałeś żadnego miejsca").show();
+
+                        else{
+
+                            //porównanie miejsc obecnie wybranych z tymi pobranymi z bazy danych
+
+                            boolean isWrong=false;
+                            for(int i=0; i<choosedPlaces.length; i++)
+                                if(choosedPlaces[i] & myChoosedPlaces[i])
+                                    isWrong=true;
+
+                            if(isWrong){
+                                ed.buildDialog(ChooseSeatTypeActivity.this, "Wybranie zajętego miejsca",
+                                        "Wybrałeś zajęte miejsce").show();
+                                return;
+
+                            }
+                            else{
+                                //zapis do bazy danych
+
+                                int currentCustomerId = 1; //TODO należy to pobrać z informacji o logowaniu
+
+                                int currentRepertoireId = 1; //TODO pobrać z poprzedniego Intetentu
+
+                                //selectedSeats <NrMiejsca, TypMiejsca> - wybrane przez usera
+                                //seatAndRowMap <NrMiejsca, Rząd>
+
+
+                                for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
+
+                                    final String customerId = currentCustomerId + "";
+                                    final String seatNumber = entry.getKey() + "";
+                                    final String seatTypeId = entry.getValue() + "";
+                                    final String row = seatAndRowMap.get(seatNumber) + "";
+                                    final String repertoireId = currentRepertoireId + "";
+
+
+                                     //zapisanie do bazy
+                                    StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                                            AppConfig.STORE_RESERVATION,
+                                            new Response.Listener<String>() {
+                                                @Override
+                                                public void onResponse(String response) {
+                                                    Log.d(logTag, "Reservation request: " + response);
+                                                    try {
+                                                        JSONObject json = new JSONObject(response);
+                                                        boolean error = json.getBoolean("error");
+                                                        if (error) {
+                                                            Toast.makeText(
+                                                                    getApplicationContext(),
+                                                                    json.getString("message"),
+                                                                    Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            JSONArray reservationsJson = json.getJSONArray("reservation");
+                                                            for (int i = 0; i < reservationsJson.length(); i++) {
+                                                                Log.d(logTag, "reservationSavedJsonLOG " + reservationsJson.length());
+                                                                JSONObject reservationJSON = reservationsJson.getJSONObject(i);
+                                                                Reservation reservation = new Reservation(
+                                                                        reservationJSON.getInt("id"),
+                                                                        reservationJSON.getInt("customerId"),
+                                                                        reservationJSON.getInt("seatNumber"),
+                                                                        reservationJSON.getInt("row"),
+                                                                        reservationJSON.getString("date"),
+                                                                        reservationJSON.getInt("seatTypeId"),
+                                                                        reservationJSON.getInt("repertoireId")
+                                                                );
+
+
+                                                            }
+                                                        }
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                        Toast.makeText(
+                                                                getApplicationContext(),
+                                                                "Json error: " + e.getMessage(),
+                                                                Toast.LENGTH_LONG).show();
+                                                    }
+
+
+                                                }
+                                            }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.e(logTag, "Registration Error: " + error.getMessage());
+                                            Toast.makeText(getApplicationContext(),
+                                                    error.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }) {
+                                        @Override
+                                        protected Map<String, String> getParams() {
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("customerId", customerId);
+                                            params.put("seatNumber", seatNumber);
+                                            params.put("row", row);
+                                            params.put("seatTypeId", seatTypeId);
+                                            params.put("repertoireId", repertoireId);
+                                            return params;
+                                        }
+                                    };
+
+                                    AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
+
+
+
+                                }
+
+                                //wysłanie wiadomości do Socketu
+                                sendMessageToServer(httpClient, webSocket);
+
+
+
+                            }
+
+                        }
+
+                    }
+                });
 
 
 

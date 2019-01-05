@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 
 public class Reservation {
 
-    private int id, customerId, seatNumber, row, seatTypeId;
+    private int id, customerId, seatNumber, row, seatTypeId, reportoireId;
     String datePom;
 
     public Reservation(int id, int customerId, int seatNumber, int row, String datePom, int seatTypeId) {
@@ -16,6 +16,18 @@ public class Reservation {
         this.datePom = datePom;
         this.seatTypeId = seatTypeId;
     }
+
+    public Reservation(int id, int customerId, int seatNumber, int row, String datePom, int seatTypeId, int reportoireId) {
+        this.id = id;
+
+        this.customerId = customerId;
+        this.seatNumber = seatNumber;
+        this.row = row;
+        this.datePom = datePom;
+        this.seatTypeId = seatTypeId;
+        this.reportoireId=reportoireId;
+    }
+
 
     public int getId() {
         return id;
