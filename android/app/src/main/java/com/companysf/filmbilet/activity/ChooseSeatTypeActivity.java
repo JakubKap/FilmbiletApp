@@ -304,7 +304,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     btn.setText(prepText);
 
                     //w przypadku zajęcia wszystkich miejsc, przycisk staje się nieaktywny
-                    if(free==0) btn.setEnabled(false);
+                    //if(free==0) btn.setEnabled(false);
 
                         sectorNumber++;
                 }
@@ -776,6 +776,15 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                         //btn.startAnimation(animation);
 
                         //jeśli button jest wciśnięty, to go odznacz
+
+                        //wyświetlenie komunikatu w sytuacji, gdy ktoś kliknie na sektor bez miejsc
+                        if(btn.getText().equals("0/35")){
+
+                            ed.buildDialog(ChooseSeatTypeActivity.this, "Brak miejsc w sektorze",
+                                    "Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.").show();
+
+                            return;
+                        }
 
                         if (sectorButtons.get(btn)) {
                             sectorButtons.put(btn, false);
