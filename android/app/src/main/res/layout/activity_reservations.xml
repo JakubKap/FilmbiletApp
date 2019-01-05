@@ -12,7 +12,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Moje rezerwacje:"
+        android:text="Brak rezerwacji"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="6dp"
         tools:layout_editor_absoluteY="16dp" />
