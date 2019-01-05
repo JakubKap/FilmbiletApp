@@ -109,18 +109,73 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             @Override
             public void run() {
 
+                boolean displayDialog = false;
+                ArrayList<Integer> takenCheckedSeats = new ArrayList<>();
+
                 for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
                     Button button = entry.getKey();
+                    Boolean isChecked = entry.getValue();
 
                     int index =  Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
                     if(placesToMark[index-1]){
-                        //zaznaczenie miejsca, które zostało właśnie wykryte jako zajęte (zakładamy, że user nie może anulować rezerwacji)
 
-                        button.setEnabled(false);
-                        button.setBackgroundResource(R.drawable.button_taken);
-                        button.setTextColor(Color.WHITE);
+                            button.setEnabled(false);
+                            button.setBackgroundResource(R.drawable.button_taken);
+                            button.setTextColor(Color.WHITE);
 
+                            if(isChecked){
+                                //sytuacja, gdy ktoś zajmie miejsce/miejsca w sektorze, które przed chwilą wybraliśmy
+                                seatButtons.put(button, false);
+                                displayDialog=true;
+                                takenCheckedSeats.add(Integer.parseInt(button.getText().toString())); //parsowanie nr miejsca do int i zapisanie do kolekcji;
+
+                                int selected = selectedSeats();
+
+                                if(selected > 0) {
+                                    btnApprove.setVisibility(View.VISIBLE);
+                                    textView3Seats.setVisibility(View.VISIBLE);
+                                    textView3Seats.setText("Wybrane miejsca: " + selected);
+                                }
+                                else{
+                                    btnApprove.setVisibility(View.INVISIBLE);
+                                    textView3Seats.setVisibility(View.INVISIBLE);
+                                }
+                            }
                     }
+
+                }
+
+                if(displayDialog) {
+                    //wyświetlenie komunikatu
+
+                            if(takenCheckedSeats.size()==1)
+                            ed.buildDialog(ChooseSeatTypeActivity.this, "Zajęcie miejsca",
+                            "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze " +
+                                    takenCheckedSeats.get(0) +".").show();
+
+                            else{
+                                //jeśli więcej miejsc
+                                //zbudowanie Stringa
+
+                                int i=0;
+                                String text = "";
+
+                                //posortowanie kolekcji
+                                Collections.sort(takenCheckedSeats);
+
+                                for(Integer in : takenCheckedSeats) {
+
+                                    if (i > 0)
+                                        text += ", " + in;
+                                    else text = "" + in;
+
+                                    i++;
+                                }
+
+                                ed.buildDialog(ChooseSeatTypeActivity.this, "Zajęcie miejsc",
+                                        "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach " +
+                                                text + ".").show();
+                            }
 
                 }
             }
@@ -1065,10 +1120,16 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                                     int selected = selectedSeats();
 
+                                    if(selected > 0) {
+                                        btnApprove.setVisibility(View.VISIBLE);
+                                        textView3Seats.setVisibility(View.VISIBLE);
+                                        textView3Seats.setText("Wybrane miejsca: " + selected);
+                                    }
 
-                                    btnApprove.setVisibility(View.VISIBLE);
-                                    textView3Seats.setVisibility(View.VISIBLE);
-                                    textView3Seats.setText("Wybrane miejsca: " + selected);
+                                    else{
+                                        btnApprove.setVisibility(View.INVISIBLE);
+                                        textView3Seats.setVisibility(View.INVISIBLE);
+                                    }
 
                                 }
                             };
