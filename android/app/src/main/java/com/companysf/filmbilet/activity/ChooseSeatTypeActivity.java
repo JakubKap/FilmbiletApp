@@ -1228,17 +1228,24 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                                     }
 
+                                    if(price > 0) {
 
-                                    textView4.setText("Liczba miejsc: " + numberOfSeats
-                                            + "\nCena: " + price + " zł");
-
-
-                                    btnReserve.setVisibility(View.VISIBLE);
-
-                                    sectorButtons.put(btn, false);
-                                    seatButtons.clear();
+                                        textView4.setText("Liczba miejsc: " + numberOfSeats
+                                                + "\nCena: " + price + " zł");
 
 
+                                        btnReserve.setVisibility(View.VISIBLE);
+
+                                        sectorButtons.put(btn, false);
+                                        seatButtons.clear();
+
+                                    }
+                                    else{
+                                        textView3.setVisibility(View.INVISIBLE);
+                                        btnReserve.setVisibility(View.INVISIBLE);
+                                        textView4.setVisibility(View.INVISIBLE);
+
+                                    }
                                     //ustalenie które rzędy
 
 
@@ -1372,7 +1379,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                                 //wysłanie wiadomości do Socketu
                                 sendMessageToServer(httpClient, webSocket);
-
 
 
                             }
