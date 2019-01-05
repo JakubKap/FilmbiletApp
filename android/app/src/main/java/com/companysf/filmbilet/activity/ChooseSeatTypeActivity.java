@@ -3,6 +3,7 @@ package com.companysf.filmbilet.activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -280,8 +281,16 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                 }
 
+                if(numberOfSeats>0)
                 textView4.setText("Liczba miejsc: " + numberOfSeats
                         + "\nCena: " + price + " zł");
+                else{
+                    textView3.setText("");
+                    textView4.setText("");
+                    btnReserve.setEnabled(false);
+                    btnReserve.setTextColor(Color.BLACK);
+                    btnReserve.setBackgroundResource(R.drawable.rounded_button_gray);
+                }
             }
             });
 
@@ -635,7 +644,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             //execute(nr_repertuaru z poprzedniuego intentu)
             new FreeSectorsTask(getApplicationContext(), constraintLayout, true).execute(1);
-
 
             //button wyłączony do czasu wyboru miejsca
             this.btn_next.setEnabled(false);
@@ -1019,16 +1027,22 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                             buttonClose = (Button) popupView.findViewById(R.id.buttonClose);
 
+
+                            textView3Seats.setVisibility(View.VISIBLE);
+                            textView3Seats.setEnabled(true);
+                            btnApprove.setVisibility(View.VISIBLE);
+                            btnApprove.setEnabled(true);
                             //po ponownym otwarciu popupu zaliczenie ponownie wybranego buttona jako wciśnięty
                             for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
                                 Button button = entry.getKey();
+
 
                                 int number = Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
                                 if (selectedSeats.containsKey(number)) {
                                     seatButtons.put(button, true);
                                     int selected = selectedSeats();
-                                    textView3Seats.setText("Wybrane miejsca: " + selected);
 
+                                    textView3Seats.setText("Wybrane miejsca: " + selected);
                                     Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
 
                                 }
@@ -1120,16 +1134,16 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                                     int selected = selectedSeats();
 
-                                    if(selected > 0) {
+                                    //if(selected > 0) {
                                         btnApprove.setVisibility(View.VISIBLE);
                                         textView3Seats.setVisibility(View.VISIBLE);
                                         textView3Seats.setText("Wybrane miejsca: " + selected);
-                                    }
+                                    //}
 
-                                    else{
+                                   /* else{
                                         btnApprove.setVisibility(View.INVISIBLE);
-                                        textView3Seats.setVisibility(View.INVISIBLE);
-                                    }
+                                        //textView3Seats.setVisibility(View.INVISIBLE);
+                                    }*/
 
                                 }
                             };
@@ -1164,6 +1178,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                     //Wyświetlenie podsumowania
                                     btn_next.setVisibility(View.INVISIBLE);
                                     textView3.setVisibility(View.VISIBLE);
+                                    textView3.setText("Podsumowanie:");
+
 
 
                         /*
@@ -1306,7 +1322,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             @Override
             public void onClosing(WebSocket webSocket, int code, String reason) {
-                super.onClosing(webSocket, code, reason);
+                webSocket.close(1000, null);
             }
 
             @Override
@@ -1316,7 +1332,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(WebSocket webSocket, Throwable t, okhttp3.Response response) {
-                super.onFailure(webSocket, t, response);
+                Log.d(logTag, "onFailure: " + t.getMessage());
             }
         };
 
@@ -1389,6 +1405,17 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         httpClient.dispatcher().executorService().shutdown();*/
     }
 
+    private void sendMessageToServer (OkHttpClient httpClient, WebSocket webSocket){
+        if (httpClient != null){
+            Message message = new Message(myChoosedPlaces);
+            webSocket.send(message.getChoosedPlacesString());
+            webSocket.close(1000, "Zarezerwowowano miejsca");
+        } else {
+            ed.buildDialog(ChooseSeatTypeActivity.this, "Błąd serwera",
+                    "Podczas wysyłania informacji o wybranych miejscach wykryto błąd").show();
+            Log.d(logTag, "sendMessageToServer: client rowny null");
+        }
+    }
 
 
       //obsługa systemowego przycisku wstecz
