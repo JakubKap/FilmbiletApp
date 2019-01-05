@@ -13,10 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity"
-            android:launchMode="singleTop"
-            >
-            <!--android:label="@string/app_name"-->
+        
+        <activity android:name=".activity.ChooseSeatTypeActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+
+            <!-- android:label="@string/app_name" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,14 +26,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RegisterActivity"
-            android:launchMode="singleTop"
-        />
-        <!--android:label="@string/app_name"-->
-        <activity android:name=".activity.MainActivity"
-            android:launchMode="singleTop"
+            android:name=".activity.ChooseSeatActivity"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity
+            android:name=".activity.ReservationsActivity"
             android:label="@string/app_name"
-            />
-    </application>
+            android:launchMode="singleTop"></activity>
 
+    </application>
 </manifest>

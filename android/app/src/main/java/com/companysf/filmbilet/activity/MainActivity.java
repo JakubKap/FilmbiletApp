@@ -249,8 +249,8 @@ public class MainActivity extends AppCompatActivity {
 
         db.deleteCustomers();
 
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+       // Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        //startActivity(intent);
+        //finish();
     }
 }

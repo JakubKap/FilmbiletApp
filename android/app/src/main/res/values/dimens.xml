@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="header">20sp</dimen>
+    <dimen name="buttons">10sp</dimen>
+    <dimen name="summary">15sp</dimen>
+    <dimen name="icon_size">3sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>
