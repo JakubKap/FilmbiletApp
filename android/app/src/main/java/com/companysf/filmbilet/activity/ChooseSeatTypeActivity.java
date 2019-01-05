@@ -44,9 +44,13 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request.Builder;
@@ -63,8 +67,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private SessionManager sManager;
     private SQLiteHandler db;
     private ErrorDetector ed;
-    private Map<Button, Boolean> sectorButtons = new HashMap<>();
-    private Map<Integer, Integer> sectorAndSeat = new HashMap<>();
+    private Map<Button, Boolean> sectorButtons = new LinkedHashMap<>(); //zmiana na LinkedHashMap w celu pamiętania kolejności wstawianych elementów
+    private Map<Integer, Integer> sectorAndSeat = new TreeMap<>();
 
     private PopupWindow popupWindow=null;
 
@@ -272,6 +276,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                 int sectorNumber = 1;
 
+                Log.d(logTag, "Zawartość choosedPlaces w metodzie updateSectors: ");
+                for(int i=0; i<choosedPlaces.length; i++)
+                    Log.d(logTag, "choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
+
                 for (Map.Entry<Button, Boolean> entry1 : sectorButtons.entrySet()) {
                     Button btn = entry1.getKey();
 
@@ -291,6 +299,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     }
 
                     int free = 35 - takenSeats;
+                    Log.d(logTag, "free = " + free);
                     String prepText = free + "/35";
                     btn.setText(prepText);
 
@@ -499,13 +508,18 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             sectorNumber+=2;
         }
 
+        //posortowanie mapy (wg wartości klucza)
+       // List sortedKeys = new ArrayList(sectorAndSeat.keySet());
+        //Collections.sort(sortedKeys);
+
+
         //test
 
         for (Map.Entry<Integer, Integer> entry : sectorAndSeat.entrySet()) {
             int seatNumber = entry.getKey();
             int sector = entry.getValue();
 
-            if(sector==1)Log.d(logTag, "sectorAndSeat<seatNumber, sector> = "+ "< " + seatNumber + ", "
+            Log.d(logTag, "sectorAndSeat<seatNumber, sector> = "+ "< " + seatNumber + ", "
                     + sector  + " >");
         }
 
