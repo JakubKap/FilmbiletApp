@@ -326,9 +326,9 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
     @Override
     protected void onProgressUpdate(Integer... values) {
-        /*progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         super.onProgressUpdate(values);
-        progressBar.setProgress(values[0]);*/
+        progressBar.setProgress(values[0]);
 
     }
 

@@ -361,19 +361,17 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
     }
 
     protected void onProgressUpdate(Integer... values) {
-        /*progressBarSeats.setVisibility(View.VISIBLE);
+        progressBarSeats.setVisibility(View.VISIBLE);
         super.onProgressUpdate(values);
-        progressBarSeats.setProgress(values[0]);*/
+        progressBarSeats.setProgress(values[0]);
 
     }
 
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
-        int index = 0;
         for(Button b  : buttons) {
             changeColorOfButton(b);
-            index++;
         }
 
         // pętla służąca do pokazania użytkownikowi miejsc,które wcześniej wybrał (miejsca są
