@@ -92,7 +92,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_row_symbols"
         app:layout_constraintTop_toTopOf="@+id/guideline_column_symbols"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginLeft="8dp">
 
 
         <Button
@@ -129,7 +130,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="3"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIR_4"
@@ -141,7 +143,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="4"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIR_5"
@@ -153,7 +156,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="5"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIR_6"
@@ -165,7 +169,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="6"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIR_7"
@@ -177,7 +182,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="7"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="0sp" />
 
         <!-- Nowy rząd -->
 
@@ -191,7 +197,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="1"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIR_2"
@@ -203,7 +210,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="2"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIR_3"
@@ -215,7 +223,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="3"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIR_4"
@@ -227,7 +236,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="4"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIR_5"
@@ -239,7 +249,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="5"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIR_6"
@@ -251,7 +262,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="6"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIR_7"
@@ -263,7 +275,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="7"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="0sp" />
 
 
         <!-- Nowy rząd -->
@@ -278,7 +291,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="1"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIIR_2"
@@ -290,7 +304,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="2"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIIR_3"
@@ -302,7 +317,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="3"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIIR_4"
@@ -314,7 +330,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="4"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIIR_5"
@@ -326,7 +343,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="5"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIIR_6"
@@ -338,7 +356,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="6"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIIIR_7"
@@ -350,7 +369,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="7"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="0sp" />
 
 
         <!-- Nowy rząd -->
@@ -365,7 +385,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="1"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIVR_2"
@@ -377,7 +398,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="2"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIVR_3"
@@ -389,7 +411,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="3"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIVR_4"
@@ -401,7 +424,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="4"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIVR_5"
@@ -413,7 +437,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="5"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIVR_6"
@@ -425,7 +450,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="6"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonIVR_7"
@@ -437,7 +463,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="7"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="0sp" />
 
 
         <!-- Nowy rząd -->
@@ -452,7 +479,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="1"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonVR_2"
@@ -464,7 +492,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="2"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonVR_3"
@@ -476,7 +505,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="3"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonVR_4"
@@ -488,7 +518,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="4"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonVR_5"
@@ -500,7 +531,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="5"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonVR_6"
@@ -512,7 +544,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="6"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="5sp" />
 
         <Button
             android:id="@+id/buttonVR_7"
@@ -524,7 +557,8 @@
             android:minWidth="20sp"
             android:minHeight="20sp"
             android:text="7"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_marginEnd="0sp" />
 
 
     </GridLayout>
