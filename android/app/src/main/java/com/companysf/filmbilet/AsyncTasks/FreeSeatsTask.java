@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
+public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
 
     private static final String logTag = FreeSeatsTask.class.getSimpleName();
     private WeakReference<Context> contextref;
@@ -353,7 +353,8 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     }
 
     @Override
-    protected Void doInBackground(Integer... integers) {
+    protected Void doInBackground(Void ... voids) {
+
 
 
                         int index = 0;
@@ -381,9 +382,9 @@ public class FreeSeatsTask extends AsyncTask<Integer, Integer, Void> {
     }
 
     protected void onProgressUpdate(Integer... values) {
-        progressBarSeats.setVisibility(View.VISIBLE);
+        /*progressBarSeats.setVisibility(View.VISIBLE);
         super.onProgressUpdate(values);
-        progressBarSeats.setProgress(values[0]);
+        progressBarSeats.setProgress(values[0]);*/
 
     }
 

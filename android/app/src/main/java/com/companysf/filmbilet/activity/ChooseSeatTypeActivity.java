@@ -643,6 +643,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
 
             //execute(nr_repertuaru z poprzedniuego intentu)
+            //TODO wstawienie do execute() nr repertuaru
+
             new FreeSectorsTask(getApplicationContext(), constraintLayout, true).execute(1);
 
             //button wyłączony do czasu wyboru miejsca
@@ -915,7 +917,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             else startSeat = 218;
 
 
-                            new FreeSeatsTask(getApplicationContext(), popupView, selectedSeats,choosedPlaces, startSeat, seatTypeId).execute(1);
+                            new FreeSeatsTask(getApplicationContext(), popupView, selectedSeats,choosedPlaces, startSeat, seatTypeId).execute();
 
 
                             // create the popup window
