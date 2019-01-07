@@ -205,25 +205,23 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     }
 
     public int selectedSector(){
-        boolean flag1 = sectorButtons.get(button1);
-        boolean flag2 = sectorButtons.get(button2);
-        boolean flag3 = sectorButtons.get(button3);
-        boolean flag4 = sectorButtons.get(button4);
-        boolean flag5 = sectorButtons.get(button5);
-        boolean flag6 = sectorButtons.get(button6);
-        boolean flag7 = sectorButtons.get(button7);
-        boolean flag8 = sectorButtons.get(button8);
+        boolean flags [] = new boolean[8];
+        int inc=0;
+        for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
+            flags[inc] = entry.getValue();
+            inc++;
+        }
 
         //wykrycie, który typ miejsca został wybrany
         int seatTypeId=1;
 
-        if(flag1 || flag2)
+        if(flags[0] || flags[1])
             seatTypeId=1;
-        else if(flag3 || flag4)
+        else if(flags[2] || flags[3])
             seatTypeId=2;
-        else if(flag5 || flag6)
+        else if(flags[4] || flags[5])
             seatTypeId=3;
-        else if (flag7 || flag8)
+        else if (flags[6] || flags[7])
             seatTypeId=4;
 
         return seatTypeId;
@@ -896,29 +894,26 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             // LinearLayout linearLayoutSeats=(LinearLayout) findViewById(R.id.linearLayoutSeats);
 
 
-                            boolean flag1 = sectorButtons.get(button1);
-                            boolean flag2 = sectorButtons.get(button2);
-                            boolean flag3 = sectorButtons.get(button3);
-                            boolean flag4 = sectorButtons.get(button4);
-                            boolean flag5 = sectorButtons.get(button5);
-                            boolean flag6 = sectorButtons.get(button6);
-                            boolean flag7 = sectorButtons.get(button7);
-                            boolean flag8 = sectorButtons.get(button8);
+                            boolean flags [] = new boolean[8];
+                            int inc=0;
+                            for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
+                                flags[inc] = entry.getValue();
+                                inc++;
+                            }
 
                             int startSeat = 1;
 
-                            if (flag1) startSeat = 1;
-                            else if (flag2) startSeat = 8;
-                            else if (flag3) startSeat = 71;
-                            else if (flag4) startSeat = 78;
-                            else if (flag5) startSeat = 141;
-                            else if (flag6) startSeat = 148;
-                            else if (flag7) startSeat = 211;
+                            if (flags[0]) startSeat = 1;
+                            else if (flags[1]) startSeat = 8;
+                            else if (flags[2]) startSeat = 71;
+                            else if (flags[3]) startSeat = 78;
+                            else if (flags[4]) startSeat = 141;
+                            else if (flags[5]) startSeat = 148;
+                            else if (flags[6]) startSeat = 211;
                             else startSeat = 218;
 
 
                             new FreeSeatsTask(getApplicationContext(), popupView, selectedSeats,choosedPlaces, startSeat, seatTypeId).execute();
-
 
                             // create the popup window
                             int width = LinearLayout.LayoutParams.WRAP_CONTENT;

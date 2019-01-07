@@ -356,27 +356,6 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void ... voids) {
 
 
-
-                        int index = 0;
-                        for(Button b  : buttons) {
-                            changeColorOfButton(b);
-                            index++;
-                        }
-
-                        // pętla służąca do pokazania użytkownikowi miejsc,które wcześniej wybrał (miejsca są
-                        // zaznaczane na nowo w momencie ponownego kliknięcia w sektor)
-                        for (Button b : buttons) {
-                            int number =  Integer.parseInt(b.getText().toString()); //parsowanie nr miejsca do int
-                            if(selectedSeats.containsKey(number)){
-                                b.setBackgroundResource(R.drawable.button_light);
-                                Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
-
-                                textView3Seats.setVisibility(View.VISIBLE);
-                                btnApprove.setVisibility(View.VISIBLE);
-                            }
-
-                        }
-
     return null;
 
     }
@@ -390,6 +369,26 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
 
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+
+        int index = 0;
+        for(Button b  : buttons) {
+            changeColorOfButton(b);
+            index++;
+        }
+
+        // pętla służąca do pokazania użytkownikowi miejsc,które wcześniej wybrał (miejsca są
+        // zaznaczane na nowo w momencie ponownego kliknięcia w sektor)
+        for (Button b : buttons) {
+            int number =  Integer.parseInt(b.getText().toString()); //parsowanie nr miejsca do int
+            if(selectedSeats.containsKey(number)){
+                b.setBackgroundResource(R.drawable.button_light);
+                Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
+
+                textView3Seats.setVisibility(View.VISIBLE);
+                btnApprove.setVisibility(View.VISIBLE);
+            }
+
+        }
 
         for(Button b : buttons)
             b.setVisibility(View.VISIBLE);
