@@ -20,4 +20,13 @@
     <string name="min_age">od lat:</string>
     <string name="connection_error">Nie można nawiązać połączenia</string>
     <string name="title_activity_reservations">ReservationsActivity</string>
+    <string name="sector3Text">sektor_3</string>
+    <string name="sector2Text">sektor_2</string>
+    <string name="sector1Text">sektor_1</string>
+    <string name="sector4Text">sektor_4</string>
+    <string name="sector5Text">sektor_5</string>
+    <string name="sector6Text">sektor_6</string>
+    <string name="sector7Text">sektor_7</string>
+    <string name="sector8Text">sektor_8</string>
+    <string name="btnReserveText">Zarezerwuj wybrane bilety</string>
 </resources>
