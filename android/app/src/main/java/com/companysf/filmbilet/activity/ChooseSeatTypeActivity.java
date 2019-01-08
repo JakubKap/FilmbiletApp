@@ -69,6 +69,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private SessionManager sManager;
     private SQLiteHandler db;
     private ErrorDetector ed;
+
+    //TODO zmiana map na tablicę
     private Map<Button, Boolean> sectorButtons = new LinkedHashMap<>(); //zmiana na LinkedHashMap w celu pamiętania kolejności wstawianych elementów
     private Map<Integer, Integer> sectorAndSeat = new TreeMap<>();
 
@@ -95,7 +97,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
     private int overallPrice=0;
     private int overallSeats=0;
+
+    //TODO zamiana HashMap na tablice
     private Map<Integer, Integer> selectedSeats = new HashMap<>();
+    //TODO zamiana HashMap na tablice
     private Map<Integer, Integer> seatAndRowMap = new HashMap<>();
 
 
@@ -104,6 +109,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     private boolean choosedPlaces [] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu i z BD)
     private boolean myChoosedPlaces[] = new boolean[280]; //zajęte miejsca przez użytkownika
 
+    //TODO przeniesienie do AppConfig.java
     private final String websocketURL = "ws://35.204.119.131:8080/";
 
     private void markChoosedPlaces(final boolean placesToMark []) {
@@ -136,7 +142,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                 if(selected > 0) {
                                     btnApprove.setVisibility(View.VISIBLE);
                                     textView3Seats.setVisibility(View.VISIBLE);
-                                    textView3Seats.setText("Wybrane miejsca: " + selected);
+                                    //TODO nie robić konkatenacji na setText(), poniżej przykład
+
+                                    String text = "Wybrane miejsca: " + selected;
+                                    textView3Seats.setText(text);
                                 }
                                 else{
                                     btnApprove.setVisibility(View.INVISIBLE);
@@ -165,6 +174,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                 //posortowanie kolekcji
                                 Collections.sort(takenCheckedSeats);
 
+                                //TODO użycie StringBuilder
                                 for(Integer in : takenCheckedSeats) {
 
                                     if (i > 0)
@@ -215,9 +225,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         //wykrycie, który typ miejsca został wybrany
         int seatTypeId=1;
 
-        if(flags[0] || flags[1])
-            seatTypeId=1;
-        else if(flags[2] || flags[3])
+        if(flags[2] || flags[3])
             seatTypeId=2;
         else if(flags[4] || flags[5])
             seatTypeId=3;
@@ -305,13 +313,12 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                    if(takenYourSeats.size()==0)
-                        return;
-                    else if(takenYourSeats.size() == 1) {
+
+                    if(takenYourSeats.size() == 1) {
                         ed.buildDialog(ChooseSeatTypeActivity.this, "Zajęcie miejsca",
                                 "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze " + takenYourSeats.get(0) + ".").show();
                     }
-                        else{
+                        else if(takenYourSeats.size() > 1){
 
                         String text="";
                         int i=0;
@@ -438,8 +445,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
 
+        //TODO wstawiony null
         popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
 
+        //TODO forEach na każdy z przycisków
         buttonIR_1 = (Button) popupView.findViewById(R.id.buttonIR_1);
         seatButtons.put(buttonIR_1, false);
         buttonIR_2 = (Button) popupView.findViewById(R.id.buttonIR_2);
@@ -827,7 +836,6 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        String free = "#6bb9f0";
 
                         btn = (Button) findViewById(v.getId());
 
@@ -849,6 +857,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             return;
                         }
 
+                        //TODO może powodować NullPointerExceptin
                         if (sectorButtons.get(btn)) {
                             sectorButtons.put(btn, false);
 
@@ -881,6 +890,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             LayoutInflater inflater = (LayoutInflater)
                                     getSystemService(LAYOUT_INFLATER_SERVICE);
 
+
+                            //TODO NullPointerException
                             popupView = inflater.inflate(R.layout.activity_choose_seat_left, null);
 
                             //po kliknięciu dowolnego "aktywnego" sektora od razu pokazuje się popup oraz "chowają" elementy pod nim
@@ -903,8 +914,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                             int startSeat = 1;
 
-                            if (flags[0]) startSeat = 1;
-                            else if (flags[1]) startSeat = 8;
+                            if (flags[1]) startSeat = 8;
                             else if (flags[2]) startSeat = 71;
                             else if (flags[3]) startSeat = 78;
                             else if (flags[4]) startSeat = 141;
@@ -918,8 +928,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             // create the popup window
                             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                             int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                            boolean focusable = true; // lets taps outside the popup also dismiss it
-                            popupWindow = new PopupWindow(popupView, width, height, focusable);
+                            popupWindow = new PopupWindow(popupView, width, height, true);
                             //globalPopUpWindow = popupWindow;
 
                             isPopupActive = true;
@@ -1287,6 +1296,8 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                             if(isWrong){
                                 ed.buildDialog(ChooseSeatTypeActivity.this, "Wybranie zajętego miejsca",
                                         "Wybrałeś zajęte miejsce").show();
+
+                                //TODO Pomyśleć nad innym wyjściem z metody
                                 return;
 
                             }
