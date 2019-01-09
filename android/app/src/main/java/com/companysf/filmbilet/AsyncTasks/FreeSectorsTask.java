@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.companysf.filmbilet.R;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,9 +29,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import com.companysf.filmbilet.R;
 
-import static android.graphics.Color.rgb;
 
 public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
@@ -38,57 +37,59 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
     private  ArrayList<Reservation> reservationList = new ArrayList<>();
     private ArrayList<Integer> freeSeats = new ArrayList<>();
     private WeakReference<Context> contextref;
-    private ConstraintLayout constraintLayout;
+
     private Button button1, button2, button3, button4, button5, button6, button7, button8, btn_next, btnReserve;
     private ArrayList<Button> buttons = new ArrayList<>();
     private ProgressBar progressBar;
     private TextView textView1, textView2, textView3, textView4;
-    LinearLayout linearLayout;
-
-    boolean start;
+    private LinearLayout linearLayout;
+    private ConstraintLayout constraintLayout;
+    private boolean start;
 
 
 
     public FreeSectorsTask(Context context,  ConstraintLayout constraintLayout, boolean start) {
 
+
         contextref = new WeakReference<>(context);
+
         this.constraintLayout = constraintLayout;
 
-        this.button1=(Button) constraintLayout.findViewById(R.id.button1);
+        this.button1= constraintLayout.findViewById(R.id.button1);
         buttons.add(button1);
 
-        this.button2=(Button) constraintLayout.findViewById(R.id.button2);
+        this.button2= constraintLayout.findViewById(R.id.button2);
         buttons.add(button2);
 
-        this.button3=(Button) constraintLayout.findViewById(R.id.button3);
+        this.button3= constraintLayout.findViewById(R.id.button3);
         buttons.add(button3);
 
-        this.button4=(Button) constraintLayout.findViewById(R.id.button4);
+        this.button4= constraintLayout.findViewById(R.id.button4);
         buttons.add(button4);
 
-        this.button5=(Button) constraintLayout.findViewById(R.id.button5);
+        this.button5= constraintLayout.findViewById(R.id.button5);
         buttons.add(button5);
 
-        this.button6=(Button) constraintLayout.findViewById(R.id.button6);
+        this.button6= constraintLayout.findViewById(R.id.button6);
         buttons.add(button6);
 
-        this.button7=(Button) constraintLayout.findViewById(R.id.button7);
+        this.button7= constraintLayout.findViewById(R.id.button7);
         buttons.add(button7);
 
-        this.button8=(Button) constraintLayout.findViewById(R.id.button8);
+        this.button8= constraintLayout.findViewById(R.id.button8);
         buttons.add(button8);
 
-        this.btn_next=(Button) constraintLayout.findViewById(R.id.btn_next);
-        this.btnReserve = (Button) constraintLayout.findViewById(R.id.btnReserve);
+        this.btn_next= constraintLayout.findViewById(R.id.btn_next);
+        this.btnReserve =  constraintLayout.findViewById(R.id.btnReserve);
 
-        this.progressBar=(ProgressBar) constraintLayout.findViewById(R.id.progressBar);
+        this.progressBar= constraintLayout.findViewById(R.id.progressBar);
 
-        this.textView1=(TextView) constraintLayout.findViewById(R.id.textView1);
-        this.textView2=(TextView) constraintLayout.findViewById(R.id.textView2);
-        this.textView3=(TextView) constraintLayout.findViewById(R.id.textView3);
-        this.textView4=(TextView) constraintLayout.findViewById(R.id.textView4);
+        this.textView1= constraintLayout.findViewById(R.id.textView1);
+        this.textView2= constraintLayout.findViewById(R.id.textView2);
+        this.textView3= constraintLayout.findViewById(R.id.textView3);
+        this.textView4= constraintLayout.findViewById(R.id.textView4);
 
-        this.linearLayout=(LinearLayout)constraintLayout.findViewById(R.id.linearLayout);
+        this.linearLayout=constraintLayout.findViewById(R.id.linearLayout);
         this.start = start;
 
     }
@@ -118,18 +119,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
         }
 
         String text;
-
-/*
-        for (Reservation r : reservationList) {
-            if ((r.getSeatTypeId() == slot_number) && isLeft && r.getSeatNumber() <= 7) {
-                takenLeft++;
-            } else if ((r.getSeatTypeId() == slot_number) && !isLeft && r.getSeatNumber() > 7) {
-                takenRight++;
-            }
-            text="" + r.getCustomerId();
-            Log.d("Zawartość listy: ", text);
-        }
-*/
 
 
         for (Reservation r : reservationList) {
@@ -224,9 +213,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                                             reservationJSON.getInt("seatTypeId")
                                     );
 
-                                    String text = "Sprawdź rezerwację " + reservation.getId() + " " + reservation.getCustomerId()
-                                            + " " + reservation.getSeatNumber() + " " + reservation.getRow() + " " + reservation.getDatePom() + " "
-                                            + reservation.getSeatTypeId();
 
                                     reservationList.add(reservation);
                                     String text2 = "moj text2: " + reservationList.get(i).getId();
@@ -269,38 +255,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
                             i++;
                         }
 
-                        /*
-                        button1.setText(buttonText);
-                        changeColorOfButton(button1, 0);
-
-                        buttonText = "S1 DOST.: " + freeSeats.get(1) + "\n10 zł";
-                        button2.setText(buttonText);
-                        changeColorOfButton(button2, 1);
-
-                        buttonText = "S2 DOST.: " + freeSeats.get(2) + "\n15 zł";
-                        button3.setText(buttonText);
-                        changeColorOfButton(button3, 2);
-
-                        buttonText = "S2 DOST.: " + freeSeats.get(3) + "\n15 zł";
-                        button4.setText(buttonText);
-                        changeColorOfButton(button4, 3);
-
-                        buttonText = "S3 DOST.: " + freeSeats.get(4) + "\n20 zł";
-                        button5.setText(buttonText);
-                        changeColorOfButton(button5, 4);
-
-                        buttonText = "S3 DOST.: " + freeSeats.get(5) + "\n20 zł";
-                        button6.setText(buttonText);
-                        changeColorOfButton(button6, 5);
-
-                        buttonText = "S4 DOST.: " + freeSeats.get(6) + "\n30 zł";
-                        button7.setText(buttonText);
-                        changeColorOfButton(button7, 6);
-
-                        buttonText = "S4 DOST.: " + freeSeats.get(7) + "\n30 zł";
-                        button8.setText(buttonText);
-                        changeColorOfButton(button8, 7);
-                        */
 
 
                     }
@@ -339,7 +293,6 @@ public class FreeSectorsTask extends AsyncTask<Integer, Integer, Void> {
 
         this.button1.setVisibility(View.VISIBLE);
         this.button1.setBackgroundResource(R.drawable.button_normal_first);
-        //this.button1.setBackground();
 
 
         this.button2.setVisibility(View.VISIBLE);

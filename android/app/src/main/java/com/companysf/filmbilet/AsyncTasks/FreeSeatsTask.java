@@ -11,20 +11,11 @@ import android.widget.LinearLayout;
 import android.content.Context;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.app.AppConfig;
-import com.companysf.filmbilet.app.AppController;
+
 import com.companysf.filmbilet.appLogic.Reservation;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -42,8 +33,6 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
     private int seatTypeId;
     private Map<Button, Integer> seatNumber = new HashMap<>();//mapa zawierająca button oraz odpowiadający mu nr siedzenia
     private LinearLayout linearLayoutRows;
-    private ArrayList<Reservation> reservationList = new ArrayList<>();
-    private ArrayList<Integer> takenSeats = new ArrayList<>();
     private TextView textView1Seats, textView2Seats, textView3Seats;
     private GridLayout gridLayoutSeats;
 
@@ -56,12 +45,11 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
             buttonIR, buttonIIR, buttonIIIR, buttonIVR, buttonVR,
             btnApprove;
 
-    ProgressBar progressBarSeats;
+    private ProgressBar progressBarSeats;
 
-    View linearLayout; //dodane
-    private boolean start;
+    private View linearLayout; //dodane
     private Map<Integer, Integer> selectedSeats = new HashMap<>();
-    private boolean[] choosedPlaces = new boolean[280];
+    private boolean[] choosedPlaces;
 
 
 
@@ -78,115 +66,115 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
 
         this.choosedPlaces=choosedPlaces;
 
-        this.linearLayoutRows = (LinearLayout) linearLayout.findViewById(R.id.linearLayoutRows);
+        this.linearLayoutRows = linearLayout.findViewById(R.id.linearLayoutRows);
 
-        this.progressBarSeats =(ProgressBar) linearLayout.findViewById(R.id.progressBarSeats);
+        this.progressBarSeats = linearLayout.findViewById(R.id.progressBarSeats);
 
-        this.textView1Seats =(TextView)linearLayout.findViewById(R.id.textView1Seats);
-        this.textView2Seats =(TextView)linearLayout.findViewById(R.id.textView2Seats);
-        this.textView3Seats =(TextView)linearLayout.findViewById(R.id.textView3Seats);
+        this.textView1Seats = linearLayout.findViewById(R.id.textView1Seats);
+        this.textView2Seats = linearLayout.findViewById(R.id.textView2Seats);
+        this.textView3Seats = linearLayout.findViewById(R.id.textView3Seats);
 
-        this.gridLayoutSeats =(GridLayout)linearLayout.findViewById(R.id.gridLayoutSeats);
+        this.gridLayoutSeats =linearLayout.findViewById(R.id.gridLayoutSeats);
 
         this.seatTypeId=seatTypeId;
 
         this.btnApprove =linearLayout.findViewById(R.id.btnApprove);
 
-            this.buttonIR_1 = (Button) linearLayout.findViewById(R.id.buttonIR_1);
+            this.buttonIR_1 =  linearLayout.findViewById(R.id.buttonIR_1);
             buttons.add(buttonIR_1);
-            this.buttonIR_2 = (Button) linearLayout.findViewById(R.id.buttonIR_2);
+            this.buttonIR_2 =  linearLayout.findViewById(R.id.buttonIR_2);
             buttons.add(buttonIR_2);
-            this.buttonIR_3 = (Button) linearLayout.findViewById(R.id.buttonIR_3);
+            this.buttonIR_3 =  linearLayout.findViewById(R.id.buttonIR_3);
             buttons.add(buttonIR_3);
-            this.buttonIR_4 = (Button) linearLayout.findViewById(R.id.buttonIR_4);
+            this.buttonIR_4 =  linearLayout.findViewById(R.id.buttonIR_4);
             buttons.add(buttonIR_4);
-            this.buttonIR_5 = (Button) linearLayout.findViewById(R.id.buttonIR_5);
+            this.buttonIR_5 =  linearLayout.findViewById(R.id.buttonIR_5);
             buttons.add(buttonIR_5);
-            this.buttonIR_6 = (Button) linearLayout.findViewById(R.id.buttonIR_6);
+            this.buttonIR_6 =  linearLayout.findViewById(R.id.buttonIR_6);
             buttons.add(buttonIR_6);
-            this.buttonIR_7 = (Button) linearLayout.findViewById(R.id.buttonIR_7);
+            this.buttonIR_7 =  linearLayout.findViewById(R.id.buttonIR_7);
             buttons.add(buttonIR_7);
 
-            this.buttonIIR_1 = (Button) linearLayout.findViewById(R.id.buttonIIR_1);
+            this.buttonIIR_1 =  linearLayout.findViewById(R.id.buttonIIR_1);
             buttons.add(buttonIIR_1);
-            this.buttonIIR_2 = (Button) linearLayout.findViewById(R.id.buttonIIR_2);
+            this.buttonIIR_2 =  linearLayout.findViewById(R.id.buttonIIR_2);
             buttons.add(buttonIIR_2);
-            this.buttonIIR_3 = (Button) linearLayout.findViewById(R.id.buttonIIR_3);
+            this.buttonIIR_3 =  linearLayout.findViewById(R.id.buttonIIR_3);
             buttons.add(buttonIIR_3);
-            this.buttonIIR_4 = (Button) linearLayout.findViewById(R.id.buttonIIR_4);
+            this.buttonIIR_4 =  linearLayout.findViewById(R.id.buttonIIR_4);
             buttons.add(buttonIIR_4);
-            this.buttonIIR_5 = (Button) linearLayout.findViewById(R.id.buttonIIR_5);
+            this.buttonIIR_5 =  linearLayout.findViewById(R.id.buttonIIR_5);
             buttons.add(buttonIIR_5);
-            this.buttonIIR_6 = (Button) linearLayout.findViewById(R.id.buttonIIR_6);
+            this.buttonIIR_6 =  linearLayout.findViewById(R.id.buttonIIR_6);
             buttons.add(buttonIIR_6);
-            this.buttonIIR_7 = (Button) linearLayout.findViewById(R.id.buttonIIR_7);
+            this.buttonIIR_7 =  linearLayout.findViewById(R.id.buttonIIR_7);
             buttons.add(buttonIIR_7);
 
-            this.buttonIIIR_1 = (Button) linearLayout.findViewById(R.id.buttonIIIR_1);
+            this.buttonIIIR_1 =  linearLayout.findViewById(R.id.buttonIIIR_1);
             buttons.add(buttonIIIR_1);
-            this.buttonIIIR_2 = (Button) linearLayout.findViewById(R.id.buttonIIIR_2);
+            this.buttonIIIR_2 =  linearLayout.findViewById(R.id.buttonIIIR_2);
             buttons.add(buttonIIIR_2);
-            this.buttonIIIR_3 = (Button) linearLayout.findViewById(R.id.buttonIIIR_3);
+            this.buttonIIIR_3 =  linearLayout.findViewById(R.id.buttonIIIR_3);
             buttons.add(buttonIIIR_3);
-            this.buttonIIIR_4 = (Button) linearLayout.findViewById(R.id.buttonIIIR_4);
+            this.buttonIIIR_4 =  linearLayout.findViewById(R.id.buttonIIIR_4);
             buttons.add(buttonIIIR_4);
-            this.buttonIIIR_5 = (Button) linearLayout.findViewById(R.id.buttonIIIR_5);
+            this.buttonIIIR_5 =  linearLayout.findViewById(R.id.buttonIIIR_5);
             buttons.add(buttonIIIR_5);
-            this.buttonIIIR_6 = (Button) linearLayout.findViewById(R.id.buttonIIIR_6);
+            this.buttonIIIR_6 =  linearLayout.findViewById(R.id.buttonIIIR_6);
             buttons.add(buttonIIIR_6);
-            this.buttonIIIR_7 = (Button) linearLayout.findViewById(R.id.buttonIIIR_7);
+            this.buttonIIIR_7 =  linearLayout.findViewById(R.id.buttonIIIR_7);
             buttons.add(buttonIIIR_7);
 
-            this.buttonIVR_1 = (Button) linearLayout.findViewById(R.id.buttonIVR_1);
+            this.buttonIVR_1 =  linearLayout.findViewById(R.id.buttonIVR_1);
             buttons.add(buttonIVR_1);
-            this.buttonIVR_2 = (Button) linearLayout.findViewById(R.id.buttonIVR_2);
+            this.buttonIVR_2 =  linearLayout.findViewById(R.id.buttonIVR_2);
             buttons.add(buttonIVR_2);
-            this.buttonIVR_3 = (Button) linearLayout.findViewById(R.id.buttonIVR_3);
+            this.buttonIVR_3 =  linearLayout.findViewById(R.id.buttonIVR_3);
             buttons.add(buttonIVR_3);
-            this.buttonIVR_4 = (Button) linearLayout.findViewById(R.id.buttonIVR_4);
+            this.buttonIVR_4 =  linearLayout.findViewById(R.id.buttonIVR_4);
             buttons.add(buttonIVR_4);
-            this.buttonIVR_5 = (Button) linearLayout.findViewById(R.id.buttonIVR_5);
+            this.buttonIVR_5 =  linearLayout.findViewById(R.id.buttonIVR_5);
             buttons.add(buttonIVR_5);
-            this.buttonIVR_6 = (Button) linearLayout.findViewById(R.id.buttonIVR_6);
+            this.buttonIVR_6 =  linearLayout.findViewById(R.id.buttonIVR_6);
             buttons.add(buttonIVR_6);
-            this.buttonIVR_7 = (Button) linearLayout.findViewById(R.id.buttonIVR_7);
+            this.buttonIVR_7 =  linearLayout.findViewById(R.id.buttonIVR_7);
             buttons.add(buttonIVR_7);
 
-            this.buttonVR_1 = (Button) linearLayout.findViewById(R.id.buttonVR_1);
+            this.buttonVR_1 =  linearLayout.findViewById(R.id.buttonVR_1);
             buttons.add(buttonVR_1);
-            this.buttonVR_2 = (Button) linearLayout.findViewById(R.id.buttonVR_2);
+            this.buttonVR_2 =  linearLayout.findViewById(R.id.buttonVR_2);
             buttons.add(buttonVR_2);
-            this.buttonVR_3 = (Button) linearLayout.findViewById(R.id.buttonVR_3);
+            this.buttonVR_3 =  linearLayout.findViewById(R.id.buttonVR_3);
             buttons.add(buttonVR_3);
-            this.buttonVR_4 = (Button) linearLayout.findViewById(R.id.buttonVR_4);
+            this.buttonVR_4 =  linearLayout.findViewById(R.id.buttonVR_4);
             buttons.add(buttonVR_4);
-            this.buttonVR_5 = (Button) linearLayout.findViewById(R.id.buttonVR_5);
+            this.buttonVR_5 =  linearLayout.findViewById(R.id.buttonVR_5);
             buttons.add(buttonVR_5);
-            this.buttonVR_6 = (Button) linearLayout.findViewById(R.id.buttonVR_6);
+            this.buttonVR_6 =  linearLayout.findViewById(R.id.buttonVR_6);
             buttons.add(buttonVR_6);
-            this.buttonVR_7 = (Button) linearLayout.findViewById(R.id.buttonVR_7);
+            this.buttonVR_7 =  linearLayout.findViewById(R.id.buttonVR_7);
             buttons.add(buttonVR_7);
 
-            this.button1C = (Button) linearLayout.findViewById(R.id.button1C);
+            this.button1C =  linearLayout.findViewById(R.id.button1C);
             columnButtons.add(button1C);
-            this.button2C = (Button) linearLayout.findViewById(R.id.button2C);
+            this.button2C =  linearLayout.findViewById(R.id.button2C);
             columnButtons.add(button2C);
-            this.button3C = (Button) linearLayout.findViewById(R.id.button3C);
+            this.button3C =  linearLayout.findViewById(R.id.button3C);
             columnButtons.add(button3C);
-            this.button4C = (Button) linearLayout.findViewById(R.id.button4C);
+            this.button4C =  linearLayout.findViewById(R.id.button4C);
             columnButtons.add(button4C);
-            this.button5C = (Button) linearLayout.findViewById(R.id.button5C);
+            this.button5C =  linearLayout.findViewById(R.id.button5C);
             columnButtons.add(button5C);
-            this.button6C = (Button) linearLayout.findViewById(R.id.button6C);
+            this.button6C =  linearLayout.findViewById(R.id.button6C);
             columnButtons.add(button6C);
-            this.button7C = (Button) linearLayout.findViewById(R.id.button7C);
+            this.button7C =  linearLayout.findViewById(R.id.button7C);
             columnButtons.add(button7C);
 
-            this.buttonIR = (Button) linearLayout.findViewById(R.id.buttonIR);
-            this.buttonIIR = (Button) linearLayout.findViewById(R.id.buttonIIR);
-            this.buttonIIIR = (Button) linearLayout.findViewById(R.id.buttonIIIR);
-            this.buttonIVR = (Button) linearLayout.findViewById(R.id.buttonIVR);
-            this.buttonVR = (Button) linearLayout.findViewById(R.id.buttonVR);
+            this.buttonIR =  linearLayout.findViewById(R.id.buttonIR);
+            this.buttonIIR =  linearLayout.findViewById(R.id.buttonIIR);
+            this.buttonIIIR =  linearLayout.findViewById(R.id.buttonIIIR);
+            this.buttonIVR =  linearLayout.findViewById(R.id.buttonIVR);
+            this.buttonVR =  linearLayout.findViewById(R.id.buttonVR);
 
 
             Log.d(logTag, "Czy buttons empty: " + buttons.isEmpty());
@@ -239,47 +227,47 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
 
         }
 
-        String text = "";
+        String text;
         int logNr=0;
         for(int i=0; i<35; i++){
-            text = "" + seatNumber.get(i);
+            text = Integer.toString(seatNumber.get(i));
             if(text.length() == 3)
                 buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
 
-            buttons.get(i).setText(""+seatNumber.get( buttons.get(i)));
+            text =  Integer.toString(seatNumber.get( buttons.get(i)));
+            buttons.get(i).setText(text);
             Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get( buttons.get(logNr)) );
             logNr++;
         }
 
         //ustawienie prawidłowej nazwy sektora
 
+        text = "Sektor 1";
         switch(startSeat){
-            case 1:
-                textView1Seats.setText("Sektor 1");
-                break;
             case 8:
-                textView1Seats.setText("Sektor 2");
+                text="Sektor 2";
                 break;
             case 71:
-                textView1Seats.setText("Sektor 3");
+                text="Sektor 3";
                 break;
             case 78:
-                textView1Seats.setText("Sektor 4");
+                text = "Sektor 4";
                 break;
             case 141:
-                textView1Seats.setText("Sektor 5");
+                text = "Sektor 5";
                 break;
             case 148:
-                textView1Seats.setText("Sektor 6");
+                text="Sektor 6";
                 break;
             case 211:
-                textView1Seats.setText("Sektor 7");
+                text="Sektor 7";
                 break;
             case 218:
-                textView1Seats.setText("Sektor 8");
+                text="Sektor 8";
                 break;
         }
 
+            textView1Seats.setText(text);
 
             this.linearLayoutRows.setVisibility(View.INVISIBLE);
 
@@ -309,46 +297,72 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
         int number = 1;
         if(buttonIR_1.getText().equals("1") || buttonIR_1.getText().equals("71") || buttonIR_1.getText().equals("141") || buttonIR_1.getText().equals("211")){
             for(Button cb : columnButtons){
-                cb.setText(number+"");
+                String txt = Integer.toString(number);
+                cb.setText(txt);
                 number++;
             }
         }
         else{
             number = 8;
             for(Button cb : columnButtons){
-                cb.setText(number+"");
+                String txt = Integer.toString(number);
+                cb.setText(txt);
                 number++;
             }
         }
 
         //zmiana numerów rzędów
+
+        //tablica rzymskich numerów
+        String[] numberOfRow  = new String[20];
+        numberOfRow[0]= "I";
+        numberOfRow[1]= "II";
+        numberOfRow[2]= "III";
+        numberOfRow[3]= "IV";
+        numberOfRow[4]= "V";
+        numberOfRow[5]= "VI";
+        numberOfRow[6]= "VII";
+        numberOfRow[7]= "VIII";
+        numberOfRow[8]= "IX";
+        numberOfRow[9]= "X";
+        numberOfRow[10]= "XI";
+        numberOfRow[11]= "XII";
+        numberOfRow[12]= "XIII";
+        numberOfRow[13]= "XIV";
+        numberOfRow[14]= "XV";
+        numberOfRow[15]= "XVI";
+        numberOfRow[16]= "XVII";
+        numberOfRow[17]= "XVIII";
+        numberOfRow[18]= "XIX";
+        numberOfRow[19]= "XX";
+
         if(buttonIR_1.getText().equals("1") || buttonIR_1.getText().equals("8")) {
-            buttonIR.setText("I");
-            buttonIIR.setText("II");
-            buttonIIIR.setText("III");
-            buttonIVR.setText("IV");
-            buttonVR.setText("V");
+            buttonIR.setText(numberOfRow[0]);
+            buttonIIR.setText(numberOfRow[1]);
+            buttonIIIR.setText(numberOfRow[2]);
+            buttonIVR.setText(numberOfRow[3]);
+            buttonVR.setText(numberOfRow[4]);
         }
         else if(buttonIR_1.getText().equals("71") || buttonIR_1.getText().equals("78")){
-            buttonIR.setText("VI");
-            buttonIIR.setText("VII");
-            buttonIIIR.setText("VIII");
-            buttonIVR.setText("IX");
-            buttonVR.setText("X");
+            buttonIR.setText(numberOfRow[5]);
+            buttonIIR.setText(numberOfRow[6]);
+            buttonIIIR.setText(numberOfRow[7]);
+            buttonIVR.setText(numberOfRow[8]);
+            buttonVR.setText(numberOfRow[9]);
         }
         else if(buttonIR_1.getText().equals("141") || buttonIR_1.getText().equals("148")){
-            buttonIR.setText("XI");
-            buttonIIR.setText("XII");
-            buttonIIIR.setText("XIII");
-            buttonIVR.setText("XIV");
-            buttonVR.setText("XV");
+            buttonIR.setText(numberOfRow[10]);
+            buttonIIR.setText(numberOfRow[11]);
+            buttonIIIR.setText(numberOfRow[12]);
+            buttonIVR.setText(numberOfRow[13]);
+            buttonVR.setText(numberOfRow[14]);
         }
         else if(buttonIR_1.getText().equals("211") || buttonIR_1.getText().equals("218")){
-            buttonIR.setText("XVI");
-            buttonIIR.setText("XVII");
-            buttonIIIR.setText("XVIII");
-            buttonIVR.setText("XIX");
-            buttonVR.setText("XX");
+            buttonIR.setText(numberOfRow[15]);
+            buttonIIR.setText(numberOfRow[16]);
+            buttonIIIR.setText(numberOfRow[17]);
+            buttonIVR.setText(numberOfRow[18]);
+            buttonVR.setText(numberOfRow[19]);
         }
     }
 
@@ -426,7 +440,8 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
                 break;
         }
 
-        textView2Seats.setText("Cena za miejsce: " + cena + " zł");
+        String text = "Cena za miejsce: " + cena + " zł";
+        textView2Seats.setText(text);
 
 
     }
