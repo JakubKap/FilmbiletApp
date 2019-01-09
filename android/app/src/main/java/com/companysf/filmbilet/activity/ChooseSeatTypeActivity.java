@@ -863,9 +863,10 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                 inc++;
                             }
 
-                            int startSeat = 8;
+                            int startSeat = 1;
 
-                            if (flags[2]) startSeat = 71;
+                            if(flags[1]) startSeat=8;
+                            else if (flags[2]) startSeat = 71;
                             else if (flags[3]) startSeat = 78;
                             else if (flags[4]) startSeat = 141;
                             else if (flags[5]) startSeat = 148;
@@ -1349,7 +1350,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                     Log.d(logTag, "myChoosedPlaces [ " + i + " ] = " + myChoosedPlaces[i]);
                 }
 
-                
+
 
                 ArrayList<Integer> takenYourSeats = new ArrayList<>();
                 //moje
