@@ -68,7 +68,6 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
 
         this.linearLayoutRows = linearLayout.findViewById(R.id.linearLayoutRows);
 
-        this.progressBarSeats = linearLayout.findViewById(R.id.progressBarSeats);
 
         this.textView1Seats = linearLayout.findViewById(R.id.textView1Seats);
         this.textView2Seats = linearLayout.findViewById(R.id.textView2Seats);
@@ -226,6 +225,7 @@ public class FreeSeatsTask extends AsyncTask<Void, Integer, Void> {
 
 
         }
+
 
         String text;
         int logNr=0;
