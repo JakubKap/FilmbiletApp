@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
@@ -342,10 +343,44 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
     }
 
 
-    public void updateSectors(){
+    public void updateSectors(boolean ifStart){
+
+        final boolean start = ifStart;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
+                if(start){
+
+                    button1.setBackgroundResource(R.drawable.button_normal_first);
+
+                    button2.setBackgroundResource(R.drawable.button_normal_first);
+
+                    button3.setBackgroundResource(R.drawable.button_normal_second);
+
+                    button4.setBackgroundResource(R.drawable.button_normal_second);
+
+                    button5.setBackgroundResource(R.drawable.button_normal_third);
+
+                    button6.setBackgroundResource(R.drawable.button_normal_third);
+
+                    button7.setBackgroundResource(R.drawable.button_normal_fourth);
+
+                    button8.setBackgroundResource(R.drawable.button_normal_fourth);
+
+                    button1.setBackgroundResource(R.drawable.button_normal_first);
+
+                    btn_next.setVisibility(View.INVISIBLE);
+
+                    progressBar.setVisibility(View.INVISIBLE);
+
+                    textView3.setVisibility(View.INVISIBLE);
+
+                    textView4.setVisibility(View.INVISIBLE);
+
+
+                }
+
 
                 int sectorNumber = 1;
 
@@ -653,7 +688,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             //execute(nr_repertuaru z poprzedniuego intentu)
             //TODO wstawienie do execute() nr repertuaru
 
-            new FreeSectorsTask(getApplicationContext(), constraintLayout, true).execute(1);
+            //new FreeSectorsTask(getApplicationContext(), constraintLayout, true).execute(1);
 
             //button wyłączony do czasu wyboru miejsca
             this.btn_next.setEnabled(false);
@@ -705,12 +740,15 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
             myChoosedPlaces[i]=false;
         }
 
-        //pobranie informacji z bazy danych na temat pobranych miejsc (DLA DANEGO REPERTUARU)
+
+        //TODO pobranie informacji z bazy danych na temat pobranych miejsc (DLA DANEGO REPERTUARU)
 
 
         int repertoireId = 1;
 
         final String repertoireIdString = "" + repertoireId;
+
+        RequestFuture<StringRequest> future = RequestFuture.newFuture();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 AppConfig.GET_RESERVATIONS,
@@ -755,7 +793,11 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                         }
 
+                        for(int i=0; i<choosedPlaces.length; i++)
+                            if(choosedPlaces[i])
+                                Log.d(logTag, "After choosedPlaces[ " + i + " ] = "  +  choosedPlaces[i]);
 
+                        updateSectors(true);
 
                     }
                 }, new Response.ErrorListener() {
@@ -1373,7 +1415,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
                 buildDialog(takenYourSeats);
 
                 //aktualizacja buttonów sektorów
-                updateSectors();
+                updateSectors(false);
 
             }
 
