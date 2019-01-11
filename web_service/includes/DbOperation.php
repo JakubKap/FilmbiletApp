@@ -316,7 +316,7 @@ class DbOperation
 	
 	public function getMovieRepertoire($movieId){
 			
-			 $results = $this->con->prepare("SELECT id, date from repertoire WHERE date >= now() AND movieId  = ?");
+			 $results = $this->con->prepare("SELECT id, date from repertoire WHERE date > now() AND movieId  = ?");
 			
 			 $results->bind_param("s", $movieId);
 				
