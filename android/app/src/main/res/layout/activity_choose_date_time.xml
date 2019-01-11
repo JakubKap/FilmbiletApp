@@ -6,4 +6,195 @@
     android:layout_height="match_parent"
     tools:context=".activity.ChooseDateTime">
 
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30sp"
+        android:background="@drawable/list_row_selector"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2"
+
+        >
+
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/picture"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_toRightOf="@+id/picture"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Tytuł"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/second_row_next_to_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_toRightOf="@+id/picture"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/genres_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/genres"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/genres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_italic"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/second_row_next_to_picture"
+
+            android:layout_marginTop="-1dp"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_toRightOf="@+id/picture"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/movie_length_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/movie_length"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/movie_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_italic"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/separator"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/min_age_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/min_age"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/min_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_italic"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/hours_grid_view"
+        android:layout_width="wrap_content"
+        android:layout_height="233dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dates_grid_view" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="70dp"
+        app:layout_constraintGuide_percent="0.13" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="188dp"
+        app:layout_constraintGuide_percent="0.30" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="70dp"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="70dp"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <GridView
+        android:id="@+id/dates_grid_view"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.481">
+
+    </GridView>
+
+    <Button
+        android:id="@+id/btn_accept_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_close_light"
+        android:text="WYBÓR MIEJSCA >"
+        android:padding="10sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hours_grid_view" />
+
 </android.support.constraint.ConstraintLayout>
