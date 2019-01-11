@@ -22,7 +22,7 @@
 
 
         <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/picture"
+            android:id="@+id/picture_in_date"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_alignParentStart="true"
@@ -31,7 +31,7 @@
             android:layout_marginRight="8dp" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/title_in_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/picture"
@@ -60,7 +60,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/genres"
+                android:id="@+id/genres_in_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_italic"
@@ -86,7 +86,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/movie_length"
+                android:id="@+id/movie_length_in_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_italic"
@@ -111,7 +111,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/min_age"
+                android:id="@+id/min_age_in_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_italic"
