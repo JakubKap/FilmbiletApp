@@ -1,0 +1,1365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:foreground="@drawable/shape_window_dim">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10sp"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/title-screen-line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/circleEnd-line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="37dp" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/header"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="2"
+                android:fontFamily="@font/opensans_bold"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/circleEnd-line"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/selectSectorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/opensans_bold"
+                android:text="Wybierz sektor"
+                android:textSize="@dimen/header"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/circleEnd-line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/title-screen-line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <ImageButton
+            android:id="@+id/screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/screen"
+            app:layout_constraintBottom_toTopOf="@+id/screenSeats-line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title-screen-line" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/screenSeats-line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.13" />
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/summaryBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/screenSeats-line">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/allSeats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/halfScreen-line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button1Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/button1Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector1Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector1Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button1Container"
+                        app:layout_constraintStart_toStartOf="@+id/button1Container"
+                        app:layout_constraintTop_toTopOf="@+id/button1Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s1HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s1HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s1HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s1HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s1HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s1HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s1HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s1HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s1HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s1HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/priceText"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s1HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s1HalfPriceAndPlaces-horizontalLine" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button2Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/button2Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector2Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector2Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button2Container"
+                        app:layout_constraintStart_toStartOf="@+id/button2Container"
+                        app:layout_constraintTop_toTopOf="@+id/button2Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s2HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s2HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s2HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s2HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s2HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s2HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s2HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s2HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s2HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s2HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/priceText"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s2HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s2HalfPriceAndPlaces-horizontalLine" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button3Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toBottomOf="@+id/button1Container">
+
+                    <ImageButton
+                        android:id="@+id/button3Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector3Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector3Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button3Container"
+                        app:layout_constraintStart_toStartOf="@+id/button3Container"
+                        app:layout_constraintTop_toTopOf="@+id/button3Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s3HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s3HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s3HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s3HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s3HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s3HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s3HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s3HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s3HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s3HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="cena"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s3HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s3HalfPriceAndPlaces-horizontalLine" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button4Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toBottomOf="@+id/button2Container">
+
+                    <ImageButton
+                        android:id="@+id/button4Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector4Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector4Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button4Container"
+                        app:layout_constraintStart_toStartOf="@+id/button4Container"
+                        app:layout_constraintTop_toTopOf="@+id/button4Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s4HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s4HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s4HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s4HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s4HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s4HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s4HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s4HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s4HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s4HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="cena"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s4HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s4HalfPriceAndPlaces-horizontalLine" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button5Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toBottomOf="@+id/button3Container">
+
+                    <ImageButton
+                        android:id="@+id/button5Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector5Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector5Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button5Container"
+                        app:layout_constraintStart_toStartOf="@+id/button5Container"
+                        app:layout_constraintTop_toTopOf="@+id/button5Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s5HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s5HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s5HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s5HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s5HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s5HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s5HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s5HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s5HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s5HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="cena"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s5HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s5HalfPriceAndPlaces-horizontalLine" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button6Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toBottomOf="@+id/button4Container">
+
+                    <ImageButton
+                        android:id="@+id/button6Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector6Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector6Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button6Container"
+                        app:layout_constraintStart_toStartOf="@+id/button6Container"
+                        app:layout_constraintTop_toTopOf="@+id/button6Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s6HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s6HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s6HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s6HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s6HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s6HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s6HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s6HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s6HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s6HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="cena"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s6HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s6HalfPriceAndPlaces-horizontalLine" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button6"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button7Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toBottomOf="@+id/button5Container">
+
+                    <ImageButton
+                        android:id="@+id/button7Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector7Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector7Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button7Container"
+                        app:layout_constraintStart_toStartOf="@+id/button7Container"
+                        app:layout_constraintTop_toTopOf="@+id/button7Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s7HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s7HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s7HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s7HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s7HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s7HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s7HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s7HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s7HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s7HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="cena"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s7HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s7HalfPriceAndPlaces-horizontalLine" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button7"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/button8Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintTop_toBottomOf="@+id/button6Container"
+                    app:layout_constraintVertical_weight="10">
+
+                    <ImageButton
+                        android:id="@+id/button8Sector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:contentDescription="@string/sector8Text"
+                        android:src="@drawable/sector_seats_grid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/sector_title"
+                        android:fontFamily="@font/opensans_bold"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/sector8Text"
+                        app:layout_constraintEnd_toEndOf="@+id/button8Container"
+                        app:layout_constraintStart_toStartOf="@+id/button8Container"
+                        app:layout_constraintTop_toTopOf="@+id/button8Container" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s8HalfPriceAndPlaces-verticalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s8HalfPriceAndPlaces-horizontalLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s8HalfPriceAndPlaces-horizontalLine2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.33" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/s8HalfPriceAndPlaces-horizontalLine3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/price_and_seats_amount_btn"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/availablePlacesText"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s8HalfPriceAndPlaces-horizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s8HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="13"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@id/s8HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/s8HalfPriceAndPlaces-horizontalLine2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16sp"
+                            android:fontFamily="@font/opensans_regular"
+                            android:includeFontPadding="false"
+                            android:text="20 zł"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/s8HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/s8HalfPriceAndPlaces-verticalLine" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="4dp"
+                            android:includeFontPadding="false"
+                            android:text="cena"
+                            android:textSize="6sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/s8HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s8HalfPriceAndPlaces-horizontalLine" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/button8"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/summaryBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/btnReserve"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sector_summary_box"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/choosedPlacesText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="wybranych miejsc: " />
+
+                <TextView
+                    android:id="@+id/choosedPlaces"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text=" | Całkowity koszt:" />
+
+                <TextView
+                    android:id="@+id/summaryPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="60 zł" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btnReserve"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/rounded_button_light"
+            android:fontFamily="@font/opensans_bold"
+            android:minHeight="40dip"
+            android:text="@string/btnReserveText"
+            android:textColor="#f9f9f9"
+            android:textSize="@dimen/summary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
