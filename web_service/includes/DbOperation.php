@@ -230,6 +230,41 @@ class DbOperation
 		} else return false;
 	}
 	
+	public function getCustomerReservations($customerId){
+		
+		 $results = $this->con->prepare(
+			"SELECT GROUP_CONCAT(DISTINCT reservation.seatNumber SEPARATOR ', ') AS seatNumbers, reservation.date AS reservDate, repertoire.id AS repertId, repertoire.date AS repertDate, movie.title
+			FROM reservation 
+			INNER JOIN repertoire ON reservation.repertoireId = repertoire.id
+			INNER JOIN movie ON repertoire.movieId = movie.id
+			WHERE reservation.customerId = ?
+			GROUP BY reservDate, repertId, repertDate, movie.title"
+		 );
+		
+		 $results->bind_param("s", $customerId);
+		 	
+		if ($results !== false){
+			$results->execute();
+			
+			$results->bind_result($seatNumbers, $reservDate, $repertId, $repertDate, $movieTitle);
+			
+			$reservations = array(); 
+			
+			while($results->fetch()){
+				$reservation  = array();
+				$reservation['seatNumbers'] = $seatNumbers;
+				$reservation['reservDate'] = $reservDate;
+				$reservation['repertId'] = $repertId;
+				$reservation['repertDate'] = $repertDate;
+				$reservation['movieTitle'] = $movieTitle; 
+				
+				array_push($reservations, $reservation); 
+			}
+			
+			return $reservations; 
+		} else return false;
+	}
+	
 	public function storeReservation($customerId, $seatNumber, $row, $seatTypeId, $repertoireId) {
        
 		$results = $this->con->prepare("INSERT INTO reservation(customerId, seatNumber, row, date, seatTypeId, repertoireId) VALUES(?, ?, ?, NOW(), ?, ?)");
