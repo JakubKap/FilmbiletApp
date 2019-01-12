@@ -314,6 +314,31 @@ class DbOperation
 		} else return false;
 	}
 	
+	public function getMovieRepertoire($movieId){
+			
+			 $results = $this->con->prepare("SELECT id, date from repertoire WHERE date > now() AND movieId  = ?");
+			
+			 $results->bind_param("s", $movieId);
+				
+			if ($results !== false){
+				$results->execute();
+				
+				$results->bind_result($id, $date);
+				
+				$repertoires = array(); 
+				
+				while($results->fetch()){
+					$repertoire  = array();
+					$repertoire['id'] = $id; 
+					$repertoire['date'] = $date; 
+					
+					array_push($repertoires, $repertoire); 
+				}
+				
+				return $repertoires; 
+			} else return false;
+		}
+	
 	//Encrypting password
     private function hashSSHA($password) {
 
