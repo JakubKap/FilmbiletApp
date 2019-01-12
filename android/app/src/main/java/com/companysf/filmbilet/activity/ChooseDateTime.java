@@ -11,6 +11,7 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.appLogic.Movie;
+import com.companysf.filmbilet.appLogic.Repertoire;
 
 public class ChooseDateTime extends AppCompatActivity {
 
@@ -27,9 +28,6 @@ public class ChooseDateTime extends AppCompatActivity {
             @Override
             public void run() {
 
-
-               // imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
-                       // .getImageLoader();
                 //Views
                 TextView title = findViewById(R.id.title_in_date);
                 TextView movieLength = findViewById(R.id.movie_length_in_date);
@@ -56,7 +54,9 @@ public class ChooseDateTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
-        updateMovieInfo(new Movie("Planeta Singli 2", 45, 12, "http://filmbilet.cba.pl/images/climax.jpg", "Horror"));
+        updateMovieInfo(new Movie("Planeta Singli 2", 159, 15, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia romantyczna"));
 
+        Repertoire r1 = new Repertoire( 12, "2019-12-29 23:50:00");
+        Log.d(logTag, r1.toString());
     }
 }
