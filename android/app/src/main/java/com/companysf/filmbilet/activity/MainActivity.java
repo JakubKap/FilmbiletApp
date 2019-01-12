@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         cd = new ConnectionDetector(this);
 
         if (!sManager.isLoggedIn()) {
-            logOutCustomer();
+            switchToLoginActivity();
         }
 
         animationStarted = false;
@@ -249,8 +249,12 @@ public class MainActivity extends AppCompatActivity {
 
         db.deleteCustomers();
 
-       // Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        //startActivity(intent);
-        //finish();
+        switchToLoginActivity();
+    }
+
+    private void switchToLoginActivity() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

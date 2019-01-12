@@ -23,7 +23,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createLoginTable = "CREATE TABLE customer(" + customerName +  "TEXT, " + customerSurname + "TEXT, " + customerEmail + "TEXT)";
+        String createLoginTable = "CREATE TABLE customer(" + customerName + "TEXT, " + customerSurname + "TEXT, " + customerEmail + "TEXT)";
         db.execSQL(createLoginTable);
         Log.d(TAG, "Database tables created");
     }
@@ -36,7 +36,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addCustomer(String name, String surname, String email){
+    public void addCustomer(String name, String surname, String email) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -72,7 +72,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return customer;
     }
 
-    public void deleteCustomers(){
+    public void deleteCustomers() {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete("customer", null, null);

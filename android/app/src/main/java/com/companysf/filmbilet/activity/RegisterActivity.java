@@ -3,7 +3,9 @@ package com.companysf.filmbilet.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -43,8 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //getActionBar().hide();
 
         loginBtn = findViewById(R.id.btn_login);
         registerBtn = findViewById(R.id.btn_register);
@@ -65,22 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cd.connected()){
-                    String name = inputName.getText().toString().trim();
-                    String surname = inputSurname.getText().toString().trim();
-                    String email = inputEmail.getText().toString().trim();
-                    String password = inputPassword.getText().toString().trim();
-
-                    if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                        registerUser(name, surname, email, password);
-                    } else {
-                        Toast.makeText(getApplicationContext(),
-                                "Proszę uzupełnić wszystkie pola!", Toast.LENGTH_LONG)
-                                .show();
-                    }
-                } else{
-                    cd.buildDialog(RegisterActivity.this, "Błąd połączenia internetowego", "Potrzebujesz dostępu do internetu, żeby móc się zalogować").show();
-                }
+                validateEmail();
             }
         });
 
@@ -89,26 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 //on enter click
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                    if (cd.connected()){
-                        String name = inputName.getText().toString().trim();
-                        String surname = inputSurname.getText().toString().trim();
-                        String email = inputEmail.getText().toString().trim();
-                        String password = inputPassword.getText().toString().trim();
-
-                        if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                            registerUser(name, surname, email, password);
-                        } else {
-                            Toast.makeText(getApplicationContext(),
-                                    "Proszę uzupełnić wszystkie pola!", Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    } else{
-                        cd.buildDialog(RegisterActivity.this,
-                                "Błąd połączenia internetowego",
-                                "Żeby móc się zarejestrować" +
-                                        " potrzebujesz dostępu do internetu"
-                        ).show();
-                    }
+                    validateEmail();
+                    return true;
                 }
                 return false;
             }
@@ -125,6 +92,33 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void validateEmail() {
+        if (cd.connected()){
+            String name = inputName.getText().toString().trim();
+            String surname = inputSurname.getText().toString().trim();
+            String email = inputEmail.getText().toString().trim();
+            String password = inputPassword.getText().toString().trim();
+
+            if (!isEmail(email)){
+                Toast.makeText(getApplicationContext(),
+                        "Wprowadzony email nie jest poprawny!", Toast.LENGTH_LONG)
+                        .show();
+            } else if (name.isEmpty() || surname.isEmpty() || password.isEmpty()) {
+                Toast.makeText(getApplicationContext(),
+                        "Proszę uzupełnić wszystkie pola!", Toast.LENGTH_LONG)
+                        .show();
+            } else {
+                registerUser(name, surname, email, password);
+            }
+        } else{
+            cd.buildDialog(RegisterActivity.this, "Błąd połączenia internetowego", "Potrzebujesz dostępu do internetu, żeby móc się zalogować").show();
+        }
+    }
+
+    boolean isEmail(String email){
+        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
     private void registerUser(final String name, final String surname, final String email, final String password) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 AppConfig.REGISTER_URL,
@@ -138,15 +132,9 @@ public class RegisterActivity extends AppCompatActivity {
                             if (error){
                                 Toast.makeText(
                                         getApplicationContext(),
-                                        json.getString("message"),
+                                        "Błąd serwera",
                                         Toast.LENGTH_SHORT).show();
                             } else{
-                                //add fields from MySQL to SQLite
-                                JSONObject customer = json.getJSONObject("customer");
-                                db.addCustomer(
-                                        customer.getString("name"),
-                                        customer.getString("surname"),
-                                        customer.getString("email"));
                                 Toast.makeText(
                                         getApplicationContext(),
                                         "Zostałeś pomyślnie zarejestrowany. Możesz się teraz zalogować",
@@ -161,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
                             e.printStackTrace();
                             Toast.makeText(
                                     getApplicationContext(),
-                                    "Json error: " + e.getMessage(),
+                                    "Błąd serwera: ",
                                     Toast.LENGTH_LONG).show();
                         }
                     }
@@ -170,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e(logTag, "Registration Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+                        "Błąd serwera", Toast.LENGTH_LONG).show();
             }
         }){
             @Override
