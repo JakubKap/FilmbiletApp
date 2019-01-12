@@ -9,6 +9,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.app.AppController;
+import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.appLogic.Movie;
 
 public class ChooseDateTime extends AppCompatActivity {
@@ -18,13 +19,17 @@ public class ChooseDateTime extends AppCompatActivity {
     public void updateMovieInfo(Movie sentMovie){
 
         final Movie movie = sentMovie;
+        final ImageLoader imageLoader;
+        imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
+                .getImageLoader();
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ImageLoader imageLoader =  AppController.getInstance().getImageLoader();;
 
 
+               // imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
+                       // .getImageLoader();
                 //Views
                 TextView title = findViewById(R.id.title_in_date);
                 TextView movieLength = findViewById(R.id.movie_length_in_date);
@@ -38,7 +43,7 @@ public class ChooseDateTime extends AppCompatActivity {
                 movieLength.setText(String.valueOf(movie.getRunningTimeMin()));
                 minAge.setText(String.valueOf(movie.getAge()));
                 Log.d(logTag, "Przed ustawieniem obrazka");
-               // picture.setImageUrl(movie.getPictureURL(), imageLoader);
+                picture.setImageUrl(movie.getPictureURL(), imageLoader);
                 Log.d(logTag, "Po ustawieniu obrazka");
                 genres.setText(movie.getGenres());
                 Log.d(logTag, "Po ustawieniu gatunku");
