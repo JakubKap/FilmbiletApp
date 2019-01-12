@@ -11,35 +11,43 @@ public class Repertoire {
     private int id;
     private String datePom;
     private Calendar date;
-    private int DayOfMonth;
-    private String DayOfWeek;
-    private int hour;
+    private int year;
+    private int dayOfMonth;
+    private String dayOfWeek;
+    private int hourOfDay;
     private int minute;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getDatePom() {
         return datePom;
-    }
-
-    public void setDatePom(String datePom) {
-        this.datePom = datePom;
     }
 
     public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
-        this.date = date;
+    public int getYear() {
+        return year;
     }
 
+    public int getDayOfMonth() {
+        return dayOfMonth;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public int getHourOfDay() {
+        return hourOfDay;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
 
 
     public Repertoire(int id, String datePom) {
@@ -58,13 +66,45 @@ public class Repertoire {
         }catch(ParseException e){
             e.printStackTrace();
         }
+
+        year = date.get(Calendar.YEAR);
+        dayOfMonth = date.get(Calendar.DAY_OF_MONTH);
+
+        switch(date.get(Calendar.DAY_OF_WEEK)){
+            case 1:
+                dayOfWeek = "NIEDZ.";
+                break;
+            case 2:
+                dayOfWeek="PON.";
+                break;
+            case 3:
+                dayOfWeek="WT.";
+                break;
+            case 4:
+                dayOfWeek="ŚR.";
+                break;
+            case 5:
+                dayOfWeek="CZW.";
+                break;
+            case 6:
+                dayOfWeek="PT.";
+                break;
+            case 7:
+                dayOfWeek="SOB.";
+                break;
+        }
+
+        hourOfDay = date.get(Calendar.HOUR_OF_DAY);
+        minute = date.get(Calendar.MINUTE);
+
     }
 
 
     public String toString(){
-        /*return "id = " + id  + ", year = " + date.getYear() + ", month = " + date.getMonth()
-                + ", dayOfMonth = ";*/
-        return "id = " + id  + ", date = " + date.toString()
+        return "id = " + id  + ", year = " +  getYear()
+                + ", dayOfMonth = " + getDayOfMonth() + ", dayOfWeek = " + dayOfWeek
+                + ", hour = " + getHourOfDay() + ", minute = " + getMinute();
+        /*return "id = " + id  + ", date = " + date.toString()
                 + ", year = " + date.get(Calendar.YEAR)
                 + ", month = " + date.get(Calendar.MONTH)
                 + ", dayOfMonth = " + date.get(Calendar.DAY_OF_MONTH)
@@ -72,6 +112,6 @@ public class Repertoire {
                 + ", hour = " + date.get(Calendar.HOUR_OF_DAY)
                 + ", minutes = " + date.get(Calendar.MINUTE)
                 + ", seconds = " + date.get(Calendar.SECOND)
-                + ", AM = " + date.get(Calendar.AM_PM);
+                + ", AM = " + date.get(Calendar.AM_PM);*/
     }
 }
