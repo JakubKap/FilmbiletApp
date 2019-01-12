@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                 AppConfig.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(logTag, "Login response: " + response.toString());
+                Log.d(logTag, "Login response: " + response);
                 try {
                     JSONObject json = new JSONObject(response);
                     boolean error = json.getBoolean("error");
@@ -146,10 +146,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         //add fields from MySQL to SQLite
                         JSONObject customer = json.getJSONObject("customer");
+                        Log.d(logTag, "customerName: " + customer.getString("name") + "i jego id: " + Integer.toString(customer.getInt("id")));
                         db.addCustomer(
                                 customer.getString("name"),
                                 customer.getString("surname"),
-                                customer.getString("email"));
+                                customer.getString("email"),
+                                Integer.toString(customer.getInt("id")));
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

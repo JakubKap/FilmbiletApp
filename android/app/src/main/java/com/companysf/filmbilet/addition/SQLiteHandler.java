@@ -15,7 +15,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String customerName = "name";
     private static final String customerSurname = "surname";
     private static final String customerEmail = "email";
-    //private static final String customeUid = "uid";
+    private static final String customerId = "id";
 
     public SQLiteHandler(Context context) {
         super(context, "apiDB", null, 1);
@@ -23,7 +23,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createLoginTable = "CREATE TABLE customer(" + customerName + "TEXT, " + customerSurname + "TEXT, " + customerEmail + "TEXT)";
+        String createLoginTable = "CREATE TABLE customer(" + customerName + "TEXT, " + customerSurname + "TEXT, " + customerEmail + "TEXT, " + customerId + "TEXT)";
         db.execSQL(createLoginTable);
         Log.d(TAG, "Database tables created");
     }
@@ -36,16 +36,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addCustomer(String name, String surname, String email) {
+    public void addCustomer(String name, String surname, String email, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(customerName, name);
-        contentValues.put(customerSurname, surname);
-        contentValues.put(customerEmail, email);
-        //contentValues.put(customeUid, uid);
-
-        db.insert("customer", null, contentValues);
+        db.execSQL("INSERT INTO customer values(?,?,?,?)",new String[]{name,surname,email,id});
         db.close();
 
         Log.d(TAG, "New customer inserted into DB: ");
@@ -54,7 +48,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public HashMap<String, String> getCustomer() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        HashMap<String, String> customer = new HashMap<String, String>();
+        HashMap<String, String> customer = new HashMap<>();
         Cursor cursor = db.rawQuery("SELECT * FROM customer", null);
 
         //move to first row
@@ -63,7 +57,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             customer.put(customerName, cursor.getString(0));
             customer.put(customerSurname, cursor.getString(1));
             customer.put(customerEmail, cursor.getString(2));
-            //customer.put(customeUid, cursor.getString(4));
+            customer.put(customerId, cursor.getString(3));
+
+            Log.d(TAG, "cursor.getCount() > 0");
         }
         cursor.close();
         db.close();

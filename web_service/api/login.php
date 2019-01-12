@@ -15,6 +15,7 @@
 		if ($customer != false) {
 			$response["error"] = FALSE;
 			$response["uid"] = $customer["uniqueId"];
+			$response["customer"]["id"] = $customer["id"];
 			$response["customer"]["name"] = $customer["name"];
 			$response["customer"]["surname"] = $customer["surname"];
 			$response["customer"]["email"] = $customer["email"];

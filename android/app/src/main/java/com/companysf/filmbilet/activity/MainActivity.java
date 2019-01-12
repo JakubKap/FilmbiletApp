@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btn_refresh;
     private boolean animationStarted;
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         //show customer email
         db = new SQLiteHandler(getApplicationContext());
         HashMap<String, String> customer = db.getCustomer();
-        String email = customer.get("email");
-        customerInfo.setText(email);
+        String id = customer.get("id");
+        customerInfo.setText(id);
 
         //logout customer button
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         //volley request
         updateDataFromServer();
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateDataFromServer(final boolean manualSwipeRefresh) {
-        if (cd.connected()){
+        if (cd.connected()) {
             StringRequest stringRequest = new StringRequest(
                     GET,
                     AppConfig.GET_MOVIES_FROM_REPERTOIRE,
@@ -146,10 +147,10 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 JSONObject json = new JSONObject(response);
                                 boolean error = json.getBoolean("error");
-                                if (error){
+                                if (error) {
                                     Log.d(logTag, "Error on getting data from API Service");
 
-                                    if (moviesList.isEmpty()){
+                                    if (moviesList.isEmpty()) {
                                         emptyListRefreshLayout.setVisibility(View.VISIBLE);
                                     } else {
                                         //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                                             "Błąd połączenia z serwerem",
                                             "Spróbuj ponownie później"
                                     ).show();
-                                } else{
+                                } else {
                                     emptyListRefreshLayout.setVisibility(View.GONE);
 
                                     JSONArray moviesJson = json.getJSONArray("moviesFromRepertoire");
@@ -185,14 +186,14 @@ public class MainActivity extends AppCompatActivity {
                                 //blad w trakcie pobierania danych
                                 e.printStackTrace();
 
-                                if (moviesList.isEmpty()){
+                                if (moviesList.isEmpty()) {
                                     emptyListRefreshLayout.setVisibility(View.VISIBLE);
                                 } else {
                                     //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
                                 }
 
                                 //1.zerwanie polaczenia internetowego?
-                                if (!cd.connected()){
+                                if (!cd.connected()) {
                                     cd.buildDialog(MainActivity.this,
                                             "Błąd połączenia internetowego",
                                             "Sprawdź połączenie internetowe i spróbuj ponownie"
@@ -215,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             Log.d(logTag, "Error on response");
 
-                            if (moviesList.isEmpty()){
+                            if (moviesList.isEmpty()) {
                                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
                             } else {
                                 //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             );
             AppController.getInstance().addToRequestQueue(stringRequest);
         } else {
-            if (moviesList.isEmpty()){
+            if (moviesList.isEmpty()) {
                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
             } else {
                 //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
@@ -253,11 +254,11 @@ public class MainActivity extends AppCompatActivity {
             swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void updateDataFromServer(){
+    private void updateDataFromServer() {
         updateDataFromServer(false);
     }
 
-    private void logOutCustomer(){
+    private void logOutCustomer() {
         sManager.setLogin(false);
 
         db.deleteCustomers();

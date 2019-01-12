@@ -59,12 +59,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_begin="49dp" />
 
         <ImageButton
             android:id="@+id/screen"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="13dp"
             android:background="@color/transparent"
             android:src="@drawable/ic_ekran4"
             app:layout_constraintBottom_toTopOf="@+id/screen-seats-line"
