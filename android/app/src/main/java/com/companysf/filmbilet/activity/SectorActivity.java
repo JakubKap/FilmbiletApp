@@ -954,10 +954,9 @@ public class SectorActivity extends AppCompatActivity {
 
                         //jeśli button nie jest wciśnięty to wyświetl popup
 
-                            if(sectorButtons.get(btn))
-                                sectorButtons.put(btn, false);
 
-                                else sectorButtons.put(btn, true);
+
+                            sectorButtons.put(btn, true);
 
                             //btn.setBackgroundResource(R.drawable.button_light);
 
@@ -1304,6 +1303,7 @@ public class SectorActivity extends AppCompatActivity {
                                     secChoosedPlaces.setText(Integer.toString(numberOfSeats));
                                     String text = Integer.toString(price) + " zł";
                                     secSummaryPrice.setText(text);
+                                    sectorButtons.put(btn, false);
                                     seatButtons.clear();
 /*
                                     if(price > 0) {
