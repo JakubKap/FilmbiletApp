@@ -54,7 +54,7 @@ public class ChooseDateTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
-        updateMovieInfo(new Movie("Planeta Singli 2", 159, 15, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia romantyczna"));
+        updateMovieInfo(new Movie("Planeta Singli 2", 159, 1, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia"));
 
         Repertoire r1 = new Repertoire( 12, "2019-12-29 23:50:00");
         Log.d(logTag, r1.toString());
