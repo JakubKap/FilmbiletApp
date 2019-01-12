@@ -324,7 +324,7 @@ public class SectorActivity extends AppCompatActivity {
                 for (Button b : buttons) {
                     int SeatNumber = Integer.parseInt(b.getText().toString()); //parsowanie nr miejsca do int
                     if (selectedSeats.containsKey(SeatNumber)) {
-                        b.setBackgroundResource(R.drawable.button_light);
+                        b.setBackgroundResource(R.drawable.seat_choosed);
                         Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
 
                         //textView3Seats.setVisibility(View.VISIBLE);
