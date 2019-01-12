@@ -27,8 +27,7 @@
             android:layout_alignTop="@+id/picture"
             android:layout_toEndOf="@+id/picture"
             android:layout_toRightOf="@+id/picture"
-            android:fontFamily="@font/opensans_bold"
-            android:text="Tytuł"
+            android:text="@string/movieTitleText"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -45,7 +44,6 @@
                 android:id="@+id/genres_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_regular"
                 android:text="@string/genres"
                 android:textSize="16sp" />
 
@@ -53,7 +51,6 @@
                 android:id="@+id/genres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_italic"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -70,7 +67,6 @@
                 android:id="@+id/movie_length_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_regular"
                 android:text="@string/movie_length"
                 android:textSize="16sp" />
 
@@ -78,7 +74,6 @@
                 android:id="@+id/movie_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_italic"
                 android:textSize="16sp" />
 
             <TextView
@@ -87,7 +82,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:fontFamily="@font/opensans_regular"
                 android:text="@string/separator"
                 android:textSize="16sp" />
 
@@ -95,7 +89,6 @@
                 android:id="@+id/min_age_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_regular"
                 android:text="@string/min_age"
                 android:textSize="16sp" />
 
@@ -103,7 +96,6 @@
                 android:id="@+id/min_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_italic"
                 android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>

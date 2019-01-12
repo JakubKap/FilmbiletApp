@@ -2,6 +2,7 @@ package com.companysf.filmbilet.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //getActionBar().hide();
 
         Button loginBtn = findViewById(R.id.btn_login);
         Button registerBtn = findViewById(R.id.btn_register);
@@ -54,6 +53,13 @@ public class LoginActivity extends AppCompatActivity {
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(inputEmail.getWindowToken(), 0);
+
+        //font
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+
+        loginBtn.setTypeface(opensansBold);
+        registerBtn.setTypeface(opensansBold);
 
         //if user is already logged in
         if (sManager.isLoggedIn()) {

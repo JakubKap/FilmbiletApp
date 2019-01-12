@@ -1,6 +1,7 @@
 package com.companysf.filmbilet.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -31,14 +32,10 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String logTag = RegisterActivity.class.getSimpleName();
-    private Button loginBtn;
-    private Button registerBtn;
     private EditText inputName;
     private EditText inputSurname;
     private EditText inputPassword;
     private EditText inputEmail;
-    private SessionManager sManager;
-    private SQLiteHandler db;
     private ConnectionDetector cd;
 
     @Override
@@ -46,15 +43,24 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        loginBtn = findViewById(R.id.btn_login);
-        registerBtn = findViewById(R.id.btn_register);
+        //Views
+        Button loginBtn = findViewById(R.id.btn_login);
+        Button registerBtn = findViewById(R.id.btn_register);
         inputEmail = findViewById(R.id.email);
         inputName = findViewById(R.id.name);
         inputPassword = findViewById(R.id.password);
         inputSurname = findViewById(R.id.surname);
-        sManager = new SessionManager(getApplicationContext());
-        db = new SQLiteHandler(getApplicationContext());
+
+        SessionManager sManager = new SessionManager(getApplicationContext());
+        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
         cd = new ConnectionDetector(this);
+
+        //font
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+
+        registerBtn.setTypeface(opensansBold);
+        loginBtn.setTypeface(opensansBold);
 
         if(sManager.isLoggedIn()){
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);

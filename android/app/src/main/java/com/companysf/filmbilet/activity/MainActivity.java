@@ -1,6 +1,7 @@
 package com.companysf.filmbilet.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,12 +66,24 @@ public class MainActivity extends AppCompatActivity {
         animationStarted = false;
 
         //Views
-        Button btn_logout = findViewById(R.id.btn_logout);
+        Button btnLogout = findViewById(R.id.btn_logout);
         TextView customerInfo = findViewById(R.id.customer_info);
         ListView moviesListView = findViewById(R.id.movies_list_view);
         btn_refresh = findViewById(R.id.btn_refresh_assets);
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
+        TextView welcomeCustomer = findViewById(R.id.welcomeCustomer);
+        Button btnBuyTicket = findViewById(R.id.btn_buy_ticket);
+
+        //font
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), "opensans_italic.ttf");
+
+        welcomeCustomer.setTypeface(opensansRegular);
+        customerInfo.setTypeface(opensansRegular);
+        btnBuyTicket.setTypeface(opensansBold);
+        btnLogout.setTypeface(opensansBold);
 
         //animation
         animation = new RotateAnimation(0.0f, 360.0f,
@@ -80,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         animation.setDuration(2000);
 
         //setting adapter
-        adapter = new CustomListAdapter(this, moviesList);
+        adapter = new CustomListAdapter(this, moviesList, opensansRegular, opensansBold, opensansItalic);
         moviesListView.setAdapter(adapter);
 
         //show customer email
@@ -90,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         customerInfo.setText(email);
 
         //logout customer button
-        btn_logout.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logOutCustomer();

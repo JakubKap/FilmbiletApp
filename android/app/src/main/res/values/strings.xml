@@ -29,4 +29,6 @@
     <string name="sector7Text">sektor_7</string>
     <string name="sector8Text">sektor_8</string>
     <string name="btnReserveText">Zarezerwuj wybrane bilety</string>
+    <string name="movieTitleText">Tytuł</string>
+    <string name="logo_text">Logo Firmy</string>
 </resources>
