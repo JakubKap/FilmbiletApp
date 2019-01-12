@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayoutSeats"
+    android:id="@+id/seatsLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="50sp"
@@ -780,7 +780,7 @@
                 android:textSize="@dimen/seatsSmallText" />
 
             <Button
-                android:id="@+id/reservedSeatBtn"
+                android:id="@+id/seatReserveBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4sp"
@@ -813,6 +813,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_goneMarginBottom="5sp"
         app:layout_constraintTop_toTopOf="@+id/seats-buttons-line">
 
         <android.support.constraint.Guideline
@@ -831,8 +832,8 @@
 
         <Button
             android:id="@+id/seatsCloseButton"
-            android:layout_width="0dp"
-            android:layout_height="23sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/cancel_button"
             android:fontFamily="@font/opensans_regular"
             android:text="@string/cancelBtnText"
@@ -847,8 +848,8 @@
 
         <Button
             android:id="@+id/seatsApproveButton"
-            android:layout_width="0dp"
-            android:layout_height="23sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/approve_button"
             android:fontFamily="@font/opensans_regular"
             android:paddingLeft="20dp"
@@ -866,7 +867,7 @@
 
 
     <ProgressBar
-        android:id="@+id/progressBarSeats"
+        android:id="@+id/seatsProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="35dp"
         android:layout_height="23dp"
