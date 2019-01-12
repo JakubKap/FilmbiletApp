@@ -184,7 +184,6 @@ public class SectorActivity extends AppCompatActivity {
                     text = Integer.toString(seatNumber.get(buttons.get(i)));
                     Log.d(logTag, "Pobrana wartość : " + seatNumber.get(buttons.get(i)));
 
-                if(text.length() == 3)
                 buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
 
                 buttons.get(i).setText(text);
@@ -559,7 +558,7 @@ public class SectorActivity extends AppCompatActivity {
                 }
 
 
-                secChoosedPlaces.setText(numberOfSeats);
+                secChoosedPlaces.setText(Integer.toString(numberOfSeats));
                 String text = Integer.toString(price) + " zł";
                 secSummaryPrice.setText(text);
 
@@ -940,7 +939,7 @@ public class SectorActivity extends AppCompatActivity {
 
 
                         //jeśli button jest wciśnięty, to go odznacz
-
+                        //TODO Wyświetlić nowy komunikat jak nie ma miejsc w sektorze
                         //wyświetlenie komunikatu w sytuacji, gdy ktoś kliknie na sektor bez miejsc
                         if(btn.getText().equals("0/35")){
 
@@ -952,28 +951,13 @@ public class SectorActivity extends AppCompatActivity {
 
                         //TODO może powodować NullPointerExceptin
 
-                        if (sectorButtons.get(btn)) {
-                            sectorButtons.put(btn, false);
-
-                            Animation animation = new AlphaAnimation(1.0f, 0.0f);
-                            animation.setDuration(200);
-
-                            btn.startAnimation(animation);
-
-                            if (btn == secButton1 || btn == secButton2)
-                                btn.setBackgroundResource(R.drawable.button_normal_first);
-                            else if (btn == secButton3 || btn == secButton4)
-                                btn.setBackgroundResource(R.drawable.button_normal_second);
-                            else if (btn == secButton5 || btn == secButton6)
-                                btn.setBackgroundResource(R.drawable.button_normal_third);
-                            else if (btn == secButton7 || btn == secButton8)
-                                btn.setBackgroundResource(R.drawable.button_normal_fourth);
-                        }
 
                         //jeśli button nie jest wciśnięty to wyświetl popup
-                        else {
 
-                            sectorButtons.put(btn, true);
+                            if(sectorButtons.get(btn))
+                                sectorButtons.put(btn, false);
+
+                                else sectorButtons.put(btn, true);
 
                             //btn.setBackgroundResource(R.drawable.button_light);
 
@@ -1317,9 +1301,10 @@ public class SectorActivity extends AppCompatActivity {
 
                                     }
 
-                                    secChoosedPlaces.setText(numberOfSeats);
+                                    secChoosedPlaces.setText(Integer.toString(numberOfSeats));
                                     String text = Integer.toString(price) + " zł";
                                     secSummaryPrice.setText(text);
+                                    seatButtons.clear();
 /*
                                     if(price > 0) {
 
@@ -1343,13 +1328,13 @@ public class SectorActivity extends AppCompatActivity {
                                     }*/
 
 
+                                //updateSummary();
                                 }
 
 
                             });
 
 
-                        }
 
                     }
 
