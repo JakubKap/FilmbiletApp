@@ -8,19 +8,19 @@ import android.widget.Toast;
 
 import com.companysf.filmbilet.R;
 
-public class testSeatActivity extends AppCompatActivity {
+public class SeatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_seat);
+        setContentView(R.layout.seat);
 
         Button buttonIR_1 = findViewById(R.id.buttonIR_1);
 
         buttonIR_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(testSeatActivity.this, "Button1", Toast.LENGTH_LONG).show();
+                Toast.makeText(SeatActivity.this, "Button1", Toast.LENGTH_LONG).show();
             }
         });
     }
