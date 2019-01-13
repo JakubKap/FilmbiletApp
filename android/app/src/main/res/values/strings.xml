@@ -8,7 +8,6 @@
     <string name="hint_surname">Nazwisko</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Hasło</string>
-    <string name="book_ticket">zarezerwuj bilet</string>
     <string name="first_sector">\n10 zł</string>
     <string name="second_sector">\n15 zł</string>
     <string name="third_sector">\n20 zł</string>
@@ -31,4 +30,10 @@
     <string name="btnReserveText">Zarezerwuj wybrane bilety</string>
     <string name="movieTitleText">Tytuł</string>
     <string name="logo_text">Logo Firmy</string>
+    <string name="customer_reservations_text">Moje rezerwacje</string>
+    <string name="priceText">Cena:</string>
+    <string name="currencyAndSeatsText">zł. Miejsca:</string>
+    <string name="reservationDateText">Data rezerwacji</string>
+    <string name="repertoireDateText">Data seansu</string>
+    <string name="myReservationsText">Moje rezerwacje:</string>
 </resources>

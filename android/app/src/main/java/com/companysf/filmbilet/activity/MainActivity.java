@@ -19,12 +19,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.adapter.CustomListAdapter;
+import com.companysf.filmbilet.adapter.MoviesListAdapter;
 import com.companysf.filmbilet.addition.ConnectionDetector;
 import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
+import com.companysf.filmbilet.appLogic.CustomerReservation;
 import com.companysf.filmbilet.appLogic.Movie;
 
 import org.json.JSONArray;
@@ -42,16 +43,14 @@ public class MainActivity extends AppCompatActivity {
     private SessionManager sManager;
     private SQLiteHandler db;
     private ConnectionDetector cd;
-
-    private List<Movie> moviesList = new ArrayList<>();
-    private CustomListAdapter adapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private LinearLayout emptyListRefreshLayout;
     private Animation animation;
-    private ImageButton btn_refresh;
     private boolean animationStarted;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private List<Movie> moviesList = new ArrayList<>();
+    private MoviesListAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayout emptyListRefreshLayout;
+    private ImageButton btn_refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Views
         Button btnLogout = findViewById(R.id.btn_logout);
+        Button btnCustomerReservations = findViewById(R.id.btn_customer_reservations);
         TextView customerInfo = findViewById(R.id.customer_info);
         ListView moviesListView = findViewById(R.id.movies_list_view);
         btn_refresh = findViewById(R.id.btn_refresh_assets);
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
         TextView welcomeCustomer = findViewById(R.id.welcomeCustomer);
-        Button btnBuyTicket = findViewById(R.id.btn_buy_ticket);
 
         //font
         Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         welcomeCustomer.setTypeface(opensansRegular);
         customerInfo.setTypeface(opensansRegular);
-        btnBuyTicket.setTypeface(opensansBold);
+        btnCustomerReservations.setTypeface(opensansBold);
         btnLogout.setTypeface(opensansBold);
 
         //animation
@@ -95,16 +94,16 @@ public class MainActivity extends AppCompatActivity {
         animation.setDuration(2000);
 
         //setting adapter
-        adapter = new CustomListAdapter(this, moviesList, opensansRegular, opensansBold, opensansItalic);
+        adapter = new MoviesListAdapter(this, moviesList, opensansRegular, opensansBold, opensansItalic);
         moviesListView.setAdapter(adapter);
 
         //show customer email
         db = new SQLiteHandler(getApplicationContext());
         HashMap<String, String> customer = db.getCustomer();
-        String id = customer.get("id");
+        String id = customer.get("email");
         customerInfo.setText(id);
 
-        //logout customer button
+        //onClick listeners
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
                 animationStarted = true;
                 btn_refresh.setClickable(false);
                 updateDataFromServer();
+            }
+        });
+
+        btnCustomerReservations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToCustomerReservations();
             }
         });
 
@@ -270,5 +276,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void  switchToCustomerReservations() {
+        Intent intent = new Intent(MainActivity.this, CustomerReservationsActivity.class);
+        startActivity(intent);
     }
 }

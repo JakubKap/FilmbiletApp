@@ -20,7 +20,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class CustomListAdapter extends BaseAdapter {
+public class MoviesListAdapter extends BaseAdapter {
     private final Activity activity;
     private final List<Movie> moviesList;
     private LayoutInflater inflater;
@@ -31,7 +31,7 @@ public class CustomListAdapter extends BaseAdapter {
     private Typeface opensansBold;
     private Typeface opensansItalic;
 
-    public CustomListAdapter(Activity activity, List<Movie>moviesList,
+    public MoviesListAdapter(Activity activity, List<Movie>moviesList,
                              Typeface opensansRegular, Typeface opensansBold, Typeface opensansItalic) {
         this.activity = activity;
         this.moviesList = moviesList;

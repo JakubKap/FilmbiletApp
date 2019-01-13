@@ -12,6 +12,10 @@ public class Movie {
         this.genres = genres;
     }
 
+    public Movie(String title) {
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }

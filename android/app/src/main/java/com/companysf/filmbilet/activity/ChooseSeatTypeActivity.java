@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +25,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.AsyncTasks.FreeSeatsTask;
 import com.companysf.filmbilet.AsyncTasks.FreeSectorsTask;
@@ -44,18 +42,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request.Builder;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
@@ -1386,7 +1381,7 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
                                 //przejście do kolejnego ekranu - Moje rezerwacje
 
-                                Intent intent = new Intent(ChooseSeatTypeActivity.this, ReservationsActivity.class);
+                                Intent intent = new Intent(ChooseSeatTypeActivity.this, CustomerReservationsActivity.class);
                                 startActivity(intent);
 
 

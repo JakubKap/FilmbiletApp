@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                 return params;
             }
         };
-        AppController.getInstance().addToRequestQueue(stringRequest, "req_login");
+        AppController.getInstance().addToRequestQueue(stringRequest, "req_get_reservations");
     }
 
 
