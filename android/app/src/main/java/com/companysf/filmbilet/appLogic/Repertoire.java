@@ -12,6 +12,7 @@ public class Repertoire {
     private String datePom;
     private Calendar date;
     private int year;
+    private int month;
     private int dayOfMonth;
     private String dayOfWeek;
     private int hourOfDay;
@@ -31,6 +32,10 @@ public class Repertoire {
 
     public int getYear() {
         return year;
+    }
+
+    public int getMonth() {
+        return month;
     }
 
     public int getDayOfMonth() {
@@ -68,6 +73,7 @@ public class Repertoire {
         }
 
         year = date.get(Calendar.YEAR);
+        month = date.get(Calendar.MONTH) + 1;
         dayOfMonth = date.get(Calendar.DAY_OF_MONTH);
 
         switch(date.get(Calendar.DAY_OF_WEEK)){
@@ -101,7 +107,7 @@ public class Repertoire {
 
 
     public String toString(){
-        return "id = " + id  + ", year = " +  getYear()
+        return "id = " + id  + ", year = " +  getYear() + ", month = " + getMonth()
                 + ", dayOfMonth = " + getDayOfMonth() + ", dayOfWeek = " + dayOfWeek
                 + ", hour = " + getHourOfDay() + ", minute = " + getMinute();
         /*return "id = " + id  + ", date = " + date.toString()
