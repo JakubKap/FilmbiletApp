@@ -181,9 +181,9 @@
         android:layout_marginLeft="30dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        android:scrollbars = "vertical"
         app:layout_constraintTop_toBottomOf="@+id/guideline3" />
 
     <android.support.constraint.Guideline
@@ -208,10 +208,7 @@
         android:text="WYBÓR MIEJSCA >"
         android:padding="10sp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hoursGridView" />
 
 

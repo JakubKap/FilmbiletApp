@@ -19,6 +19,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.adapter.HoursAdapter;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
@@ -44,7 +45,9 @@ public class ChooseDateTime extends AppCompatActivity {
     private List<Repertoire> repertoireList = new ArrayList<>();
     private List<Repertoire> uniqueDates;
     private GridView hoursGridView;
+    private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
+    private boolean[] selectedDate = new boolean[5];
 
     public void updateMovieInfo(Movie sentMovie){
 
@@ -141,6 +144,11 @@ public class ChooseDateTime extends AppCompatActivity {
 
     }
 
+    public void setFalseToDates(){
+        for(int i=0; i<datesButtons.length; i++)
+            datesButtons[i].setChecked(false);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,18 +157,24 @@ public class ChooseDateTime extends AppCompatActivity {
 
         datesButtons[0] = findViewById(R.id.toggleButton1);
         //domyślnie pierwszty element zawsze na początku zaznaczony
-        datesButtons[0].setChecked(true);
+        selectedDate[0] = true;
         datesButtons[1] = findViewById(R.id.toggleButton2);
         datesButtons[2] = findViewById(R.id.toggleButton3);
         datesButtons[3] = findViewById(R.id.toggleButton4);
         datesButtons[4] = findViewById(R.id.toggleButton5);
 
-        for(int i=0; i<datesButtons.length; i++)
-            Log.d(logTag, "isChecked = " + datesButtons[i].isChecked());
+        for(int i=1; i<selectedDate.length; i++)
+            selectedDate[i] = false;
+
+
+        for(int j=0; j<selectedDate.length; j++)
+            Log.d(logTag, "datesButton[ = " + j + "] = " +  selectedDate[j]);
 
         hoursGridView = findViewById(R.id.hoursGridView);
-
         hoursGridView.setNumColumns(2);
+
+        hoursAdapter = new HoursAdapter(this, repertoireList);
+        hoursGridView.setAdapter(hoursAdapter);
 
 
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
@@ -211,6 +225,7 @@ public class ChooseDateTime extends AppCompatActivity {
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z datą i dniem
                         updateDateButtons();
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z godziną
+                        hoursAdapter.notifyDataSetChanged();
                         Log.d(logTag, "Po zaktualizowaniu");
 
                     }
@@ -233,22 +248,31 @@ public class ChooseDateTime extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
 
 
-        //dodanie do każdego z przycisków wyżej zadeklarowanej metody setOnCheckedChangeListener
+        //dodanie do każdego z przycisków  metody setOnCheckedChangeListener
+
+        Log.d(logTag, "\nStan wszystkich przycisków (przed kliknięciu dowolnego): ");
+        for(int k =0; k<selectedDate.length; k++)
+            Log.d(logTag, "Stan przed selectedDate[" + k + "]= " + selectedDate[k]);
 
         for (int i = 0; i < datesButtons.length; i++){
             final int finalI = i;
             datesButtons[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Log.d(logTag, "Stan buttona = " + Boolean.toString(datesButtons[finalI].isChecked()));
-                    if (isChecked) {
-                        for(int j =0; j<datesButtons.length; j++) {
-                            if (finalI != j) {
-                                datesButtons[j].setChecked(false);
+                    //Log.d(logTag, "Stan buttona = " + Boolean.toString(datesButtons[finalI].isChecked()));
+                    Log.d(logTag, "Stan buttona = " + Boolean.toString(selectedDate[finalI]));
+
+                    if (!selectedDate[finalI]) {
+                        for(int j =0; j<selectedDate.length; j++) {
+                            if (j != finalI) {
+                                selectedDate[j] = false;
+                                Log.d(logTag, "selectedDate[" + j + "] = " + selectedDate[j]);
                                 datesButtons[j].setBackgroundResource(R.drawable.normal_date_button);
                                 datesButtons[j].setTextColor(Color.BLACK);
                             }
                         }
+                        selectedDate[finalI] = true;
                         datesButtons[finalI].setBackgroundResource(R.drawable.gradient_date_button);
                         datesButtons[finalI].setTextColor(Color.WHITE);
                         updateDateButtons();
@@ -256,7 +280,13 @@ public class ChooseDateTime extends AppCompatActivity {
                     }
                     else {
                         updateDateButtons();
+                        selectedDate[finalI] = true;
                     }
+
+                    Log.d(logTag, "\nStan wszystkich przycisków (po kliknięciu dowolnego): ");
+                    for(int k =0; k<selectedDate.length; k++)
+                        Log.d(logTag, "Stan po selectedDate[" + k + "]= " + selectedDate[k]);
+
 
                 }
 
