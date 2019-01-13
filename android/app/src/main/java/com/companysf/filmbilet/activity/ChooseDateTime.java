@@ -33,13 +33,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ChooseDateTime extends AppCompatActivity {
 
     private static final String logTag = ChooseDateTime.class.getSimpleName();
     private List<Repertoire> repertoireList = new ArrayList<>();
+    private List<Repertoire> uniqueDates;
     private GridView hoursGridView;
     private ToggleButton[] datesButtons = new ToggleButton[5];
 
@@ -86,16 +89,52 @@ public class ChooseDateTime extends AppCompatActivity {
             }
         });
 
+        uniqueDates = new ArrayList<>(repertoireList);
+        Set<Integer> dateIndexesToRemove = new HashSet<>();
+
+        for(Repertoire r : uniqueDates)
+            Log.d(logTag, "Zawartość uniqueDates przed filtrowaniem= " + r.toString());
+        //wstawienie do kolekcji uniqueDates unikalnych dat z repertoire List
+
+
+        for(Repertoire r : repertoireList){
+            int innerInc=0;
+            int index =0;
+            for(Repertoire ud : uniqueDates){
+
+                if(r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
+                        && r.getDayOfMonth() == ud.getDayOfMonth())
+                    innerInc++;
+
+                if(innerInc >= 2 && r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
+                        && r.getDayOfMonth() == ud.getDayOfMonth()) {
+
+                    if(dateIndexesToRemove.add(index))
+                        Log.d(logTag, "Dodany index = " + index);
+                }
+                index++;
+            }
+        }
+
+        if(dateIndexesToRemove.size() > 0)
+        for(Integer i : dateIndexesToRemove)
+            uniqueDates.remove(repertoireList.get(i));
+
+        for(Repertoire r : uniqueDates)
+            Log.d(logTag, "Zawartość uniqueDates po filtrowaniu= " + r.toString());
+
+
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 int i=0;
-                for(Repertoire r : repertoireList){
-                    String text = Integer.toString(r.getDayOfMonth()) + "\n" + r.getDayOfWeek();
-                    datesButtons[i].setText(text);
-                    datesButtons[i].setTextOn(text);
-                    datesButtons[i].setTextOff(text);
-                    i++;
+                for(Repertoire r : uniqueDates){
+                        String text = Integer.toString(r.getDayOfMonth()) + "\n" + r.getDayOfWeek();
+                        datesButtons[i].setText(text);
+                        datesButtons[i].setTextOn(text);
+                        datesButtons[i].setTextOff(text);
+                        i++;
                 }
             }
         });
