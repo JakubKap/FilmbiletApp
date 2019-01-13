@@ -233,10 +233,11 @@ class DbOperation
 	public function getCustomerReservations($customerId){
 		
 		 $results = $this->con->prepare(
-			"SELECT GROUP_CONCAT(DISTINCT reservation.seatNumber SEPARATOR ', ') AS seatNumbers, reservation.date AS reservDate, repertoire.id AS repertId, repertoire.date AS repertDate, movie.title
+			"SELECT GROUP_CONCAT(DISTINCT reservation.seatNumber SEPARATOR ', ') AS seatNumbers, reservation.date AS reservDate, repertoire.id AS repertId, repertoire.date AS repertDate, movie.title, SUM(seatType.price) AS price
 			FROM reservation 
 			INNER JOIN repertoire ON reservation.repertoireId = repertoire.id
 			INNER JOIN movie ON repertoire.movieId = movie.id
+			INNER JOIN seatType ON seatType.id = reservation.seatTypeId
 			WHERE reservation.customerId = ?
 			GROUP BY reservDate, repertId, repertDate, movie.title"
 		 );
@@ -246,7 +247,7 @@ class DbOperation
 		if ($results !== false){
 			$results->execute();
 			
-			$results->bind_result($seatNumbers, $reservDate, $repertId, $repertDate, $movieTitle);
+			$results->bind_result($seatNumbers, $reservDate, $repertId, $repertDate, $movieTitle, $price);
 			
 			$reservations = array(); 
 			
@@ -257,6 +258,7 @@ class DbOperation
 				$reservation['repertId'] = $repertId;
 				$reservation['repertDate'] = $repertDate;
 				$reservation['movieTitle'] = $movieTitle; 
+				$reservation['price'] = $price;
 				
 				array_push($reservations, $reservation); 
 			}

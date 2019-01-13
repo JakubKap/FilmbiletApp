@@ -21,7 +21,8 @@
 				"reservDate" => $arr['reservDate'],
 				"repertId" => $arr['repertId'],
 				"repertDate" => $arr['repertDate'],
-				"movieTitle" => $arr['movieTitle']
+				"movieTitle" => $arr['movieTitle'],
+				"price" => $arr['price']
 				);
 				array_push($response["customerReservations"],$response2);
 			}
