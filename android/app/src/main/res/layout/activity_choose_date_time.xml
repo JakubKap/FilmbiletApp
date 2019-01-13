@@ -292,6 +292,7 @@
 
     <ToggleButton
         android:id="@+id/toggleButton1"
+        android:textColor="@color/white"
         android:layout_width="41dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -301,7 +302,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="7dp"
         android:background="@drawable/gradient_date_button"
-        android:text="ToggleButton"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline_after_1_btn"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
@@ -309,6 +309,7 @@
 
     <ToggleButton
         android:id="@+id/toggleButton2"
+        android:textColor="@color/black"
         android:layout_width="41dp"
         android:layout_height="45dp"
         android:background="@drawable/normal_date_button"
@@ -326,6 +327,7 @@
 
     <ToggleButton
         android:id="@+id/toggleButton3"
+        android:textColor="@color/black"
         android:layout_width="41dp"
         android:layout_height="45dp"
         android:background="@drawable/normal_date_button"
@@ -343,6 +345,7 @@
 
     <ToggleButton
         android:id="@+id/toggleButton4"
+        android:textColor="@color/black"
         android:background="@drawable/normal_date_button"
         android:layout_width="41dp"
         android:layout_height="45dp"
@@ -360,6 +363,7 @@
 
     <ToggleButton
         android:id="@+id/toggleButton5"
+        android:textColor="@color/black"
         android:background="@drawable/normal_date_button"
         android:layout_width="41dp"
         android:layout_height="45dp"

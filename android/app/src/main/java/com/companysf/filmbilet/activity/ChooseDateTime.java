@@ -1,8 +1,12 @@
 package com.companysf.filmbilet.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,12 +76,48 @@ public class ChooseDateTime extends AppCompatActivity {
 
     }
 
+    public void updateDateButtons(){
+
+        //sortowanie elementów w kolekcji (zgodnie z kolejnością dat)
+        Collections.sort(repertoireList, new Comparator<Repertoire>() {
+            @Override
+            public int compare(Repertoire r1, Repertoire r2) {
+                return r1.getDate().compareTo(r2.getDate());
+            }
+        });
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int i=0;
+                for(Repertoire r : repertoireList){
+                    String text = Integer.toString(r.getDayOfMonth()) + "\n" + r.getDayOfWeek();
+                    datesButtons[i].setText(text);
+                    datesButtons[i].setTextOn(text);
+                    datesButtons[i].setTextOff(text);
+                    i++;
+                }
+            }
+        });
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
         updateMovieInfo(new Movie("Planeta Singli 2", 159, 1, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia"));
 
+        datesButtons[0] = findViewById(R.id.toggleButton1);
+        //domyślnie pierwszty element zawsze na początku zaznaczony
+        datesButtons[0].setChecked(true);
+        datesButtons[1] = findViewById(R.id.toggleButton2);
+        datesButtons[2] = findViewById(R.id.toggleButton3);
+        datesButtons[3] = findViewById(R.id.toggleButton4);
+        datesButtons[4] = findViewById(R.id.toggleButton5);
+
+        for(int i=0; i<datesButtons.length; i++)
+            Log.d(logTag, "isChecked = " + datesButtons[i].isChecked());
 
         hoursGridView = findViewById(R.id.hoursGridView);
 
@@ -124,11 +166,11 @@ public class ChooseDateTime extends AppCompatActivity {
                         }
 
 
-                        for(Repertoire r : repertoireList)
+                        for (Repertoire r : repertoireList)
                             Log.d(logTag, "Zawartość repertoireList po pobraniu danych z BD = " + r.toString());
 
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z datą i dniem
-
+                        updateDateButtons();
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z godziną
                         Log.d(logTag, "Po zaktualizowaniu");
 
@@ -150,6 +192,38 @@ public class ChooseDateTime extends AppCompatActivity {
         };
 
         AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
+
+
+        //dodanie do każdego z przycisków wyżej zadeklarowanej metody setOnCheckedChangeListener
+
+        for (int i = 0; i < datesButtons.length; i++){
+            final int finalI = i;
+            datesButtons[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Log.d(logTag, "Stan buttona = " + Boolean.toString(datesButtons[finalI].isChecked()));
+                    if (isChecked) {
+                        for(int j =0; j<datesButtons.length; j++) {
+                            if (finalI != j) {
+                                datesButtons[j].setChecked(false);
+                                datesButtons[j].setBackgroundResource(R.drawable.normal_date_button);
+                                datesButtons[j].setTextColor(Color.BLACK);
+                            }
+                        }
+                        datesButtons[finalI].setBackgroundResource(R.drawable.gradient_date_button);
+                        datesButtons[finalI].setTextColor(Color.WHITE);
+                        updateDateButtons();
+                        //TODO notofyDataChanged do Adaptera obsługującego godziny
+                    }
+                    else {
+                        updateDateButtons();
+                    }
+
+                }
+
+            });
+
+    }
 
     }
 }
