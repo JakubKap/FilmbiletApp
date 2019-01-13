@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toTopOf="parent"
-       >
+        >
 
         <android.support.constraint.Guideline
             android:id="@+id/circleEnd-line"
@@ -176,15 +176,15 @@
 
     <GridView
         android:id="@+id/hoursGridView"
-        android:layout_width="343dp"
-        android:layout_height="233dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/datesGridView" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -193,21 +193,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="70dp"
         app:layout_constraintGuide_percent="0.85" />
-
-    <GridView
-        android:id="@+id/datesGridView"
-        android:layout_width="355dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
-
-    </GridView>
 
     <Button
         android:id="@+id/btn_accept_time"
@@ -246,7 +231,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="188dp"
-        app:layout_constraintGuide_percent="0.30" />
+        app:layout_constraintGuide_percent="0.40" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -254,7 +239,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="70dp"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.55" />
     <android.support.constraint.Guideline
         android:id="@+id/guideline_left"
         android:layout_width="wrap_content"
@@ -270,5 +255,124 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="366dp"
         app:layout_constraintGuide_percent="0.95"/>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_after_1_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="366dp"
+        app:layout_constraintGuide_percent="0.23"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_after_2_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="366dp"
+        app:layout_constraintGuide_percent="0.41"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_after_3_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="366dp"
+        app:layout_constraintGuide_percent="0.59"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_after_4_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="366dp"
+        app:layout_constraintGuide_percent="0.77"/>
+
+
+    <ToggleButton
+        android:id="@+id/toggleButton1"
+        android:layout_width="41dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/gradient_date_button"
+        android:text="ToggleButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_after_1_btn"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton2"
+        android:layout_width="41dp"
+        android:layout_height="45dp"
+        android:background="@drawable/normal_date_button"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="ToggleButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_after_2_btn"
+        app:layout_constraintStart_toStartOf="@+id/guideline_after_1_btn"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton3"
+        android:layout_width="41dp"
+        android:layout_height="45dp"
+        android:background="@drawable/normal_date_button"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="ToggleButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_after_3_btn"
+        app:layout_constraintStart_toStartOf="@+id/guideline_after_2_btn"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton4"
+        android:background="@drawable/normal_date_button"
+        android:layout_width="41dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="ToggleButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_after_4_btn"
+        app:layout_constraintStart_toStartOf="@+id/guideline_after_3_btn"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton5"
+        android:background="@drawable/normal_date_button"
+        android:layout_width="41dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="ToggleButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_after_4_btn"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 </android.support.constraint.ConstraintLayout>

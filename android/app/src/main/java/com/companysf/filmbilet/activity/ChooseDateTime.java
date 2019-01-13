@@ -3,10 +3,10 @@ package com.companysf.filmbilet.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Adapter;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,13 +15,11 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.adapter.DatesAdapter;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.appLogic.Movie;
 import com.companysf.filmbilet.appLogic.Repertoire;
-import com.companysf.filmbilet.appLogic.Reservation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,9 +34,8 @@ public class ChooseDateTime extends AppCompatActivity {
 
     private static final String logTag = ChooseDateTime.class.getSimpleName();
     private List<Repertoire> repertoireList = new ArrayList<>();
-    private DatesAdapter datesAdapter;
-
-    private GridView datesGridView, hoursGridView;
+    private GridView hoursGridView;
+    private ToggleButton[] datesButtons = new ToggleButton[5];
 
     public void updateMovieInfo(Movie sentMovie){
 
@@ -79,11 +76,11 @@ public class ChooseDateTime extends AppCompatActivity {
         setContentView(R.layout.activity_choose_date_time);
         updateMovieInfo(new Movie("Planeta Singli 2", 159, 1, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia"));
 
-        datesGridView = findViewById(R.id.datesGridView);
+
         hoursGridView = findViewById(R.id.hoursGridView);
 
-        datesAdapter = new DatesAdapter(this, repertoireList);
-        datesGridView.setAdapter(datesAdapter);
+        hoursGridView.setNumColumns(2);
+
 
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
         //TODO pobranie movieId z poprzedniego Activity
@@ -115,6 +112,7 @@ public class ChooseDateTime extends AppCompatActivity {
 
                                     repertoireList.add(repertoire);
                                     Log.d(logTag, "Pobrany repertoire z BD= " + repertoire.toString());
+
                                 }
                             }
                         } catch (JSONException e) {
@@ -130,8 +128,9 @@ public class ChooseDateTime extends AppCompatActivity {
                             Log.d(logTag, "Zawartość repertoireList po pobraniu danych z BD = " + r.toString());
 
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z datą i dniem
-                        datesAdapter.notifyDataSetChanged();
+
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z godziną
+                        Log.d(logTag, "Po zaktualizowaniu");
 
                     }
                 }, new Response.ErrorListener() {
