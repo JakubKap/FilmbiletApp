@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class ChooseDateTime extends AppCompatActivity {
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
     private boolean[] selectedDate = new boolean[5];
+
 
     public void updateMovieInfo(Movie sentMovie){
 
@@ -137,6 +139,7 @@ public class ChooseDateTime extends AppCompatActivity {
                         String text = Integer.toString(r.getDayOfMonth());
                         StringBuilder sB = new StringBuilder(text);
                         sB.append("\n");
+
                         sB.append(r.getDayOfWeek());
                         text = sB.toString();
                         datesButtons[i].setText(text);
@@ -149,9 +152,8 @@ public class ChooseDateTime extends AppCompatActivity {
 
     }
 
-    public void prepareHoursForDate(int indexOfList){
+    public void prepareHoursForDate(int index){
 
-        int index = indexOfList;
         if(hoursForDate.size() > 0) hoursForDate.clear();
 
         for(Repertoire r : repertoireList) {
@@ -191,6 +193,16 @@ public class ChooseDateTime extends AppCompatActivity {
         hoursAdapter = new HoursAdapter(this, hoursForDate);
         hoursGridView.setAdapter(hoursAdapter);
 
+        hoursGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(ChooseDateTime.this, "sdfds",
+                        Toast.LENGTH_SHORT).show();
+                Log.d(logTag, "klik");
+
+            }
+        });
 
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
         //TODO pobranie movieId z poprzedniego Activity
@@ -313,6 +325,8 @@ public class ChooseDateTime extends AppCompatActivity {
             });
 
     }
+
+
 
     }
 }
