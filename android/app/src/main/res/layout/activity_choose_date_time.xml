@@ -175,7 +175,7 @@
     </RelativeLayout>
 
     <GridView
-        android:id="@+id/hours_grid_view"
+        android:id="@+id/hoursGridView"
         android:layout_width="343dp"
         android:layout_height="233dp"
         android:layout_marginLeft="30dp"
@@ -184,7 +184,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/dates_grid_view" />
+        app:layout_constraintTop_toBottomOf="@+id/datesGridView" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -195,7 +195,7 @@
         app:layout_constraintGuide_percent="0.85" />
 
     <GridView
-        android:id="@+id/dates_grid_view"
+        android:id="@+id/datesGridView"
         android:layout_width="355dp"
         android:layout_height="61dp"
         android:layout_marginStart="8dp"
@@ -227,7 +227,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hours_grid_view" />
+        app:layout_constraintTop_toBottomOf="@+id/hoursGridView" />
 
 
 
