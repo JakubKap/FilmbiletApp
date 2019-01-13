@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ToggleButton;
 
+import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.activity.MainActivity;
 import com.companysf.filmbilet.appLogic.Repertoire;
 
@@ -46,14 +47,34 @@ public class HoursAdapter extends BaseAdapter {
         Log.d(logTag, "Nowoutworzony przycisk dla id = " + (repertoireList.get(position).getId()));
         if(convertView == null){
             toggleButton = new ToggleButton(mContext);
-            toggleButton.setLayoutParams(new GridView.LayoutParams(500, 200));
+            toggleButton.setLayoutParams(new GridView.LayoutParams(400, 200));
+            toggleButton.setBackgroundResource(R.drawable.normal_hour_button);
             toggleButton.setPadding(8, 8, 8, 8);
         }
         else{
             toggleButton = (ToggleButton) convertView;
         }
 
-        toggleButton.setText(Integer.toString(repertoireList.get(position).getId()));
+        String text = Integer.toString(repertoireList.get(position).getHourOfDay());
+
+        StringBuilder sB = new StringBuilder(text);
+        sB.append(":");
+
+        if(repertoireList.get(position).getMinute() < 10)
+            sB.append("0");
+
+        sB.append(Integer.toString(repertoireList.get(position).getMinute()));
+
+        if(repertoireList.get(position).getHourOfDay() < 10)
+            sB.insert(0, "0");
+
+
+
+        text = sB.toString();
+
+        toggleButton.setText(text);
+        toggleButton.setTextOn(text);
+        toggleButton.setTextOff(text);
         toggleButton.setTextColor(Color.BLACK);
 
         return toggleButton;

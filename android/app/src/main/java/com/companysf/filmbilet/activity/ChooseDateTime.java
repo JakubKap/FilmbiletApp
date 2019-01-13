@@ -44,6 +44,7 @@ public class ChooseDateTime extends AppCompatActivity {
     private static final String logTag = ChooseDateTime.class.getSimpleName();
     private List<Repertoire> repertoireList = new ArrayList<>();
     private List<Repertoire> uniqueDates;
+    private List<Repertoire> hoursForDate = new ArrayList<>();
     private GridView hoursGridView;
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
@@ -133,7 +134,11 @@ public class ChooseDateTime extends AppCompatActivity {
             public void run() {
                 int i=0;
                 for(Repertoire r : uniqueDates){
-                        String text = Integer.toString(r.getDayOfMonth()) + "\n" + r.getDayOfWeek();
+                        String text = Integer.toString(r.getDayOfMonth());
+                        StringBuilder sB = new StringBuilder(text);
+                        sB.append("\n");
+                        sB.append(r.getDayOfWeek());
+                        text = sB.toString();
                         datesButtons[i].setText(text);
                         datesButtons[i].setTextOn(text);
                         datesButtons[i].setTextOff(text);
@@ -144,9 +149,19 @@ public class ChooseDateTime extends AppCompatActivity {
 
     }
 
-    public void setFalseToDates(){
-        for(int i=0; i<datesButtons.length; i++)
-            datesButtons[i].setChecked(false);
+    public void prepareHoursForDate(int indexOfList){
+
+        int index = indexOfList;
+        if(hoursForDate.size() > 0) hoursForDate.clear();
+
+        for(Repertoire r : repertoireList) {
+            if(r.getYear() == uniqueDates.get(index).getYear() && r.getMonth() == uniqueDates.get(index).getMonth()
+                    && r.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()){
+                hoursForDate.add(r);
+                Log.d(logTag, "Dodana wartość do hoursForDate = " + r.toString());
+            }
+
+        }
     }
 
     @Override
@@ -173,7 +188,7 @@ public class ChooseDateTime extends AppCompatActivity {
         hoursGridView = findViewById(R.id.hoursGridView);
         hoursGridView.setNumColumns(2);
 
-        hoursAdapter = new HoursAdapter(this, repertoireList);
+        hoursAdapter = new HoursAdapter(this, hoursForDate);
         hoursGridView.setAdapter(hoursAdapter);
 
 
@@ -226,6 +241,7 @@ public class ChooseDateTime extends AppCompatActivity {
                         updateDateButtons();
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z godziną
                         hoursAdapter.notifyDataSetChanged();
+                        prepareHoursForDate(0);
                         Log.d(logTag, "Po zaktualizowaniu");
 
                     }
@@ -237,6 +253,7 @@ public class ChooseDateTime extends AppCompatActivity {
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }) {
+
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -276,7 +293,10 @@ public class ChooseDateTime extends AppCompatActivity {
                         datesButtons[finalI].setBackgroundResource(R.drawable.gradient_date_button);
                         datesButtons[finalI].setTextColor(Color.WHITE);
                         updateDateButtons();
+
+                        prepareHoursForDate(finalI);
                         //TODO notofyDataChanged do Adaptera obsługującego godziny
+                        hoursAdapter.notifyDataSetChanged();
                     }
                     else {
                         updateDateButtons();
