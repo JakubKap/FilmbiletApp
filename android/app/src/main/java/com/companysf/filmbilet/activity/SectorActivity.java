@@ -858,13 +858,11 @@ public class SectorActivity extends AppCompatActivity {
                         btn = findViewById(v.getId());
 
                         //jeśli button jest wciśnięty, to go odznacz
-                        //TODO Wyświetlić nowy komunikat jak nie ma miejsc w sektorze
                         //wyświetlenie komunikatu w sytuacji, gdy ktoś kliknie na sektor bez miejsc
                         if (btn.getText().equals("0/35")) {
 
                             ed.buildDialog(SectorActivity.this, "Brak miejsc w sektorze",
                                     "Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.").show();
-
                             return;
                         }
 
