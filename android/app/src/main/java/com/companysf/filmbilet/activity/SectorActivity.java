@@ -1020,7 +1020,6 @@ public class SectorActivity extends AppCompatActivity {
                         //font
                         Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
                         Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
-                        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), "opensans_italic.ttf");
 
                         title.setTypeface(opensansBold);
                         subtitle.setTypeface(opensansBold);
@@ -1144,7 +1143,7 @@ public class SectorActivity extends AppCompatActivity {
                                 secFrameLayout.getForeground().setAlpha(0);
 
                                 //po wyborze miejsc wyświetlamy podsumowanie oraz nadajemy kolor przyciskowi akceptacji
-                                secBtnReserve.setBackgroundResource(R.drawable.rounded_bordered_button_light);
+                                secBtnReserve.setBackgroundResource(R.drawable.rounded_button_light);
                                 secBtnReserve.setEnabled(true);
                                 secBtnReserve.setTextColor(Color.WHITE);
 
