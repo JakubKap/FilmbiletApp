@@ -64,7 +64,7 @@ public class CustomerReservationsActivity extends AppCompatActivity {
         //Views
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
-        noEmptyList = findViewById(R.id.noEmptyList);
+//        noEmptyList = findViewById(R.id.noEmptyList);
         TextView title = findViewById(R.id.title);
 
         //font
@@ -115,11 +115,11 @@ public class CustomerReservationsActivity extends AppCompatActivity {
 
                                     if (reservationsList.isEmpty()) {
                                         emptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                        noEmptyList.setVisibility(View.GONE);
+//                                        recyclerView.setVisibility(View.GONE);
                                     }
                                 } else {
                                     emptyListRefreshLayout.setVisibility(View.GONE);
-                                    noEmptyList.setVisibility(View.VISIBLE);
+//                                    recyclerView.setVisibility(View.VISIBLE);
 
                                     JSONArray CustomerReservationJson = json.getJSONArray("customerReservations");
                                     reservationsList.clear();
@@ -152,7 +152,7 @@ public class CustomerReservationsActivity extends AppCompatActivity {
 
                                 if (reservationsList.isEmpty()) {
                                     emptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                    noEmptyList.setVisibility(View.GONE);
+//                                    recyclerView.setVisibility(View.GONE);
                                 }
 
                                 //1.zerwanie polaczenia internetowego?
@@ -181,7 +181,7 @@ public class CustomerReservationsActivity extends AppCompatActivity {
 
                             if (reservationsList.isEmpty()) {
                                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                noEmptyList.setVisibility(View.GONE);
+//                                recyclerView.setVisibility(View.GONE);
                             }
 
                             cd.buildDialog(
@@ -203,7 +203,7 @@ public class CustomerReservationsActivity extends AppCompatActivity {
         } else {
             if (reservationsList.isEmpty()) {
                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
-                noEmptyList.setVisibility(View.GONE);
+//                recyclerView.setVisibility(View.GONE);
             }
 
             cd.buildDialog(CustomerReservationsActivity.this,

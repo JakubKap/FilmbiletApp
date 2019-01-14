@@ -57,4 +57,5 @@
     <string name="row5">V</string>
     <string name="reserved">-Zarezerwowane</string>
     <string name="available">-Dostępne</string>
+    <string name="noReservations">Brak rezerwacji</string>
 </resources>
