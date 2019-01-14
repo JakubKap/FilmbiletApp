@@ -20,17 +20,14 @@ public class HoursAdapter extends BaseAdapter {
     private static final String logTag = HoursAdapter.class.getSimpleName();
     private Context mContext;
     private List<Repertoire> repertoireList;
-    private boolean [] selectedHour;
     private List<ToggleButton> toggleButtons;
-    private boolean firstEl;
     private List<Integer> selectedRepertoires;
 
     public HoursAdapter(Context c, List<Repertoire> repertoireArrayList){
         mContext = c;
         repertoireList = repertoireArrayList;
-        selectedHour = new boolean[repertoireList.size()];
+        boolean[] selectedHour = new boolean[repertoireList.size()];
         selectedRepertoires = new ArrayList<>();
-        firstEl =true;
         toggleButtons = new ArrayList<>();
 
         if(selectedRepertoires.size() > 0)
@@ -77,15 +74,6 @@ public class HoursAdapter extends BaseAdapter {
             toggleButton = new ToggleButton(mContext);
             toggleButton.setLayoutParams(new GridView.LayoutParams(400, 200));
 
-
-           /* if(position==0 && firstEl) {
-                toggleButton.setBackgroundResource(R.drawable.selected_hour_button);
-                //toggleButton.setTextColor();
-                toggleButton.setTextColor(Color.rgb(237, 125, 116));
-                firstEl = false;
-            }
-            else*/
-
            toggleButton.setBackgroundResource(R.drawable.toggle_button_selector);
 
             toggleButton.setPadding(8, 8, 8, 8);
@@ -118,15 +106,10 @@ public class HoursAdapter extends BaseAdapter {
         toggleButton.setTextOff(text);
         toggleButton.setTextColor(Color.BLACK);
 
-        //toggleButton.setOnClickListener(new MyOnClickListener(position));
-
-        final ToggleButton finalToggleButton = toggleButton;
-
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                //Log.d(logTag, "Value of b = " + b);
                 int objToRemove = -1;
                 if(b) {
                     Log.d(logTag, "Dodana wartość repertuaru = " + repertoireList.get(position).getId());
@@ -153,70 +136,12 @@ public class HoursAdapter extends BaseAdapter {
             }
         });
 
-        /*
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finalToggleButton.setBackgroundResource(R.drawable.selected_hour_button);
-            }
-        });*/
-
         //dodanie ToggleButtona do tablicy
         toggleButtons.add(toggleButton);
-
-
-        //Pierwszy z ToggleButtonów jest wstawinay podwójnie do kolekcji, więc należy usunąć jeden z nich
-        /*if(!firstEl)
-            toggleButtons.remove(0);*/
 
        for(ToggleButton t : toggleButtons)
             Log.d(logTag, "Zawartość toggleButtons = " + t.getText());
 
         return toggleButton;
-    }
-
-   class MyOnClickListener implements View.OnClickListener
-    {
-        private final int position;
-
-        public MyOnClickListener(int position)
-        {
-            this.position = position;
-        }
-
-        public void onClick(View v)
-        {
-            // Preform a function based on the position
-            Log.d(logTag, "position = " + position);
-            for(int i = 0; i< selectedHour.length; i++)
-                Log.d(logTag, "selectedHour[" + i + "] = "+ selectedHour[i]);
-
-
-
-
-
-            //jeśli wciśnięto nie zaznaczony wcześniej przycisk
-            if(!selectedHour[position]){
-                selectedHour[position] = true;
-
-                //toggleButtons.get(position).setBackgroundResource(R.drawable.selected_hour_button);
-                //textColor
-
-                //v.setBackgroundResource(R.drawable.selected_hour_button);
-
-                for(int i = 0; i< selectedHour.length; i++) {
-                    if (i != position) {
-                        selectedHour[i] = false;
-                        //toggleButtons.get(i).setBackgroundResource(R.drawable.normal_hour_button);
-                    }
-                }
-            }
-
-            for(int i = 0; i< selectedHour.length; i++)
-                Log.d(logTag, "selectedHour[" + i + "] = "+ selectedHour[i]);
-
-        }
-
     }
 }

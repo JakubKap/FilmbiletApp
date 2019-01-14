@@ -50,15 +50,13 @@ public class ChooseDateTime extends AppCompatActivity {
     private List<Repertoire> repertoireList = new ArrayList<>();
     private List<Repertoire> uniqueDates;
     private List<Repertoire> hoursForDate = new ArrayList<>();
-    private GridView hoursGridView;
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
     private boolean[] selectedDate = new boolean[5];
-    private Button btnAcceptTime;
     private ErrorDetector ed;
 
 
-    public void updateMovieInfo(Movie sentMovie){
+    public void updateMovieInfo(Movie sentMovie) {
 
         final Movie movie = sentMovie;
         final ImageLoader imageLoader;
@@ -91,7 +89,7 @@ public class ChooseDateTime extends AppCompatActivity {
 
     }
 
-    public void updateDateButtons(){
+    public void updateDateButtons() {
 
         //sortowanie elementów w kolekcji (zgodnie z kolejnością dat)
         Collections.sort(repertoireList, new Comparator<Repertoire>() {
@@ -104,67 +102,62 @@ public class ChooseDateTime extends AppCompatActivity {
         uniqueDates = new ArrayList<>(repertoireList);
         Set<Integer> dateIndexesToRemove = new HashSet<>();
 
-        for(Repertoire r : uniqueDates)
+        for (Repertoire r : uniqueDates)
             Log.d(logTag, "Zawartość uniqueDates przed filtrowaniem= " + r.toString());
         //wstawienie do kolekcji uniqueDates unikalnych dat z repertoire List
 
 
-        for(Repertoire r : repertoireList){
-            int innerInc=0;
-            int index =0;
-            for(Repertoire ud : uniqueDates){
+        for (Repertoire r : repertoireList) {
+            int innerInc = 0;
+            int index = 0;
+            for (Repertoire ud : uniqueDates) {
 
-                if(r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
+                if (r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
                         && r.getDayOfMonth() == ud.getDayOfMonth())
                     innerInc++;
 
-                if(innerInc >= 2 && r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
+                if (innerInc >= 2 && r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
                         && r.getDayOfMonth() == ud.getDayOfMonth()) {
 
-                    if(dateIndexesToRemove.add(index))
+                    if (dateIndexesToRemove.add(index))
                         Log.d(logTag, "Dodany index = " + index);
                 }
                 index++;
             }
         }
 
-        if(dateIndexesToRemove.size() > 0)
-        for(Integer i : dateIndexesToRemove)
-            uniqueDates.remove(repertoireList.get(i));
+        if (dateIndexesToRemove.size() > 0)
+            for (Integer i : dateIndexesToRemove)
+                uniqueDates.remove(repertoireList.get(i));
 
-        for(Repertoire r : uniqueDates)
+        for (Repertoire r : uniqueDates)
             Log.d(logTag, "Zawartość uniqueDates po filtrowaniu= " + r.toString());
-
 
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                int i=0;
-                for(Repertoire r : uniqueDates){
-                        String text = Integer.toString(r.getDayOfMonth());
-                        StringBuilder sB = new StringBuilder(text);
-                        sB.append("\n");
-
-                        sB.append(r.getDayOfWeek());
-                        text = sB.toString();
-                        datesButtons[i].setText(text);
-                        datesButtons[i].setTextOn(text);
-                        datesButtons[i].setTextOff(text);
-                        i++;
+                int i = 0;
+                for (Repertoire r : uniqueDates) {
+                    String text = Integer.toString(r.getDayOfMonth());
+                    text = text + "\n" + r.getDayOfWeek();
+                    datesButtons[i].setText(text);
+                    datesButtons[i].setTextOn(text);
+                    datesButtons[i].setTextOff(text);
+                    i++;
                 }
             }
         });
 
     }
 
-    public void prepareHoursForDate(int index){
+    public void prepareHoursForDate(int index) {
 
-        if(hoursForDate.size() > 0) hoursForDate.clear();
+        if (hoursForDate.size() > 0) hoursForDate.clear();
 
-        for(Repertoire r : repertoireList) {
-            if(r.getYear() == uniqueDates.get(index).getYear() && r.getMonth() == uniqueDates.get(index).getMonth()
-                    && r.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()){
+        for (Repertoire r : repertoireList) {
+            if (r.getYear() == uniqueDates.get(index).getYear() && r.getMonth() == uniqueDates.get(index).getMonth()
+                    && r.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()) {
                 hoursForDate.add(r);
                 Log.d(logTag, "Dodana wartość do hoursForDate = " + r.toString());
             }
@@ -186,22 +179,21 @@ public class ChooseDateTime extends AppCompatActivity {
         datesButtons[3] = findViewById(R.id.toggleButton4);
         datesButtons[4] = findViewById(R.id.toggleButton5);
 
-        btnAcceptTime = findViewById(R.id.btn_accept_time);
+        Button btnAcceptTime = findViewById(R.id.btn_accept_time);
 
-        for(int i=1; i<selectedDate.length; i++)
+        for (int i = 1; i < selectedDate.length; i++)
             selectedDate[i] = false;
 
 
-        for(int j=0; j<selectedDate.length; j++)
-            Log.d(logTag, "datesButton[ = " + j + "] = " +  selectedDate[j]);
+        for (int j = 0; j < selectedDate.length; j++)
+            Log.d(logTag, "datesButton[ = " + j + "] = " + selectedDate[j]);
 
-        hoursGridView = findViewById(R.id.hoursGridView);
+        GridView hoursGridView = findViewById(R.id.hoursGridView);
         hoursGridView.setNumColumns(2);
 
         hoursAdapter = new HoursAdapter(this, hoursForDate);
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
-
 
 
         ed = new ErrorDetector(this);
@@ -281,10 +273,10 @@ public class ChooseDateTime extends AppCompatActivity {
         //dodanie do każdego z przycisków  metody setOnCheckedChangeListener
 
         Log.d(logTag, "\nStan wszystkich przycisków (przed kliknięciu dowolnego): ");
-        for(int k =0; k<selectedDate.length; k++)
+        for (int k = 0; k < selectedDate.length; k++)
             Log.d(logTag, "Stan przed selectedDate[" + k + "]= " + selectedDate[k]);
 
-        for (int i = 0; i < datesButtons.length; i++){
+        for (int i = 0; i < datesButtons.length; i++) {
             final int finalI = i;
             datesButtons[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -294,7 +286,7 @@ public class ChooseDateTime extends AppCompatActivity {
                     Log.d(logTag, "Stan buttona = " + Boolean.toString(selectedDate[finalI]));
 
                     if (!selectedDate[finalI]) {
-                        for(int j =0; j<selectedDate.length; j++) {
+                        for (int j = 0; j < selectedDate.length; j++) {
                             if (j != finalI) {
                                 selectedDate[j] = false;
                                 Log.d(logTag, "selectedDate[" + j + "] = " + selectedDate[j]);
@@ -311,14 +303,13 @@ public class ChooseDateTime extends AppCompatActivity {
                         //TODO notofyDataChanged do Adaptera obsługującego godziny
                         hoursAdapter.clearListOfRepertoires();
                         hoursAdapter.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         updateDateButtons();
                         selectedDate[finalI] = true;
                     }
 
                     Log.d(logTag, "\nStan wszystkich przycisków (po kliknięciu dowolnego): ");
-                    for(int k =0; k<selectedDate.length; k++)
+                    for (int k = 0; k < selectedDate.length; k++)
                         Log.d(logTag, "Stan po selectedDate[" + k + "]= " + selectedDate[k]);
 
 
@@ -327,39 +318,38 @@ public class ChooseDateTime extends AppCompatActivity {
             });
 
 
-    }
+        }
 
-    btnAcceptTime.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //pobranie zawartość repertuaru
-            List <Integer> repertoires = hoursAdapter.getSelectedRepertoires();
-            for(Integer i : repertoires)
-            Log.d(logTag, "Pobrana wartość repertuaru = " + i);
+        btnAcceptTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //pobranie zawartość repertuaru
+                List<Integer> repertoires = hoursAdapter.getSelectedRepertoires();
+                for (Integer i : repertoires)
+                    Log.d(logTag, "Pobrana wartość repertuaru = " + i);
 
-            //nie wybrano żadnego repertuaru
-            if(repertoires.size() == 0)
-            ed.buildDialog(ChooseDateTime.this, "Brak wybranej godziny",
-                    "Wybierz jedną interesującą ciebie godzinę").show();
-            else if(repertoires.size() > 1)
-                //wybrano > 2 repertuary
-                ed.buildDialog(ChooseDateTime.this, "Wybrałeś więcej niż jedną godzinę",
-                        "Wybierz jedną interesującą ciebie godzinę").show();
+                //nie wybrano żadnego repertuaru
+                if (repertoires.size() == 0)
+                    ed.buildDialog(ChooseDateTime.this, "Brak wybranej godziny",
+                            "Wybierz jedną interesującą ciebie godzinę").show();
+                else if (repertoires.size() > 1)
+                    //wybrano > 2 repertuary
+                    ed.buildDialog(ChooseDateTime.this, "Wybrałeś więcej niż jedną godzinę",
+                            "Wybierz jedną interesującą ciebie godzinę").show();
 
-            else {
-               //wybrano 1 repertuar - przejście do kolejnego activity z wyborem sektora
+                else {
+                    //wybrano 1 repertuar - przejście do kolejnego activity z wyborem sektora
 
-                int repertoireId = repertoires.get(0);
-                Intent intent = new Intent(ChooseDateTime.this, ChooseSeatTypeActivity.class);
-                intent.putExtra("repertoireId", repertoireId);
-                startActivity(intent);
+                    int repertoireId = repertoires.get(0);
+                    Intent intent = new Intent(ChooseDateTime.this, ChooseSeatTypeActivity.class);
+                    intent.putExtra("repertoireId", repertoireId);
+                    startActivity(intent);
+
+                }
+
 
             }
-
-
-
-        }
-    });
+        });
 
 
 /*    Object v = hoursAdapter.getView(0,null,hoursGridView);
