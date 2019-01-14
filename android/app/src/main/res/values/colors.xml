@@ -8,7 +8,7 @@
     <color name="transparent">#00000000</color>
 
 
-    <color name="button_normal">#bdc3c7</color>
+    <color name="button_normal">#e7e8ed</color>
     <color name="list_row_start_color">#ffffff</color>
     <color name="list_row_end_color">#EBEEF0</color>
     <color name="list_row_hover_start_color">#e0e3e4</color>
@@ -18,7 +18,7 @@
     <color name="second_seat_type">#66cc99</color>
     <color name="third_seat_type">#fad859</color>
     <color name="fourth_seat_type">#e47833</color>
-
+    <color name="transparent">#00000000</color>
 
 
 </resources>

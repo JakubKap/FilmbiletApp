@@ -17,6 +17,7 @@
         
         <activity android:name=".activity.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop">
 
             <!-- android:label="@string/app_name" -->
@@ -41,4 +42,5 @@
         </activity>
 
     </application>
+
 </manifest>
