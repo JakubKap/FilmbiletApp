@@ -7,5 +7,6 @@ public class AppConfig {
     public static String GET_RESERVATIONS = "http://35.204.119.131/api/reservations.php";
     public static String STORE_RESERVATION = "http://35.204.119.131/api/storeReservation.php";
     public static String GET_CUSTOMER_RESERVATIONS = "http://35.204.119.131/api/customerReservations.php";
+    public static String GET_MOVIE_REPERTOIRE = "http://35.204.119.131/api/repertoires.php";
     public static String websocketURL = "ws://35.204.119.131:8080/";
 }
