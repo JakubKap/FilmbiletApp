@@ -2,7 +2,7 @@ package com.companysf.filmbilet.appLogic;
 
 public class Movie {
     private String title, pictureURL, genres;
-    private int runningTimeMin, age;
+    private int runningTimeMin, age, id;
 
     public Movie(String title, int runningTimeMin, int age, String pictureURL, String genres) {
         this.title = title;

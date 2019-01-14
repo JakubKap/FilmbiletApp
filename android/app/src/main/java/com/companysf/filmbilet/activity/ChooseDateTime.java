@@ -2,13 +2,10 @@ package com.companysf.filmbilet.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridView;
@@ -29,7 +26,7 @@ import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.appLogic.Movie;
-import com.companysf.filmbilet.appLogic.Repertoire;
+import com.companysf.filmbilet.appLogic.Schedule;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,9 +44,9 @@ import java.util.Set;
 public class ChooseDateTime extends AppCompatActivity {
 
     private static final String logTag = ChooseDateTime.class.getSimpleName();
-    private List<Repertoire> repertoireList = new ArrayList<>();
-    private List<Repertoire> uniqueDates;
-    private List<Repertoire> hoursForDate = new ArrayList<>();
+    private List<Schedule> scheduleList = new ArrayList<>();
+    private List<Schedule> uniqueDates;
+    private List<Schedule> hoursForDate = new ArrayList<>();
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
     private boolean[] selectedDate = new boolean[5];
@@ -92,25 +89,25 @@ public class ChooseDateTime extends AppCompatActivity {
     public void updateDateButtons() {
 
         //sortowanie elementów w kolekcji (zgodnie z kolejnością dat)
-        Collections.sort(repertoireList, new Comparator<Repertoire>() {
+        Collections.sort(scheduleList, new Comparator<Schedule>() {
             @Override
-            public int compare(Repertoire r1, Repertoire r2) {
+            public int compare(Schedule r1, Schedule r2) {
                 return r1.getDate().compareTo(r2.getDate());
             }
         });
 
-        uniqueDates = new ArrayList<>(repertoireList);
+        uniqueDates = new ArrayList<>(scheduleList);
         Set<Integer> dateIndexesToRemove = new HashSet<>();
 
-        for (Repertoire r : uniqueDates)
+        for (Schedule r : uniqueDates)
             Log.d(logTag, "Zawartość uniqueDates przed filtrowaniem= " + r.toString());
-        //wstawienie do kolekcji uniqueDates unikalnych dat z repertoire List
+        //wstawienie do kolekcji uniqueDates unikalnych dat z Schedule List
 
 
-        for (Repertoire r : repertoireList) {
+        for (Schedule r : scheduleList) {
             int innerInc = 0;
             int index = 0;
-            for (Repertoire ud : uniqueDates) {
+            for (Schedule ud : uniqueDates) {
 
                 if (r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
                         && r.getDayOfMonth() == ud.getDayOfMonth())
@@ -128,9 +125,9 @@ public class ChooseDateTime extends AppCompatActivity {
 
         if (dateIndexesToRemove.size() > 0)
             for (Integer i : dateIndexesToRemove)
-                uniqueDates.remove(repertoireList.get(i));
+                uniqueDates.remove(scheduleList.get(i));
 
-        for (Repertoire r : uniqueDates)
+        for (Schedule r : uniqueDates)
             Log.d(logTag, "Zawartość uniqueDates po filtrowaniu= " + r.toString());
 
 
@@ -138,7 +135,7 @@ public class ChooseDateTime extends AppCompatActivity {
             @Override
             public void run() {
                 int i = 0;
-                for (Repertoire r : uniqueDates) {
+                for (Schedule r : uniqueDates) {
                     String text = Integer.toString(r.getDayOfMonth());
                     text = text + "\n" + r.getDayOfWeek();
                     datesButtons[i].setText(text);
@@ -155,7 +152,7 @@ public class ChooseDateTime extends AppCompatActivity {
 
         if (hoursForDate.size() > 0) hoursForDate.clear();
 
-        for (Repertoire r : repertoireList) {
+        for (Schedule r : scheduleList) {
             if (r.getYear() == uniqueDates.get(index).getYear() && r.getMonth() == uniqueDates.get(index).getMonth()
                     && r.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()) {
                 hoursForDate.add(r);
@@ -202,7 +199,7 @@ public class ChooseDateTime extends AppCompatActivity {
         final int movieId = 1;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                AppConfig.GET_MOVIE_REPERTOIRE,
+                AppConfig.GET_MOVIES_FROM_REPERTOIRE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -216,17 +213,17 @@ public class ChooseDateTime extends AppCompatActivity {
                                         json.getString("message"),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                JSONArray repertoiresJson = json.getJSONArray("repertoire");
-                                for (int i = 0; i < repertoiresJson.length(); i++) {
-                                    Log.d(logTag, "repertoiresJsonLOG " + repertoiresJson.length());
-                                    JSONObject repertoireJSON = repertoiresJson.getJSONObject(i);
-                                    Repertoire repertoire = new Repertoire(
-                                            repertoireJSON.getInt("id"),
-                                            repertoireJSON.getString("date")
+                                JSONArray schedulesJson = json.getJSONArray("Schedule");
+                                for (int i = 0; i < schedulesJson.length(); i++) {
+                                    Log.d(logTag, "SchedulesJsonLOG " + schedulesJson.length());
+                                    JSONObject scheduleJSON = schedulesJson.getJSONObject(i);
+                                    Schedule schedule = new Schedule(
+                                            scheduleJSON.getInt("id"),
+                                            scheduleJSON.getString("date")
                                     );
 
-                                    repertoireList.add(repertoire);
-                                    Log.d(logTag, "Pobrany repertoire z BD= " + repertoire.toString());
+                                    scheduleList.add(schedule);
+                                    Log.d(logTag, "Pobrany Schedule z BD= " + schedule.toString());
 
                                 }
                             }
@@ -239,8 +236,8 @@ public class ChooseDateTime extends AppCompatActivity {
                         }
 
 
-                        for (Repertoire r : repertoireList)
-                            Log.d(logTag, "Zawartość repertoireList po pobraniu danych z BD = " + r.toString());
+                        for (Schedule r : scheduleList)
+                            Log.d(logTag, "Zawartość scheduleList po pobraniu danych z BD = " + r.toString());
 
                         //zaktulizowanie wyglądu ToggleButton'ów związanych z datą i dniem
                         updateDateButtons();
@@ -300,8 +297,7 @@ public class ChooseDateTime extends AppCompatActivity {
                         updateDateButtons();
 
                         prepareHoursForDate(finalI);
-                        //TODO notofyDataChanged do Adaptera obsługującego godziny
-                        hoursAdapter.clearListOfRepertoires();
+                        hoursAdapter.clearListOfSchedules();
                         hoursAdapter.notifyDataSetChanged();
                     } else {
                         updateDateButtons();
@@ -324,15 +320,15 @@ public class ChooseDateTime extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //pobranie zawartość repertuaru
-                List<Integer> repertoires = hoursAdapter.getSelectedRepertoires();
-                for (Integer i : repertoires)
+                List<Integer> schedules = hoursAdapter.getSelectedSchedules();
+                for (Integer i : schedules)
                     Log.d(logTag, "Pobrana wartość repertuaru = " + i);
 
                 //nie wybrano żadnego repertuaru
-                if (repertoires.size() == 0)
+                if (schedules.size() == 0)
                     ed.buildDialog(ChooseDateTime.this, "Brak wybranej godziny",
                             "Wybierz jedną interesującą ciebie godzinę").show();
-                else if (repertoires.size() > 1)
+                else if (schedules.size() > 1)
                     //wybrano > 2 repertuary
                     ed.buildDialog(ChooseDateTime.this, "Wybrałeś więcej niż jedną godzinę",
                             "Wybierz jedną interesującą ciebie godzinę").show();
@@ -340,9 +336,9 @@ public class ChooseDateTime extends AppCompatActivity {
                 else {
                     //wybrano 1 repertuar - przejście do kolejnego activity z wyborem sektora
 
-                    int repertoireId = repertoires.get(0);
-                    Intent intent = new Intent(ChooseDateTime.this, ChooseSeatTypeActivity.class);
-                    intent.putExtra("repertoireId", repertoireId);
+                    int ScheduleId = schedules.get(0);
+                    Intent intent = new Intent(ChooseDateTime.this, SectorActivity.class);
+                    intent.putExtra("ScheduleId", ScheduleId);
                     startActivity(intent);
 
                 }
@@ -350,22 +346,5 @@ public class ChooseDateTime extends AppCompatActivity {
 
             }
         });
-
-
-/*    Object v = hoursAdapter.getView(0,null,hoursGridView);
-    ToggleButton tg = (ToggleButton) hoursAdapter.getView(0,null,hoursGridView);
-        Log.d(logTag, "W main = " + tg.getText());*/
-
-
-        /*hoursGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                HoursAdapter hoursAdapter2 = (HoursAdapter) hoursGridView.getAdapter();
-                hoursAdapter2.setSelectedButton(i);
-                hoursAdapter2.notifyDataSetChanged();
-
-            }
-        });*/
-
     }
 }

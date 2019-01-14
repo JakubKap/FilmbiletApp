@@ -11,7 +11,7 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.appLogic.Repertoire;
+import com.companysf.filmbilet.appLogic.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +19,19 @@ import java.util.List;
 public class HoursAdapter extends BaseAdapter {
     private static final String logTag = HoursAdapter.class.getSimpleName();
     private Context mContext;
-    private List<Repertoire> repertoireList;
+    private List<Schedule> scheduleList;
     private List<ToggleButton> toggleButtons;
-    private List<Integer> selectedRepertoires;
+    private List<Integer> selectedSchedules;
 
-    public HoursAdapter(Context c, List<Repertoire> repertoireArrayList){
+    public HoursAdapter(Context c, List<Schedule> scheduleArrayList){
         mContext = c;
-        repertoireList = repertoireArrayList;
-        boolean[] selectedHour = new boolean[repertoireList.size()];
-        selectedRepertoires = new ArrayList<>();
+        scheduleList = scheduleArrayList;
+        boolean[] selectedHour = new boolean[scheduleList.size()];
+        selectedSchedules = new ArrayList<>();
         toggleButtons = new ArrayList<>();
 
-        if(selectedRepertoires.size() > 0)
-            selectedRepertoires.clear();
+        if(selectedSchedules.size() > 0)
+            selectedSchedules.clear();
 
         if(selectedHour.length > 0){
             selectedHour[0] = true;
@@ -42,22 +42,22 @@ public class HoursAdapter extends BaseAdapter {
     }
 
 
-    public List<Integer> getSelectedRepertoires() {
-        return selectedRepertoires;
+    public List<Integer> getSelectedSchedules() {
+        return selectedSchedules;
     }
 
-    public void clearListOfRepertoires(){
-        if(selectedRepertoires.size() > 0)
-            selectedRepertoires.clear();
+    public void clearListOfSchedules(){
+        if(selectedSchedules.size() > 0)
+            selectedSchedules.clear();
     }
     @Override
     public int getCount() {
-        return repertoireList.size();
+        return scheduleList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return repertoireList.get(position);
+        return scheduleList.get(position);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class HoursAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ToggleButton toggleButton;
 
-        Log.d(logTag, "Nowoutworzony przycisk dla id = " + (repertoireList.get(position).getId()));
+        Log.d(logTag, "Nowoutworzony przycisk dla id = " + (scheduleList.get(position).getId()));
         if(convertView == null){
             toggleButton = new ToggleButton(mContext);
             toggleButton.setLayoutParams(new GridView.LayoutParams(400, 200));
@@ -85,17 +85,17 @@ public class HoursAdapter extends BaseAdapter {
         Log.d(logTag, "Position w getView = " + position + ", converView = " + convertView);
 
         //budowanie textu
-        String text = Integer.toString(repertoireList.get(position).getHourOfDay());
+        String text = Integer.toString(scheduleList.get(position).getHourOfDay());
 
         StringBuilder sB = new StringBuilder(text);
         sB.append(":");
 
-        if(repertoireList.get(position).getMinute() < 10)
+        if(scheduleList.get(position).getMinute() < 10)
             sB.append("0");
 
-        sB.append(Integer.toString(repertoireList.get(position).getMinute()));
+        sB.append(Integer.toString(scheduleList.get(position).getMinute()));
 
-        if(repertoireList.get(position).getHourOfDay() < 10)
+        if(scheduleList.get(position).getHourOfDay() < 10)
             sB.insert(0, "0");
 
 
@@ -112,23 +112,23 @@ public class HoursAdapter extends BaseAdapter {
 
                 int objToRemove = -1;
                 if(b) {
-                    Log.d(logTag, "Dodana wartość repertuaru = " + repertoireList.get(position).getId());
-                    selectedRepertoires.add(repertoireList.get(position).getId());
+                    Log.d(logTag, "Dodana wartość repertuaru = " + scheduleList.get(position).getId());
+                    selectedSchedules.add(scheduleList.get(position).getId());
                 }
                 else{
-                    Log.d(logTag,"Usunięta wartość repertuaru = " + repertoireList.get(position).getId());
-                    objToRemove = repertoireList.get(position).getId();
+                    Log.d(logTag,"Usunięta wartość repertuaru = " + scheduleList.get(position).getId());
+                    objToRemove = scheduleList.get(position).getId();
                 }
 
                 if(objToRemove>0){
                     Log.d(logTag, "Przed usunięciem:");
-                    selectedRepertoires.remove(Integer.valueOf(objToRemove));
+                    selectedSchedules.remove(Integer.valueOf(objToRemove));
                     Log.d(logTag, "Po usunięciu:");
                 }
 
-                Log.d(logTag, "Zawartość selected repertoires: ");
-                for(Integer i : selectedRepertoires)
-                    Log.d(logTag, "Wartość selectedRepertoires = " + i);
+                Log.d(logTag, "Zawartość selected schedules: ");
+                for(Integer i : selectedSchedules)
+                    Log.d(logTag, "Wartość selectedSchedules = " + i);
 
                /* else
                     finalToggleButton.setBackgroundResource(R.drawable.normal_hour_button);*/
