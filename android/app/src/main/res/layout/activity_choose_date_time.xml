@@ -175,51 +175,24 @@
 
     </RelativeLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="315dp"
-        android:layout_height="wrap_content"
+
+    <GridView
+        android:id="@+id/hoursGridView"
+        android:layout_width="287dp"
+        android:layout_height="147dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="horizontal"
+        android:verticalSpacing="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/layoutInScroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <GridView
-                android:id="@+id/hoursGridView"
-                android:layout_width="287dp"
-                android:layout_height="147dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:verticalSpacing="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guidelineInner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="121dp"
-                app:layout_constraintGuide_percent="0.99" />
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
 
     <android.support.constraint.Guideline

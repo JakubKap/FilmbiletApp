@@ -201,7 +201,7 @@ public class ChooseDateTime extends AppCompatActivity {
         hoursAdapter = new HoursAdapter(this, hoursForDate);
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
-        
+
 
 
         ed = new ErrorDetector(this);
