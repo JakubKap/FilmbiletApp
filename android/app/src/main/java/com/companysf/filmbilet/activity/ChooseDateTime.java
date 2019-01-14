@@ -193,17 +193,6 @@ public class ChooseDateTime extends AppCompatActivity {
         hoursAdapter = new HoursAdapter(this, hoursForDate);
         hoursGridView.setAdapter(hoursAdapter);
 
-        hoursGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(ChooseDateTime.this, "sdfds",
-                        Toast.LENGTH_SHORT).show();
-                Log.d(logTag, "klik");
-
-            }
-        });
-
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
         //TODO pobranie movieId z poprzedniego Activity
         final int movieId = 1;
