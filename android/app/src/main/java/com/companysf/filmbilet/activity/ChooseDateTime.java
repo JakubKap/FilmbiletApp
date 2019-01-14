@@ -298,6 +298,7 @@ public class ChooseDateTime extends AppCompatActivity {
 
                         prepareHoursForDate(finalI);
                         //TODO notofyDataChanged do Adaptera obsługującego godziny
+                        hoursAdapter.clearListOfRepertoires();
                         hoursAdapter.notifyDataSetChanged();
                     }
                     else {

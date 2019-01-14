@@ -23,13 +23,18 @@ public class HoursAdapter extends BaseAdapter {
     private boolean [] selectedHour;
     private List<ToggleButton> toggleButtons;
     private boolean firstEl;
+    private List<Integer> selectedRepertoires;
 
     public HoursAdapter(Context c, List<Repertoire> repertoireArrayList){
         mContext = c;
         repertoireList = repertoireArrayList;
         selectedHour = new boolean[repertoireList.size()];
+        selectedRepertoires = new ArrayList<>();
         firstEl =true;
         toggleButtons = new ArrayList<>();
+
+        if(selectedRepertoires.size() > 0)
+            selectedRepertoires.clear();
 
         if(selectedHour.length > 0){
             selectedHour[0] = true;
@@ -40,6 +45,14 @@ public class HoursAdapter extends BaseAdapter {
     }
 
 
+    public List<Integer> getSelectedRepertoires() {
+        return selectedRepertoires;
+    }
+
+    public void clearListOfRepertoires(){
+        if(selectedRepertoires.size() > 0)
+            selectedRepertoires.clear();
+    }
     @Override
     public int getCount() {
         return repertoireList.size();
@@ -56,7 +69,7 @@ public class HoursAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ToggleButton toggleButton;
 
         Log.d(logTag, "Nowoutworzony przycisk dla id = " + (repertoireList.get(position).getId()));
@@ -107,21 +120,37 @@ public class HoursAdapter extends BaseAdapter {
         //toggleButton.setOnClickListener(new MyOnClickListener(position));
 
         final ToggleButton finalToggleButton = toggleButton;
-/*
+
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                //notifyDataSetChanged();
                 //Log.d(logTag, "Value of b = " + b);
-                //if(!b)
-                    finalToggleButton.setBackgroundResource(R.drawable.selected_hour_button);
+                int objToRemove = -1;
+                if(b) {
+                    Log.d(logTag, "Dodana wartość repertuaru = " + repertoireList.get(position).getId());
+                    selectedRepertoires.add(repertoireList.get(position).getId());
+                }
+                else{
+                    Log.d(logTag,"Usunięta wartość repertuaru = " + repertoireList.get(position).getId());
+                    objToRemove = repertoireList.get(position).getId();
+                }
+
+                if(objToRemove>0){
+                    Log.d(logTag, "Przed usunięciem:");
+                    selectedRepertoires.remove(Integer.valueOf(objToRemove));
+                    Log.d(logTag, "Po usunięciu:");
+                }
+
+                Log.d(logTag, "Zawartość selected repertoires: ");
+                for(Integer i : selectedRepertoires)
+                    Log.d(logTag, "Wartość selectedRepertoires = " + i);
 
                /* else
                     finalToggleButton.setBackgroundResource(R.drawable.normal_hour_button);*/
 
-            //}
-        //});
+            }
+        });
 
         /*
         toggleButton.setOnClickListener(new View.OnClickListener() {
