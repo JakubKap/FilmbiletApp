@@ -49,4 +49,12 @@
     <string name="repertoireDateText">Data seansu</string>
     <string name="myReservationsText">Moje rezerwacje:</string>
     <string name="pdfText">PDF</string>
+    <string name="priceText20">Cena za miejsce: 20zł</string>
+    <string name="row1">I</string>
+    <string name="row2">II</string>
+    <string name="row3">III</string>
+    <string name="row4">IV</string>
+    <string name="row5">V</string>
+    <string name="reserved">-Zarezerwowane</string>
+    <string name="available">-Dostępne</string>
 </resources>

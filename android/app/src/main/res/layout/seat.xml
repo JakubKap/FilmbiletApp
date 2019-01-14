@@ -4,9 +4,9 @@
     android:id="@+id/seatsLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="50sp"
+    android:layout_marginLeft="45sp"
     android:layout_marginTop="110sp"
-    android:layout_marginRight="50sp"
+    android:layout_marginRight="45sp"
     android:layout_marginBottom="110sp"
     android:background="@drawable/pop_bg"
     android:orientation="vertical">
@@ -39,9 +39,8 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/opensans_bold"
             android:includeFontPadding="false"
-            android:text="Sektor 1"
+            android:text="@string/sector1Text"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
@@ -51,9 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
-            android:fontFamily="@font/opensans_bold"
             android:includeFontPadding="false"
-            android:text="Cena za miejsce: 20zł"
+            android:text="@string/priceText20"
             android:textAlignment="center"
             android:textColor="@color/colorHint"
             android:textSize="@dimen/seatsSmallText" />
@@ -542,7 +540,7 @@
                 android:gravity="center_horizontal"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
-                android:text="I"
+                android:text="@string/row1"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -558,7 +556,7 @@
                 android:gravity="center_horizontal"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
-                android:text="II"
+                android:text="@string/row2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -574,7 +572,7 @@
                 android:gravity="center_horizontal"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
-                android:text="III"
+                android:text="@string/row3"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -590,7 +588,7 @@
                 android:gravity="center_horizontal"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
-                android:text="IV"
+                android:text="@string/row4"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -605,7 +603,7 @@
                 android:gravity="center_horizontal"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
-                android:text="V"
+                android:text="@string/row5"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
         </LinearLayout>
@@ -776,7 +774,7 @@
                 android:layout_marginEnd="15sp"
                 android:layout_marginRight="10sp"
                 android:includeFontPadding="false"
-                android:text="-Dostępne"
+                android:text="@string/available"
                 android:textSize="@dimen/seatsSmallText" />
 
             <Button
@@ -797,7 +795,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:includeFontPadding="false"
-                android:text="-Zarezerwowane"
+                android:text="@string/reserved"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/seatsSmallText"
                 android:layout_marginStart="5sp" />
@@ -834,8 +832,8 @@
             android:id="@+id/seatsCloseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="30dp"
             android:background="@drawable/cancel_button"
-            android:fontFamily="@font/opensans_regular"
             android:text="@string/cancelBtnText"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
@@ -850,8 +848,8 @@
             android:id="@+id/seatsApproveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="30dp"
             android:background="@drawable/approve_button"
-            android:fontFamily="@font/opensans_regular"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/approveBtnText"

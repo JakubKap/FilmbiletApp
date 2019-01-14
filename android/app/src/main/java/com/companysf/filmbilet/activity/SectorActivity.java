@@ -2,6 +2,7 @@ package com.companysf.filmbilet.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -1015,6 +1016,16 @@ public class SectorActivity extends AppCompatActivity {
                         seatsButtonIIIR = popupView.findViewById(R.id.seatsButtonIIIR);
                         seatsButtonIVR = popupView.findViewById(R.id.seatsButtonIVR);
                         seatsButtonVR = popupView.findViewById(R.id.seatsButtonVR);
+
+                        //font
+                        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
+                        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+                        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), "opensans_italic.ttf");
+
+                        title.setTypeface(opensansBold);
+                        subtitle.setTypeface(opensansBold);
+                        seatsCloseButton.setTypeface(opensansRegular);
+                        seatsApproveButton.setTypeface(opensansRegular);
 
                         preparePopUp();
 
