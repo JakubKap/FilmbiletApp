@@ -1,6 +1,8 @@
 package com.companysf.filmbilet.appLogic;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     private String title, pictureURL, genres;
     private int runningTimeMin, age, id;
 
@@ -11,14 +13,6 @@ public class Movie {
         this.pictureURL = pictureURL;
         this.genres = genres;
         this.id = id;
-    }
-
-    public Movie(String title, int runningTimeMin, int age, String pictureURL, String genres) {
-        this.title = title;
-        this.runningTimeMin = runningTimeMin;
-        this.age = age;
-        this.pictureURL = pictureURL;
-        this.genres = genres;
     }
 
     public Movie(String title) {

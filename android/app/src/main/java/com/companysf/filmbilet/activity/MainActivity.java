@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         animation.setDuration(2000);
 
         //setting adapter
-        adapter = new MoviesListAdapter(this, moviesList, opensansRegular, opensansBold, opensansItalic);
+        adapter = new MoviesListAdapter(this, MainActivity.this, moviesList, opensansRegular, opensansBold, opensansItalic);
         moviesListView.setAdapter(adapter);
 
         //show customer email
@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                                         Log.d(logTag, "moviesJsonLOG " + moviesJson.length());
                                         JSONObject movieJSON = moviesJson.getJSONObject(i);
                                         Movie movie = new Movie(
+                                                movieJSON.getInt("id"),
                                                 movieJSON.getString("title"),
                                                 movieJSON.getInt("runningTimeMin"),
                                                 movieJSON.getInt("age"),
