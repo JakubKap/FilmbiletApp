@@ -39,6 +39,10 @@
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".activity.SectorActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
     </application>
 

@@ -4,6 +4,15 @@ public class Movie {
     private String title, pictureURL, genres;
     private int runningTimeMin, age, id;
 
+    public Movie(int id, String title, int runningTimeMin, int age, String pictureURL, String genres) {
+        this.title = title;
+        this.runningTimeMin = runningTimeMin;
+        this.age = age;
+        this.pictureURL = pictureURL;
+        this.genres = genres;
+        this.id = id;
+    }
+
     public Movie(String title, int runningTimeMin, int age, String pictureURL, String genres) {
         this.title = title;
         this.runningTimeMin = runningTimeMin;
@@ -38,5 +47,13 @@ public class Movie {
 
     public int getAge() {
         return age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

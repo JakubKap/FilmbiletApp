@@ -68,6 +68,7 @@ public class SectorActivity extends AppCompatActivity {
     private SessionManager sManager;
     private SQLiteHandler db;
     private ErrorDetector ed;
+    private int repertoireId;
 
     private Map<Button, Boolean> sectorButtons = new LinkedHashMap<>(); //zmiana na LinkedHashMap w celu pamiętania kolejności wstawianych elementów
     private Map<Integer, Integer> sectorAndSeat = new TreeMap<>();
@@ -768,9 +769,9 @@ public class SectorActivity extends AppCompatActivity {
 
 
         //TODO pobranie informacji z bazy danych na temat pobranych miejsc (DLA DANEGO REPERTUARU)
+        Bundle b = getIntent().getExtras();
 
-
-        int repertoireId = 1;
+        repertoireId = b.getInt("scheduleId");
 
         final String repertoireIdString = "" + repertoireId;
 
@@ -784,6 +785,8 @@ public class SectorActivity extends AppCompatActivity {
                             JSONObject json = new JSONObject(response);
                             boolean error = json.getBoolean("error");
                             if (error) {
+                                if(!json.getString("message").
+                                        equals("Nie ma rezerwacji dla podanego repertuaru. Spróbuj ponownie."))
                                 Toast.makeText(
                                         getApplicationContext(),
                                         json.getString("message"),
@@ -883,9 +886,6 @@ public class SectorActivity extends AppCompatActivity {
                         // create the popup window
                         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-
-                            /*int width = seatsLinearLayout.getMaxWidth();
-                            int height = seatsLinearLayout.getMaxHeight();*/
 
                         popupWindow = new PopupWindow(popupView, width, height, true);
 
@@ -1217,7 +1217,7 @@ public class SectorActivity extends AppCompatActivity {
 
                                 int currentCustomerId = 1; //TODO należy to pobrać z informacji o logowaniu
 
-                                int currentRepertoireId = 1; //TODO pobrać z poprzedniego Intetentu
+                                int currentRepertoireId = repertoireId;
 
                                 for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
 

@@ -166,7 +166,7 @@ public class ChooseDateTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
-        updateMovieInfo(new Movie("Planeta Singli 2", 159, 1, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia"));
+        updateMovieInfo(new Movie(1,"Planeta Singli 2", 159, 1, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia"));
 
         datesButtons[0] = findViewById(R.id.toggleButton1);
         //domyślnie pierwszty element zawsze na początku zaznaczony
@@ -199,7 +199,7 @@ public class ChooseDateTime extends AppCompatActivity {
         final int movieId = 1;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                AppConfig.GET_MOVIES_FROM_REPERTOIRE,
+                AppConfig.GET_MOVIE_REPERTOIRE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -213,7 +213,7 @@ public class ChooseDateTime extends AppCompatActivity {
                                         json.getString("message"),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                JSONArray schedulesJson = json.getJSONArray("Schedule");
+                                JSONArray schedulesJson = json.getJSONArray("repertoire");
                                 for (int i = 0; i < schedulesJson.length(); i++) {
                                     Log.d(logTag, "SchedulesJsonLOG " + schedulesJson.length());
                                     JSONObject scheduleJSON = schedulesJson.getJSONObject(i);
@@ -336,9 +336,9 @@ public class ChooseDateTime extends AppCompatActivity {
                 else {
                     //wybrano 1 repertuar - przejście do kolejnego activity z wyborem sektora
 
-                    int ScheduleId = schedules.get(0);
+                    int scheduleId = schedules.get(0);
                     Intent intent = new Intent(ChooseDateTime.this, SectorActivity.class);
-                    intent.putExtra("ScheduleId", ScheduleId);
+                    intent.putExtra("scheduleId", scheduleId);
                     startActivity(intent);
 
                 }
