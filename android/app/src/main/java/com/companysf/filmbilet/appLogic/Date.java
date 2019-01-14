@@ -9,7 +9,7 @@ import java.util.Locale;
 public class Date {
     private GregorianCalendar date;
 
-    public Date(String dateTime) {
+    Date(String dateTime) {
         this.date = new GregorianCalendar();
         convertMySQLToJavaDateTime(dateTime);
     }
@@ -24,15 +24,16 @@ public class Date {
         }
     }
 
+    public String getStringDateTime() {
+        return getStringDate() + " " + getStringTime(":");
+    }
+
     public String getStringDate() {
         String date = "";
-        int[] dateArray = new int[5];
+        int[] dateArray = new int[3];
         dateArray[0] = this.date.get(Calendar.DATE);
         dateArray[1] = this.date.get(Calendar.MONTH) + 1;
         dateArray[2] = this.date.get(Calendar.YEAR);
-        dateArray[3] = (this.date.get(Calendar.AM_PM) == 1) ?
-                this.date.get(Calendar.HOUR) + 12 : this.date.get(Calendar.HOUR);
-        dateArray[4] = this.date.get(Calendar.MINUTE);
 
         StringBuilder stringBuilder = new StringBuilder(date);
         for (int i = 0; i < 2; i++) {
@@ -40,17 +41,28 @@ public class Date {
             stringBuilder.append(".");
         }
         stringBuilder.append(Integer.toString(dateArray[2]));       //Year
-        stringBuilder.append(" ");
 
-        stringBuilder.append(Integer.toString(dateArray[3]));   //Hour
-        if (dateArray[3] == 0)
+        return stringBuilder.toString();
+    }
+
+    public String getStringTime(String timeSeparator) {
+        String time = "";
+        int[] timeArray = new int[2];
+
+        timeArray[0] = (this.date.get(Calendar.AM_PM) == 1) ?
+                this.date.get(Calendar.HOUR) + 12 : this.date.get(Calendar.HOUR);
+        timeArray[1] = this.date.get(Calendar.MINUTE);
+
+        StringBuilder stringBuilder = new StringBuilder(time);
+
+        stringBuilder.append(Integer.toString(timeArray[0]));   //Hour
+        if (timeArray[0] == 0)
             stringBuilder.append("0");
-        stringBuilder.append(":");
+        stringBuilder.append(timeSeparator);
 
-        stringBuilder.append(Integer.toString(dateArray[4]));   //minute
-        if (dateArray[4] == 0)
+        stringBuilder.append(Integer.toString(timeArray[1]));   //minute
+        if (timeArray[1] == 0)
             stringBuilder.append("0");
-
 
         return stringBuilder.toString();
     }

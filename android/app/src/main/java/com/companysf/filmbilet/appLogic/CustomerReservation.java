@@ -35,10 +35,6 @@ public class CustomerReservation {
         return repertoire;
     }
 
-    public void setRepertoire(Repertoire repertoire) {
-        this.repertoire = repertoire;
-    }
-
     public float getPrice() {
         return price;
     }

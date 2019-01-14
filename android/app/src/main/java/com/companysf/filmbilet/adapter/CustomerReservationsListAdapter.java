@@ -2,15 +2,19 @@ package com.companysf.filmbilet.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.appLogic.CustomerReservation;
+import com.companysf.filmbilet.appLogic.PdfFile;
 
 import java.util.List;
 import java.util.Locale;
@@ -18,28 +22,26 @@ import java.util.Locale;
 public class CustomerReservationsListAdapter extends RecyclerView.Adapter<CustomerReservationsListAdapter.MyViewHolder> {
     private Context context;
     private List<CustomerReservation> reservationsList;
-    private Typeface opensansBold;
     private Typeface opensansRegular;
     private Typeface opensansItalic;
 
     public CustomerReservationsListAdapter(
-                    Context context,
-                    List<CustomerReservation> reservationsList,
-                    Typeface opensansBold,
-                    Typeface opensansItalic,
-                    Typeface opensansRegular
-            ) {
+            Context context,
+            List<CustomerReservation> reservationsList,
+            Typeface opensansItalic,
+            Typeface opensansRegular
+    ) {
         this.context = context;
         this.reservationsList = reservationsList;
-        this.opensansBold = opensansBold;
         this.opensansItalic = opensansItalic;
         this.opensansRegular = opensansRegular;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView price, priceText, seatNumbers, reservationDateText, reservationDate,
                 repertoireDateText, repertoireDate, title, seatNumbersText;
-        public MyViewHolder(@NonNull View itemView) {
+        Button generatePdfButton;
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title= itemView.findViewById(R.id.title);
             priceText = itemView.findViewById(R.id.priceText);
@@ -50,6 +52,7 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
             seatNumbersText = itemView.findViewById(R.id.seatNumbersText);
             reservationDateText = itemView.findViewById(R.id.reservationDateText);
             repertoireDateText = itemView.findViewById(R.id.repertoireDateText);
+            generatePdfButton = itemView.findViewById(R.id.generatePdfButton);
         }
     }
 
@@ -62,7 +65,7 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int position) {
         CustomerReservation customerReservation = reservationsList.get(position);
 
         //set text to views
@@ -75,10 +78,10 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
                 String.format(new Locale("pl", "PL"), "%s", customerReservation.getSeatNumbers())
         );
         myViewHolder.reservationDate.setText(
-                customerReservation.getReservationDate().getStringDate()
+                customerReservation.getReservationDate().getStringDateTime()
         );
         myViewHolder.repertoireDate.setText(
-                customerReservation.getRepertoire().getDate().getStringDate()
+                customerReservation.getRepertoire().getDate().getStringDateTime()
         );
 
         //font
@@ -91,6 +94,30 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
         myViewHolder.reservationDate.setTypeface(opensansItalic);
         myViewHolder.repertoireDateText.setTypeface(opensansRegular);
         myViewHolder.repertoireDate.setTypeface(opensansItalic);
+        myViewHolder.generatePdfButton.setTypeface(opensansRegular);
+
+        myViewHolder.generatePdfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomerReservation customerReservation = reservationsList.get(myViewHolder.getAdapterPosition());
+                String reservationDate = customerReservation.getReservationDate().getStringDate() +
+                        "_" + customerReservation.getReservationDate().getStringTime(".");
+
+                PdfFile pdfFile = new PdfFile(
+                        context,
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                        "moje_rezerwacje_filmbilet",
+                        "reservation_"+reservationDate+".pdf",
+                        "assets/opensans_regular.ttf",
+                        customerReservation);
+                if (!pdfFile.createPdfFile())
+                    Toast.makeText(
+                            context,
+                            "zabroniony dostep do modyfikacji plików",
+                            Toast.LENGTH_LONG
+                    ).show();
+            }
+        });
     }
 
     @Override

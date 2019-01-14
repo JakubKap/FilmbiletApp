@@ -88,7 +88,7 @@ public class CustomerReservationsActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         reservationsList = new ArrayList<>();
         adapter = new CustomerReservationsListAdapter(this, reservationsList,
-                opensansBold, opensansItalic, opensansRegular);
+                opensansItalic, opensansRegular);
 
         //recyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

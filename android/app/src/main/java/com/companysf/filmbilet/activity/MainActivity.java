@@ -158,8 +158,6 @@ public class MainActivity extends AppCompatActivity {
 
                                     if (moviesList.isEmpty()) {
                                         emptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                    } else {
-                                        //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
                                     }
 
                                     cd.buildDialog(
@@ -194,8 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (moviesList.isEmpty()) {
                                     emptyListRefreshLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
                                 }
 
                                 //1.zerwanie polaczenia internetowego?
@@ -224,8 +220,6 @@ public class MainActivity extends AppCompatActivity {
 
                             if (moviesList.isEmpty()) {
                                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
-                            } else {
-                                //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
                             }
 
                             cd.buildDialog(
@@ -240,8 +234,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             if (moviesList.isEmpty()) {
                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
-            } else {
-                //TODO zalduj ekran powyzej listy filmow informujacy o nieaktualnych danych
             }
 
             cd.buildDialog(MainActivity.this,

@@ -36,4 +36,5 @@
     <string name="reservationDateText">Data rezerwacji</string>
     <string name="repertoireDateText">Data seansu</string>
     <string name="myReservationsText">Moje rezerwacje:</string>
+    <string name="pdfText">PDF</string>
 </resources>

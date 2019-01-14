@@ -22,6 +22,12 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            >
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
@@ -32,6 +38,25 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_gravity="center_horizontal"
                 />
+            <Button
+                android:id="@+id/generatePdfButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/pdf_button"
+                android:textColor="@color/colorHint"
+                android:text="@string/pdfText"
+                style="?android:attr/borderlessButtonStyle"
+                />
+        </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
