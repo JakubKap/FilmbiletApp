@@ -37,6 +37,9 @@ public class Date {
 
         StringBuilder stringBuilder = new StringBuilder(date);
         for (int i = 0; i < 2; i++) {
+            if (dateArray[i] < 10){
+                stringBuilder.append("0");
+            }
             stringBuilder.append(Integer.toString(dateArray[i]));   //Day and month
             stringBuilder.append(".");
         }
