@@ -85,7 +85,8 @@ public class HoursAdapter extends BaseAdapter {
                 firstEl = false;
             }
             else*/
-                toggleButton.setBackgroundResource(R.drawable.toggle_button_selector);
+
+           toggleButton.setBackgroundResource(R.drawable.toggle_button_selector);
 
             toggleButton.setPadding(8, 8, 8, 8);
         }

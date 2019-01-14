@@ -1,12 +1,15 @@
 package com.companysf.filmbilet.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.HoursAdapter;
+import com.companysf.filmbilet.addition.ErrorDetector;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
@@ -50,6 +54,8 @@ public class ChooseDateTime extends AppCompatActivity {
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
     private boolean[] selectedDate = new boolean[5];
+    private Button btnAcceptTime;
+    private ErrorDetector ed;
 
 
     public void updateMovieInfo(Movie sentMovie){
@@ -180,6 +186,8 @@ public class ChooseDateTime extends AppCompatActivity {
         datesButtons[3] = findViewById(R.id.toggleButton4);
         datesButtons[4] = findViewById(R.id.toggleButton5);
 
+        btnAcceptTime = findViewById(R.id.btn_accept_time);
+
         for(int i=1; i<selectedDate.length; i++)
             selectedDate[i] = false;
 
@@ -193,7 +201,10 @@ public class ChooseDateTime extends AppCompatActivity {
         hoursAdapter = new HoursAdapter(this, hoursForDate);
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
+        
 
+
+        ed = new ErrorDetector(this);
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
         //TODO pobranie movieId z poprzedniego Activity
         final int movieId = 1;
@@ -315,7 +326,40 @@ public class ChooseDateTime extends AppCompatActivity {
 
             });
 
+
     }
+
+    btnAcceptTime.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            //pobranie zawartość repertuaru
+            List <Integer> repertoires = hoursAdapter.getSelectedRepertoires();
+            for(Integer i : repertoires)
+            Log.d(logTag, "Pobrana wartość repertuaru = " + i);
+
+            //nie wybrano żadnego repertuaru
+            if(repertoires.size() == 0)
+            ed.buildDialog(ChooseDateTime.this, "Brak wybranej godziny",
+                    "Wybierz jedną interesującą ciebie godzinę").show();
+            else if(repertoires.size() > 1)
+                //wybrano > 2 repertuary
+                ed.buildDialog(ChooseDateTime.this, "Wybrałeś więcej niż jedną godzinę",
+                        "Wybierz jedną interesującą ciebie godzinę").show();
+
+            else {
+               //wybrano 1 repertuar - przejście do kolejnego activity z wyborem sektora
+
+                int repertoireId = repertoires.get(0);
+                Intent intent = new Intent(ChooseDateTime.this, ChooseSeatTypeActivity.class);
+                intent.putExtra("repertoireId", repertoireId);
+                startActivity(intent);
+
+            }
+
+
+
+        }
+    });
 
 
 /*    Object v = hoursAdapter.getView(0,null,hoursGridView);

@@ -940,8 +940,9 @@ public class ChooseSeatTypeActivity extends AppCompatActivity {
 
         //TODO pobranie informacji z bazy danych na temat pobranych miejsc (DLA DANEGO REPERTUARU)
 
+        Bundle b = getIntent().getExtras();
 
-        int repertoireId = 1;
+        int repertoireId = b.getInt("repertoireId");
 
         final String repertoireIdString = "" + repertoireId;
 

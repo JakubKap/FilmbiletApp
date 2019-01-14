@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id = "@+id/mainLayout"
     tools:context=".activity.ChooseDateTime">
 
     <android.support.constraint.ConstraintLayout
@@ -174,44 +175,60 @@
 
     </RelativeLayout>
 
-    <GridView
-        android:id="@+id/hoursGridView"
-        android:layout_width="wrap_content"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="315dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        android:scrollbars = "vertical"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline3">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layoutInScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <GridView
+                android:id="@+id/hoursGridView"
+                android:layout_width="287dp"
+                android:layout_height="147dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:verticalSpacing="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidelineInner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="121dp"
+                app:layout_constraintGuide_percent="0.99" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="70dp"
-        app:layout_constraintGuide_percent="0.85" />
-
-    <Button
-        android:id="@+id/btn_accept_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/button_close_light"
-        android:text="WYBÓR MIEJSCA >"
-        android:padding="10sp"
-        android:textColor="@color/white"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintTop_toBottomOf="@+id/hoursGridView" />
-
-
+        app:layout_constraintGuide_begin="429dp"
+        app:layout_constraintGuide_percent="0.87" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline1"
@@ -229,6 +246,24 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="188dp"
         app:layout_constraintGuide_percent="0.40" />
+
+    <Button
+        android:id="@+id/btn_accept_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_close_light"
+        android:padding="10sp"
+        android:text="WYBÓR MIEJSCA >"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
