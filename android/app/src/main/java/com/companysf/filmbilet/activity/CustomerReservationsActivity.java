@@ -10,9 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,12 +42,9 @@ import java.util.Map;
 public class CustomerReservationsActivity extends AppCompatActivity {
     private static final String logTag = CustomerReservationsActivity.class.getSimpleName();
     private ConnectionDetector cd;
-    private ImageButton btn_refresh;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout emptyListRefreshLayout;
     private LinearLayout noEmptyList;
-    private boolean animationStarted;
-    private Animation animation;
 
     private CustomerReservationsListAdapter adapter;
     private List<CustomerReservation> reservationsList;
@@ -68,7 +62,6 @@ public class CustomerReservationsActivity extends AppCompatActivity {
         }
 
         //Views
-        btn_refresh = findViewById(R.id.btn_refresh_assets);
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
         noEmptyList = findViewById(R.id.noEmptyList);
@@ -81,9 +74,6 @@ public class CustomerReservationsActivity extends AppCompatActivity {
 
         title.setTypeface(opensansBold);
 
-        //animation
-        animationStarted = false;
-
         //recyclerView
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         reservationsList = new ArrayList<>();
@@ -95,23 +85,6 @@ public class CustomerReservationsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-        //animation
-        animation = new RotateAnimation(0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        animation.setRepeatCount(-1);
-        animation.setDuration(2000);
-
-        btn_refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btn_refresh.setAnimation(animation);
-                animationStarted = true;
-                btn_refresh.setClickable(false);
-                updateDataFromServer();
-            }
-        });
 
         //volley request
         updateDataFromServer();
@@ -144,12 +117,6 @@ public class CustomerReservationsActivity extends AppCompatActivity {
                                         emptyListRefreshLayout.setVisibility(View.VISIBLE);
                                         noEmptyList.setVisibility(View.GONE);
                                     }
-
-                                    cd.buildDialog(
-                                            CustomerReservationsActivity.this,
-                                            "Błąd połączenia z serwerem",
-                                            "Spróbuj ponownie później"
-                                    ).show();
                                 } else {
                                     emptyListRefreshLayout.setVisibility(View.GONE);
                                     noEmptyList.setVisibility(View.VISIBLE);
@@ -243,12 +210,6 @@ public class CustomerReservationsActivity extends AppCompatActivity {
                     "Błąd połączenia internetowego",
                     "Sprawdź połączenie internetowe i spróbuj ponownie"
             ).show();
-        }
-
-        if (animationStarted) {
-            btn_refresh.clearAnimation();
-            btn_refresh.setClickable(true);
-            animationStarted = false;
         }
 
         if (manualSwipeRefresh)

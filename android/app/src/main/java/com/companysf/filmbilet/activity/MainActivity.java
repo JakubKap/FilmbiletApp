@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
         //show customer email
         db = new SQLiteHandler(getApplicationContext());
         HashMap<String, String> customer = db.getCustomer();
-        String id = customer.get("email");
-        customerInfo.setText(id);
+        String email = customer.get("email");
+        customerInfo.setText(email);
 
         //onClick listeners
         btnLogout.setOnClickListener(new View.OnClickListener() {
