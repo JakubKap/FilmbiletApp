@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,13 +42,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ChooseDateTime extends AppCompatActivity {
+public class ChooseDateTime extends AppCompatActivity implements Serializable {
 
     private static final String logTag = ChooseDateTime.class.getSimpleName();
     private List<Schedule> scheduleList = new ArrayList<>();
     private List<Schedule> uniqueDates;
     private List<Schedule> hoursForDate = new ArrayList<>();
     private HoursAdapter hoursAdapter;
+    private int movieId;
     private ToggleButton[] datesButtons = new ToggleButton[5];
     private boolean[] selectedDate = new boolean[5];
     private ErrorDetector ed;
@@ -166,7 +168,12 @@ public class ChooseDateTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
-        updateMovieInfo(new Movie(1,"Planeta Singli 2", 159, 1, "http://filmbilet.cba.pl/images/planeta-singli-2.jpeg", "Komedia"));
+
+        Intent intent = getIntent();
+        Movie movie = (Movie) intent.getSerializableExtra("movie");
+        movieId = movie.getId();
+
+        updateMovieInfo(movie);
 
         datesButtons[0] = findViewById(R.id.toggleButton1);
         //domyślnie pierwszty element zawsze na początku zaznaczony
@@ -195,8 +202,7 @@ public class ChooseDateTime extends AppCompatActivity {
 
         ed = new ErrorDetector(this);
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
-        //TODO pobranie movieId z poprzedniego Activity
-        final int movieId = 1;
+        //final int movieId = 1;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 AppConfig.GET_MOVIE_REPERTOIRE,

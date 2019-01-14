@@ -693,7 +693,6 @@ public class SectorActivity extends AppCompatActivity {
         final ViewGroup nullParent = null;
         popupView = inflater.inflate(R.layout.seat, nullParent);
 
-        //TODO forEach na każdy z przycisków
 
         //wypełnienie mapy <Nr_miejsca, Rząd> potrzebenej do znalezienia wiersza dla konkretnego miejsca
         int value = 1;
@@ -769,9 +768,8 @@ public class SectorActivity extends AppCompatActivity {
         }
 
 
-        //TODO pobranie informacji z bazy danych na temat pobranych miejsc (DLA DANEGO REPERTUARU)
-        Bundle b = getIntent().getExtras();
 
+        Bundle b = getIntent().getExtras();
         repertoireId = b.getInt("scheduleId");
 
         final String repertoireIdString = "" + repertoireId;
@@ -1225,13 +1223,14 @@ public class SectorActivity extends AppCompatActivity {
                             } else {
                                 //zapis do bazy danych
 
-                                int currentCustomerId = 1; //TODO należy to pobrać z informacji o logowaniu
+                                
+                                HashMap<String, String> customer = db.getCustomer();
 
                                 int currentRepertoireId = repertoireId;
 
                                 for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
 
-                                    final String customerId = Integer.toString(currentCustomerId);
+                                    final String customerId = customer.get("id");
                                     final String seatNumber = Integer.toString(entry.getKey());
                                     final String seatTypeId = Integer.toString(entry.getValue());
                                     final String row = Integer.toString(seatAndRowMap.get(entry.getKey()));
