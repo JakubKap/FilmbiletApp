@@ -55,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(inputEmail.getWindowToken(), 0);
 
         //font
-        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
 
         loginBtn.setTypeface(opensansBold);

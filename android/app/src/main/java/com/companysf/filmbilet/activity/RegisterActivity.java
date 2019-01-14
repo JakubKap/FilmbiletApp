@@ -12,21 +12,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.ConnectionDetector;
-import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,11 +48,9 @@ public class RegisterActivity extends AppCompatActivity {
         inputSurname = findViewById(R.id.surname);
 
         SessionManager sManager = new SessionManager(getApplicationContext());
-        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
         cd = new ConnectionDetector(this);
 
         //font
-        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
 
         registerBtn.setTypeface(opensansBold);

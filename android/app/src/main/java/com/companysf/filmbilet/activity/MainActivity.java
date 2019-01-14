@@ -25,7 +25,6 @@ import com.companysf.filmbilet.addition.SQLiteHandler;
 import com.companysf.filmbilet.addition.SessionManager;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
-import com.companysf.filmbilet.appLogic.CustomerReservation;
 import com.companysf.filmbilet.appLogic.Movie;
 
 import org.json.JSONArray;

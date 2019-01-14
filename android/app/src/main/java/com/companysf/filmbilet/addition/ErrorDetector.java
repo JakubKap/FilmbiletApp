@@ -17,17 +17,6 @@ public class ErrorDetector {
         this.context = context;
     }
 
-    public boolean connected(){
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Service.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return (
-                activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting()
-        );
-    }
-
     public AlertDialog.Builder buildDialog(Context c, String title, String message) {
 
         Log.d(logTag, "przed wywolaniem buildera");

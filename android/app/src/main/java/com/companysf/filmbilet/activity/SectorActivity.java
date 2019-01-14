@@ -50,6 +50,7 @@ import java.util.HashMap;
 
 import java.util.LinkedHashMap;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -68,11 +69,10 @@ public class SectorActivity extends AppCompatActivity {
     private SQLiteHandler db;
     private ErrorDetector ed;
 
-    //TODO zmiana map na tablicę
     private Map<Button, Boolean> sectorButtons = new LinkedHashMap<>(); //zmiana na LinkedHashMap w celu pamiętania kolejności wstawianych elementów
     private Map<Integer, Integer> sectorAndSeat = new TreeMap<>();
 
-    private PopupWindow popupWindow=null;
+    private PopupWindow popupWindow = null;
 
     private ConstraintLayout constraintLayout;
     private FrameLayout secFrameLayout; //używany do przyciemnienia backgroundu w popup
@@ -81,19 +81,18 @@ public class SectorActivity extends AppCompatActivity {
 
     private TextView secChoosedPlaces, secSummaryPrice;
 
-    //tablica służaca do przechowywania obiektów TextVie dla każdego z sektorów
-    private TextView [] freeSeats = new TextView[8];
+    //tablica służaca do przechowywania obiektów TextView dla każdego z sektorów
+    private TextView[] freeSeats = new TextView[8];
 
     //popup
-
     private ConstraintLayout seatsLinearLayout;
-    private TextView title, subtitle, textView3Seats;
+    private TextView title, subtitle;
     private GridLayout gridLayoutSeats;
 
 
     //seats columns and rows
     private Button seatsButton1C, seatsButton2C, seatsButton3C, seatsButton4C, seatsButton5C, seatsButton6C, seatsButton7C,
-            seatsButtonIR, seatsButtonIIR, seatsButtonIIIR, seatsButtonIVR, seatsButtonVR,  seatsApproveButton, secBtnReserve, seatsCloseButton, btn;
+            seatsButtonIR, seatsButtonIIR, seatsButtonIIIR, seatsButtonIVR, seatsButtonVR, seatsApproveButton, secBtnReserve, seatsCloseButton, btn;
 
     private ArrayList<Button> columnButtons = new ArrayList<>();
 
@@ -104,39 +103,30 @@ public class SectorActivity extends AppCompatActivity {
             seatsButtonIVR_1, seatsButtonIVR_2, seatsButtonIVR_3, seatsButtonIVR_4, seatsButtonIVR_5, seatsButtonIVR_6, seatsButtonIVR_7,
             seatsButtonVR_1, seatsButtonVR_2, seatsButtonVR_3, seatsButtonVR_4, seatsButtonVR_5, seatsButtonVR_6, seatsButtonVR_7;
 
-
-
     private ProgressBar seatsProgressBar;
     private Map<Button, Boolean> seatButtons = new LinkedHashMap<>();
-
-
-    //TODO zamiana HashMap na tablice
     private Map<Integer, Integer> selectedSeats = new HashMap<>();
-    //TODO zamiana HashMap na tablice
     private Map<Integer, Integer> seatAndRowMap = new HashMap<>();
-
 
     //zmienne służace do komunikacji z socketem
 
-    private boolean choosedPlaces [] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu i z BD)
+    private boolean choosedPlaces[] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu i z BD)
     private boolean myChoosedPlaces[] = new boolean[280]; //zajęte miejsca przez użytkownika
 
 
-
-    public void preparePopUp(){
+    public void preparePopUp() {
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
 
-                Map<Button, Integer> seatNumber = new HashMap<>();//mapa zawierająca button oraz odpowiadający mu nr siedzenia
+                Map<Button, Integer> seatNumber = new HashMap<>();  //mapa zawierająca button oraz odpowiadający mu nr siedzenia
                 ArrayList<Button> buttons = new ArrayList<>(seatButtons.keySet());
 
                 Log.d(logTag, "seatButtons.size() w preparePopUp == " + seatButtons.size());
 
                 int seatTypeId = selectedSector();
-
 
                 boolean flags[] = new boolean[8];
                 int inc = 0;
@@ -184,9 +174,9 @@ public class SectorActivity extends AppCompatActivity {
                     text = Integer.toString(seatNumber.get(buttons.get(i)));
                     Log.d(logTag, "Pobrana wartość : " + seatNumber.get(buttons.get(i)));
 
-                buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
+                    buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
 
-                buttons.get(i).setText(text);
+                    buttons.get(i).setText(text);
                     Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get(buttons.get(logNr)));
                     logNr++;
                 }
@@ -219,9 +209,7 @@ public class SectorActivity extends AppCompatActivity {
                 }
 
                 title.setText(text);
-
                 seatsLinearLayout.setVisibility(View.INVISIBLE);
-
                 title.setVisibility(View.INVISIBLE);
                 subtitle.setVisibility(View.INVISIBLE);
                 //textView3Seats.setVisibility(View.INVISIBLE);
@@ -241,7 +229,6 @@ public class SectorActivity extends AppCompatActivity {
                 for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
                     int number = entry.getKey();
                     int seatType = entry.getValue();
-
                     Log.d(logTag, "Przekazana wartość (nr, seatTypeId) do popup = (" + number + ", " + seatType + ")");
 
                 }
@@ -327,27 +314,18 @@ public class SectorActivity extends AppCompatActivity {
                         b.setBackgroundResource(R.drawable.seat_choosed);
                         Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
 
-                        //textView3Seats.setVisibility(View.VISIBLE);
                         seatsApproveButton.setVisibility(View.INVISIBLE);
                     }
-
                 }
 
                 for (Button b : buttons)
                     b.setVisibility(View.VISIBLE);
 
-
                 seatsLinearLayout.setVisibility(View.VISIBLE);
-
                 title.setVisibility(View.VISIBLE);
                 subtitle.setVisibility(View.VISIBLE);
-
-
                 gridLayoutSeats.setVisibility(View.VISIBLE);
-
-                //textView3Seats.setVisibility(View.INVISIBLE);
                 seatsApproveButton.setVisibility(View.INVISIBLE);
-
 
                 int cena = 10;
 
@@ -391,62 +369,52 @@ public class SectorActivity extends AppCompatActivity {
                     Button button = entry.getKey();
                     Boolean isChecked = entry.getValue();
 
-                    int index =  Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
-                    if(choosedPlaces[index-1]){
+                    int index = Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
+                    if (choosedPlaces[index - 1]) {
 
                         button.setEnabled(false);
                         button.setBackgroundResource(R.drawable.seat_reserved);
                         button.setTextColor(Color.WHITE);
 
-                        if(isChecked){
+                        if (isChecked) {
                             //sytuacja, gdy ktoś zajmie miejsce/miejsca w sektorze, które przed chwilą wybraliśmy
                             seatButtons.put(button, false);
-                            displayDialog=true;
+                            displayDialog = true;
                             takenCheckedSeats.add(Integer.parseInt(button.getText().toString())); //parsowanie nr miejsca do int i zapisanie do kolekcji;
 
                             int selected = selectedSeats();
 
-                            if(selected > 0) {
+                            if (selected > 0) {
                                 seatsApproveButton.setVisibility(View.VISIBLE);
-                                //textView3Seats.setVisibility(View.VISIBLE);
-                                //TODO nie robić konkatenacji na setText(), poniżej przykład
-
-                                String text = "Wybrane miejsca: " + selected;
-                                //textView3Seats.setText(text);
-                            }
-                            else{
+                            } else {
                                 seatsApproveButton.setVisibility(View.INVISIBLE);
-                               //textView3Seats.setVisibility(View.INVISIBLE);
                             }
                         }
                     }
-
                 }
 
-                if(displayDialog) {
+                if (displayDialog) {
                     //wyświetlenie komunikatu
 
-                    if(takenCheckedSeats.size()==1)
+                    if (takenCheckedSeats.size() == 1)
                         ed.buildDialog(SectorActivity.this, "Zajęcie miejsca",
                                 "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze " +
-                                        takenCheckedSeats.get(0) +".").show();
-
-                    else{
+                                        takenCheckedSeats.get(0) + ".").show();
+                    else {
                         //jeśli więcej miejsc
                         //zbudowanie Stringa
 
-                        int i=0;
+                        int i = 0;
                         String text = "";
 
                         //posortowanie kolekcji
                         Collections.sort(takenCheckedSeats);
 
-
                         StringBuilder sB = new StringBuilder(text);
 
-                        for(Integer in : takenCheckedSeats) {
+                        for (Integer in : takenCheckedSeats) {
 
-                            if(i>0)
+                            if (i > 0)
                                 sB.append(", ");
                             sB.append(in);
 
@@ -458,17 +426,14 @@ public class SectorActivity extends AppCompatActivity {
                                 "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach " +
                                         text + ".").show();
                     }
-
                 }
             }
         });
     }
 
-    private void logOutCustomer(){
+    private void logOutCustomer() {
         sManager.setLogin(false);
-
         db.deleteCustomers();
-
     }
 
     public int selectedSeats() {
@@ -476,53 +441,51 @@ public class SectorActivity extends AppCompatActivity {
         int selected = 0;
         for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
             Boolean value = entry.getValue();
-
-            if(value) selected++;
-
+            if (value)
+                selected++;
         }
         return selected;
     }
 
-    public int selectedSector(){
-        boolean flags [] = new boolean[8];
-        int inc=0;
+    public int selectedSector() {
+        boolean flags[] = new boolean[8];
+        int inc = 0;
         for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
             flags[inc] = entry.getValue();
             inc++;
         }
 
         //wykrycie, który typ miejsca został wybrany
-        int seatTypeId=1;
+        int seatTypeId = 1;
 
-        if(flags[2] || flags[3])
-            seatTypeId=2;
-        else if(flags[4] || flags[5])
-            seatTypeId=3;
+        if (flags[2] || flags[3])
+            seatTypeId = 2;
+        else if (flags[4] || flags[5])
+            seatTypeId = 3;
         else if (flags[6] || flags[7])
-            seatTypeId=4;
+            seatTypeId = 4;
 
         return seatTypeId;
 
     }
 
-    public void saveSeats(int seatType){
+    public void saveSeats(int seatType) {
 
         for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
             Button key = entry.getKey();
             Boolean value = entry.getValue();
 
-            if(value){
-                int number =  Integer.parseInt(key.getText().toString()); //parsowanie nr miejsca do int
+            if (value) {
+                int number = Integer.parseInt(key.getText().toString()); //parsowanie nr miejsca do int
                 selectedSeats.put(number, seatType);
 
-                Log.d(logTag, "Zapisane miejsce (nr, seatTypeId) = (" + number + ", " +  seatType + ")");
+                Log.d(logTag, "Zapisane miejsce (nr, seatTypeId) = (" + number + ", " + seatType + ")");
             }
-
         }
     }
 
 
-    public void updateSummary(){
+    public void updateSummary() {
 
 
         runOnUiThread(new Runnable() {
@@ -554,65 +517,45 @@ public class SectorActivity extends AppCompatActivity {
                             price += 30;
                             break;
                     }
-
                 }
-
-
-                secChoosedPlaces.setText(Integer.toString(numberOfSeats));
+                secChoosedPlaces.setText(String.format(new Locale("pl", "PL"), "%d", numberOfSeats));
                 String text = Integer.toString(price) + " zł";
                 secSummaryPrice.setText(text);
-
-               /* if(numberOfSeats>0){
-                    String text = "Liczba miejsc: " + numberOfSeats
-                            + "\nCena: " + price + " zł";
-                    textView4.setText(text);
-                }
-
-                else{
-                    textView3.setText("");
-                    textView4.setText("");
-                    secBtnReserve.setEnabled(false);
-                    secBtnReserve.setTextColor(Color.BLACK);
-                    secBtnReserve.setBackgroundResource(R.drawable.rounded_button_gray);
-                }*/
             }
         });
 
     }
 
-    public void buildDialog(ArrayList<Integer> list){
+    public void buildDialog(ArrayList<Integer> list) {
         final ArrayList<Integer> takenYourSeats = new ArrayList<>(list);
-        //final ErrorDetector det = new ErrorDetector(this);
 
-        for(Integer i :takenYourSeats)
+        for (Integer i : takenYourSeats)
             Log.d(logTag, "Zawartość takenYourSeats = " + i);
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                if(takenYourSeats.size() == 1) {
+                if (takenYourSeats.size() == 1) {
                     ed.buildDialog(SectorActivity.this, "Zajęcie miejsca",
                             "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze " + takenYourSeats.get(0) + ".").show();
-                }
-                else if(takenYourSeats.size() > 1){
+                } else if (takenYourSeats.size() > 1) {
 
-                    String text="";
+                    String text = "";
 
                     StringBuilder sB = new StringBuilder(text);
-                    int i=0;
-                    for(Integer in : takenYourSeats) {
-                        if(i>0)
+                    int i = 0;
+                    for (Integer in : takenYourSeats) {
+                        if (i > 0)
                             sB.append(", ");
 
                         sB.append(in);
 
                         i++;
                     }
-                    text=sB.toString();
+                    text = sB.toString();
 
                     ed.buildDialog(SectorActivity.this, "Zajęcie miejsc", "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach: " + text + ".").show();
-
                 }
             }
         });
@@ -620,16 +563,14 @@ public class SectorActivity extends AppCompatActivity {
     }
 
 
-    public void updateSectors(boolean ifStart){
+    public void updateSectors(boolean ifStart) {
 
         final boolean start = ifStart;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                if(start){
-
-
+                if (start) {
                     SecProgressBar.setVisibility(View.INVISIBLE);
 
                     secChoosedPlaces.setVisibility(View.VISIBLE);
@@ -638,29 +579,26 @@ public class SectorActivity extends AppCompatActivity {
 
                     String pom = "0 zł";
                     secSummaryPrice.setText(pom);
-
-
                 }
-
 
                 int sectorNumber = 1;
 
                 Log.d(logTag, "Zawartość choosedPlaces w metodzie updateSectors: ");
-                for(int i=0; i<choosedPlaces.length; i++)
+                for (int i = 0; i < choosedPlaces.length; i++)
                     Log.d(logTag, "choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
 
                 for (Map.Entry<Button, Boolean> entry1 : sectorButtons.entrySet()) {
 
-                    int takenSeats=0;
-                    for(Map.Entry<Integer, Integer> entry2 : sectorAndSeat.entrySet()){
+                    int takenSeats = 0;
+                    for (Map.Entry<Integer, Integer> entry2 : sectorAndSeat.entrySet()) {
                         int seatNumber = entry2.getKey();
                         int sector = entry2.getValue();
 
 
-                        if(sector == sectorNumber){
-                            if(choosedPlaces[seatNumber-1]){
+                        if (sector == sectorNumber) {
+                            if (choosedPlaces[seatNumber - 1]) {
                                 takenSeats++;
-                                Log.d(logTag, "choosedPlaces[(seatNumber-1) = " + (seatNumber-1) + " ] = true oraz takenSeats = "  + takenSeats);
+                                Log.d(logTag, "choosedPlaces[(seatNumber-1) = " + (seatNumber - 1) + " ] = true oraz takenSeats = " + takenSeats);
                             }
 
                         }
@@ -668,16 +606,10 @@ public class SectorActivity extends AppCompatActivity {
 
                     int free = 35 - takenSeats;
                     Log.d(logTag, "free = " + free);
-                   /* String prepText = free + "/35";
-                    btn.setText(prepText);*/
 
-                   freeSeats[sectorNumber-1].setText(Integer.toString(free));
-
-
-
-                    //w przypadku zajęcia wszystkich miejsc, przycisk staje się nieaktywny
-                    //if(free==0) btn.setEnabled(false);
-
+                    freeSeats[sectorNumber - 1].setText(
+                            String.format(new Locale("pl", "PL"), "%d", free)
+                    );
                     sectorNumber++;
                 }
 
@@ -711,21 +643,21 @@ public class SectorActivity extends AppCompatActivity {
         constraintLayout = findViewById(R.id.constraintLayout);
 
         secButton1 = findViewById(R.id.secButton1);
-        secButton2 =  findViewById(R.id.secButton2);
+        secButton2 = findViewById(R.id.secButton2);
         secButton3 = findViewById(R.id.secButton3);
         secButton4 = findViewById(R.id.secButton4);
-        secButton5 =  findViewById(R.id.secButton5);
-        secButton6 =  findViewById(R.id.secButton6);
-        secButton7 =  findViewById(R.id.secButton7);
-        secButton8 =  findViewById(R.id.secButton8);
+        secButton5 = findViewById(R.id.secButton5);
+        secButton6 = findViewById(R.id.secButton6);
+        secButton7 = findViewById(R.id.secButton7);
+        secButton8 = findViewById(R.id.secButton8);
 
-        secBtnReserve =  findViewById(R.id.secBtnReserve);
+        secBtnReserve = findViewById(R.id.secBtnReserve);
 
-        SecProgressBar =  findViewById(R.id.secProgressBar);
+        SecProgressBar = findViewById(R.id.secProgressBar);
 
 
-        secFrameLayout =  findViewById(R.id.secFrameLayout);
-        secFrameLayout.getForeground().setAlpha( 0);
+        secFrameLayout = findViewById(R.id.secFrameLayout);
+        secFrameLayout.getForeground().setAlpha(0);
 
         secChoosedPlaces = findViewById(R.id.secChoosedPlaces);
         secSummaryPrice = findViewById(R.id.secSummaryPrice);
@@ -751,7 +683,6 @@ public class SectorActivity extends AppCompatActivity {
         sectorButtons.put(secButton8, false);
 
 
-
         //przyciski reprezentujące miejsca
 
         LayoutInflater inflater = (LayoutInflater)
@@ -763,10 +694,10 @@ public class SectorActivity extends AppCompatActivity {
         //TODO forEach na każdy z przycisków
 
         //wypełnienie mapy <Nr_miejsca, Rząd> potrzebenej do znalezienia wiersza dla konkretnego miejsca
-        int value=1;
+        int value = 1;
 
-        for(int i=1; i<=280; i++){
-            if ((i-1) % 14 == 0 && i!=1)
+        for (int i = 1; i <= 280; i++) {
+            if ((i - 1) % 14 == 0 && i != 1)
                 value++;
 
             seatAndRowMap.put(i, value);
@@ -779,40 +710,38 @@ public class SectorActivity extends AppCompatActivity {
 
         //rzędy parzyste
         int sectorNumber = 1;
-        for(int i=1; i<=211; i+=70) {
+        for (int i = 1; i <= 211; i += 70) {
             int firstSeat = i;
 
             for (int j = 1; j <= 35; j++) {
-                if(j==8 || j==15 || j==22 || j==29) {
+                if (j == 8 || j == 15 || j == 22 || j == 29) {
                     firstSeat += 7;
-                    sectorAndSeat.put(firstSeat,sectorNumber);
+                    sectorAndSeat.put(firstSeat, sectorNumber);
                     firstSeat++;
-                }
-                else{
-                    sectorAndSeat.put(firstSeat,sectorNumber);
+                } else {
+                    sectorAndSeat.put(firstSeat, sectorNumber);
                     firstSeat++;
                 }
 
             }
-            sectorNumber+=2;
+            sectorNumber += 2;
         }
 
-        sectorNumber=2;
-        for(int i=8; i<=218; i+=70){
+        sectorNumber = 2;
+        for (int i = 8; i <= 218; i += 70) {
             int firstSeat = i;
 
             for (int j = 1; j <= 35; j++) {
-                if(j==8 || j==15 || j==22 || j==29) {
+                if (j == 8 || j == 15 || j == 22 || j == 29) {
                     firstSeat += 7;
                     sectorAndSeat.put(firstSeat, sectorNumber);
                     firstSeat++;
-                }
-                else{
+                } else {
                     sectorAndSeat.put(firstSeat, sectorNumber);
                     firstSeat++;
                 }
             }
-            sectorNumber+=2;
+            sectorNumber += 2;
         }
 
         //posortowanie mapy (wg wartości klucza)
@@ -826,15 +755,15 @@ public class SectorActivity extends AppCompatActivity {
             int seatNumber = entry.getKey();
             int sector = entry.getValue();
 
-            Log.d(logTag, "sectorAndSeat<seatNumber, sector> = "+ "< " + seatNumber + ", "
-                    + sector  + " >");
+            Log.d(logTag, "sectorAndSeat<seatNumber, sector> = " + "< " + seatNumber + ", "
+                    + sector + " >");
         }
 
 
         //obługa związana z socketem
 
-        for(int i=0; i<choosedPlaces.length; i++){
-            myChoosedPlaces[i]=false;
+        for (int i = 0; i < choosedPlaces.length; i++) {
+            myChoosedPlaces[i] = false;
         }
 
 
@@ -844,8 +773,6 @@ public class SectorActivity extends AppCompatActivity {
         int repertoireId = 1;
 
         final String repertoireIdString = "" + repertoireId;
-
-        RequestFuture<StringRequest> future = RequestFuture.newFuture();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 AppConfig.GET_RESERVATIONS,
@@ -868,18 +795,14 @@ public class SectorActivity extends AppCompatActivity {
                                     JSONObject reservationJSON = reservationsJson.getJSONObject(i);
                                     Reservation reservation = new Reservation(
                                             reservationJSON.getInt("id"),
-                                            reservationJSON.getInt("customerId"),
                                             reservationJSON.getInt("seatNumber"),
-                                            reservationJSON.getInt("row"),
-                                            reservationJSON.getString("date"),
-                                            reservationJSON.getInt("seatTypeId")
+                                            reservationJSON.getInt("row")
                                     );
 
+                                    choosedPlaces[reservation.getSeatNumber() - 1] = true;
+                                    int number = reservation.getSeatNumber() - 1;
 
-                                    choosedPlaces[reservation.getSeatNumber()-1]=true;
-                                    int number = reservation.getSeatNumber()-1;
-
-                                    Log.d(logTag, "choosedPlaces[ " + number + " ] = "  +  choosedPlaces[number]);
+                                    Log.d(logTag, "choosedPlaces[ " + number + " ] = " + choosedPlaces[number]);
                                 }
                             }
                         } catch (JSONException e) {
@@ -890,9 +813,9 @@ public class SectorActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                         }
 
-                        for(int i=0; i<choosedPlaces.length; i++)
-                            if(choosedPlaces[i])
-                                Log.d(logTag, "After choosedPlaces[ " + i + " ] = "  +  choosedPlaces[i]);
+                        for (int i = 0; i < choosedPlaces.length; i++)
+                            if (choosedPlaces[i])
+                                Log.d(logTag, "After choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
 
                         updateSectors(true);
 
@@ -924,9 +847,7 @@ public class SectorActivity extends AppCompatActivity {
             public void onOpen(final WebSocket webSocket, okhttp3.Response response) {
 
 
-
                 Log.d(logTag, "Connection estabilished");
-
 
 
                 View.OnClickListener buttonClicked = new View.OnClickListener() {
@@ -934,14 +855,12 @@ public class SectorActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-
-                        btn =  findViewById(v.getId());
-
+                        btn = findViewById(v.getId());
 
                         //jeśli button jest wciśnięty, to go odznacz
                         //TODO Wyświetlić nowy komunikat jak nie ma miejsc w sektorze
                         //wyświetlenie komunikatu w sytuacji, gdy ktoś kliknie na sektor bez miejsc
-                        if(btn.getText().equals("0/35")){
+                        if (btn.getText().equals("0/35")) {
 
                             ed.buildDialog(SectorActivity.this, "Brak miejsc w sektorze",
                                     "Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.").show();
@@ -949,233 +868,181 @@ public class SectorActivity extends AppCompatActivity {
                             return;
                         }
 
-                        //TODO może powodować NullPointerExceptin
-
-
                         //jeśli button nie jest wciśnięty to wyświetl popup
+                        sectorButtons.put(btn, true);
 
+                        //po wciśnięciu button, następuje zmiana jego przezroczystości (bez zmiany koloru)
+                        btn.getBackground().setAlpha(128);
 
+                        LayoutInflater inflater = (LayoutInflater)
+                                getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                            sectorButtons.put(btn, true);
+                        final ViewGroup nullParent = null;
+                        popupView = inflater.inflate(R.layout.seat, nullParent);
 
-                            //btn.setBackgroundResource(R.drawable.button_light);
+                        //po kliknięciu dowolnego "aktywnego" sektora od razu pokazuje się popup oraz "chowają" elementy pod nim
 
-                            //po wciśnięciu button, następuje zmiana jego przezroczystości (bez zmiany koloru)
-                            btn.getBackground().setAlpha(128);
-
-
-                            LayoutInflater inflater = (LayoutInflater)
-                                    getSystemService(LAYOUT_INFLATER_SERVICE);
-
-
-                            //TODO NullPointerException
-                            final ViewGroup nullParent = null;
-                            popupView = inflater.inflate(R.layout.seat, nullParent);
-
-                            //po kliknięciu dowolnego "aktywnego" sektora od razu pokazuje się popup oraz "chowają" elementy pod nim
-
-
-                            //new FreeSeatsTask(getApplicationContext(), popupView, selectedSeats,choosedPlaces, startSeat, seatTypeId).execute();
-
-                            // create the popup window
-                            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                            int height =LinearLayout.LayoutParams.WRAP_CONTENT;
+                        // create the popup window
+                        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
                             /*int width = seatsLinearLayout.getMaxWidth();
                             int height = seatsLinearLayout.getMaxHeight();*/
 
-                            popupWindow = new PopupWindow(popupView, width, height, true);
+                        popupWindow = new PopupWindow(popupView, width, height, true);
 
 
-
-                            // show the popup window
-                            // which view you pass in doesn't matter, it is only used for the window tolken
-
-
-                            //prawidłowe położenia popup
-                            popupWindow.showAtLocation(v, Gravity.CENTER, 0, 40);
+                        // show the popup window
+                        // which view you pass in doesn't matter, it is only used for the window tolken
 
 
-                            //przyciemnienie backgroundu pod popupem
-                            secFrameLayout.getForeground().setAlpha(165);
+                        //prawidłowe położenia popup
+                        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 40);
 
 
-                            popupWindow.setBackgroundDrawable(new BitmapDrawable());
-                            popupWindow.setFocusable(false);
+                        //przyciemnienie backgroundu pod popupem
+                        secFrameLayout.getForeground().setAlpha(165);
 
 
-                            seatsButtonIR_1 =  popupView.findViewById(R.id.seatsButtonIR_1);
-                            seatButtons.put(seatsButtonIR_1, false);
-                            seatsButtonIR_2 =  popupView.findViewById(R.id.seatsButtonIR_2);
-                            seatButtons.put(seatsButtonIR_2, false);
-                            seatsButtonIR_3 =  popupView.findViewById(R.id.seatsButtonIR_3);
-                            seatButtons.put(seatsButtonIR_3, false);
-                            seatsButtonIR_4 =  popupView.findViewById(R.id.seatsButtonIR_4);
-                            seatButtons.put(seatsButtonIR_4, false);
-                            seatsButtonIR_5 =  popupView.findViewById(R.id.seatsButtonIR_5);
-                            seatButtons.put(seatsButtonIR_5, false);
-                            seatsButtonIR_6 =  popupView.findViewById(R.id.seatsButtonIR_6);
-                            seatButtons.put(seatsButtonIR_6, false);
-                            seatsButtonIR_7 =  popupView.findViewById(R.id.seatsButtonIR_7);
-                            seatButtons.put(seatsButtonIR_7, false);
-
-                            seatsButtonIIR_1 =  popupView.findViewById(R.id.seatsButtonIIR_1);
-                            seatButtons.put(seatsButtonIIR_1, false);
-                            seatsButtonIIR_2 =  popupView.findViewById(R.id.seatsButtonIIR_2);
-                            seatButtons.put(seatsButtonIIR_2, false);
-                            seatsButtonIIR_3 =  popupView.findViewById(R.id.seatsButtonIIR_3);
-                            seatButtons.put(seatsButtonIIR_3, false);
-                            seatsButtonIIR_4 =  popupView.findViewById(R.id.seatsButtonIIR_4);
-                            seatButtons.put(seatsButtonIIR_4, false);
-                            seatsButtonIIR_5 =  popupView.findViewById(R.id.seatsButtonIIR_5);
-                            seatButtons.put(seatsButtonIIR_5, false);
-                            seatsButtonIIR_6 =  popupView.findViewById(R.id.seatsButtonIIR_6);
-                            seatButtons.put(seatsButtonIIR_6, false);
-                            seatsButtonIIR_7 =  popupView.findViewById(R.id.seatsButtonIIR_7);
-                            seatButtons.put(seatsButtonIIR_7, false);
-
-                            seatsButtonIIIR_1 =  popupView.findViewById(R.id.seatsButtonIIIR_1);
-                            seatButtons.put(seatsButtonIIIR_1, false);
-                            seatsButtonIIIR_2 =  popupView.findViewById(R.id.seatsButtonIIIR_2);
-                            seatButtons.put(seatsButtonIIIR_2, false);
-                            seatsButtonIIIR_3 =  popupView.findViewById(R.id.seatsButtonIIIR_3);
-                            seatButtons.put(seatsButtonIIIR_3, false);
-                            seatsButtonIIIR_4 =  popupView.findViewById(R.id.seatsButtonIIIR_4);
-                            seatButtons.put(seatsButtonIIIR_4, false);
-                            seatsButtonIIIR_5 =  popupView.findViewById(R.id.seatsButtonIIIR_5);
-                            seatButtons.put(seatsButtonIIIR_5, false);
-                            seatsButtonIIIR_6 =  popupView.findViewById(R.id.seatsButtonIIIR_6);
-                            seatButtons.put(seatsButtonIIIR_6, false);
-                            seatsButtonIIIR_7 =  popupView.findViewById(R.id.seatsButtonIIIR_7);
-                            seatButtons.put(seatsButtonIIIR_7, false);
-
-                            seatsButtonIVR_1 =  popupView.findViewById(R.id.seatsButtonIVR_1);
-                            seatButtons.put(seatsButtonIVR_1, false);
-                            seatsButtonIVR_2 =  popupView.findViewById(R.id.seatsButtonIVR_2);
-                            seatButtons.put(seatsButtonIVR_2, false);
-                            seatsButtonIVR_3 =  popupView.findViewById(R.id.seatsButtonIVR_3);
-                            seatButtons.put(seatsButtonIVR_3, false);
-                            seatsButtonIVR_4 =  popupView.findViewById(R.id.seatsButtonIVR_4);
-                            seatButtons.put(seatsButtonIVR_4, false);
-                            seatsButtonIVR_5 =  popupView.findViewById(R.id.seatsButtonIVR_5);
-                            seatButtons.put(seatsButtonIVR_5, false);
-                            seatsButtonIVR_6 =  popupView.findViewById(R.id.seatsButtonIVR_6);
-                            seatButtons.put(seatsButtonIVR_6, false);
-                            seatsButtonIVR_7 =  popupView.findViewById(R.id.seatsButtonIVR_7);
-                            seatButtons.put(seatsButtonIVR_7, false);
-
-                            seatsButtonVR_1 =  popupView.findViewById(R.id.seatsButtonVR_1);
-                            seatButtons.put(seatsButtonVR_1, false);
-                            seatsButtonVR_2 =  popupView.findViewById(R.id.seatsButtonVR_2);
-                            seatButtons.put(seatsButtonVR_2, false);
-                            seatsButtonVR_3 =  popupView.findViewById(R.id.seatsButtonVR_3);
-                            seatButtons.put(seatsButtonVR_3, false);
-                            seatsButtonVR_4 =  popupView.findViewById(R.id.seatsButtonVR_4);
-                            seatButtons.put(seatsButtonVR_4, false);
-                            seatsButtonVR_5 =  popupView.findViewById(R.id.seatsButtonVR_5);
-                            seatButtons.put(seatsButtonVR_5, false);
-                            seatsButtonVR_6 =  popupView.findViewById(R.id.seatsButtonVR_6);
-                            seatButtons.put(seatsButtonVR_6, false);
-                            seatsButtonVR_7 =  popupView.findViewById(R.id.seatsButtonVR_7);
-                            seatButtons.put(seatsButtonVR_7, false);
-
-                            seatsProgressBar = popupView.findViewById(R.id.seatsProgressBar);
-
-                            Log.d(logTag, "seatButtons.size() po znalezieniu == " + seatButtons.size());
-
-                            seatsApproveButton =  popupView.findViewById(R.id.seatsApproveButton);
-                            seatsCloseButton = popupView.findViewById(R.id.seatsCloseButton);
+                        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+                        popupWindow.setFocusable(false);
 
 
+                        seatsButtonIR_1 = popupView.findViewById(R.id.seatsButtonIR_1);
+                        seatButtons.put(seatsButtonIR_1, false);
+                        seatsButtonIR_2 = popupView.findViewById(R.id.seatsButtonIR_2);
+                        seatButtons.put(seatsButtonIR_2, false);
+                        seatsButtonIR_3 = popupView.findViewById(R.id.seatsButtonIR_3);
+                        seatButtons.put(seatsButtonIR_3, false);
+                        seatsButtonIR_4 = popupView.findViewById(R.id.seatsButtonIR_4);
+                        seatButtons.put(seatsButtonIR_4, false);
+                        seatsButtonIR_5 = popupView.findViewById(R.id.seatsButtonIR_5);
+                        seatButtons.put(seatsButtonIR_5, false);
+                        seatsButtonIR_6 = popupView.findViewById(R.id.seatsButtonIR_6);
+                        seatButtons.put(seatsButtonIR_6, false);
+                        seatsButtonIR_7 = popupView.findViewById(R.id.seatsButtonIR_7);
+                        seatButtons.put(seatsButtonIR_7, false);
 
-                            seatsLinearLayout = popupView.findViewById(R.id.seatsLinearLayout);
+                        seatsButtonIIR_1 = popupView.findViewById(R.id.seatsButtonIIR_1);
+                        seatButtons.put(seatsButtonIIR_1, false);
+                        seatsButtonIIR_2 = popupView.findViewById(R.id.seatsButtonIIR_2);
+                        seatButtons.put(seatsButtonIIR_2, false);
+                        seatsButtonIIR_3 = popupView.findViewById(R.id.seatsButtonIIR_3);
+                        seatButtons.put(seatsButtonIIR_3, false);
+                        seatsButtonIIR_4 = popupView.findViewById(R.id.seatsButtonIIR_4);
+                        seatButtons.put(seatsButtonIIR_4, false);
+                        seatsButtonIIR_5 = popupView.findViewById(R.id.seatsButtonIIR_5);
+                        seatButtons.put(seatsButtonIIR_5, false);
+                        seatsButtonIIR_6 = popupView.findViewById(R.id.seatsButtonIIR_6);
+                        seatButtons.put(seatsButtonIIR_6, false);
+                        seatsButtonIIR_7 = popupView.findViewById(R.id.seatsButtonIIR_7);
+                        seatButtons.put(seatsButtonIIR_7, false);
 
-                            title = popupView.findViewById(R.id.title);
-                            subtitle = popupView.findViewById(R.id.subtitle);
-                            //textView3Seats = popupView.findViewById(R.id.textView3Seats);
+                        seatsButtonIIIR_1 = popupView.findViewById(R.id.seatsButtonIIIR_1);
+                        seatButtons.put(seatsButtonIIIR_1, false);
+                        seatsButtonIIIR_2 = popupView.findViewById(R.id.seatsButtonIIIR_2);
+                        seatButtons.put(seatsButtonIIIR_2, false);
+                        seatsButtonIIIR_3 = popupView.findViewById(R.id.seatsButtonIIIR_3);
+                        seatButtons.put(seatsButtonIIIR_3, false);
+                        seatsButtonIIIR_4 = popupView.findViewById(R.id.seatsButtonIIIR_4);
+                        seatButtons.put(seatsButtonIIIR_4, false);
+                        seatsButtonIIIR_5 = popupView.findViewById(R.id.seatsButtonIIIR_5);
+                        seatButtons.put(seatsButtonIIIR_5, false);
+                        seatsButtonIIIR_6 = popupView.findViewById(R.id.seatsButtonIIIR_6);
+                        seatButtons.put(seatsButtonIIIR_6, false);
+                        seatsButtonIIIR_7 = popupView.findViewById(R.id.seatsButtonIIIR_7);
+                        seatButtons.put(seatsButtonIIIR_7, false);
 
-                            gridLayoutSeats =popupView.findViewById(R.id.gridLayoutSeats);
+                        seatsButtonIVR_1 = popupView.findViewById(R.id.seatsButtonIVR_1);
+                        seatButtons.put(seatsButtonIVR_1, false);
+                        seatsButtonIVR_2 = popupView.findViewById(R.id.seatsButtonIVR_2);
+                        seatButtons.put(seatsButtonIVR_2, false);
+                        seatsButtonIVR_3 = popupView.findViewById(R.id.seatsButtonIVR_3);
+                        seatButtons.put(seatsButtonIVR_3, false);
+                        seatsButtonIVR_4 = popupView.findViewById(R.id.seatsButtonIVR_4);
+                        seatButtons.put(seatsButtonIVR_4, false);
+                        seatsButtonIVR_5 = popupView.findViewById(R.id.seatsButtonIVR_5);
+                        seatButtons.put(seatsButtonIVR_5, false);
+                        seatsButtonIVR_6 = popupView.findViewById(R.id.seatsButtonIVR_6);
+                        seatButtons.put(seatsButtonIVR_6, false);
+                        seatsButtonIVR_7 = popupView.findViewById(R.id.seatsButtonIVR_7);
+                        seatButtons.put(seatsButtonIVR_7, false);
 
-                            seatsButton1C =  popupView.findViewById(R.id.seatsButton1C);
-                            columnButtons.add(seatsButton1C);
-                            seatsButton2C =  popupView.findViewById(R.id.seatsButton2C);
-                            columnButtons.add(seatsButton2C);
-                            seatsButton3C =  popupView.findViewById(R.id.seatsButton3C);
-                            columnButtons.add(seatsButton3C);
-                            seatsButton4C =  popupView.findViewById(R.id.seatsButton4C);
-                            columnButtons.add(seatsButton4C);
-                            seatsButton5C =  popupView.findViewById(R.id.seatsButton5C);
-                            columnButtons.add(seatsButton5C);
-                            seatsButton6C =  popupView.findViewById(R.id.seatsButton6C);
-                            columnButtons.add(seatsButton6C);
-                            seatsButton7C =  popupView.findViewById(R.id.seatsButton7C);
-                            columnButtons.add(seatsButton7C);
+                        seatsButtonVR_1 = popupView.findViewById(R.id.seatsButtonVR_1);
+                        seatButtons.put(seatsButtonVR_1, false);
+                        seatsButtonVR_2 = popupView.findViewById(R.id.seatsButtonVR_2);
+                        seatButtons.put(seatsButtonVR_2, false);
+                        seatsButtonVR_3 = popupView.findViewById(R.id.seatsButtonVR_3);
+                        seatButtons.put(seatsButtonVR_3, false);
+                        seatsButtonVR_4 = popupView.findViewById(R.id.seatsButtonVR_4);
+                        seatButtons.put(seatsButtonVR_4, false);
+                        seatsButtonVR_5 = popupView.findViewById(R.id.seatsButtonVR_5);
+                        seatButtons.put(seatsButtonVR_5, false);
+                        seatsButtonVR_6 = popupView.findViewById(R.id.seatsButtonVR_6);
+                        seatButtons.put(seatsButtonVR_6, false);
+                        seatsButtonVR_7 = popupView.findViewById(R.id.seatsButtonVR_7);
+                        seatButtons.put(seatsButtonVR_7, false);
 
-                            seatsButtonIR =  popupView.findViewById(R.id.seatsButtonIR);
-                            seatsButtonIIR =  popupView.findViewById(R.id.seatsButtonIIR);
-                            seatsButtonIIIR =  popupView.findViewById(R.id.seatsButtonIIIR);
-                            seatsButtonIVR =  popupView.findViewById(R.id.seatsButtonIVR);
-                            seatsButtonVR =  popupView.findViewById(R.id.seatsButtonVR);
+                        seatsProgressBar = popupView.findViewById(R.id.seatsProgressBar);
 
+                        Log.d(logTag, "seatButtons.size() po znalezieniu == " + seatButtons.size());
 
+                        seatsApproveButton = popupView.findViewById(R.id.seatsApproveButton);
+                        seatsCloseButton = popupView.findViewById(R.id.seatsCloseButton);
 
-                            //textView3Seats.setVisibility(View.VISIBLE);
-                            //textView3Seats.setEnabled(true);
-                            /*seatsApproveButton.setVisibility(View.VISIBLE);
-                            seatsApproveButton.setEnabled(true);*/
+                        seatsLinearLayout = popupView.findViewById(R.id.seatsLinearLayout);
 
-                            preparePopUp();
+                        title = popupView.findViewById(R.id.title);
+                        subtitle = popupView.findViewById(R.id.subtitle);
 
-                            //po ponownym otwarciu popupu zaliczenie ponownie wybranego buttona jako wciśnięty
-                            for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
-                                Button button = entry.getKey();
+                        gridLayoutSeats = popupView.findViewById(R.id.gridLayoutSeats);
 
+                        seatsButton1C = popupView.findViewById(R.id.seatsButton1C);
+                        columnButtons.add(seatsButton1C);
+                        seatsButton2C = popupView.findViewById(R.id.seatsButton2C);
+                        columnButtons.add(seatsButton2C);
+                        seatsButton3C = popupView.findViewById(R.id.seatsButton3C);
+                        columnButtons.add(seatsButton3C);
+                        seatsButton4C = popupView.findViewById(R.id.seatsButton4C);
+                        columnButtons.add(seatsButton4C);
+                        seatsButton5C = popupView.findViewById(R.id.seatsButton5C);
+                        columnButtons.add(seatsButton5C);
+                        seatsButton6C = popupView.findViewById(R.id.seatsButton6C);
+                        columnButtons.add(seatsButton6C);
+                        seatsButton7C = popupView.findViewById(R.id.seatsButton7C);
+                        columnButtons.add(seatsButton7C);
 
-                                int number = Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
-                                if (selectedSeats.containsKey(number)) {
-                                    seatButtons.put(button, true);
-                                    int selected = selectedSeats();
+                        seatsButtonIR = popupView.findViewById(R.id.seatsButtonIR);
+                        seatsButtonIIR = popupView.findViewById(R.id.seatsButtonIIR);
+                        seatsButtonIIIR = popupView.findViewById(R.id.seatsButtonIIIR);
+                        seatsButtonIVR = popupView.findViewById(R.id.seatsButtonIVR);
+                        seatsButtonVR = popupView.findViewById(R.id.seatsButtonVR);
 
-                                    String choosedSeats = "Wybrane miejsca: " + selected;
-                                    //textView3Seats.setText(choosedSeats);
-                                    Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
+                        preparePopUp();
 
-                                }
+                        //po ponownym otwarciu popupu zaliczenie ponownie wybranego buttona jako wciśnięty
+                        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+                            Button button = entry.getKey();
+
+                            int number = Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
+                            if (selectedSeats.containsKey(number)) {
+                                seatButtons.put(button, true);
+
+                                Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
 
                             }
 
-                            //popupWindow.set
+                        }
 
-                            popupView.setOnKeyListener(new View.OnKeyListener() {
-                                @Override
-                                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        //popupWindow.set
 
-                                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        popupView.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                                        Log.d(logTag, "onBackPressed1");
+                                if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-                                        popupWindow.dismiss();
-
-                                        //rozjaśnienie backgroundu pod popupem
-                                        secFrameLayout.getForeground().setAlpha(0);
-
-                                        //usunięcie historii wybranych miejsc po kliknięciu poza popup
-                                        seatButtons.clear();
-
-                                        sectorButtons.put(btn, false);
-                                        constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
-
-
-                                        return true;
-                                    } else return false;
-                                }
-                            });
-
-                            //wciśnięcie przycisku zamykającego popup, przywraca dolną warstwę
-                            seatsCloseButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
+                                    Log.d(logTag, "onBackPressed1");
 
                                     popupWindow.dismiss();
 
@@ -1188,152 +1055,134 @@ public class SectorActivity extends AppCompatActivity {
                                     sectorButtons.put(btn, false);
                                     constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
 
+                                    return true;
+                                } else return false;
+                            }
+                        });
+
+                        //wciśnięcie przycisku zamykającego popup, przywraca dolną warstwę
+                        seatsCloseButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                popupWindow.dismiss();
+
+                                //rozjaśnienie backgroundu pod popupem
+                                secFrameLayout.getForeground().setAlpha(0);
+
+                                //usunięcie historii wybranych miejsc po kliknięciu poza popup
+                                seatButtons.clear();
+
+                                sectorButtons.put(btn, false);
+                                constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
+                            }
+                        });
+
+
+                        View.OnClickListener seatBtnClick = new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Button btn = popupView.findViewById(v.getId());
+
+                                Animation animation = new AlphaAnimation(1.0f, 0.0f);
+                                animation.setDuration(200);
+
+                                btn.startAnimation(animation);
+
+                                if (!seatButtons.get(btn)) {
+                                    seatButtons.put(btn, true);
+                                    btn.setBackgroundResource(R.drawable.seat_choosed);
+
+                                    int number = Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
+                                    myChoosedPlaces[number - 1] = true; //zmiana wartości w tablicy Socketu na true
+                                    Log.d(logTag, "Zmieniona wartość myChoosedPlaces[ " + (number - 1) + " ] = " + myChoosedPlaces[number - 1]);
+                                } else {
+                                    seatButtons.put(btn, false);
+                                    btn.setBackgroundResource(R.drawable.seat);
+
+                                    int number = Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
+                                    selectedSeats.remove(number); //usunięcie z Mapy odznaczonego miejsca
+                                    myChoosedPlaces[number - 1] = false; //zmiana wartości w tablicy Socketu na false
+                                    Log.d(logTag, "Zmieniona wartość myChoosedPlaces[ " + (number - 1) + " ] = " + myChoosedPlaces[number - 1]);
+                                }
+
+                                seatsApproveButton.setVisibility(View.VISIBLE);
+                            }
+                        };
+
+                        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+                            Button key = entry.getKey();
+                            key.setOnClickListener(seatBtnClick);
+                        }
+
+
+                        //dodanie obsługi klawisza zarezerwuj
+                        seatsApproveButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                //pobranie informacji o wybranych miejscach i zapisanie
+
+                                //pobranie informacji o seatTypeId (przez pobranie informacji o sektorze)
+                                int seatType = selectedSector();
+
+                                //pobranie informacji o nr_miejsca
+                                saveSeats(seatType);
+
+                                popupWindow.dismiss();
+
+                                //rozjaśnienie backgroundu pod popupem
+                                secFrameLayout.getForeground().setAlpha(0);
+
+                                //po wyborze miejsc wyświetlamy podsumowanie oraz nadajemy kolor przyciskowi akceptacji
+                                secBtnReserve.setBackgroundResource(R.drawable.rounded_bordered_button_light);
+                                secBtnReserve.setEnabled(true);
+                                secBtnReserve.setTextColor(Color.WHITE);
+
+                                //obliczenie ceny
+
+                                int numberOfSeats = 0;
+                                int price = 0;
+
+                                for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
+                                    int seatTypeId = entry.getValue();
+
+                                    numberOfSeats++;
+
+                                    switch (seatTypeId) {
+                                        case 1:
+                                            price += 10;
+                                            break;
+                                        case 2:
+                                            price += 15;
+                                            break;
+
+                                        case 3:
+                                            price += 20;
+                                            break;
+
+                                        case 4:
+                                            price += 30;
+                                            break;
+                                    }
 
                                 }
-                            });
 
-
-                            View.OnClickListener seatBtnClick = new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    Button btn =  popupView.findViewById(v.getId());
-
-
-                                    Animation animation = new AlphaAnimation(1.0f, 0.0f);
-                                    animation.setDuration(200);
-
-                                    btn.startAnimation(animation);
-
-                                    //TODO NullPointerException
-                                    if (!seatButtons.get(btn)) {
-                                        seatButtons.put(btn, true);
-                                        btn.setBackgroundResource(R.drawable.seat_choosed);
-
-                                        int number = Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
-                                        myChoosedPlaces[number - 1] = true; //zmiana wartości w tablicy Socketu na true
-                                        Log.d(logTag, "Zmieniona wartość myChoosedPlaces[ " + (number-1) + " ] = " +  myChoosedPlaces[number - 1]);
-                                    }
-                                    else {
-                                        seatButtons.put(btn, false);
-                                        btn.setBackgroundResource(R.drawable.seat);
-
-                                        int number = Integer.parseInt(btn.getText().toString()); //parsowanie nr miejsca do int
-                                        selectedSeats.remove(number); //usunięcie z Mapy odznaczonego miejsca
-                                        myChoosedPlaces[number - 1] = false; //zmiana wartości w tablicy Socketu na false
-                                        Log.d(logTag, "Zmieniona wartość myChoosedPlaces[ " + (number-1) + " ] = " +  myChoosedPlaces[number - 1]);
-                                    }
-
-
-                                    int selected = selectedSeats();
-
-
-                                    seatsApproveButton.setVisibility(View.VISIBLE);
-                                    //textView3Seats.setVisibility(View.VISIBLE);
-                                    String text = "Wybrane miejsca: " + selected;
-                                   //textView3Seats.setText(text);
-
-
-                                }
-                            };
-
-                            for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
-                                Button key = entry.getKey();
-                                key.setOnClickListener(seatBtnClick);
+                                secChoosedPlaces.setText(
+                                        String.format(
+                                                new Locale("pl", "PL"),
+                                                "%d",
+                                                numberOfSeats
+                                        )
+                                );
+                                String text = Integer.toString(price) + " zł";
+                                secSummaryPrice.setText(text);
+                                sectorButtons.put(btn, false);
+                                seatButtons.clear();
                             }
 
 
-                            //dodanie obsługi klawisza zarezerwuj
-                            seatsApproveButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    //pobranie informacji o wybranych miejscach i zapisanie
-
-                                    //pobranie informacji o seatTypeId (przez pobranie informacji o sektorze)
-                                    int seatType = selectedSector();
-
-                                    //pobranie informacji o nr_miejsca
-                                    saveSeats(seatType);
-
-
-                                    popupWindow.dismiss();
-
-                                    //rozjaśnienie backgroundu pod popupem
-                                    secFrameLayout.getForeground().setAlpha(0);
-
-
-
-                                    //po wyborze miejsc wyświetlamy podsumowanie oraz nadajemy kolor przyciskowi akceptacji
-                                    secBtnReserve.setBackgroundResource(R.drawable.rounded_bordered_button_light);
-                                    secBtnReserve.setEnabled(true);
-                                    secBtnReserve.setTextColor(Color.WHITE);
-
-                                    //obliczenie ceny
-
-
-                                    int numberOfSeats = 0;
-                                    int price = 0;
-
-
-                                    for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
-                                        int seatTypeId = entry.getValue();
-
-                                        numberOfSeats++;
-
-                                        switch (seatTypeId) {
-                                            case 1:
-                                                price += 10;
-                                                break;
-                                            case 2:
-                                                price += 15;
-                                                break;
-
-                                            case 3:
-                                                price += 20;
-                                                break;
-
-                                            case 4:
-                                                price += 30;
-                                                break;
-                                        }
-
-                                    }
-
-                                    secChoosedPlaces.setText(Integer.toString(numberOfSeats));
-                                    String text = Integer.toString(price) + " zł";
-                                    secSummaryPrice.setText(text);
-                                    sectorButtons.put(btn, false);
-                                    seatButtons.clear();
-/*
-                                    if(price > 0) {
-
-                                        String txt = "Liczba miejsc: " + numberOfSeats
-                                                + "\nCena: " + price + " zł";
-
-                                        textView4.setText(txt);
-
-
-                                        secBtnReserve.setVisibility(View.VISIBLE);
-
-                                        sectorButtons.put(btn, false);
-                                        seatButtons.clear();
-
-                                    }
-                                    else{
-                                        textView3.setVisibility(View.INVISIBLE);
-                                        secBtnReserve.setVisibility(View.INVISIBLE);
-                                        textView4.setVisibility(View.INVISIBLE);
-
-                                    }*/
-
-
-                                //updateSummary();
-                                }
-
-
-                            });
-
+                        });
 
 
                     }
@@ -1348,46 +1197,35 @@ public class SectorActivity extends AppCompatActivity {
                 secButton7.setOnClickListener(buttonClicked);
                 secButton8.setOnClickListener(buttonClicked);
 
-
                 secBtnReserve.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(selectedSeats.size()==0)
+                        if (selectedSeats.size() == 0)
                             ed.buildDialog(SectorActivity.this, "Brak wybranych miejsc",
                                     "Nie wybrałeś żadnego miejsca").show();
-
-                        else{
-
+                        else {
                             //porównanie miejsc obecnie wybranych z tymi pobranymi z bazy danych
 
-                            boolean isWrong=false;
-                            for(int i=0; i<choosedPlaces.length; i++)
-                                if(choosedPlaces[i] & myChoosedPlaces[i])
-                                    isWrong=true;
+                            boolean isWrong = false;
+                            for (int i = 0; i < choosedPlaces.length; i++)
+                                if (choosedPlaces[i] & myChoosedPlaces[i])
+                                    isWrong = true;
 
-                            if(isWrong){
+                            if (isWrong) {
                                 ed.buildDialog(SectorActivity.this, "Wybranie zajętego miejsca",
                                         "Wybrałeś zajęte miejsce").show();
-
-
-                            }
-                            else{
+                            } else {
                                 //zapis do bazy danych
 
                                 int currentCustomerId = 1; //TODO należy to pobrać z informacji o logowaniu
 
                                 int currentRepertoireId = 1; //TODO pobrać z poprzedniego Intetentu
 
-                                //selectedSeats <NrMiejsca, TypMiejsca> - wybrane przez usera
-                                //seatAndRowMap <NrMiejsca, Rząd>
-
-
                                 for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
 
                                     final String customerId = Integer.toString(currentCustomerId);
                                     final String seatNumber = Integer.toString(entry.getKey());
                                     final String seatTypeId = Integer.toString(entry.getValue());
-                                    //TODO NullPointerException
                                     final String row = Integer.toString(seatAndRowMap.get(entry.getKey()));
                                     final String repertoireId = Integer.toString(currentRepertoireId);
 
@@ -1416,8 +1254,6 @@ public class SectorActivity extends AppCompatActivity {
                                                                 "Json error: " + e.getMessage(),
                                                                 Toast.LENGTH_LONG).show();
                                                     }
-
-
                                                 }
                                             }, new Response.ErrorListener() {
                                         @Override
@@ -1440,9 +1276,6 @@ public class SectorActivity extends AppCompatActivity {
                                     };
 
                                     AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
-
-
-
                                 }
 
                                 //wysłanie wiadomości do Socketu
@@ -1450,19 +1283,12 @@ public class SectorActivity extends AppCompatActivity {
 
                                 //przejście do kolejnego ekranu - Moje rezerwacje
 
-                                Intent intent = new Intent(SectorActivity.this, ReservationsActivity.class);
+                                Intent intent = new Intent(SectorActivity.this, CustomerReservationsActivity.class);
                                 startActivity(intent);
-
-
                             }
-
                         }
-
                     }
                 });
-
-
-
             }
 
             @Override
@@ -1472,31 +1298,29 @@ public class SectorActivity extends AppCompatActivity {
 
                 //asyncTask i kolko do momentu ...
                 for (int i = 0; i < choosedPlaces.length; i++) {
-                    choosedPlaces [i] = message.getChoosedPlaces()[i];
-                    Log.d(logTag, "choosedPlaces [ " + i + " ] = " + choosedPlaces [i]);
+                    choosedPlaces[i] = message.getChoosedPlaces()[i];
+                    Log.d(logTag, "choosedPlaces [ " + i + " ] = " + choosedPlaces[i]);
                 }
                 markChoosedPlaces();
                 //... oznaczenia wszystkich zajetych miejsc
 
                 //myChoosedPlaces without places from websocket
                 for (int i = 0; i < choosedPlaces.length; i++) {
-                    myChoosedPlaces [i] = ( myChoosedPlaces[i] ^ choosedPlaces[i] ) & myChoosedPlaces[i];
+                    myChoosedPlaces[i] = (myChoosedPlaces[i] ^ choosedPlaces[i]) & myChoosedPlaces[i];
                     Log.d(logTag, "myChoosedPlaces [ " + i + " ] = " + myChoosedPlaces[i]);
                 }
 
-
-
                 ArrayList<Integer> takenYourSeats = new ArrayList<>();
-                //moje
-                //Sytuacja, gdy ktoś po wyborze miejsca, i zatwierdzeniu (popupu) przejdzie do ekranu z sektorami. Następie ktoś zarezerwuje wybrane przez niego miejsce.
+                //Sytuacja, gdy ktoś po wyborze miejsca, i zatwierdzeniu (popupu)
+                // przejdzie do ekranu z sektorami. Następie ktoś zarezerwuje wybrane
+                // przez niego miejsce.
 
                 for (int i = 0; i < choosedPlaces.length; i++) {
-                    if (selectedSeats.containsKey(i+1) && choosedPlaces[i]) {
-                        Log.d(logTag, "Wybrane przez ciebie miejsce " + (i+1) + " zostało właśnie zajęte.");
+                    if (selectedSeats.containsKey(i + 1) && choosedPlaces[i]) {
+                        Log.d(logTag, "Wybrane przez ciebie miejsce " + (i + 1) + " zostało właśnie zajęte.");
 
-                        selectedSeats.remove(i+1);
-                        takenYourSeats.add(i+1);
-
+                        selectedSeats.remove(i + 1);
+                        takenYourSeats.add(i + 1);
                     }
                 }
 
@@ -1508,7 +1332,6 @@ public class SectorActivity extends AppCompatActivity {
 
                 //aktualizacja buttonów sektorów
                 updateSectors(false);
-
             }
 
             @Override
@@ -1538,8 +1361,8 @@ public class SectorActivity extends AppCompatActivity {
 
     }
 
-    private void sendMessageToServer (OkHttpClient httpClient, WebSocket webSocket){
-        if (httpClient != null){
+    private void sendMessageToServer(OkHttpClient httpClient, WebSocket webSocket) {
+        if (httpClient != null) {
             Message message = new Message(myChoosedPlaces);
             webSocket.send(message.getChoosedPlacesString());
             webSocket.close(1000, "Zarezerwowowano miejsca");
@@ -1548,15 +1371,6 @@ public class SectorActivity extends AppCompatActivity {
                     "Podczas wysyłania informacji o wybranych miejscach wykryto błąd").show();
             Log.d(logTag, "sendMessageToServer: client rowny null");
         }
-    }
-
-
-    //obsługa systemowego przycisku wstecz
-    @Override
-    public void onBackPressed() {
-
-
-
     }
 }
 

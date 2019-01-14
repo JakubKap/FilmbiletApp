@@ -41,11 +41,9 @@
 
     <string name="approveBtnText">Zatwierdź</string>
     <string name="cancelBtnText">Anuluj</string>
-    <string name="btnReserveText">Zarezerwuj wybrane bilety</string>
     <string name="movieTitleText">Tytuł</string>
     <string name="logo_text">Logo Firmy</string>
     <string name="customer_reservations_text">Moje rezerwacje</string>
-    <string name="priceText">Cena:</string>
     <string name="currencyAndSeatsText">zł. Miejsca:</string>
     <string name="reservationDateText">Data rezerwacji</string>
     <string name="repertoireDateText">Data seansu</string>

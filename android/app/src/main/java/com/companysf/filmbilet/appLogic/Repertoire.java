@@ -5,12 +5,6 @@ public class Repertoire {
     private Date date;
     private int id;
 
-    public Repertoire(Movie movie, Date date, int id) {
-        this.movie = movie;
-        this.date = date;
-        this.id = id;
-    }
-
     public Repertoire(Movie movie, String dateTime, int id) {
         this.movie = movie;
         this.date = new Date(dateTime);
@@ -19,10 +13,6 @@ public class Repertoire {
 
     public Movie getMovie() {
         return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
     }
 
     public Date getDate() {
