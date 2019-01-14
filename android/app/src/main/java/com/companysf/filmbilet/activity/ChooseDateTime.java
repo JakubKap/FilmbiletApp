@@ -191,6 +191,7 @@ public class ChooseDateTime extends AppCompatActivity {
         hoursGridView.setNumColumns(2);
 
         hoursAdapter = new HoursAdapter(this, hoursForDate);
+        hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
 
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
@@ -316,6 +317,20 @@ public class ChooseDateTime extends AppCompatActivity {
     }
 
 
+/*    Object v = hoursAdapter.getView(0,null,hoursGridView);
+    ToggleButton tg = (ToggleButton) hoursAdapter.getView(0,null,hoursGridView);
+        Log.d(logTag, "W main = " + tg.getText());*/
+
+
+        /*hoursGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                HoursAdapter hoursAdapter2 = (HoursAdapter) hoursGridView.getAdapter();
+                hoursAdapter2.setSelectedButton(i);
+                hoursAdapter2.notifyDataSetChanged();
+
+            }
+        });*/
 
     }
 }
