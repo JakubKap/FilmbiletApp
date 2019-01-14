@@ -101,7 +101,6 @@ public class MoviesListAdapter extends BaseAdapter {
         movieRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, "id filmu" + movie.getId(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context,ChooseDateTime.class);
                 intent.putExtra("movie", movie);
                 context.startActivity(intent);
