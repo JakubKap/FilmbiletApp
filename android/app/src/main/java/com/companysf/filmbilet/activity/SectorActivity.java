@@ -1080,6 +1080,9 @@ public class SectorActivity extends AppCompatActivity {
 
                                 sectorButtons.put(btn, false);
                                 constraintLayout.setVisibility(View.VISIBLE); //przywrócenie dolnej warstwy
+
+                                //zaktualizowanie wyglądu sektorów
+                                updateSectors(false);
                             }
                         });
 
@@ -1182,6 +1185,8 @@ public class SectorActivity extends AppCompatActivity {
                                 );
                                 String text = Integer.toString(price) + " zł";
                                 secSummaryPrice.setText(text);
+                                //zaktualizowanie wyglądu sektorów
+                                updateSectors(false);
                                 sectorButtons.put(btn, false);
                                 seatButtons.clear();
                             }
