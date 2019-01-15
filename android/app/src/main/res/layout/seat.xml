@@ -4,10 +4,11 @@
     android:id="@+id/seatsLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="45sp"
-    android:layout_marginTop="110sp"
-    android:layout_marginRight="45sp"
-    android:layout_marginBottom="110sp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginTop="100dp"
+    android:layout_marginRight="40dp"
+    android:layout_marginBottom="100dp"
+    android:padding="10dp"
     android:background="@drawable/pop_bg"
     android:orientation="vertical">
 
