@@ -887,7 +887,7 @@ public class SectorActivity extends AppCompatActivity {
                         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
                         popupWindow = new PopupWindow(popupView, width, height, true);
-                        popupWindow.setOutsideTouchable(false);
+
 
                         // show the popup window
                         // which view you pass in doesn't matter, it is only used for the window tolken
@@ -903,7 +903,6 @@ public class SectorActivity extends AppCompatActivity {
 
                         popupWindow.setBackgroundDrawable(new BitmapDrawable());
                         popupWindow.setFocusable(false);
-                        popupView.setFocusable(false);
 
 
                         seatsButtonIR_1 = popupView.findViewById(R.id.seatsButtonIR_1);
