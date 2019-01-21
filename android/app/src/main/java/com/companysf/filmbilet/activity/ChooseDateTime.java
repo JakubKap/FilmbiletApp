@@ -69,11 +69,11 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
             public void run() {
 
                 //Views
-                TextView title = findViewById(R.id.title_in_date);
-                TextView movieLength = findViewById(R.id.movie_length_in_date);
-                TextView minAge = findViewById(R.id.min_age_in_date);
+                TextView title = findViewById(R.id.title_in_date_hours);
+                TextView movieLength = findViewById(R.id.movie_length_in_date_hours);
+                TextView minAge = findViewById(R.id.min_age_in_date_hours);
                 NetworkImageView picture = findViewById(R.id.picture_in_date);
-                TextView genres = findViewById(R.id.genres_in_date);
+                TextView genres = findViewById(R.id.genres_in_date_hours);
 
                 Log.d(logTag, "Pozytywnie odnaleziono elementy opisujące film");
                 //set views text
@@ -235,7 +235,7 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
 
         TextView min_age_in_date_hours = findViewById(R.id.min_age_in_date_hours);
         min_age_in_date_hours.setTypeface(opensansItalic);
-        
+
         ed = new ErrorDetector(this);
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
         //final int movieId = 1;
