@@ -2,6 +2,7 @@ package com.companysf.filmbilet.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.companysf.filmbilet.appLogic.Schedule;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -199,7 +201,41 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
 
+        //fonts
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), "opensans_italic.ttf");
 
+        TextView stepNumber1 = findViewById(R.id.stepNumber1);
+        stepNumber1.setTypeface(opensansBold);
+
+        TextView selectSectorText = findViewById(R.id.selectSectorText);
+        selectSectorText.setTypeface(opensansBold);
+
+        TextView title_in_date_hours =findViewById(R.id.title_in_date_hours);
+        title_in_date_hours.setTypeface(opensansBold);
+
+        TextView genres_text_hours = findViewById(R.id.genres_text_hours);
+        genres_text_hours.setTypeface(opensansRegular);
+
+        TextView genres_in_date_hours = findViewById(R.id.genres_in_date_hours);
+        genres_in_date_hours.setTypeface(opensansItalic);
+
+        TextView movie_length_text_hours = findViewById(R.id.movie_length_text_hours);
+        movie_length_text_hours.setTypeface(opensansRegular);
+
+        TextView movie_length_in_date_hours = findViewById(R.id.movie_length_in_date_hours);
+        movie_length_in_date_hours.setTypeface(opensansItalic);
+
+        TextView separator_hours = findViewById(R.id.separator_hours);
+        separator_hours.setTypeface(opensansRegular);
+
+        TextView min_age_text_hours = findViewById(R.id.min_age_text_hours);
+        min_age_text_hours.setTypeface(opensansRegular);
+
+        TextView min_age_in_date_hours = findViewById(R.id.min_age_in_date_hours);
+        min_age_in_date_hours.setTypeface(opensansItalic);
+        
         ed = new ErrorDetector(this);
         //pobranie informacji o repertuarze dla danego filmu z repertuaru
         //final int movieId = 1;

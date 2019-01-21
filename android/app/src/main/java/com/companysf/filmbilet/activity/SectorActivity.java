@@ -699,8 +699,8 @@ public class SectorActivity extends AppCompatActivity {
 
         secSummaryPrice.setTypeface(opensansBold);
 
-        TextView stepNumber = findViewById(R.id.stepNumber);
-        stepNumber.setTypeface(opensansBold);
+        TextView stepNumber2 = findViewById(R.id.stepNumber2);
+        stepNumber2.setTypeface(opensansBold);
 
         TextView selectSectorText = findViewById(R.id.selectSectorText);
         selectSectorText.setTypeface(opensansBold);

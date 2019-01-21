@@ -32,11 +32,11 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/stepNumber1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:text="1"
-            android:fontFamily="@font/opensans_bold"
             android:textColor="#fff"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:fontFamily="@font/opensans_bold"
             android:text="Wybierz datę i godzinę"
             android:textSize="@dimen/header"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -85,13 +84,12 @@
                 android:layout_marginRight="8dp" />
 
             <TextView
-                android:id="@+id/title_in_date"
+                android:id="@+id/title_in_date_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/picture_in_date"
                 android:layout_toEndOf="@+id/picture_in_date"
                 android:layout_toRightOf="@+id/picture_in_date"
-                android:fontFamily="@font/opensans_bold"
                 android:text="Tytuł"
                 android:textSize="18sp" />
 
@@ -99,25 +97,23 @@
                 android:id="@+id/second_row_next_to_picture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_in_date"
+                android:layout_below="@+id/title_in_date_hours"
                 android:layout_marginTop="2dp"
                 android:layout_toEndOf="@+id/picture_in_date"
                 android:layout_toRightOf="@+id/picture_in_date"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/genres_text"
+                    android:id="@+id/genres_text_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_regular"
                     android:text="@string/genres"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/genres_in_date"
+                    android:id="@+id/genres_in_date_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_italic"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -131,43 +127,38 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/movie_length_text"
+                    android:id="@+id/movie_length_text_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_regular"
                     android:text="@string/movie_length"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/movie_length_in_date"
+                    android:id="@+id/movie_length_in_date_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_italic"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/separator"
+                    android:id="@+id/separator_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:fontFamily="@font/opensans_regular"
-                    android:text="@string/separator"
+                    android:text="@string/separator_hours"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/min_age_text"
+                    android:id="@+id/min_age_text_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_regular"
                     android:text="@string/min_age"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/min_age_in_date"
+                    android:id="@+id/min_age_in_date_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/opensans_italic"
                     android:textSize="16sp" />
             </LinearLayout>
         </RelativeLayout>
