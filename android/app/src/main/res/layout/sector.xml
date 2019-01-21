@@ -56,6 +56,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/stepNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
@@ -156,7 +157,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/sec1Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -241,6 +242,7 @@
                             app:layout_constraintTop_toTopOf="@id/s1HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec1Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -299,6 +301,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/sec2Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -383,6 +386,7 @@
                             app:layout_constraintTop_toTopOf="@id/s2HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec2Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -442,6 +446,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/sec3Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -526,6 +531,7 @@
                             app:layout_constraintTop_toTopOf="@id/s3HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec3Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -586,6 +592,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/sec4Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -670,6 +677,7 @@
                             app:layout_constraintTop_toTopOf="@id/s4HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec4Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -731,6 +739,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/sec5Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -815,6 +824,7 @@
                             app:layout_constraintTop_toTopOf="@id/s5HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec5Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -876,6 +886,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/sec6Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -960,6 +971,7 @@
                             app:layout_constraintTop_toTopOf="@id/s6HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec6Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -1021,6 +1033,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/sec7Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -1105,6 +1118,7 @@
                             app:layout_constraintTop_toTopOf="@id/s7HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec7Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -1167,6 +1181,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/sec8Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -1251,6 +1266,7 @@
                             app:layout_constraintTop_toTopOf="@id/s8HalfPriceAndPlaces-horizontalLine2" />
 
                         <TextView
+                            android:id="@+id/sec8Price"
                             android:layout_width="wrap_content"
                             android:layout_height="16sp"
                             android:fontFamily="@font/opensans_regular"
@@ -1332,6 +1348,7 @@
                     android:text="0" />
 
                 <TextView
+                    android:id="@+id/priceLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
