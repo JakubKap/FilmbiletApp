@@ -43,6 +43,7 @@ import com.companysf.filmbilet.webSocket.Message;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 
 import java.util.ArrayList;
@@ -684,6 +685,57 @@ public class SectorActivity extends AppCompatActivity {
         sectorButtons.put(secButton7, false);
         sectorButtons.put(secButton8, false);
 
+
+        //fonts
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+
+        for(int i =0; i<freeSeats.length; i++)
+            freeSeats[i].setTypeface(opensansRegular);
+
+        secBtnReserve.setTypeface(opensansBold);
+
+        secChoosedPlaces.setTypeface(opensansBold);
+
+        secSummaryPrice.setTypeface(opensansBold);
+
+        TextView stepNumber = findViewById(R.id.stepNumber);
+        stepNumber.setTypeface(opensansBold);
+
+        TextView selectSectorText = findViewById(R.id.selectSectorText);
+        selectSectorText.setTypeface(opensansBold);
+
+        TextView[] secLabels = new TextView[8];
+        secLabels[0] = findViewById(R.id.sec1Label);
+        secLabels[1] = findViewById(R.id.sec2Label);
+        secLabels[2] = findViewById(R.id.sec3Label);
+        secLabels[3] = findViewById(R.id.sec4Label);
+        secLabels[4] = findViewById(R.id.sec5Label);
+        secLabels[5] = findViewById(R.id.sec6Label);
+        secLabels[6] = findViewById(R.id.sec7Label);
+        secLabels[7] = findViewById(R.id.sec8Label);
+
+        for(int i=0; i<secLabels.length; i++)
+            secLabels[i].setTypeface(opensansBold);
+
+        TextView[] secPrices = new TextView[8];
+        secPrices[0]=findViewById(R.id.sec1Price);
+        secPrices[1]=findViewById(R.id.sec2Price);
+        secPrices[2]=findViewById(R.id.sec3Price);
+        secPrices[3]=findViewById(R.id.sec4Price);
+        secPrices[4]=findViewById(R.id.sec5Price);
+        secPrices[5]=findViewById(R.id.sec6Price);
+        secPrices[6]=findViewById(R.id.sec7Price);
+        secPrices[7]=findViewById(R.id.sec8Price);
+
+        for(int i=0; i<secPrices.length;i++)
+            secPrices[i].setTypeface(opensansRegular);
+
+        TextView choosedPlacesText = findViewById(R.id.choosedPlacesText);
+        choosedPlacesText.setTypeface(opensansRegular);
+
+        TextView priceLabel = findViewById(R.id.priceLabel);
+        priceLabel.setTypeface(opensansRegular);
 
         //przyciski reprezentujące miejsca
 
