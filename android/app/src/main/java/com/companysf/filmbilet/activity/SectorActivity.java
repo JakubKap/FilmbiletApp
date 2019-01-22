@@ -258,53 +258,31 @@ public class SectorActivity extends AppCompatActivity {
 
                 //zmiana numerów rzędów
 
-                //tablica rzymskich numerów
-                String[] numberOfRow = new String[20];
-                numberOfRow[0] = "I";
-                numberOfRow[1] = "II";
-                numberOfRow[2] = "III";
-                numberOfRow[3] = "IV";
-                numberOfRow[4] = "V";
-                numberOfRow[5] = "VI";
-                numberOfRow[6] = "VII";
-                numberOfRow[7] = "VIII";
-                numberOfRow[8] = "IX";
-                numberOfRow[9] = "X";
-                numberOfRow[10] = "XI";
-                numberOfRow[11] = "XII";
-                numberOfRow[12] = "XIII";
-                numberOfRow[13] = "XIV";
-                numberOfRow[14] = "XV";
-                numberOfRow[15] = "XVI";
-                numberOfRow[16] = "XVII";
-                numberOfRow[17] = "XVIII";
-                numberOfRow[18] = "XIX";
-                numberOfRow[19] = "XX";
 
                 if (seatsButtonIR_1.getText().equals("1") || seatsButtonIR_1.getText().equals("8")) {
-                    seatsButtonIR.setText(numberOfRow[0]);
-                    seatsButtonIIR.setText(numberOfRow[1]);
-                    seatsButtonIIIR.setText(numberOfRow[2]);
-                    seatsButtonIVR.setText(numberOfRow[3]);
-                    seatsButtonVR.setText(numberOfRow[4]);
+                    seatsButtonIR.setText(getString(R.string.row1));
+                    seatsButtonIIR.setText(getString(R.string.row2));
+                    seatsButtonIIIR.setText(getString(R.string.row3));
+                    seatsButtonIVR.setText(getString(R.string.row4));
+                    seatsButtonVR.setText(getString(R.string.row5));
                 } else if (seatsButtonIR_1.getText().equals("71") || seatsButtonIR_1.getText().equals("78")) {
-                    seatsButtonIR.setText(numberOfRow[5]);
-                    seatsButtonIIR.setText(numberOfRow[6]);
-                    seatsButtonIIIR.setText(numberOfRow[7]);
-                    seatsButtonIVR.setText(numberOfRow[8]);
-                    seatsButtonVR.setText(numberOfRow[9]);
+                    seatsButtonIR.setText(getString(R.string.row6));
+                    seatsButtonIIR.setText(getString(R.string.row7));
+                    seatsButtonIIIR.setText(getString(R.string.row8));
+                    seatsButtonIVR.setText(getString(R.string.row9));
+                    seatsButtonVR.setText(getString(R.string.row10));
                 } else if (seatsButtonIR_1.getText().equals("141") || seatsButtonIR_1.getText().equals("148")) {
-                    seatsButtonIR.setText(numberOfRow[10]);
-                    seatsButtonIIR.setText(numberOfRow[11]);
-                    seatsButtonIIIR.setText(numberOfRow[12]);
-                    seatsButtonIVR.setText(numberOfRow[13]);
-                    seatsButtonVR.setText(numberOfRow[14]);
+                    seatsButtonIR.setText(getString(R.string.row11));
+                    seatsButtonIIR.setText(getString(R.string.row12));
+                    seatsButtonIIIR.setText(getString(R.string.row13));
+                    seatsButtonIVR.setText(getString(R.string.row14));
+                    seatsButtonVR.setText(getString(R.string.row15));
                 } else if (seatsButtonIR_1.getText().equals("211") || seatsButtonIR_1.getText().equals("218")) {
-                    seatsButtonIR.setText(numberOfRow[15]);
-                    seatsButtonIIR.setText(numberOfRow[16]);
-                    seatsButtonIIIR.setText(numberOfRow[17]);
-                    seatsButtonIVR.setText(numberOfRow[18]);
-                    seatsButtonVR.setText(numberOfRow[19]);
+                    seatsButtonIR.setText(getString(R.string.row16));
+                    seatsButtonIIR.setText(getString(R.string.row17));
+                    seatsButtonIIIR.setText(getString(R.string.row18));
+                    seatsButtonIVR.setText(getString(R.string.row19));
+                    seatsButtonVR.setText(getString(R.string.row20));
                 }
 
                 markChoosedPlaces();
