@@ -155,5 +155,7 @@
 
     <string name="dot">.</string>
     <string name="currency"> zł</string>
+    <string name="colon">:</string>
+    <string name="zero">0</string>
 
 </resources>
