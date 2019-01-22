@@ -111,6 +111,9 @@ public class SectorActivity extends AppCompatActivity {
     private Map<Integer, Integer> selectedSeats = new HashMap<>();
     private Map<Integer, Integer> seatAndRowMap = new HashMap<>();
 
+    Typeface opensansRegular;
+    Typeface opensansBold;
+
     //zmienne służace do komunikacji z socketem
 
     private boolean choosedPlaces[] = new boolean[280]; //zajęte miejsce (wiadomo o nich z socketu i z BD)
@@ -186,32 +189,33 @@ public class SectorActivity extends AppCompatActivity {
 
                 //ustawienie prawidłowej nazwy sektora
 
-                text = "Sektor 1";
                 switch (startSeat) {
+                    case 1:
+                        title.setText(getString(R.string.upperSector1Text));
+                        break;
                     case 8:
-                        text = "Sektor 2";
+                        title.setText(getString(R.string.upperSector2Text));
                         break;
                     case 71:
-                        text = "Sektor 3";
+                        title.setText(getString(R.string.upperSector3Text));
                         break;
                     case 78:
-                        text = "Sektor 4";
+                        title.setText(getString(R.string.upperSector4Text));
                         break;
                     case 141:
-                        text = "Sektor 5";
+                        title.setText(getString(R.string.upperSector5Text));
                         break;
                     case 148:
-                        text = "Sektor 6";
+                        title.setText(getString(R.string.upperSector6Text));
                         break;
                     case 211:
-                        text = "Sektor 7";
+                        title.setText(getString(R.string.upperSector7Text));
                         break;
                     case 218:
-                        text = "Sektor 8";
+                        title.setText(getString(R.string.upperSector8Text));
                         break;
                 }
 
-                title.setText(text);
                 seatsLinearLayout.setVisibility(View.INVISIBLE);
                 title.setVisibility(View.INVISIBLE);
                 subtitle.setVisibility(View.INVISIBLE);
@@ -308,28 +312,24 @@ public class SectorActivity extends AppCompatActivity {
                 gridLayoutSeats.setVisibility(View.VISIBLE);
                 seatsApproveButton.setVisibility(View.INVISIBLE);
 
-                int cena = 10;
-
                 switch (seatTypeId) {
                     case 1:
-                        cena = 10;
+                        subtitle.setText(getString(R.string.sector1Price));
                         break;
 
                     case 2:
-                        cena = 15;
+                        subtitle.setText(getString(R.string.sector2Price));
                         break;
 
                     case 3:
-                        cena = 20;
+                        subtitle.setText(getString(R.string.sector3Price));
                         break;
 
                     case 4:
-                        cena = 30;
+                        subtitle.setText(getString(R.string.sector4Price));
                         break;
                 }
 
-                String txt = "Cena za miejsce: " + cena + " zł";
-                subtitle.setText(txt);
 
                 seatsProgressBar.setVisibility(View.INVISIBLE);
 
@@ -378,9 +378,9 @@ public class SectorActivity extends AppCompatActivity {
                     //wyświetlenie komunikatu
 
                     if (takenCheckedSeats.size() == 1)
-                        ed.buildDialog(SectorActivity.this, "Zajęcie miejsca",
-                                "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze " +
-                                        takenCheckedSeats.get(0) + ".").show();
+                        ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlaceTitle),
+                                getString(R.string.choosedPlaceMsg)+
+                                        takenCheckedSeats.get(0) + getString(R.string.dot)).show();
                     else {
                         //jeśli więcej miejsc
                         //zbudowanie Stringa
@@ -403,9 +403,9 @@ public class SectorActivity extends AppCompatActivity {
                         }
 
                         text = sB.toString();
-                        ed.buildDialog(SectorActivity.this, "Zajęcie miejsc",
-                                "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach " +
-                                        text + ".").show();
+                        ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlacesTitle),
+                                getString(R.string.choosedPlacesMsg) +
+                                        text + getString(R.string.dot)).show();
                     }
                 }
             }
@@ -500,7 +500,7 @@ public class SectorActivity extends AppCompatActivity {
                     }
                 }
                 secChoosedPlaces.setText(String.format(new Locale("pl", "PL"), "%d", numberOfSeats));
-                String text = Integer.toString(price) + " zł";
+                String text = Integer.toString(price) + getString(R.string.currency);
                 secSummaryPrice.setText(text);
             }
         });
@@ -518,8 +518,8 @@ public class SectorActivity extends AppCompatActivity {
             public void run() {
 
                 if (takenYourSeats.size() == 1) {
-                    ed.buildDialog(SectorActivity.this, "Zajęcie miejsca",
-                            "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze " + takenYourSeats.get(0) + ".").show();
+                    ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlaceTitle),
+                            getString(R.string.choosedPlaceMsg) + takenYourSeats.get(0) + getString(R.string.dot)).show();
                 } else if (takenYourSeats.size() > 1) {
 
                     String text = "";
@@ -536,7 +536,9 @@ public class SectorActivity extends AppCompatActivity {
                     }
                     text = sB.toString();
 
-                    ed.buildDialog(SectorActivity.this, "Zajęcie miejsc", "Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach: " + text + ".").show();
+                    ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlacesTitle),
+
+                             getString(R.string.choosedPlacesMsg) +  text + getString(R.string.dot)).show();
                 }
             }
         });
@@ -558,7 +560,7 @@ public class SectorActivity extends AppCompatActivity {
 
                     secSummaryPrice.setVisibility(View.VISIBLE);
 
-                    String pom = "0 zł";
+                    String pom = getString(R.string.summaryStartText);
                     secSummaryPrice.setText(pom);
                 }
 
@@ -665,8 +667,8 @@ public class SectorActivity extends AppCompatActivity {
 
 
         //fonts
-        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
-        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+         opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
+         opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
 
         for(int i =0; i<freeSeats.length; i++)
             freeSeats[i].setTypeface(opensansRegular);
@@ -800,7 +802,7 @@ public class SectorActivity extends AppCompatActivity {
 
 
         Bundle b = getIntent().getExtras();
-        repertoireId = b.getInt("scheduleId");
+        repertoireId = b.getInt(getString(R.string.scheduleId));
 
         final String repertoireIdString = "" + repertoireId;
 
@@ -809,26 +811,26 @@ public class SectorActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(logTag, "Reservation request: " + response);
+                        Log.d(logTag, getString(R.string.getResLog) + response);
                         try {
                             JSONObject json = new JSONObject(response);
-                            boolean error = json.getBoolean("error");
+                            boolean error = json.getBoolean(getString(R.string.error));
                             if (error) {
-                                if(!json.getString("message").
-                                        equals("Nie ma rezerwacji dla podanego repertuaru. Spróbuj ponownie."))
+                                if(!json.getString(getString(R.string.message)).
+                                        equals(getString(R.string.noResForRep)))
                                 Toast.makeText(
                                         getApplicationContext(),
-                                        json.getString("message"),
+                                        json.getString(getString(R.string.message)),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                JSONArray reservationsJson = json.getJSONArray("reservation");
+                                JSONArray reservationsJson = json.getJSONArray(getString(R.string.resArrayName));
                                 for (int i = 0; i < reservationsJson.length(); i++) {
-                                    Log.d(logTag, "reservationJsonLOG " + reservationsJson.length());
+                                    Log.d(logTag, getString(R.string.resJsonLog) + reservationsJson.length());
                                     JSONObject reservationJSON = reservationsJson.getJSONObject(i);
                                     Reservation reservation = new Reservation(
-                                            reservationJSON.getInt("id"),
-                                            reservationJSON.getInt("seatNumber"),
-                                            reservationJSON.getInt("row")
+                                            reservationJSON.getInt(getString(R.string.resId)),
+                                            reservationJSON.getInt(getString(R.string.resSeatNumber)),
+                                            reservationJSON.getInt(getString(R.string.resRow))
                                     );
 
                                     choosedPlaces[reservation.getSeatNumber() - 1] = true;
@@ -841,7 +843,7 @@ public class SectorActivity extends AppCompatActivity {
                             e.printStackTrace();
                             Toast.makeText(
                                     getApplicationContext(),
-                                    "Json error: " + e.getMessage(),
+                                    getString(R.string.jsonError) + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
 
@@ -855,7 +857,7 @@ public class SectorActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(logTag, "Registration Error: " + error.getMessage());
+                Log.e(logTag, getString(R.string.resErrorLog) + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -863,12 +865,12 @@ public class SectorActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("repertoireId", repertoireIdString);
+                params.put(getString(R.string.repId), repertoireIdString);
                 return params;
             }
         };
 
-        AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
+        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.requestAdd));
 
 
         final OkHttpClient httpClient = new OkHttpClient();
@@ -893,8 +895,8 @@ public class SectorActivity extends AppCompatActivity {
                         //wyświetlenie komunikatu w sytuacji, gdy ktoś kliknie na sektor bez miejsc
                         if (btn.getText().equals("0/35")) {
 
-                            ed.buildDialog(SectorActivity.this, "Brak miejsc w sektorze",
-                                    "Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.").show();
+                            ed.buildDialog(SectorActivity.this, getString(R.string.emptySectorTitle),
+                                    getString(R.string.emptySectorMsg)).show();
                             return;
                         }
 
@@ -1045,9 +1047,6 @@ public class SectorActivity extends AppCompatActivity {
                         seatsButtonIVR = popupView.findViewById(R.id.seatsButtonIVR);
                         seatsButtonVR = popupView.findViewById(R.id.seatsButtonVR);
 
-                        //font
-                        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
-                        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
 
                         title.setTypeface(opensansBold);
                         subtitle.setTypeface(opensansBold);
@@ -1213,7 +1212,7 @@ public class SectorActivity extends AppCompatActivity {
                                                 numberOfSeats
                                         )
                                 );
-                                String text = Integer.toString(price) + " zł";
+                                String text = Integer.toString(price) + getString(R.string.currency);
                                 secSummaryPrice.setText(text);
                                 //zaktualizowanie wyglądu sektorów
                                 updateSectors(false);
@@ -1241,8 +1240,8 @@ public class SectorActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (selectedSeats.size() == 0)
-                            ed.buildDialog(SectorActivity.this, "Brak wybranych miejsc",
-                                    "Nie wybrałeś żadnego miejsca").show();
+                            ed.buildDialog(SectorActivity.this, getString(R.string.noChoosedPlacesTitle),
+                                    getString(R.string.noChoosedPlacesMsg)).show();
                         else {
                             //porównanie miejsc obecnie wybranych z tymi pobranymi z bazy danych
 
@@ -1252,8 +1251,8 @@ public class SectorActivity extends AppCompatActivity {
                                     isWrong = true;
 
                             if (isWrong) {
-                                ed.buildDialog(SectorActivity.this, "Wybranie zajętego miejsca",
-                                        "Wybrałeś zajęte miejsce").show();
+                                ed.buildDialog(SectorActivity.this, getString(R.string.choosedTakenPlaceTitle),
+                                        getString(R.string.choosedTakenPlaceMsg)).show();
                             } else {
                                 //zapis do bazy danych
 
@@ -1264,7 +1263,7 @@ public class SectorActivity extends AppCompatActivity {
 
                                 for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
 
-                                    final String customerId = customer.get("id");
+                                    final String customerId = customer.get(getString(R.string.resId));
                                     final String seatNumber = Integer.toString(entry.getKey());
                                     final String seatTypeId = Integer.toString(entry.getValue());
                                     final String row = Integer.toString(seatAndRowMap.get(entry.getKey()));
@@ -1278,28 +1277,28 @@ public class SectorActivity extends AppCompatActivity {
                                             new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
-                                                    Log.d(logTag, "Reservation request: " + response);
+                                                    Log.d(logTag, getString(R.string.saveResRequest) + response);
                                                     try {
                                                         JSONObject json = new JSONObject(response);
-                                                        boolean error = json.getBoolean("error");
+                                                        boolean error = json.getBoolean(getString(R.string.error));
                                                         if (error) {
                                                             Toast.makeText(
                                                                     getApplicationContext(),
-                                                                    json.getString("message"),
+                                                                    json.getString(getString(R.string.message)),
                                                                     Toast.LENGTH_SHORT).show();
                                                         }
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                         Toast.makeText(
                                                                 getApplicationContext(),
-                                                                "Json error: " + e.getMessage(),
+                                                                getString(R.string.jsonError) + e.getMessage(),
                                                                 Toast.LENGTH_LONG).show();
                                                     }
                                                 }
                                             }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Log.e(logTag, "Registration Error: " + error.getMessage());
+                                            Log.e(logTag, getString(R.string.saveResErrorLog) + error.getMessage());
                                             Toast.makeText(getApplicationContext(),
                                                     error.getMessage(), Toast.LENGTH_LONG).show();
                                         }
@@ -1307,16 +1306,16 @@ public class SectorActivity extends AppCompatActivity {
                                         @Override
                                         protected Map<String, String> getParams() {
                                             Map<String, String> params = new HashMap<>();
-                                            params.put("customerId", customerId);
-                                            params.put("seatNumber", seatNumber);
-                                            params.put("row", row);
-                                            params.put("seatTypeId", seatTypeId);
-                                            params.put("repertoireId", repertoireId);
+                                            params.put(getString(R.string.customerId), customerId);
+                                            params.put(getString(R.string.resSeatNumber), seatNumber);
+                                            params.put(getString(R.string.resRow), row);
+                                            params.put(getString(R.string.seatTypeId), seatTypeId);
+                                            params.put(getString(R.string.repId), repertoireId);
                                             return params;
                                         }
                                     };
 
-                                    AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
+                                    AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.requestAdd));
                                 }
 
                                 //wysłanie wiadomości do Socketu
@@ -1393,7 +1392,7 @@ public class SectorActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(WebSocket webSocket, Throwable t, okhttp3.Response response) {
-                Log.d(logTag, "onFailure: " + t.getMessage());
+                Log.d(logTag, getString(R.string.socketFailure) + t.getMessage());
             }
         };
 
@@ -1406,11 +1405,11 @@ public class SectorActivity extends AppCompatActivity {
         if (httpClient != null) {
             Message message = new Message(myChoosedPlaces);
             webSocket.send(message.getChoosedPlacesString());
-            webSocket.close(1000, "Zarezerwowowano miejsca");
+            webSocket.close(1000, getString(R.string.socketCloseReason));
         } else {
-            ed.buildDialog(SectorActivity.this, "Błąd serwera",
-                    "Podczas wysyłania informacji o wybranych miejscach wykryto błąd").show();
-            Log.d(logTag, "sendMessageToServer: client rowny null");
+            ed.buildDialog(SectorActivity.this, getString(R.string.serverErrorTitle),
+                    getString(R.string.serverErrorMsg)).show();
+            Log.d(logTag, getString(R.string.socketSendError));
         }
     }
 }

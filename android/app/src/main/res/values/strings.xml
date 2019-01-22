@@ -30,6 +30,14 @@
     <string name="sector6Text">sektor 6</string>
     <string name="sector7Text">sektor 7</string>
     <string name="sector8Text">sektor 8</string>
+    <string name="upperSector3Text">Sektor 3</string>
+    <string name="upperSector2Text">Sektor 2</string>
+    <string name="upperSector1Text">Sektor 1</string>
+    <string name="upperSector4Text">Sektor 4</string>
+    <string name="upperSector5Text">Sektor 5</string>
+    <string name="upperSector6Text">Sektor 6</string>
+    <string name="upperSector7Text">Sektor 7</string>
+    <string name="upperSector8Text">Sektor 8</string>
     <string name="sector1Price">10 zł</string>
     <string name="sector2Price">15 zł</string>
     <string name="sector3Price">20 zł</string>
@@ -81,4 +89,57 @@
     <string name="reserved">-Zarezerwowane</string>
     <string name="available">-Dostępne</string>
     <string name="noReservations">Brak rezerwacji</string>
+    <string name ="summaryStartText">0 zł</string>
+
+    <string name="choosedPlaceTitle">Zajęcie miejsca</string>
+    <string name="choosedPlaceMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze </string>
+
+    <string name="choosedPlacesTitle">Zajęcie miejsc</string>
+    <string name="choosedPlacesMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach </string>
+
+    <string name="emptySectorTitle">Brak miejsc w sektorze</string>
+    <string name="emptySectorMsg">Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.</string>
+
+    <string name="noChoosedPlacesTitle">Brak wybranych miejsc</string>
+    <string name="noChoosedPlacesMsg">Nie wybrałeś żadnego miejsca</string>
+
+    <string name="choosedTakenPlaceTitle">Wybranie zajętego miejsca</string>
+    <string name="choosedTakenPlaceMsg">Wybrałeś zajęte miejsce</string>
+
+    <string name="serverErrorTitle">Błąd serwera</string>
+    <string name="serverErrorMsg">Podczas wysyłania informacji o wybranych miejscach wykryto błąd</string>
+
+    <string name="getResLog">Get reservations request: </string>
+
+    <string name="resArrayName">reservation</string>
+    <string name="resErrorLog">Reservation error: </string>
+    <string name="resJsonLog">reservationJsonLOG </string>
+    <string name="scheduleId">scheduleId</string>
+    <string name="error">error</string>
+    <string name="message">message</string>
+    <string name="noResForRep">Nie ma rezerwacji dla podanego repertuaru. Spróbuj ponownie.</string>
+    <string name="jsonError">Json error: </string>
+
+    <string name="saveResRequest">Save reservation request: </string>
+    <string name="saveResErrorLog">Save reservation error: </string>
+
+    <string name="resId">id</string>
+    <string name="resSeatNumber">seatNumber</string>
+    <string name="resRow">row</string>
+    <string name="repId">repertoireId</string>
+
+    <string name="customerId">customerId</string>
+    <string name ="seatTypeId">seatTypeId</string>
+
+    <string name="requestAdd">req_register</string>
+    <string name="socketFailure">onFailure: </string>
+    <string name="socketCloseReason">Zarezerwowowano miejsca</string>
+    <string name="socketSendError">sendMessageToServer: client rowny null</string>
+    
+    <string name="opensSansRegular">opensans_regular.ttf</string>
+    <string name="opensSansBold">opensans_bold.ttf</string>
+
+    <string name="dot">.</string>
+    <string name="currency"> zł</string>
+
 </resources>
