@@ -88,15 +88,15 @@ public class HoursAdapter extends BaseAdapter {
         String text = Integer.toString(scheduleList.get(position).getHourOfDay());
 
         StringBuilder sB = new StringBuilder(text);
-        sB.append(R.string.colon);
+        sB.append(mContext.getString(R.string.colon));
 
         if(scheduleList.get(position).getMinute() < 10)
-            sB.append(R.string.zero);
+            sB.append(mContext.getString(R.string.zero));
 
         sB.append(Integer.toString(scheduleList.get(position).getMinute()));
 
         if(scheduleList.get(position).getHourOfDay() < 10)
-            sB.insert(0, R.string.zero);
+            sB.insert(0, mContext.getString(R.string.zero));
 
 
         text = sB.toString();
