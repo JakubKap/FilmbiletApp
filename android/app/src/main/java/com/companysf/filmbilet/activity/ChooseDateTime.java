@@ -172,7 +172,7 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_choose_date_time);
 
         Intent intent = getIntent();
-        Movie movie = (Movie) intent.getSerializableExtra("movie");
+        Movie movie = (Movie) intent.getSerializableExtra(getString(R.string.movie));
         movieId = movie.getId();
 
         updateMovieInfo(movie);
@@ -202,9 +202,9 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
         hoursGridView.setAdapter(hoursAdapter);
 
         //fonts
-        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
-        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
-        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), "opensans_italic.ttf");
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
 
         TextView stepNumber1 = findViewById(R.id.stepNumber1);
         stepNumber1.setTypeface(opensansBold);
@@ -245,23 +245,23 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(logTag, "Reservation request: " + response);
+                        Log.d(logTag, getString(R.string.getMovieRep)+ response);
                         try {
                             JSONObject json = new JSONObject(response);
-                            boolean error = json.getBoolean("error");
+                            boolean error = json.getBoolean(getString(R.string.error));
                             if (error) {
                                 Toast.makeText(
                                         getApplicationContext(),
-                                        json.getString("message"),
+                                        json.getString(getString(R.string.message)),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                JSONArray schedulesJson = json.getJSONArray("repertoire");
+                                JSONArray schedulesJson = json.getJSONArray(getString(R.string.repertoire));
                                 for (int i = 0; i < schedulesJson.length(); i++) {
-                                    Log.d(logTag, "SchedulesJsonLOG " + schedulesJson.length());
+                                    Log.d(logTag, getString(R.string.schedJsonLog) + schedulesJson.length());
                                     JSONObject scheduleJSON = schedulesJson.getJSONObject(i);
                                     Schedule schedule = new Schedule(
-                                            scheduleJSON.getInt("id"),
-                                            scheduleJSON.getString("date")
+                                            scheduleJSON.getInt(getString(R.string.resId)),
+                                            scheduleJSON.getString(getString(R.string.date))
                                     );
 
                                     scheduleList.add(schedule);
@@ -273,7 +273,7 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
                             e.printStackTrace();
                             Toast.makeText(
                                     getApplicationContext(),
-                                    "Json error: " + e.getMessage(),
+                                    getString(R.string.jsonError) + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
 
@@ -292,7 +292,7 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(logTag, "Registration Error: " + error.getMessage());
+                Log.e(logTag, getString(R.string.getMovieRepError) + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -301,12 +301,12 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("movieId", Integer.toString(movieId));
+                params.put(getString(R.string.movieId), Integer.toString(movieId));
                 return params;
             }
         };
 
-        AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
+        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.requestAdd));
 
 
         //dodanie do każdego z przycisków  metody setOnCheckedChangeListener
@@ -368,19 +368,19 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
 
                 //nie wybrano żadnego repertuaru
                 if (schedules.size() == 0)
-                    ed.buildDialog(ChooseDateTime.this, "Brak wybranej godziny",
-                            "Wybierz jedną interesującą ciebie godzinę").show();
+                    ed.buildDialog(ChooseDateTime.this, getString(R.string.noChoosedHourTitle),
+                            getString(R.string.wrongNumOfHours)).show();
                 else if (schedules.size() > 1)
                     //wybrano > 2 repertuary
-                    ed.buildDialog(ChooseDateTime.this, "Wybrałeś więcej niż jedną godzinę",
-                            "Wybierz jedną interesującą ciebie godzinę").show();
+                    ed.buildDialog(ChooseDateTime.this, getString(R.string.wrongChoosedHourTitle),
+                            getString(R.string.wrongNumOfHours)).show();
 
                 else {
                     //wybrano 1 repertuar - przejście do kolejnego activity z wyborem sektora
 
                     int scheduleId = schedules.get(0);
                     Intent intent = new Intent(ChooseDateTime.this, SectorActivity.class);
-                    intent.putExtra("scheduleId", scheduleId);
+                    intent.putExtra(getString(R.string.scheduleId), scheduleId);
                     startActivity(intent);
 
                 }

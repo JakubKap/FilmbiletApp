@@ -109,16 +109,29 @@
     <string name="serverErrorTitle">Błąd serwera</string>
     <string name="serverErrorMsg">Podczas wysyłania informacji o wybranych miejscach wykryto błąd</string>
 
+    <string name="noChoosedHourTitle">Brak wybranej godziny</string>
+    <string name="wrongChoosedHourTitle">Wybrałeś więcej niż jedną godzinę</string>
+    <string name="wrongNumOfHours">Wybierz jedną interesującą ciebie godzinę</string>
+
     <string name="getResLog">Get reservations request: </string>
 
     <string name="resArrayName">reservation</string>
     <string name="resErrorLog">Reservation error: </string>
     <string name="resJsonLog">reservationJsonLOG </string>
+    <string name="movie">movie</string>
     <string name="scheduleId">scheduleId</string>
     <string name="error">error</string>
     <string name="message">message</string>
     <string name="noResForRep">Nie ma rezerwacji dla podanego repertuaru. Spróbuj ponownie.</string>
     <string name="jsonError">Json error: </string>
+
+    <string name="getMovieRep">Get movie repertoire request: </string>
+    <string name="repertoire">repertoire</string>
+    <string name="schedJsonLog">SchedulesJsonLOG </string>
+    <string name="date">date</string>
+    <string name="getMovieRepError">Get repertoire Error: </string>
+    <string name="movieId">movieId</string>
+
 
     <string name="saveResRequest">Save reservation request: </string>
     <string name="saveResErrorLog">Save reservation error: </string>
@@ -137,6 +150,7 @@
     <string name="socketSendError">sendMessageToServer: client rowny null</string>
     
     <string name="opensSansRegular">opensans_regular.ttf</string>
+    <string name="opensSansItalic">opensans_italic.ttf</string>
     <string name="opensSansBold">opensans_bold.ttf</string>
 
     <string name="dot">.</string>
