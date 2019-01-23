@@ -1,6 +1,7 @@
 package com.companysf.filmbilet.Connection;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -97,6 +98,61 @@ public class ReservationConnection {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put(mContext.getString(R.string.repId), repertoireIdString);
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.requestAdd));
+    }
+
+    public void saveReservation(String customerIdPar, int seatNumberPar, int seatTypeIdPar, int rowPar,  int repertoireIdPar){
+
+        //final String customerId = customerIdPar;
+        final String customerId = customerIdPar;
+        final String seatNumber = Integer.toString(seatNumberPar);
+        final String seatTypeId = Integer.toString(seatTypeIdPar);
+        final String row = Integer.toString(rowPar);
+        final String repertoireId = Integer.toString(repertoireIdPar);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                AppConfig.STORE_RESERVATION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(logTag, mContext.getString(R.string.saveResRequest) + response);
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            boolean error = json.getBoolean(mContext.getString(R.string.error));
+                            if (error) {
+                                Toast.makeText(
+                                        mContext,
+                                        json.getString(mContext.getString(R.string.message)),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(
+                                    mContext,
+                                    mContext.getString(R.string.jsonError) + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(logTag, mContext.getString(R.string.saveResErrorLog) + error.getMessage());
+                Toast.makeText(mContext,
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put(mContext.getString(R.string.customerId), customerId);
+                params.put(mContext.getString(R.string.resSeatNumber), seatNumber);
+                params.put(mContext.getString(R.string.resRow), row);
+                params.put(mContext.getString(R.string.seatTypeId), seatTypeId);
+                params.put(mContext.getString(R.string.repId), repertoireId);
                 return params;
             }
         };

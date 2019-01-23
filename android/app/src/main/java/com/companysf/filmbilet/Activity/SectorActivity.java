@@ -120,489 +120,6 @@ public class SectorActivity extends AppCompatActivity {
     private boolean myChoosedPlaces[] = new boolean[280]; //zajęte miejsca przez użytkownika
 
 
-    public void preparePopUp() {
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-
-                Map<Button, Integer> seatNumber = new HashMap<>();  //mapa zawierająca button oraz odpowiadający mu nr siedzenia
-                ArrayList<Button> buttons = new ArrayList<>(seatButtons.keySet());
-
-                Log.d(logTag, "seatButtons.size() w preparePopUp == " + seatButtons.size());
-
-                int seatTypeId = selectedSector();
-
-                boolean flags[] = new boolean[8];
-                int inc = 0;
-                for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
-                    flags[inc] = entry.getValue();
-                    inc++;
-                }
-
-                int startSeat = 1;
-
-                if (flags[1]) startSeat = 8;
-                else if (flags[2]) startSeat = 71;
-                else if (flags[3]) startSeat = 78;
-                else if (flags[4]) startSeat = 141;
-                else if (flags[5]) startSeat = 148;
-                else if (flags[6]) startSeat = 211;
-                else if (flags[7]) startSeat = 218;
-
-                int seatNr = startSeat;
-
-                for (int i = 1; i <= 35; i++) {
-
-                    if (i == 8 || i == 15 || i == 22 || i == 29) {
-                        seatNr += 7;
-                        seatNumber.put(buttons.get(i - 1), seatNr);
-                        Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
-                        seatNr++;
-                    } else {
-                        seatNumber.put(buttons.get(i - 1), seatNr);
-                        Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
-                        seatNr++;
-                    }
-
-
-                }
-
-                for (Button b : buttons)
-                    Log.d(logTag, "Zawartość b : " + b.getText());
-
-                //Log.d(logTag, "seatNumber.get(0) =  " + seatNumber.get(0));
-
-                String text;
-                int logNr = 0;
-                for (int i = 0; i < 35; i++) {
-                    text = Integer.toString(seatNumber.get(buttons.get(i)));
-                    Log.d(logTag, "Pobrana wartość : " + seatNumber.get(buttons.get(i)));
-
-                    buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
-
-                    buttons.get(i).setText(text);
-                    Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get(buttons.get(logNr)));
-                    logNr++;
-                }
-
-                //ustawienie prawidłowej nazwy sektora
-
-                switch (startSeat) {
-                    case 1:
-                        title.setText(getString(R.string.upperSector1Text));
-                        break;
-                    case 8:
-                        title.setText(getString(R.string.upperSector2Text));
-                        break;
-                    case 71:
-                        title.setText(getString(R.string.upperSector3Text));
-                        break;
-                    case 78:
-                        title.setText(getString(R.string.upperSector4Text));
-                        break;
-                    case 141:
-                        title.setText(getString(R.string.upperSector5Text));
-                        break;
-                    case 148:
-                        title.setText(getString(R.string.upperSector6Text));
-                        break;
-                    case 211:
-                        title.setText(getString(R.string.upperSector7Text));
-                        break;
-                    case 218:
-                        title.setText(getString(R.string.upperSector8Text));
-                        break;
-                }
-
-                seatsLinearLayout.setVisibility(View.INVISIBLE);
-                title.setVisibility(View.INVISIBLE);
-                subtitle.setVisibility(View.INVISIBLE);
-                //textView3Seats.setVisibility(View.INVISIBLE);
-
-                gridLayoutSeats.setVisibility(View.INVISIBLE);
-
-                Log.d(logTag, "OnPreExecute przed zmianą buttonów");
-                for (Button b : buttons) {
-                    b.setBackgroundResource(R.drawable.seat);
-                    b.setVisibility(View.INVISIBLE);
-                }
-
-                Log.d(logTag, "OnPreExecute po zminie buttonów");
-                seatsApproveButton.setVisibility(View.INVISIBLE);
-
-                //w celach testowych
-                for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
-                    int number = entry.getKey();
-                    int seatType = entry.getValue();
-                    Log.d(logTag, "Przekazana wartość (nr, seatTypeId) do popup = (" + number + ", " + seatType + ")");
-
-                }
-
-                //zmiana numerów kolumn
-                int number = 1;
-                if (seatsButtonIR_1.getText().equals("1") || seatsButtonIR_1.getText().equals("71") || seatsButtonIR_1.getText().equals("141") || seatsButtonIR_1.getText().equals("211")) {
-                    for (Button cb : columnButtons) {
-                        String txt = Integer.toString(number);
-                        cb.setText(txt);
-                        Log.d(logTag, "Wartość cb.setText = " + cb.getText());
-                        number++;
-                    }
-                } else {
-                    number = 8;
-                    for (Button cb : columnButtons) {
-                        String txt = Integer.toString(number);
-                        cb.setText(txt);
-                        Log.d(logTag, "Wartość cb.setText = " + cb.getText());
-                        number++;
-                    }
-                }
-                columnButtons.clear();
-
-                //zmiana numerów rzędów
-
-
-                if (seatsButtonIR_1.getText().equals("1") || seatsButtonIR_1.getText().equals("8")) {
-                    seatsButtonIR.setText(getString(R.string.row1));
-                    seatsButtonIIR.setText(getString(R.string.row2));
-                    seatsButtonIIIR.setText(getString(R.string.row3));
-                    seatsButtonIVR.setText(getString(R.string.row4));
-                    seatsButtonVR.setText(getString(R.string.row5));
-                } else if (seatsButtonIR_1.getText().equals("71") || seatsButtonIR_1.getText().equals("78")) {
-                    seatsButtonIR.setText(getString(R.string.row6));
-                    seatsButtonIIR.setText(getString(R.string.row7));
-                    seatsButtonIIIR.setText(getString(R.string.row8));
-                    seatsButtonIVR.setText(getString(R.string.row9));
-                    seatsButtonVR.setText(getString(R.string.row10));
-                } else if (seatsButtonIR_1.getText().equals("141") || seatsButtonIR_1.getText().equals("148")) {
-                    seatsButtonIR.setText(getString(R.string.row11));
-                    seatsButtonIIR.setText(getString(R.string.row12));
-                    seatsButtonIIIR.setText(getString(R.string.row13));
-                    seatsButtonIVR.setText(getString(R.string.row14));
-                    seatsButtonVR.setText(getString(R.string.row15));
-                } else if (seatsButtonIR_1.getText().equals("211") || seatsButtonIR_1.getText().equals("218")) {
-                    seatsButtonIR.setText(getString(R.string.row16));
-                    seatsButtonIIR.setText(getString(R.string.row17));
-                    seatsButtonIIIR.setText(getString(R.string.row18));
-                    seatsButtonIVR.setText(getString(R.string.row19));
-                    seatsButtonVR.setText(getString(R.string.row20));
-                }
-
-                markChoosedPlaces();
-
-                // pętla służąca do pokazania użytkownikowi miejsc,które wcześniej wybrał (miejsca są
-                // zaznaczane na nowo w momencie ponownego kliknięcia w sektor)
-                for (Button b : buttons) {
-                    int SeatNumber = Integer.parseInt(b.getText().toString()); //parsowanie nr miejsca do int
-                    if (selectedSeats.containsKey(SeatNumber)) {
-                        b.setBackgroundResource(R.drawable.seat_choosed);
-                        Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
-
-                        seatsApproveButton.setVisibility(View.INVISIBLE);
-                    }
-                }
-
-                for (Button b : buttons)
-                    b.setVisibility(View.VISIBLE);
-
-                seatsLinearLayout.setVisibility(View.VISIBLE);
-                title.setVisibility(View.VISIBLE);
-                subtitle.setVisibility(View.VISIBLE);
-                gridLayoutSeats.setVisibility(View.VISIBLE);
-                seatsApproveButton.setVisibility(View.INVISIBLE);
-
-                switch (seatTypeId) {
-                    case 1:
-                        subtitle.setText(getString(R.string.sector1Price));
-                        break;
-
-                    case 2:
-                        subtitle.setText(getString(R.string.sector2Price));
-                        break;
-
-                    case 3:
-                        subtitle.setText(getString(R.string.sector3Price));
-                        break;
-
-                    case 4:
-                        subtitle.setText(getString(R.string.sector4Price));
-                        break;
-                }
-
-
-                seatsProgressBar.setVisibility(View.INVISIBLE);
-
-                seatsCloseButton.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    public void markChoosedPlaces() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                boolean displayDialog = false;
-                ArrayList<Integer> takenCheckedSeats = new ArrayList<>();
-
-                for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
-                    Button button = entry.getKey();
-                    Boolean isChecked = entry.getValue();
-
-                    int index = Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
-                    if (choosedPlaces[index - 1]) {
-
-                        button.setEnabled(false);
-                        button.setBackgroundResource(R.drawable.seat_reserved);
-                        button.setTextColor(Color.WHITE);
-
-                        if (isChecked) {
-                            //sytuacja, gdy ktoś zajmie miejsce/miejsca w sektorze, które przed chwilą wybraliśmy
-                            seatButtons.put(button, false);
-                            displayDialog = true;
-                            takenCheckedSeats.add(Integer.parseInt(button.getText().toString())); //parsowanie nr miejsca do int i zapisanie do kolekcji;
-
-                            int selected = selectedSeats();
-
-                            if (selected > 0) {
-                                seatsApproveButton.setVisibility(View.VISIBLE);
-                            } else {
-                                seatsApproveButton.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                    }
-                }
-
-                if (displayDialog) {
-                    //wyświetlenie komunikatu
-
-                    if (takenCheckedSeats.size() == 1)
-                        ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlaceTitle),
-                                getString(R.string.choosedPlaceMsg)+
-                                        takenCheckedSeats.get(0) + getString(R.string.dot)).show();
-                    else {
-                        //jeśli więcej miejsc
-                        //zbudowanie Stringa
-
-                        int i = 0;
-                        String text = "";
-
-                        //posortowanie kolekcji
-                        Collections.sort(takenCheckedSeats);
-
-                        StringBuilder sB = new StringBuilder(text);
-
-                        for (Integer in : takenCheckedSeats) {
-
-                            if (i > 0)
-                                sB.append(", ");
-                            sB.append(in);
-
-                            i++;
-                        }
-
-                        text = sB.toString();
-                        ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlacesTitle),
-                                getString(R.string.choosedPlacesMsg) +
-                                        text + getString(R.string.dot)).show();
-                    }
-                }
-            }
-        });
-    }
-
-    private void logOutCustomer() {
-        sManager.setLogin(false);
-        db.deleteCustomers();
-    }
-
-    public int selectedSeats() {
-
-        int selected = 0;
-        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
-            Boolean value = entry.getValue();
-            if (value)
-                selected++;
-        }
-        return selected;
-    }
-
-    public int selectedSector() {
-        boolean flags[] = new boolean[8];
-        int inc = 0;
-        for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
-            flags[inc] = entry.getValue();
-            inc++;
-        }
-
-        //wykrycie, który typ miejsca został wybrany
-        int seatTypeId = 1;
-
-        if (flags[2] || flags[3])
-            seatTypeId = 2;
-        else if (flags[4] || flags[5])
-            seatTypeId = 3;
-        else if (flags[6] || flags[7])
-            seatTypeId = 4;
-
-        return seatTypeId;
-
-    }
-
-    public void saveSeats(int seatType) {
-
-        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
-            Button key = entry.getKey();
-            Boolean value = entry.getValue();
-
-            if (value) {
-                int number = Integer.parseInt(key.getText().toString()); //parsowanie nr miejsca do int
-                selectedSeats.put(number, seatType);
-
-                Log.d(logTag, "Zapisane miejsce (nr, seatTypeId) = (" + number + ", " + seatType + ")");
-            }
-        }
-    }
-
-
-    public void updateSummary() {
-
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                int numberOfSeats = 0;
-                int price = 0;
-
-                //aktualizacja podsumowania
-
-                for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
-                    int seatTypeId = entry.getValue();
-
-                    numberOfSeats++;
-
-                    switch (seatTypeId) {
-                        case 1:
-                            price += 10;
-                            break;
-                        case 2:
-                            price += 15;
-                            break;
-
-                        case 3:
-                            price += 20;
-                            break;
-
-                        case 4:
-                            price += 30;
-                            break;
-                    }
-                }
-                secChoosedPlaces.setText(String.format(new Locale("pl", "PL"), "%d", numberOfSeats));
-                String text = Integer.toString(price) + getString(R.string.currency);
-                secSummaryPrice.setText(text);
-            }
-        });
-
-    }
-
-    public void buildDialog(ArrayList<Integer> list) {
-        final ArrayList<Integer> takenYourSeats = new ArrayList<>(list);
-
-        for (Integer i : takenYourSeats)
-            Log.d(logTag, "Zawartość takenYourSeats = " + i);
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                if (takenYourSeats.size() == 1) {
-                    ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlaceTitle),
-                            getString(R.string.choosedPlaceMsg) + takenYourSeats.get(0) + getString(R.string.dot)).show();
-                } else if (takenYourSeats.size() > 1) {
-
-                    String text = "";
-
-                    StringBuilder sB = new StringBuilder(text);
-                    int i = 0;
-                    for (Integer in : takenYourSeats) {
-                        if (i > 0)
-                            sB.append(", ");
-
-                        sB.append(in);
-
-                        i++;
-                    }
-                    text = sB.toString();
-
-                    ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlacesTitle),
-
-                             getString(R.string.choosedPlacesMsg) +  text + getString(R.string.dot)).show();
-                }
-            }
-        });
-
-    }
-
-
-    public void updateSectors(boolean ifStart, boolean[] choosedSeats) {
-
-        final boolean[] choosedPlaces = choosedSeats;
-
-        final boolean start = ifStart;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                if (start) {
-                    SecProgressBar.setVisibility(View.INVISIBLE);
-
-                    secChoosedPlaces.setVisibility(View.VISIBLE);
-
-                    secSummaryPrice.setVisibility(View.VISIBLE);
-
-                    String pom = getString(R.string.summaryStartText);
-                    secSummaryPrice.setText(pom);
-                }
-
-                int sectorNumber = 1;
-
-                Log.d(logTag, "Zawartość choosedPlaces w metodzie updateSectors: ");
-                for (int i = 0; i < choosedPlaces.length; i++)
-                    Log.d(logTag, "choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
-
-                for (Map.Entry<Button, Boolean> entry1 : sectorButtons.entrySet()) {
-
-                    int takenSeats = 0;
-                    for (Map.Entry<Integer, Integer> entry2 : sectorAndSeat.entrySet()) {
-                        int seatNumber = entry2.getKey();
-                        int sector = entry2.getValue();
-
-
-                        if (sector == sectorNumber) {
-                            if (choosedPlaces[seatNumber - 1]) {
-                                takenSeats++;
-                                Log.d(logTag, "choosedPlaces[(seatNumber-1) = " + (seatNumber - 1) + " ] = true oraz takenSeats = " + takenSeats);
-                            }
-
-                        }
-                    }
-
-                    int free = 35 - takenSeats;
-                    Log.d(logTag, "free = " + free);
-
-                    freeSeats[sectorNumber - 1].setText(
-                            String.format(new Locale("pl", "PL"), "%d", free)
-                    );
-                    sectorNumber++;
-                }
-
-            }
-
-        });
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -671,8 +188,8 @@ public class SectorActivity extends AppCompatActivity {
 
 
         //fonts
-         opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
-         opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+        opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
+        opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
 
         for(int i =0; i<freeSeats.length; i++)
             freeSeats[i].setTypeface(opensansRegular);
@@ -1193,7 +710,7 @@ public class SectorActivity extends AppCompatActivity {
                             } else {
                                 //zapis do bazy danych
 
-                                
+
                                 HashMap<String, String> customer = db.getCustomer();
 
                                 int currentRepertoireId = repertoireId;
@@ -1201,58 +718,15 @@ public class SectorActivity extends AppCompatActivity {
                                 for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
 
                                     final String customerId = customer.get(getString(R.string.resId));
-                                    final String seatNumber = Integer.toString(entry.getKey());
-                                    final String seatTypeId = Integer.toString(entry.getValue());
-                                    final String row = Integer.toString(seatAndRowMap.get(entry.getKey()));
-                                    final String repertoireId = Integer.toString(currentRepertoireId);
+                                    int seatNumber = entry.getKey();
+                                    int seatTypeId = entry.getValue();
+                                    int row = seatAndRowMap.get(entry.getKey());
+                                    int repertoireId = currentRepertoireId;
 
+                                    reservationConnection.saveReservation(customerId, seatNumber, seatTypeId, row, repertoireId);
                                     Log.d(logTag, "Pobrana wartość row =  " + row);
 
-                                    //zapisanie do bazy
-                                    StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                                            AppConfig.STORE_RESERVATION,
-                                            new Response.Listener<String>() {
-                                                @Override
-                                                public void onResponse(String response) {
-                                                    Log.d(logTag, getString(R.string.saveResRequest) + response);
-                                                    try {
-                                                        JSONObject json = new JSONObject(response);
-                                                        boolean error = json.getBoolean(getString(R.string.error));
-                                                        if (error) {
-                                                            Toast.makeText(
-                                                                    getApplicationContext(),
-                                                                    json.getString(getString(R.string.message)),
-                                                                    Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                        Toast.makeText(
-                                                                getApplicationContext(),
-                                                                getString(R.string.jsonError) + e.getMessage(),
-                                                                Toast.LENGTH_LONG).show();
-                                                    }
-                                                }
-                                            }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.e(logTag, getString(R.string.saveResErrorLog) + error.getMessage());
-                                            Toast.makeText(getApplicationContext(),
-                                                    error.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    }) {
-                                        @Override
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put(getString(R.string.customerId), customerId);
-                                            params.put(getString(R.string.resSeatNumber), seatNumber);
-                                            params.put(getString(R.string.resRow), row);
-                                            params.put(getString(R.string.seatTypeId), seatTypeId);
-                                            params.put(getString(R.string.repId), repertoireId);
-                                            return params;
-                                        }
-                                    };
 
-                                    AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.requestAdd));
                                 }
 
                                 //wysłanie wiadomości do Socketu
@@ -1337,6 +811,492 @@ public class SectorActivity extends AppCompatActivity {
         httpClient.dispatcher().executorService().shutdown();
 
     }
+
+
+    public void preparePopUp() {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                Map<Button, Integer> seatNumber = new HashMap<>();  //mapa zawierająca button oraz odpowiadający mu nr siedzenia
+                ArrayList<Button> buttons = new ArrayList<>(seatButtons.keySet());
+
+                Log.d(logTag, "seatButtons.size() w preparePopUp == " + seatButtons.size());
+
+                int seatTypeId = selectedSector();
+
+                boolean flags[] = new boolean[8];
+                int inc = 0;
+                for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
+                    flags[inc] = entry.getValue();
+                    inc++;
+                }
+
+                int startSeat = 1;
+
+                if (flags[1]) startSeat = 8;
+                else if (flags[2]) startSeat = 71;
+                else if (flags[3]) startSeat = 78;
+                else if (flags[4]) startSeat = 141;
+                else if (flags[5]) startSeat = 148;
+                else if (flags[6]) startSeat = 211;
+                else if (flags[7]) startSeat = 218;
+
+                int seatNr = startSeat;
+
+                for (int i = 1; i <= 35; i++) {
+
+                    if (i == 8 || i == 15 || i == 22 || i == 29) {
+                        seatNr += 7;
+                        seatNumber.put(buttons.get(i - 1), seatNr);
+                        Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
+                        seatNr++;
+                    } else {
+                        seatNumber.put(buttons.get(i - 1), seatNr);
+                        Log.d(logTag, "Dodana wartość do siatki: " + seatNr + " dla i = " + i);
+                        seatNr++;
+                    }
+
+
+                }
+
+                for (Button b : buttons)
+                    Log.d(logTag, "Zawartość b : " + b.getText());
+
+                //Log.d(logTag, "seatNumber.get(0) =  " + seatNumber.get(0));
+
+                String text;
+                int logNr = 0;
+                for (int i = 0; i < 35; i++) {
+                    text = Integer.toString(seatNumber.get(buttons.get(i)));
+                    Log.d(logTag, "Pobrana wartość : " + seatNumber.get(buttons.get(i)));
+
+                    buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
+
+                    buttons.get(i).setText(text);
+                    Log.d(logTag, "Zmieniona wartość textu buttona: " + seatNumber.get(buttons.get(logNr)));
+                    logNr++;
+                }
+
+                //ustawienie prawidłowej nazwy sektora
+
+                switch (startSeat) {
+                    case 1:
+                        title.setText(getString(R.string.upperSector1Text));
+                        break;
+                    case 8:
+                        title.setText(getString(R.string.upperSector2Text));
+                        break;
+                    case 71:
+                        title.setText(getString(R.string.upperSector3Text));
+                        break;
+                    case 78:
+                        title.setText(getString(R.string.upperSector4Text));
+                        break;
+                    case 141:
+                        title.setText(getString(R.string.upperSector5Text));
+                        break;
+                    case 148:
+                        title.setText(getString(R.string.upperSector6Text));
+                        break;
+                    case 211:
+                        title.setText(getString(R.string.upperSector7Text));
+                        break;
+                    case 218:
+                        title.setText(getString(R.string.upperSector8Text));
+                        break;
+                }
+
+                seatsLinearLayout.setVisibility(View.INVISIBLE);
+                title.setVisibility(View.INVISIBLE);
+                subtitle.setVisibility(View.INVISIBLE);
+                //textView3Seats.setVisibility(View.INVISIBLE);
+
+                gridLayoutSeats.setVisibility(View.INVISIBLE);
+
+                Log.d(logTag, "OnPreExecute przed zmianą buttonów");
+                for (Button b : buttons) {
+                    b.setBackgroundResource(R.drawable.seat);
+                    b.setVisibility(View.INVISIBLE);
+                }
+
+                Log.d(logTag, "OnPreExecute po zminie buttonów");
+                seatsApproveButton.setVisibility(View.INVISIBLE);
+
+                //w celach testowych
+                for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
+                    int number = entry.getKey();
+                    int seatType = entry.getValue();
+                    Log.d(logTag, "Przekazana wartość (nr, seatTypeId) do popup = (" + number + ", " + seatType + ")");
+
+                }
+
+                //zmiana numerów kolumn
+                int number = 1;
+                if (seatsButtonIR_1.getText().equals("1") || seatsButtonIR_1.getText().equals("71") || seatsButtonIR_1.getText().equals("141") || seatsButtonIR_1.getText().equals("211")) {
+                    for (Button cb : columnButtons) {
+                        String txt = Integer.toString(number);
+                        cb.setText(txt);
+                        Log.d(logTag, "Wartość cb.setText = " + cb.getText());
+                        number++;
+                    }
+                } else {
+                    number = 8;
+                    for (Button cb : columnButtons) {
+                        String txt = Integer.toString(number);
+                        cb.setText(txt);
+                        Log.d(logTag, "Wartość cb.setText = " + cb.getText());
+                        number++;
+                    }
+                }
+                columnButtons.clear();
+
+                //zmiana numerów rzędów
+
+
+                if (seatsButtonIR_1.getText().equals("1") || seatsButtonIR_1.getText().equals("8")) {
+                    seatsButtonIR.setText(getString(R.string.row1));
+                    seatsButtonIIR.setText(getString(R.string.row2));
+                    seatsButtonIIIR.setText(getString(R.string.row3));
+                    seatsButtonIVR.setText(getString(R.string.row4));
+                    seatsButtonVR.setText(getString(R.string.row5));
+                } else if (seatsButtonIR_1.getText().equals("71") || seatsButtonIR_1.getText().equals("78")) {
+                    seatsButtonIR.setText(getString(R.string.row6));
+                    seatsButtonIIR.setText(getString(R.string.row7));
+                    seatsButtonIIIR.setText(getString(R.string.row8));
+                    seatsButtonIVR.setText(getString(R.string.row9));
+                    seatsButtonVR.setText(getString(R.string.row10));
+                } else if (seatsButtonIR_1.getText().equals("141") || seatsButtonIR_1.getText().equals("148")) {
+                    seatsButtonIR.setText(getString(R.string.row11));
+                    seatsButtonIIR.setText(getString(R.string.row12));
+                    seatsButtonIIIR.setText(getString(R.string.row13));
+                    seatsButtonIVR.setText(getString(R.string.row14));
+                    seatsButtonVR.setText(getString(R.string.row15));
+                } else if (seatsButtonIR_1.getText().equals("211") || seatsButtonIR_1.getText().equals("218")) {
+                    seatsButtonIR.setText(getString(R.string.row16));
+                    seatsButtonIIR.setText(getString(R.string.row17));
+                    seatsButtonIIIR.setText(getString(R.string.row18));
+                    seatsButtonIVR.setText(getString(R.string.row19));
+                    seatsButtonVR.setText(getString(R.string.row20));
+                }
+
+                markChoosedPlaces();
+
+                // pętla służąca do pokazania użytkownikowi miejsc,które wcześniej wybrał (miejsca są
+                // zaznaczane na nowo w momencie ponownego kliknięcia w sektor)
+                for (Button b : buttons) {
+                    int SeatNumber = Integer.parseInt(b.getText().toString()); //parsowanie nr miejsca do int
+                    if (selectedSeats.containsKey(SeatNumber)) {
+                        b.setBackgroundResource(R.drawable.seat_choosed);
+                        Log.d(logTag, "Znaleziona ponowna wartość seatNumber: " + number);
+
+                        seatsApproveButton.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                for (Button b : buttons)
+                    b.setVisibility(View.VISIBLE);
+
+                seatsLinearLayout.setVisibility(View.VISIBLE);
+                title.setVisibility(View.VISIBLE);
+                subtitle.setVisibility(View.VISIBLE);
+                gridLayoutSeats.setVisibility(View.VISIBLE);
+                seatsApproveButton.setVisibility(View.INVISIBLE);
+
+                switch (seatTypeId) {
+                    case 1:
+                        subtitle.setText(getString(R.string.sector1Price));
+                        break;
+
+                    case 2:
+                        subtitle.setText(getString(R.string.sector2Price));
+                        break;
+
+                    case 3:
+                        subtitle.setText(getString(R.string.sector3Price));
+                        break;
+
+                    case 4:
+                        subtitle.setText(getString(R.string.sector4Price));
+                        break;
+                }
+
+
+                seatsProgressBar.setVisibility(View.INVISIBLE);
+
+                seatsCloseButton.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void markChoosedPlaces() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                boolean displayDialog = false;
+                ArrayList<Integer> takenCheckedSeats = new ArrayList<>();
+
+                for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+                    Button button = entry.getKey();
+                    Boolean isChecked = entry.getValue();
+
+                    int index = Integer.parseInt(button.getText().toString()); //parsowanie nr miejsca do int
+                    if (choosedPlaces[index - 1]) {
+
+                        button.setEnabled(false);
+                        button.setBackgroundResource(R.drawable.seat_reserved);
+                        button.setTextColor(Color.WHITE);
+
+                        if (isChecked) {
+                            //sytuacja, gdy ktoś zajmie miejsce/miejsca w sektorze, które przed chwilą wybraliśmy
+                            seatButtons.put(button, false);
+                            displayDialog = true;
+                            takenCheckedSeats.add(Integer.parseInt(button.getText().toString())); //parsowanie nr miejsca do int i zapisanie do kolekcji;
+
+                            int selected = selectedSeats();
+
+                            if (selected > 0) {
+                                seatsApproveButton.setVisibility(View.VISIBLE);
+                            } else {
+                                seatsApproveButton.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    }
+                }
+
+                if (displayDialog) {
+                    //wyświetlenie komunikatu
+
+                    if (takenCheckedSeats.size() == 1)
+                        ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlaceTitle),
+                                getString(R.string.choosedPlaceMsg)+
+                                        takenCheckedSeats.get(0) + getString(R.string.dot)).show();
+                    else {
+                        //jeśli więcej miejsc
+                        //zbudowanie Stringa
+
+                        int i = 0;
+                        String text = "";
+
+                        //posortowanie kolekcji
+                        Collections.sort(takenCheckedSeats);
+
+                        StringBuilder sB = new StringBuilder(text);
+
+                        for (Integer in : takenCheckedSeats) {
+
+                            if (i > 0)
+                                sB.append(", ");
+                            sB.append(in);
+
+                            i++;
+                        }
+
+                        text = sB.toString();
+                        ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlacesTitle),
+                                getString(R.string.choosedPlacesMsg) +
+                                        text + getString(R.string.dot)).show();
+                    }
+                }
+            }
+        });
+    }
+
+    private void logOutCustomer() {
+        sManager.setLogin(false);
+        db.deleteCustomers();
+    }
+
+    public int selectedSeats() {
+
+        int selected = 0;
+        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+            Boolean value = entry.getValue();
+            if (value)
+                selected++;
+        }
+        return selected;
+    }
+
+    public int selectedSector() {
+        boolean flags[] = new boolean[8];
+        int inc = 0;
+        for (Map.Entry<Button, Boolean> entry : sectorButtons.entrySet()) {
+            flags[inc] = entry.getValue();
+            inc++;
+        }
+
+        //wykrycie, który typ miejsca został wybrany
+        int seatTypeId = 1;
+
+        if (flags[2] || flags[3])
+            seatTypeId = 2;
+        else if (flags[4] || flags[5])
+            seatTypeId = 3;
+        else if (flags[6] || flags[7])
+            seatTypeId = 4;
+
+        return seatTypeId;
+
+    }
+
+    public void saveSeats(int seatType) {
+
+        for (Map.Entry<Button, Boolean> entry : seatButtons.entrySet()) {
+            Button key = entry.getKey();
+            Boolean value = entry.getValue();
+
+            if (value) {
+                int number = Integer.parseInt(key.getText().toString()); //parsowanie nr miejsca do int
+                selectedSeats.put(number, seatType);
+
+                Log.d(logTag, "Zapisane miejsce (nr, seatTypeId) = (" + number + ", " + seatType + ")");
+            }
+        }
+    }
+
+
+    public void updateSummary() {
+
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int numberOfSeats = 0;
+                int price = 0;
+
+                //aktualizacja podsumowania
+
+                for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
+                    int seatTypeId = entry.getValue();
+
+                    numberOfSeats++;
+
+                    switch (seatTypeId) {
+                        case 1:
+                            price += 10;
+                            break;
+                        case 2:
+                            price += 15;
+                            break;
+
+                        case 3:
+                            price += 20;
+                            break;
+
+                        case 4:
+                            price += 30;
+                            break;
+                    }
+                }
+                secChoosedPlaces.setText(String.format(new Locale("pl", "PL"), "%d", numberOfSeats));
+                String text = Integer.toString(price) + getString(R.string.currency);
+                secSummaryPrice.setText(text);
+            }
+        });
+
+    }
+
+    public void buildDialog(ArrayList<Integer> list) {
+        final ArrayList<Integer> takenYourSeats = new ArrayList<>(list);
+
+        for (Integer i : takenYourSeats)
+            Log.d(logTag, "Zawartość takenYourSeats = " + i);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                if (takenYourSeats.size() == 1) {
+                    ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlaceTitle),
+                            getString(R.string.choosedPlaceMsg) + takenYourSeats.get(0) + getString(R.string.dot)).show();
+                } else if (takenYourSeats.size() > 1) {
+
+                    String text = "";
+
+                    StringBuilder sB = new StringBuilder(text);
+                    int i = 0;
+                    for (Integer in : takenYourSeats) {
+                        if (i > 0)
+                            sB.append(", ");
+
+                        sB.append(in);
+
+                        i++;
+                    }
+                    text = sB.toString();
+
+                    ed.buildDialog(SectorActivity.this, getString(R.string.choosedPlacesTitle),
+
+                             getString(R.string.choosedPlacesMsg) +  text + getString(R.string.dot)).show();
+                }
+            }
+        });
+
+    }
+
+
+    public void updateSectors(boolean ifStart, boolean[] choosedSeats) {
+
+        final boolean[] choosedPlaces = choosedSeats;
+
+        final boolean start = ifStart;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                if (start) {
+                    SecProgressBar.setVisibility(View.INVISIBLE);
+
+                    secChoosedPlaces.setVisibility(View.VISIBLE);
+
+                    secSummaryPrice.setVisibility(View.VISIBLE);
+
+                    String pom = getString(R.string.summaryStartText);
+                    secSummaryPrice.setText(pom);
+                }
+
+                int sectorNumber = 1;
+
+                Log.d(logTag, "Zawartość choosedPlaces w metodzie updateSectors: ");
+                for (int i = 0; i < choosedPlaces.length; i++)
+                    Log.d(logTag, "choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
+
+                for (Map.Entry<Button, Boolean> entry1 : sectorButtons.entrySet()) {
+
+                    int takenSeats = 0;
+                    for (Map.Entry<Integer, Integer> entry2 : sectorAndSeat.entrySet()) {
+                        int seatNumber = entry2.getKey();
+                        int sector = entry2.getValue();
+
+
+                        if (sector == sectorNumber) {
+                            if (choosedPlaces[seatNumber - 1]) {
+                                takenSeats++;
+                                Log.d(logTag, "choosedPlaces[(seatNumber-1) = " + (seatNumber - 1) + " ] = true oraz takenSeats = " + takenSeats);
+                            }
+
+                        }
+                    }
+
+                    int free = 35 - takenSeats;
+                    Log.d(logTag, "free = " + free);
+
+                    freeSeats[sectorNumber - 1].setText(
+                            String.format(new Locale("pl", "PL"), "%d", free)
+                    );
+                    sectorNumber++;
+                }
+
+            }
+
+        });
+
+    }
+
 
     private void sendMessageToServer(OkHttpClient httpClient, WebSocket webSocket) {
         if (httpClient != null) {
