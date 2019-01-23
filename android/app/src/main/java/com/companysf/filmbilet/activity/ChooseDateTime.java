@@ -32,7 +32,6 @@ import com.companysf.filmbilet.appLogic.Schedule;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -260,7 +259,7 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
                                     Log.d(logTag, getString(R.string.schedJsonLog) + schedulesJson.length());
                                     JSONObject scheduleJSON = schedulesJson.getJSONObject(i);
                                     Schedule schedule = new Schedule(
-                                            scheduleJSON.getInt(getString(R.string.resId)),
+                                            scheduleJSON.getInt(getString(R.string.id)),
                                             scheduleJSON.getString(getString(R.string.date))
                                     );
 
@@ -306,7 +305,7 @@ public class ChooseDateTime extends AppCompatActivity implements Serializable {
             }
         };
 
-        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.requestAdd));
+        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.registerRequestAdd));
 
 
         //dodanie do każdego z przycisków  metody setOnCheckedChangeListener

@@ -44,7 +44,6 @@ public class CustomerReservationsActivity extends AppCompatActivity {
     private ConnectionDetector cd;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout emptyListRefreshLayout;
-    private LinearLayout noEmptyList;
 
     private CustomerReservationsListAdapter adapter;
     private List<CustomerReservation> reservationsList;
@@ -61,35 +60,28 @@ public class CustomerReservationsActivity extends AppCompatActivity {
             switchToLoginActivity();
         }
 
-        //Views
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
-//        noEmptyList = findViewById(R.id.noEmptyList);
         TextView title = findViewById(R.id.title);
 
-        //font
-        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
-        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
-        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), "opensans_italic.ttf");
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
 
         title.setTypeface(opensansBold);
 
-        //recyclerView
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         reservationsList = new ArrayList<>();
         adapter = new CustomerReservationsListAdapter(this, reservationsList,
                 opensansItalic, opensansRegular);
 
-        //recyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        //volley request
         updateDataFromServer();
 
-        //refresh movies list by swipe down
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -109,19 +101,17 @@ public class CustomerReservationsActivity extends AppCompatActivity {
                             Log.d(logTag, "get customer reservations");
                             try {
                                 JSONObject json = new JSONObject(response);
-                                boolean error = json.getBoolean("error");
+                                boolean error = json.getBoolean(getString(R.string.error));
                                 if (error) {
                                     Log.d(logTag, "Error on getting data from API Service");
 
                                     if (reservationsList.isEmpty()) {
                                         emptyListRefreshLayout.setVisibility(View.VISIBLE);
-//                                        recyclerView.setVisibility(View.GONE);
                                     }
                                 } else {
                                     emptyListRefreshLayout.setVisibility(View.GONE);
-//                                    recyclerView.setVisibility(View.VISIBLE);
 
-                                    JSONArray CustomerReservationJson = json.getJSONArray("customerReservations");
+                                    JSONArray CustomerReservationJson = json.getJSONArray(getString(R.string.customerReservationsJsonName));
                                     reservationsList.clear();
 
                                     for (int i = 0; i < CustomerReservationJson.length(); i++) {
@@ -129,16 +119,16 @@ public class CustomerReservationsActivity extends AppCompatActivity {
                                         JSONObject CustomerReservationJSON = CustomerReservationJson.getJSONObject(i);
                                         CustomerReservation customerReservation =
                                                 new CustomerReservation(
-                                                        CustomerReservationJSON.getString("seatNumbers"),
-                                                        CustomerReservationJSON.getString("reservDate"),
+                                                        CustomerReservationJSON.getString(getString(R.string.jsonSeatNumbers)),
+                                                        CustomerReservationJSON.getString(getString(R.string.jsonReservDate)),
                                                         new Repertoire(
                                                                 new Movie(
-                                                                        CustomerReservationJSON.getString("movieTitle")
+                                                                        CustomerReservationJSON.getString(getString(R.string.jsonMovieTitle))
                                                                 ),
-                                                                CustomerReservationJSON.getString("repertDate"),
-                                                                Integer.parseInt(CustomerReservationJSON.getString("repertId"))
+                                                                CustomerReservationJSON.getString(getString(R.string.jsonRepertDate)),
+                                                                Integer.parseInt(CustomerReservationJSON.getString(getString(R.string.jsonRepertId)))
                                                         ),
-                                                        Float.parseFloat(CustomerReservationJSON.getString("price"))
+                                                        Float.parseFloat(CustomerReservationJSON.getString(getString(R.string.jsonPrice)))
                                                 );
 
                                         reservationsList.add(customerReservation);
@@ -147,27 +137,23 @@ public class CustomerReservationsActivity extends AppCompatActivity {
                                     adapter.notifyDataSetChanged();
                                 }
                             } catch (JSONException e) {
-                                //blad w trakcie pobierania danych
                                 e.printStackTrace();
 
                                 if (reservationsList.isEmpty()) {
                                     emptyListRefreshLayout.setVisibility(View.VISIBLE);
-//                                    recyclerView.setVisibility(View.GONE);
                                 }
 
-                                //1.zerwanie polaczenia internetowego?
                                 if (!cd.connected()) {
                                     cd.buildDialog(CustomerReservationsActivity.this,
-                                            "Błąd połączenia internetowego",
-                                            "Sprawdź połączenie internetowe i spróbuj ponownie"
+                                            getString(R.string.connectionErrorTitle),
+                                            getString(R.string.checkConnectionErrorStatement)
                                     ).show();
                                 }
-                                //2.inny blad niz zerwanie polaczenia internetowego
                                 else {
                                     cd.buildDialog(
                                             CustomerReservationsActivity.this,
-                                            "Błąd pobierania danych z serwera",
-                                            "Spróbuj ponownie później"
+                                            getString(R.string.serverErrorTitle),
+                                            getString(R.string.serverErrorCheckLater)
                                     ).show();
                                 }
                             }
@@ -181,13 +167,12 @@ public class CustomerReservationsActivity extends AppCompatActivity {
 
                             if (reservationsList.isEmpty()) {
                                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
-//                                recyclerView.setVisibility(View.GONE);
                             }
 
                             cd.buildDialog(
                                     CustomerReservationsActivity.this,
-                                    "Błąd połączenia z serwerem",
-                                    "Spróbuj ponownie później"
+                                    getString(R.string.serverErrorTitle),
+                                    getString(R.string.serverErrorCheckLater)
                             ).show();
                         }
                     }
@@ -195,20 +180,19 @@ public class CustomerReservationsActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("customerId", getCustomerId());
+                    params.put(getString(R.string.reservationPutReqParam), getCustomerId());
                     return params;
                 }
             };
-            AppController.getInstance().addToRequestQueue(stringRequest, "req_login");
+            AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.loginRequestAdd));
         } else {
             if (reservationsList.isEmpty()) {
                 emptyListRefreshLayout.setVisibility(View.VISIBLE);
-//                recyclerView.setVisibility(View.GONE);
             }
 
             cd.buildDialog(CustomerReservationsActivity.this,
-                    "Błąd połączenia internetowego",
-                    "Sprawdź połączenie internetowe i spróbuj ponownie"
+                    getString(R.string.connectionErrorTitle),
+                    getString(R.string.checkConnectionErrorStatement)
             ).show();
         }
 
@@ -229,6 +213,6 @@ public class CustomerReservationsActivity extends AppCompatActivity {
     private String getCustomerId() {
         SQLiteHandler db = new SQLiteHandler(getApplicationContext());
         HashMap<String, String> customer = db.getCustomer();
-        return customer.get("id");
+        return customer.get(getString(R.string.id));
     }
 }

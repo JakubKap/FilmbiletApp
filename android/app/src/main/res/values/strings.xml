@@ -1,27 +1,27 @@
 <resources>
-    <string name="app_name">FilmBilet</string>
-    <string name="login_btn"><b>Zaloguj się</b></string>
-    <string name="logout_btn"><b>Wyloguj się</b></string>
-    <string name="register_btn"><b>Zarejestruj się</b></string>
-    <string name="login_success_string">"Witaj "</string>
-    <string name="hint_name">Imię</string>
-    <string name="hint_surname">Nazwisko</string>
-    <string name="hint_email">E-mail</string>
-    <string name="hint_password">Hasło</string>
-    <string name="first_sector">\n10 zł</string>
-    <string name="second_sector">\n15 zł</string>
-    <string name="third_sector">\n20 zł</string>
-    <string name="fourth_sector">\n30 zł</string>
+    <string name="appName">FilmBilet</string>
+    <string name="loginBtn"><b>Zaloguj się</b></string>
+    <string name="logoutBtn"><b>Wyloguj się</b></string>
+    <string name="registerBtn"><b>Zarejestruj się</b></string>
+    <string name="loginSuccessString">"Witaj "</string>
+    <string name="hintName">Imię</string>
+    <string name="hintSurname">Nazwisko</string>
+    <string name="hintEmail">E-mail</string>
+    <string name="hintPassword">Hasło</string>
+    <string name="firstSector">\n10 zł</string>
+    <string name="secondSector">\n15 zł</string>
+    <string name="thirdSector">\n20 zł</string>
+    <string name="fourthSector">\n30 zł</string>
 
     <string name ="stepNumber1">1</string>
     <string name ="stepNumber2">2</string>
     <string name ="selectSector">Wybierz sektor</string>
-    <string name="movie_length">"długość filmu: "</string>
+    <string name="movieLength">"długość filmu: "</string>
     <string name="separator">|</string>
     <string name="genres">"gatunki: "</string>
-    <string name="min_age">od lat:</string>
-    <string name="connection_error">Nie można nawiązać połączenia</string>
-    <string name="title_activity_reservations">ReservationsActivity</string>
+    <string name="minAge">od lat:</string>
+    <string name="connectionError">Nie można nawiązać połączenia</string>
+    <string name="titleActivityReservations">ReservationsActivity</string>
     <string name="sector3Text">sektor 3</string>
     <string name="sector2Text">sektor 2</string>
     <string name="sector1Text">sektor 1</string>
@@ -46,7 +46,7 @@
     <string name="btnReserveText">Zarezerwuj wybrane bilety</string>
     <string name="availablePlacesText">dostępnych</string>
     <string name="priceText">cena</string>
-    <string name="title_activity_test_sector">testSectorActivity</string>
+    <string name="titleActivityTestSector">testSectorActivity</string>
     <string name="firstColumnText">1</string>
     <string name="secondColumnText">2</string>
     <string name="ThirdColumnText">3</string>
@@ -58,8 +58,8 @@
     <string name="approveBtnText">Zatwierdź</string>
     <string name="cancelBtnText">Anuluj</string>
     <string name="movieTitleText">Tytuł</string>
-    <string name="logo_text">Logo Firmy</string>
-    <string name="customer_reservations_text">Moje rezerwacje</string>
+    <string name="logoText">Logo Firmy</string>
+    <string name="customerReservationsText">Moje rezerwacje</string>
     <string name="currencyAndSeatsText">zł. Miejsca:</string>
     <string name="reservationDateText">Data rezerwacji</string>
     <string name="repertoireDateText">Data seansu</string>
@@ -136,7 +136,7 @@
     <string name="saveResRequest">Save reservation request: </string>
     <string name="saveResErrorLog">Save reservation error: </string>
 
-    <string name="resId">id</string>
+    <string name="id">id</string>
     <string name="resSeatNumber">seatNumber</string>
     <string name="resRow">row</string>
     <string name="repId">repertoireId</string>
@@ -144,7 +144,8 @@
     <string name="customerId">customerId</string>
     <string name ="seatTypeId">seatTypeId</string>
 
-    <string name="requestAdd">req_register</string>
+    <string name="registerRequestAdd">req_register</string>
+    <string name="loginRequestAdd">req_login</string>
     <string name="socketFailure">onFailure: </string>
     <string name="socketCloseReason">Zarezerwowowano miejsca</string>
     <string name="socketSendError">sendMessageToServer: client rowny null</string>
@@ -157,5 +158,16 @@
     <string name="currency"> zł</string>
     <string name="colon">:</string>
     <string name="zero">0</string>
+    <string name="jsonSeatNumbers">seatNumbers</string>
+    <string name="jsonReservDate">reservDate</string>
+    <string name="jsonMovieTitle">movieTitle</string>
+    <string name="jsonRepertDate">repertDate</string>
+    <string name="jsonRepertId">repertId</string>
+    <string name="jsonPrice">price</string>
+    <string name="connectionErrorTitle">Błąd połączenia internetowego</string>
+    <string name="serverErrorCheckLater">Spróbuj ponownie później</string>
+    <string name="checkConnectionErrorStatement">Sprawdź połączenie internetowe i spróbuj ponownie</string>
+    <string name="reservationPutReqParam">customerId</string>
+    <string name="customerReservationsJsonName">customerReservations</string>
 
 </resources>

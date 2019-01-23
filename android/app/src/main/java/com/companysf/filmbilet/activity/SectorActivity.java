@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.addition.ErrorDetector;
@@ -43,7 +42,6 @@ import com.companysf.filmbilet.webSocket.Message;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 
 import java.util.ArrayList;
@@ -828,7 +826,7 @@ public class SectorActivity extends AppCompatActivity {
                                     Log.d(logTag, getString(R.string.resJsonLog) + reservationsJson.length());
                                     JSONObject reservationJSON = reservationsJson.getJSONObject(i);
                                     Reservation reservation = new Reservation(
-                                            reservationJSON.getInt(getString(R.string.resId)),
+                                            reservationJSON.getInt(getString(R.string.id)),
                                             reservationJSON.getInt(getString(R.string.resSeatNumber)),
                                             reservationJSON.getInt(getString(R.string.resRow))
                                     );
@@ -870,7 +868,7 @@ public class SectorActivity extends AppCompatActivity {
             }
         };
 
-        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.requestAdd));
+        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.registerRequestAdd));
 
 
         final OkHttpClient httpClient = new OkHttpClient();
@@ -1263,7 +1261,7 @@ public class SectorActivity extends AppCompatActivity {
 
                                 for (Map.Entry<Integer, Integer> entry : selectedSeats.entrySet()) {
 
-                                    final String customerId = customer.get(getString(R.string.resId));
+                                    final String customerId = customer.get(getString(R.string.id));
                                     final String seatNumber = Integer.toString(entry.getKey());
                                     final String seatTypeId = Integer.toString(entry.getValue());
                                     final String row = Integer.toString(seatAndRowMap.get(entry.getKey()));
@@ -1315,7 +1313,7 @@ public class SectorActivity extends AppCompatActivity {
                                         }
                                     };
 
-                                    AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.requestAdd));
+                                    AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.registerRequestAdd));
                                 }
 
                                 //wysłanie wiadomości do Socketu
