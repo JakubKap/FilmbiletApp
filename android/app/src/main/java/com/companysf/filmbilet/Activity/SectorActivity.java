@@ -69,6 +69,7 @@ import okio.ByteString;
 public class SectorActivity extends AppCompatActivity implements SocketListener {
 
     private static final String logTag = MainActivity.class.getSimpleName();
+
     private SessionManager sManager;
     MyWebSocketListener myWebSocketListener;
     private SQLiteHandler db;
@@ -206,28 +207,10 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
         repertoireId = b.getInt(getString(R.string.scheduleId));
         reservationConnection.getReservations(repertoireId);
 
-
         final OkHttpClient httpClient = new OkHttpClient();
         okhttp3.Request request = new okhttp3.Request.Builder().url(AppConfig.websocketURL).build();
 
         myWebSocketListener = new MyWebSocketListener(getApplicationContext(), this);
-
-                View.OnClickListener buttonClicked = new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        Button btn = findViewById(v.getId());
-                        for(int i=0; i<sectorButtons.length; i++)
-                            if(sectorButtons[i].equals(btn))
-                                Log.d(logTag, "index buttona = " + i);
-
-                        Log.d(logTag, "index buttona = " + 1);
-                    }
-
-                };
-                for(Button sectorButton : sectorButtons)
-                    sectorButton.setOnClickListener(buttonClicked);
-
 
         httpClient.newWebSocket(request, myWebSocketListener);
         httpClient.dispatcher().executorService().shutdown();
@@ -242,7 +225,27 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
     public void callback(String result) {
         Log.d(logTag, "onOpen");
 
+        View.OnClickListener buttonClicked = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Button btn = findViewById(v.getId());
+                for(int i=0; i<sectorButtons.length; i++)
+                    if(sectorButtons[i].equals(btn))
+                        Log.d(logTag, "index buttona = " + i);
+
+                Log.d(logTag, "index buttona = " + 1);
+            }
+
+        };
+        for(Button sectorButton : sectorButtons)
+            sectorButton.setOnClickListener(buttonClicked);
+
+
+        /*httpClient.newWebSocket(request, myWebSocketListener);
+        httpClient.dispatcher().executorService().shutdown();*/
     }
+
 }
 
 
