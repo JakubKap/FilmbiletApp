@@ -41,14 +41,15 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
         TextView price, priceText, seatNumbers, reservationDateText, reservationDate,
                 repertoireDateText, repertoireDate, title, seatNumbersText;
         Button generatePdfButton;
+
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            title= itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.title);
             priceText = itemView.findViewById(R.id.priceText);
             price = itemView.findViewById(R.id.price);
-            seatNumbers= itemView.findViewById(R.id.seatNumbers);
-            reservationDate= itemView.findViewById(R.id.reservationDate);
-            repertoireDate= itemView.findViewById(R.id.repertoireDate);
+            seatNumbers = itemView.findViewById(R.id.seatNumbers);
+            reservationDate = itemView.findViewById(R.id.reservationDate);
+            repertoireDate = itemView.findViewById(R.id.repertoireDate);
             seatNumbersText = itemView.findViewById(R.id.seatNumbersText);
             reservationDateText = itemView.findViewById(R.id.reservationDateText);
             repertoireDateText = itemView.findViewById(R.id.repertoireDateText);
@@ -68,14 +69,26 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int position) {
         CustomerReservation customerReservation = reservationsList.get(position);
 
-        //set text to views
         myViewHolder.title.setText(customerReservation.getRepertoire().getMovie().getTitle());
         myViewHolder.price.setText(
-                    String.format(new Locale("pl", "PL"), "%.2f",
-                            customerReservation.getPrice())
-                );
+                String.format(
+                        new Locale(
+                                context.getString(R.string.polish),
+                                context.getString(R.string.poland)
+                        ),
+                        "%.2f",
+                        customerReservation.getPrice()
+                )
+        );
         myViewHolder.seatNumbers.setText(
-                String.format(new Locale("pl", "PL"), "%s", customerReservation.getSeatNumbers())
+                String.format(
+                        new Locale(
+                                context.getString(R.string.polish),
+                                context.getString(R.string.poland)
+                        ),
+                        "%s",
+                        customerReservation.getSeatNumbers()
+                )
         );
         myViewHolder.reservationDate.setText(
                 customerReservation.getReservationDate().getStringDateTime()
@@ -84,7 +97,6 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
                 customerReservation.getRepertoire().getDate().getStringDateTime()
         );
 
-        //font
         myViewHolder.title.setTypeface(opensansRegular);
         myViewHolder.priceText.setTypeface(opensansRegular);
         myViewHolder.price.setTypeface(opensansItalic);
@@ -99,21 +111,28 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
         myViewHolder.generatePdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomerReservation customerReservation = reservationsList.get(myViewHolder.getAdapterPosition());
-                String reservationDate = customerReservation.getReservationDate().getStringDate() +
-                        "_" + customerReservation.getReservationDate().getStringTime(".");
+                CustomerReservation customerReservation =
+                        reservationsList.get(myViewHolder.getAdapterPosition());
+                String reservationDate =
+                        customerReservation.getReservationDate().getStringDate() +
+                                context.getString(R.string.dateTimeSeparator) +
+                                customerReservation.getReservationDate().getStringTime(
+                                        context.getString(R.string.timeSeparator)
+                                );
 
                 PdfFile pdfFile = new PdfFile(
                         context,
                         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                        "moje_rezerwacje_filmbilet",
-                        "reservation_"+reservationDate+".pdf",
-                        "assets/opensans_regular.ttf",
+                        context.getString(R.string.pdfFileFolderName),
+                        context.getString(R.string.pdfFileName) +
+                                reservationDate +
+                                context.getString(R.string.pdfFileName),
+                        context.getString(R.string.opensansRegularPath),
                         customerReservation);
                 if (!pdfFile.createPdfFile())
                     Toast.makeText(
                             context,
-                            "zabroniony dostep do modyfikacji plików",
+                            context.getString(R.string.modificateFilesAccessDeniedMsg),
                             Toast.LENGTH_LONG
                     ).show();
             }

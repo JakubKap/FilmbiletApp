@@ -195,5 +195,14 @@
     <string name="sqLiteCustomerEmail">email</string>
     <string name="notValidEmailMsg">Wprowadzony email nie jest poprawny!</string>
     <string name="emptyRegisterFieldsMsg">Proszę uzupełnić wszystkie pola!</string>
+    <string name="modificateFilesAccessDeniedMsg">zabroniony dostep do modyfikacji plików</string>
+    <string name="pdfFileName">reservation_</string>
+    <string name="pdfFileExtension">.pdf</string>
+    <string name="pdfFileFolderName">moje_rezerwacje_filmbilet</string>
+    <string name="opensansRegularPath">assets/opensans_regular.ttf</string>
+    <string name="polish">pl</string>
+    <string name="poland">PL</string>
+    <string name="timeSeparator">.</string>
+    <string name="dateTimeSeparator">_</string>
 
 </resources>
