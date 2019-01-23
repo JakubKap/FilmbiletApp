@@ -192,6 +192,8 @@
     <string name="insertEmailAndPasswordPrompt">Proszę wprowadzić E-mail i hasło </string>
     <string name="loginNetworkConnectionErrorMsg">Żeby móc się zalogować, potrzebujesz dostępu do internetu</string>
     <string name="RegisterNetworkConnectionErrorMsg">Żeby móc się zarejestrować, potrzebujesz dostępu do internetu</string>
+    <string name="sqLiteCustomerTable">customer</string>
+    <string name="sqLiteDatabaseName">apiDB</string>
     <string name="sqLiteCustomerEmail">email</string>
     <string name="notValidEmailMsg">Wprowadzony email nie jest poprawny!</string>
     <string name="emptyRegisterFieldsMsg">Proszę uzupełnić wszystkie pola!</string>
