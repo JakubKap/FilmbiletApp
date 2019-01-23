@@ -130,7 +130,7 @@
                     android:id="@+id/movie_length_text_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/movie_length"
+                    android:text="@string/movieLength"
                     android:textSize="16sp" />
 
                 <TextView
@@ -152,7 +152,7 @@
                     android:id="@+id/min_age_text_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/min_age"
+                    android:text="@string/minAge"
                     android:textSize="16sp" />
 
                 <TextView

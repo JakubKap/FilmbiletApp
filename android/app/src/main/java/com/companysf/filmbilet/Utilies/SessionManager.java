@@ -7,7 +7,6 @@ import android.util.Log;
 public class SessionManager {
     private SharedPreferences pref;
 
-    //shared preferences file name
     private static final String PREF_NAME = "customerLogin";
     private static final String IS_LOGGEDIN_KEY = "isLoggedIn";
 

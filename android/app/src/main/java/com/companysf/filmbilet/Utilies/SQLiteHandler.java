@@ -6,9 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.companysf.filmbilet.R;
+
 import java.util.HashMap;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
+    private Context context;
     private static final String TAG = SQLiteHandler.class.getSimpleName();
 
     private static final String customerName = "name";
@@ -17,12 +20,18 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String customerId = "id";
 
     public SQLiteHandler(Context context) {
-        super(context, "apiDB", null, 1);
+        super(context, context.getString(R.string.sqLiteDatabaseName), null, 1);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createLoginTable = "CREATE TABLE customer(" + customerName + "TEXT, " + customerSurname + "TEXT, " + customerEmail + "TEXT, " + customerId + "TEXT)";
+        String createLoginTable =
+                "CREATE TABLE customer" + "(" +
+                        customerName + "TEXT, " +
+                        customerSurname + "TEXT, " +
+                        customerEmail + "TEXT, " +
+                        customerId + "TEXT)";
         db.execSQL(createLoginTable);
         Log.d(TAG, "Database tables created");
     }
@@ -30,8 +39,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS customer");
-
-        // Create tables again
         onCreate(db);
     }
 
@@ -70,7 +77,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void deleteCustomers() {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete("customer", null, null);
+        db.delete(context.getString(R.string.sqLiteCustomerTable), null, null);
         db.close();
 
         Log.d(TAG, "Table customer was deleted from SQLite");

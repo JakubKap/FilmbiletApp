@@ -39,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Views
         Button loginBtn = findViewById(R.id.btn_login);
         Button registerBtn = findViewById(R.id.btn_register);
         inputEmail = findViewById(R.id.email);
@@ -50,8 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         SessionManager sManager = new SessionManager(getApplicationContext());
         cd = new ConnectionDetector(this);
 
-        //font
-        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
 
         registerBtn.setTypeface(opensansBold);
         loginBtn.setTypeface(opensansBold);
@@ -72,7 +70,6 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //on enter click
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
                     validateEmail();
                     return true;
@@ -101,17 +98,21 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (!isEmail(email)){
                 Toast.makeText(getApplicationContext(),
-                        "Wprowadzony email nie jest poprawny!", Toast.LENGTH_LONG)
+                        getString(R.string.notValidEmailMsg), Toast.LENGTH_LONG)
                         .show();
             } else if (name.isEmpty() || surname.isEmpty() || password.isEmpty()) {
                 Toast.makeText(getApplicationContext(),
-                        "Proszę uzupełnić wszystkie pola!", Toast.LENGTH_LONG)
+                        getString(R.string.emptyRegisterFieldsMsg), Toast.LENGTH_LONG)
                         .show();
             } else {
                 registerUser(name, surname, email, password);
             }
         } else{
-            cd.buildDialog(RegisterActivity.this, "Błąd połączenia internetowego", "Potrzebujesz dostępu do internetu, żeby móc się zalogować").show();
+            cd.buildDialog(
+                    RegisterActivity.this,
+                    getString(R.string.networkConnectionErrorTitle),
+                    getString(R.string.RegisterNetworkConnectionErrorMsg)
+            ).show();
         }
     }
 
@@ -128,19 +129,18 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.d(logTag, "Register request: " + response);
                         try {
                             JSONObject json = new JSONObject(response);
-                            boolean error = json.getBoolean("error");
+                            boolean error = json.getBoolean(getString(R.string.error));
                             if (error){
                                 Toast.makeText(
                                         getApplicationContext(),
-                                        "Błąd serwera",
+                                        getString(R.string.serverErrorTitle),
                                         Toast.LENGTH_SHORT).show();
                             } else{
                                 Toast.makeText(
                                         getApplicationContext(),
-                                        "Zostałeś pomyślnie zarejestrowany. Możesz się teraz zalogować",
+                                        getString(R.string.registerSuccessToast),
                                         Toast.LENGTH_LONG).show();
 
-                                //toggle to LoginActivity
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -149,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
                             e.printStackTrace();
                             Toast.makeText(
                                     getApplicationContext(),
-                                    "Błąd serwera: ",
+                                    getString(R.string.serverErrorTitle),
                                     Toast.LENGTH_LONG).show();
                         }
                     }
@@ -158,21 +158,21 @@ public class RegisterActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e(logTag, "Registration Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
-                        "Błąd serwera", Toast.LENGTH_LONG).show();
+                        getString(R.string.serverErrorTitle), Toast.LENGTH_LONG).show();
             }
         }){
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("name", name);
-                params.put("surname", surname);
-                params.put("email", email);
-                params.put("password", password);
+                params.put(getString(R.string.registerPutReqNameParam), name);
+                params.put(getString(R.string.registerPutReqSurnameParam), surname);
+                params.put(getString(R.string.registerPutReqEmailParam), email);
+                params.put(getString(R.string.registerPutReqPasswordParam), password);
 
                 return params;
             }
         };
 
-        AppController.getInstance().addToRequestQueue(stringRequest, "req_register");
+        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.registerRequestAdd));
     }
 }

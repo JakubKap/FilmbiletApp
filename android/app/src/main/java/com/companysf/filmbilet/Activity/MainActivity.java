@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         animationStarted = false;
 
-        //Views
         Button btnLogout = findViewById(R.id.btn_logout);
         Button btnCustomerReservations = findViewById(R.id.btn_customer_reservations);
         TextView customerInfo = findViewById(R.id.customer_info);
@@ -75,34 +74,29 @@ public class MainActivity extends AppCompatActivity {
         emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
         TextView welcomeCustomer = findViewById(R.id.welcomeCustomer);
 
-        //font
-        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), "opensans_regular.ttf");
-        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
-        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), "opensans_italic.ttf");
+        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
 
         welcomeCustomer.setTypeface(opensansRegular);
         customerInfo.setTypeface(opensansRegular);
         btnCustomerReservations.setTypeface(opensansBold);
         btnLogout.setTypeface(opensansBold);
 
-        //animation
         animation = new RotateAnimation(0.0f, 360.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 0.5f);
         animation.setRepeatCount(-1);
         animation.setDuration(2000);
 
-        //setting adapter
         adapter = new MoviesListAdapter(this, MainActivity.this, moviesList, opensansRegular, opensansBold, opensansItalic);
         moviesListView.setAdapter(adapter);
 
-        //show customer email
         db = new SQLiteHandler(getApplicationContext());
         HashMap<String, String> customer = db.getCustomer();
-        String email = customer.get("email");
+        String email = customer.get(getString(R.string.sqLiteCustomerEmail));
         customerInfo.setText(email);
 
-        //onClick listeners
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,10 +122,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //volley request
         updateDataFromServer();
 
-        //refresh movies list by swipe down
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -151,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(logTag, "get repertoire movies request");
                             try {
                                 JSONObject json = new JSONObject(response);
-                                boolean error = json.getBoolean("error");
+                                boolean error = json.getBoolean(getString(R.string.error));
                                 if (error) {
                                     Log.d(logTag, "Error on getting data from API Service");
 
@@ -161,25 +153,25 @@ public class MainActivity extends AppCompatActivity {
 
                                     cd.buildDialog(
                                             MainActivity.this,
-                                            "Błąd połączenia z serwerem",
-                                            "Spróbuj ponownie później"
+                                            getString(R.string.serverErrorTitle),
+                                            getString(R.string.serverErrorCheckLater)
                                     ).show();
                                 } else {
                                     emptyListRefreshLayout.setVisibility(View.GONE);
 
-                                    JSONArray moviesJson = json.getJSONArray("moviesFromRepertoire");
+                                    JSONArray moviesJson = json.getJSONArray(getString(R.string.moviesFromRepertoireJsonName));
                                     moviesList.clear();
 
                                     for (int i = 0; i < moviesJson.length(); i++) {
                                         Log.d(logTag, "moviesJsonLOG " + moviesJson.length());
                                         JSONObject movieJSON = moviesJson.getJSONObject(i);
                                         Movie movie = new Movie(
-                                                movieJSON.getInt("id"),
-                                                movieJSON.getString("title"),
-                                                movieJSON.getInt("runningTimeMin"),
-                                                movieJSON.getInt("age"),
-                                                movieJSON.getString("pictureUrl"),
-                                                movieJSON.getString("genres")
+                                                movieJSON.getInt(getString(R.string.jsonMovieFromRepertoireId)),
+                                                movieJSON.getString(getString(R.string.jsonMovieFromRepertoireTitle)),
+                                                movieJSON.getInt(getString(R.string.jsonMovieFromRepertoireRunningTimeMin)),
+                                                movieJSON.getInt(getString(R.string.jsonMovieFromRepertoireAge)),
+                                                movieJSON.getString(getString(R.string.jsonMovieFromRepertoirePictureUrl)),
+                                                movieJSON.getString(getString(R.string.jsonMovieFromRepertoireGenres))
                                         );
                                         moviesList.add(movie);
                                     }
@@ -187,26 +179,23 @@ public class MainActivity extends AppCompatActivity {
                                     adapter.notifyDataSetChanged();
                                 }
                             } catch (JSONException e) {
-                                //blad w trakcie pobierania danych
                                 e.printStackTrace();
 
                                 if (moviesList.isEmpty()) {
                                     emptyListRefreshLayout.setVisibility(View.VISIBLE);
                                 }
 
-                                //1.zerwanie polaczenia internetowego?
                                 if (!cd.connected()) {
                                     cd.buildDialog(MainActivity.this,
-                                            "Błąd połączenia internetowego",
-                                            "Sprawdź połączenie internetowe i spróbuj ponownie"
+                                            getString(R.string.networkConnectionErrorTitle),
+                                            getString(R.string.checkConnectionErrorStatement)
                                     ).show();
                                 }
-                                //2.inny blad niz zerwanie polaczenia internetowego
                                 else {
                                     cd.buildDialog(
                                             MainActivity.this,
-                                            "Błąd pobierania danych z serwera",
-                                            "Spróbuj ponownie później"
+                                            getString(R.string.serverErrorTitle),
+                                            getString(R.string.serverErrorCheckLater)
                                     ).show();
                                 }
                             }
@@ -224,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
 
                             cd.buildDialog(
                                     MainActivity.this,
-                                    "Błąd połączenia z serwerem",
-                                    "Spróbuj ponownie później"
+                                    getString(R.string.serverErrorTitle),
+                                    getString(R.string.serverErrorCheckLater)
                             ).show();
                         }
                     }
@@ -237,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             cd.buildDialog(MainActivity.this,
-                    "Błąd połączenia internetowego",
-                    "Sprawdź połączenie internetowe i spróbuj ponownie"
+                    getString(R.string.networkConnectionErrorTitle),
+                    getString(R.string.checkConnectionErrorStatement)
             ).show();
         }
 
