@@ -205,5 +205,6 @@
     <string name="timeSeparator">.</string>
     <string name="dateTimeSeparator">_</string>
     <string name="movieIntentExtraContentName">movie</string>
+    <string name="dialogPositiveBtnText">ok</string>
 
 </resources>
