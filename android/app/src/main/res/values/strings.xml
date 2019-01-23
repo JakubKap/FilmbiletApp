@@ -169,6 +169,12 @@
     <string name="jsonCustomerSurname">surname</string>
     <string name="jsonCustomerEmail">email</string>
     <string name="jsonCustomerId">id</string>
+    <string name="jsonMovieFromRepertoireId">id</string>
+    <string name="jsonMovieFromRepertoireTitle">title</string>
+    <string name="jsonMovieFromRepertoireRunningTimeMin">runningTimeMin</string>
+    <string name="jsonMovieFromRepertoireAge">age</string>
+    <string name="jsonMovieFromRepertoirePictureUrl">pictureUrl</string>
+    <string name="jsonMovieFromRepertoireGenres">genres</string>
     <string name="networkConnectionErrorTitle">Błąd połączenia internetowego</string>
     <string name="serverErrorCheckLater">Spróbuj ponownie później</string>
     <string name="checkConnectionErrorStatement">Sprawdź połączenie internetowe i spróbuj ponownie</string>
@@ -177,7 +183,9 @@
     <string name="loginPutReqPasswordParam">password</string>
     <string name="customerReservationsJsonName">customerReservations</string>
     <string name="customerJsonName">customer</string>
+    <string name="moviesFromRepertoireJsonName">moviesFromRepertoire</string>
     <string name="insertEmailAndPasswordPrompt">Proszę wprowadzić E-mail i hasło </string>
     <string name="loginNetworkConnectionErrorMsg">Żeby móc się zalogować, potrzebujesz dostępu do internetu</string>
+    <string name="sqLiteCustomerEmail">email</string>
 
 </resources>
