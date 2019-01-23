@@ -83,7 +83,7 @@ public class ReservationConnection {
                             if (choosedPlaces[i])
                                 Log.d(logTag, "After choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
 
-                        sectorActivity.updateSectors(true,choosedPlaces);
+                        //sectorActivity.updateSectors(true,choosedPlaces);
 
                     }
                 }, new Response.ErrorListener() {
