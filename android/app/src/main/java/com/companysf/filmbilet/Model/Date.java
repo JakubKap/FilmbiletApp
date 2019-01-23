@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Entities;
+package com.companysf.filmbilet.Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +9,7 @@ import java.util.Locale;
 public class Date {
     private GregorianCalendar date;
 
-    Date(String dateTime) {
+    public Date(String dateTime) {
         this.date = new GregorianCalendar();
         convertMySQLToJavaDateTime(dateTime);
     }

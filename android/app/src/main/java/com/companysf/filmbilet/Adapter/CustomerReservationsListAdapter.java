@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Entities.CustomerReservation;
-import com.companysf.filmbilet.Entities.PdfFile;
+import com.companysf.filmbilet.Model.PdfFile;
 
 import java.util.List;
 import java.util.Locale;

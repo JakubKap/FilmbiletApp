@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Entities;
+package com.companysf.filmbilet.Model;
 
 import android.Manifest;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+import com.companysf.filmbilet.Entities.CustomerReservation;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;

@@ -1,6 +1,8 @@
 package com.companysf.filmbilet.Entities;
 
 
+import com.companysf.filmbilet.Model.Date;
+
 public class CustomerReservation {
     private String seatNumbers;
     private Date reservationDate;

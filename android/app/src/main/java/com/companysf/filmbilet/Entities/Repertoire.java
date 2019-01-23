@@ -1,5 +1,7 @@
 package com.companysf.filmbilet.Entities;
 
+import com.companysf.filmbilet.Model.Date;
+
 public class Repertoire {
     private Movie movie;
     private Date date;

@@ -3,12 +3,17 @@ package com.companysf.filmbilet.Entities;
 public class Customer {
     private String name;
     private String surname;
-    private String uniqueId;
+    private String email;
+    private String id;
 
-    public Customer(String name, String surname, String uniqueId) {
+    public Customer() {
+    }
+
+    public Customer(String name, String surname, String email, String id) {
         this.name = name;
         this.surname = surname;
-        this.uniqueId = uniqueId;
+        this.email = email;
+        this.id = id;
     }
 
     public String getName() {
@@ -27,11 +32,19 @@ public class Customer {
         this.surname = surname;
     }
 
-    public String getUniqueId() {
-        return uniqueId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUniqueId(String uniqueId) {
-        this.uniqueId = uniqueId;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

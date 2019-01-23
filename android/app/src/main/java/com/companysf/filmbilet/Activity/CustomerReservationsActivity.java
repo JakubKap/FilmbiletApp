@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.companysf.filmbilet.Entities.Customer;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Adapter.CustomerReservationsListAdapter;
 import com.companysf.filmbilet.Utilies.ConnectionDetector;
@@ -211,7 +212,7 @@ public class CustomerReservationsActivity extends AppCompatActivity {
 
     private String getCustomerId() {
         SQLiteHandler db = new SQLiteHandler(getApplicationContext());
-        HashMap<String, String> customer = db.getCustomer();
-        return customer.get(getString(R.string.id));
+        Customer customer = db.getCustomer();
+        return customer.getId();
     }
 }

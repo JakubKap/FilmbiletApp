@@ -1,33 +1,19 @@
 package com.companysf.filmbilet.Utilies;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 
 import com.companysf.filmbilet.R;
 
-public class ConnectionDetector {
-    public Context context;
+public class ErrorDialog {
+    private Context context;
 
-    public ConnectionDetector(Context context) {
+    public ErrorDialog(Context context) {
         this.context = context;
     }
 
-    public boolean connected(){
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Service.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return (
-                activeNetwork != null
-        );
-    }
-
-    //TODO metoda do usuniecia
-    public AlertDialog.Builder buildDialog(Context context, String title, String message) {
+    public void showErrorDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
@@ -39,8 +25,6 @@ public class ConnectionDetector {
             }
         });
 
-        return builder;
+        builder.show();
     }
-
-
 }
