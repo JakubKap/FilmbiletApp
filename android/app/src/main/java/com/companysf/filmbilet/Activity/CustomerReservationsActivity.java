@@ -148,8 +148,7 @@ public class CustomerReservationsActivity extends AppCompatActivity {
                                             getString(R.string.networkConnectionErrorTitle),
                                             getString(R.string.checkConnectionErrorStatement)
                                     ).show();
-                                }
-                                else {
+                                } else {
                                     cd.buildDialog(
                                             CustomerReservationsActivity.this,
                                             getString(R.string.serverErrorTitle),
