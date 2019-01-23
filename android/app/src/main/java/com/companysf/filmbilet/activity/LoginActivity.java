@@ -54,13 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(inputEmail.getWindowToken(), 0);
 
-        //font
-        Typeface opensansBold = Typeface.createFromAsset(getAssets(), "opensans_bold.ttf");
-
+        Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
         loginBtn.setTypeface(opensansBold);
         registerBtn.setTypeface(opensansBold);
 
-        //if user is already logged in
         if (sManager.isLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -74,18 +71,16 @@ public class LoginActivity extends AppCompatActivity {
                 String password = inputPassword.getText().toString().trim();
                 if (cd.connected()){
                     if (!email.isEmpty() && !password.isEmpty()) {
-                        // login user
                         checkLogin(email, password);
                     } else {
-                        // Prompt user to enter credentials
                         Toast.makeText(getApplicationContext(),
-                                "Proszę wprowadzić E-mail i hasło ", Toast.LENGTH_LONG)
+                                getString(R.string.insertEmailAndPasswordPrompt), Toast.LENGTH_LONG)
                                 .show();
                     }
                 } else {
                     cd.buildDialog(LoginActivity.this,
-                            "Błąd połączenia internetowego",
-                            "Żeby móc się zalogować, potrzebujesz dostępu do internetu"
+                            getString(R.string.networkConnectionErrorTitle),
+                            getString(R.string.loginNetworkConnectionErrorMsg)
                     ).show();
                 }
             }
@@ -97,20 +92,17 @@ public class LoginActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                //on enter click
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
                     if (cd.connected()){
                         if (!email.isEmpty() && !password.isEmpty()) {
-                            // login user
                             checkLogin(email, password);
                         } else {
-                            // Prompt user to enter credentials
                             Toast.makeText(getApplicationContext(),
-                                    "Proszę wprowadzić E-mail i hasło ", Toast.LENGTH_LONG)
+                                    getString(R.string.insertEmailAndPasswordPrompt), Toast.LENGTH_LONG)
                                     .show();
                         }
                     } else {
-                        cd.buildDialog(LoginActivity.this, "Błąd połączenia internetowego", "Potrzebujesz dostępu do internetu, żeby móc się zalogować").show();
+                        cd.buildDialog(LoginActivity.this, getString(R.string.networkConnectionErrorTitle), getString(R.string.loginNetworkConnectionErrorMsg)).show();
                     }
                 }
                 return false;
@@ -128,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkLogin(final String email, final String password) {
-        //volley string Request
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 AppConfig.LOGIN_URL, new Response.Listener<String>() {
             @Override
@@ -136,21 +127,20 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(logTag, "Login response: " + response);
                 try {
                     JSONObject json = new JSONObject(response);
-                    boolean error = json.getBoolean("error");
+                    boolean error = json.getBoolean(getString(R.string.error));
                     if (error){
-                        Toast.makeText(getApplicationContext(), json.getString("message"),
+                        Toast.makeText(getApplicationContext(), json.getString(getString(R.string.message)),
                                 Toast.LENGTH_SHORT).show();
                     } else{
                         sManager.setLogin(true);
 
-                        //add fields from MySQL to SQLite
-                        JSONObject customer = json.getJSONObject("customer");
+                        JSONObject customer = json.getJSONObject(getString(R.string.customerJsonName));
                         Log.d(logTag, "customerName: " + customer.getString("name") + "i jego id: " + Integer.toString(customer.getInt("id")));
                         db.addCustomer(
-                                customer.getString("name"),
-                                customer.getString("surname"),
-                                customer.getString("email"),
-                                Integer.toString(customer.getInt("id")));
+                                customer.getString(getString(R.string.jsonCustomerName)),
+                                customer.getString(getString(R.string.jsonCustomerSurname)),
+                                customer.getString(getString(R.string.jsonCustomerEmail)),
+                                Integer.toString(customer.getInt(getString(R.string.jsonCustomerId))));
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -158,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Błąd Json: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.serverErrorTitle), Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -171,12 +161,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("password", password);
+                params.put(getString(R.string.loginPutReqEmailParam), email);
+                params.put(getString(R.string.loginPutReqPasswordParam), password);
                 return params;
             }
         };
-        AppController.getInstance().addToRequestQueue(stringRequest, "req_get_reservations");
+        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.getReservationsRequestAdd));
     }
 
 

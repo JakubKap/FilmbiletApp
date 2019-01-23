@@ -146,6 +146,7 @@
 
     <string name="registerRequestAdd">req_register</string>
     <string name="loginRequestAdd">req_login</string>
+    <string name="getReservationsRequestAdd">req_get_reservations</string>
     <string name="socketFailure">onFailure: </string>
     <string name="socketCloseReason">Zarezerwowowano miejsca</string>
     <string name="socketSendError">sendMessageToServer: client rowny null</string>
@@ -164,10 +165,19 @@
     <string name="jsonRepertDate">repertDate</string>
     <string name="jsonRepertId">repertId</string>
     <string name="jsonPrice">price</string>
-    <string name="connectionErrorTitle">Błąd połączenia internetowego</string>
+    <string name="jsonCustomerName">name</string>
+    <string name="jsonCustomerSurname">surname</string>
+    <string name="jsonCustomerEmail">email</string>
+    <string name="jsonCustomerId">id</string>
+    <string name="networkConnectionErrorTitle">Błąd połączenia internetowego</string>
     <string name="serverErrorCheckLater">Spróbuj ponownie później</string>
     <string name="checkConnectionErrorStatement">Sprawdź połączenie internetowe i spróbuj ponownie</string>
     <string name="reservationPutReqParam">customerId</string>
+    <string name="loginPutReqEmailParam">email</string>
+    <string name="loginPutReqPasswordParam">password</string>
     <string name="customerReservationsJsonName">customerReservations</string>
+    <string name="customerJsonName">customer</string>
+    <string name="insertEmailAndPasswordPrompt">Proszę wprowadzić E-mail i hasło </string>
+    <string name="loginNetworkConnectionErrorMsg">Żeby móc się zalogować, potrzebujesz dostępu do internetu</string>
 
 </resources>
