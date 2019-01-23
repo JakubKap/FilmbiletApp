@@ -4,6 +4,7 @@
     <string name="logoutBtn"><b>Wyloguj się</b></string>
     <string name="registerBtn"><b>Zarejestruj się</b></string>
     <string name="loginSuccessString">"Witaj "</string>
+    <string name="registerSuccessToast">Zostałeś pomyślnie zarejestrowany. Możesz się teraz zalogować</string>
     <string name="hintName">Imię</string>
     <string name="hintSurname">Nazwisko</string>
     <string name="hintEmail">E-mail</string>
@@ -181,11 +182,18 @@
     <string name="reservationPutReqParam">customerId</string>
     <string name="loginPutReqEmailParam">email</string>
     <string name="loginPutReqPasswordParam">password</string>
+    <string name="registerPutReqNameParam">name</string>
+    <string name="registerPutReqSurnameParam">surname</string>
+    <string name="registerPutReqEmailParam">email</string>
+    <string name="registerPutReqPasswordParam">password</string>
     <string name="customerReservationsJsonName">customerReservations</string>
     <string name="customerJsonName">customer</string>
     <string name="moviesFromRepertoireJsonName">moviesFromRepertoire</string>
     <string name="insertEmailAndPasswordPrompt">Proszę wprowadzić E-mail i hasło </string>
     <string name="loginNetworkConnectionErrorMsg">Żeby móc się zalogować, potrzebujesz dostępu do internetu</string>
+    <string name="RegisterNetworkConnectionErrorMsg">Żeby móc się zarejestrować, potrzebujesz dostępu do internetu</string>
     <string name="sqLiteCustomerEmail">email</string>
+    <string name="notValidEmailMsg">Wprowadzony email nie jest poprawny!</string>
+    <string name="emptyRegisterFieldsMsg">Proszę uzupełnić wszystkie pola!</string>
 
 </resources>
