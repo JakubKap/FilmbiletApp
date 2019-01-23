@@ -33,8 +33,6 @@ public class MoviesListAdapter extends BaseAdapter {
     private final List<Movie> moviesList;
     private LayoutInflater inflater;
     private ImageLoader imageLoader;
-
-    //font
     private Typeface opensansRegular;
     private Typeface opensansBold;
     private Typeface opensansItalic;
@@ -78,7 +76,6 @@ public class MoviesListAdapter extends BaseAdapter {
 
         final Movie movie = moviesList.get(position);
 
-        //Views
         TextView title = convertView.findViewById(R.id.title);
         TextView movieLength = convertView.findViewById(R.id.movie_length);
         TextView minAge = convertView.findViewById(R.id.min_age);
@@ -90,24 +87,21 @@ public class MoviesListAdapter extends BaseAdapter {
         TextView minAgeText = convertView.findViewById(R.id.min_age_text);
         RelativeLayout movieRow = convertView.findViewById(R.id.movie_row);
 
-        //set views text
         title.setText(movie.getTitle());
         movieLength.setText(String.valueOf(movie.getRunningTimeMin()));
         minAge.setText(String.valueOf(movie.getAge()));
         picture.setImageUrl(movie.getPictureURL(), imageLoader);
         genres.setText(movie.getGenres());
 
-        //onClick movie row
         movieRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,ChooseDateTime.class);
-                intent.putExtra("movie", movie);
+                intent.putExtra(context.getString(R.string.movieIntentExtraContentName), movie);
                 context.startActivity(intent);
             }
         });
 
-        //font
         title.setTypeface(opensansBold);
         genresText.setTypeface(opensansRegular);
         genres.setTypeface(opensansItalic);

@@ -204,5 +204,6 @@
     <string name="poland">PL</string>
     <string name="timeSeparator">.</string>
     <string name="dateTimeSeparator">_</string>
+    <string name="movieIntentExtraContentName">movie</string>
 
 </resources>
