@@ -45,7 +45,44 @@ public class SectorModel {
     }
 
     public void assignSectorToSeat(){
-        
+
+        int sectorNumber = 1;
+        for (int i = 1; i <= 211; i += 70) {
+            int firstSeat = i;
+
+            for (int j = 1; j <= 35; j++) {
+                if (j == 8 || j == 15 || j == 22 || j == 29) {
+                    firstSeat += 7;
+                    seatSector[firstSeat-1] = sectorNumber;
+                    firstSeat++;
+                } else {
+                    seatSector[firstSeat-1] = sectorNumber;
+                    firstSeat++;
+                }
+
+            }
+            sectorNumber += 2;
+        }
+
+        sectorNumber = 2;
+        for (int i = 8; i <= 218; i += 70) {
+            int firstSeat = i;
+
+            for (int j = 1; j <= 35; j++) {
+                if (j == 8 || j == 15 || j == 22 || j == 29) {
+                    firstSeat += 7;
+                    seatSector[firstSeat-1] = sectorNumber;
+                    firstSeat++;
+                } else {
+                    seatSector[firstSeat-1] = sectorNumber;
+                    firstSeat++;
+                }
+            }
+            sectorNumber += 2;
+        }
+        for(int i =0; i<seatSector.length; i++)
+            Log.d(logTag, "seatSetor[" + i + "] = " + seatSector[i]);
+
     }
 
 

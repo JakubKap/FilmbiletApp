@@ -196,10 +196,9 @@ public class SectorActivity extends AppCompatActivity {
         priceLabel.setTypeface(opensansRegular);
 
         sectorModel.assignRowToSeat();
-
-
+        sectorModel.assignSectorToSeat();
+        
     }
-
 
     private void logOutCustomer() {
         sManager.setLogin(false);
