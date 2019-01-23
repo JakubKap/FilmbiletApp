@@ -30,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.Connection.ReservationConnection;
+import com.companysf.filmbilet.Interfaces.SocketListener;
 import com.companysf.filmbilet.Model.SectorModel;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Utilies.ErrorDetector;
@@ -39,6 +40,7 @@ import com.companysf.filmbilet.App.AppConfig;
 import com.companysf.filmbilet.App.AppController;
 import com.companysf.filmbilet.Entities.Reservation;
 import com.companysf.filmbilet.WebSocket.Message;
+import com.companysf.filmbilet.WebSocket.MyWebSocketListener;
 
 
 import org.json.JSONArray;
@@ -64,12 +66,14 @@ import okhttp3.WebSocketListener;
 import okio.ByteString;
 
 
-public class SectorActivity extends AppCompatActivity {
+public class SectorActivity extends AppCompatActivity implements SocketListener {
 
     private static final String logTag = MainActivity.class.getSimpleName();
     private SessionManager sManager;
+    MyWebSocketListener myWebSocketListener;
     private SQLiteHandler db;
     private ErrorDetector ed;
+    private int repertoireId;
 
     private ReservationConnection reservationConnection;
     private SectorModel sectorModel;
@@ -106,7 +110,7 @@ public class SectorActivity extends AppCompatActivity {
         setContentView(R.layout.sector);
 
         reservationConnection = new ReservationConnection(getApplicationContext(), this);
-        sectorModel = new SectorModel(8,280);
+        sectorModel = new SectorModel(8, 280);
 
         ed = new ErrorDetector(this);
 
@@ -148,7 +152,7 @@ public class SectorActivity extends AppCompatActivity {
         opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
         opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
 
-        for(TextView freeSeat : freeSeats)
+        for (TextView freeSeat : freeSeats)
             freeSeat.setTypeface(opensansRegular);
 
         secBtnReserve.setTypeface(opensansBold);
@@ -173,20 +177,20 @@ public class SectorActivity extends AppCompatActivity {
         secLabels[6] = findViewById(R.id.sec7Label);
         secLabels[7] = findViewById(R.id.sec8Label);
 
-        for(TextView secLabel : secLabels)
+        for (TextView secLabel : secLabels)
             secLabel.setTypeface(opensansBold);
 
         TextView[] secPrices = new TextView[8];
-        secPrices[0]=findViewById(R.id.sec1Price);
-        secPrices[1]=findViewById(R.id.sec2Price);
-        secPrices[2]=findViewById(R.id.sec3Price);
-        secPrices[3]=findViewById(R.id.sec4Price);
-        secPrices[4]=findViewById(R.id.sec5Price);
-        secPrices[5]=findViewById(R.id.sec6Price);
-        secPrices[6]=findViewById(R.id.sec7Price);
-        secPrices[7]=findViewById(R.id.sec8Price);
+        secPrices[0] = findViewById(R.id.sec1Price);
+        secPrices[1] = findViewById(R.id.sec2Price);
+        secPrices[2] = findViewById(R.id.sec3Price);
+        secPrices[3] = findViewById(R.id.sec4Price);
+        secPrices[4] = findViewById(R.id.sec5Price);
+        secPrices[5] = findViewById(R.id.sec6Price);
+        secPrices[6] = findViewById(R.id.sec7Price);
+        secPrices[7] = findViewById(R.id.sec8Price);
 
-        for(TextView secPrice : secPrices)
+        for (TextView secPrice : secPrices)
             secPrice.setTypeface(opensansRegular);
 
         TextView choosedPlacesText = findViewById(R.id.choosedPlacesText);
@@ -197,12 +201,47 @@ public class SectorActivity extends AppCompatActivity {
 
         sectorModel.assignRowToSeat();
         sectorModel.assignSectorToSeat();
-        
+
+        Bundle b = getIntent().getExtras();
+        repertoireId = b.getInt(getString(R.string.scheduleId));
+        reservationConnection.getReservations(repertoireId);
+
+
+        final OkHttpClient httpClient = new OkHttpClient();
+        okhttp3.Request request = new okhttp3.Request.Builder().url(AppConfig.websocketURL).build();
+
+        myWebSocketListener = new MyWebSocketListener(getApplicationContext(), this);
+
+                View.OnClickListener buttonClicked = new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Button btn = findViewById(v.getId());
+                        for(int i=0; i<sectorButtons.length; i++)
+                            if(sectorButtons[i].equals(btn))
+                                Log.d(logTag, "index buttona = " + i);
+
+                        Log.d(logTag, "index buttona = " + 1);
+                    }
+
+                };
+                for(Button sectorButton : sectorButtons)
+                    sectorButton.setOnClickListener(buttonClicked);
+
+
+        httpClient.newWebSocket(request, myWebSocketListener);
+        httpClient.dispatcher().executorService().shutdown();
     }
 
     private void logOutCustomer() {
         sManager.setLogin(false);
         db.deleteCustomers();
+    }
+
+    @Override
+    public void callback(String result) {
+        Log.d(logTag, "onOpen");
+
     }
 }
 
