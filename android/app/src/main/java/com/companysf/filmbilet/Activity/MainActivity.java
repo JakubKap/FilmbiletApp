@@ -12,14 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.companysf.filmbilet.Connection.ServerConnectionListener;
+import com.companysf.filmbilet.Connection.Listener.ServerConnectionListener;
 import com.companysf.filmbilet.Connection.MovieConnection;
 import com.companysf.filmbilet.Entities.Customer;
 import com.companysf.filmbilet.Model.Login;
 import com.companysf.filmbilet.Entities.MovieList;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Adapter.MoviesListAdapter;
-import com.companysf.filmbilet.Utilies.ConnectionDetector;
 import com.companysf.filmbilet.Utilies.ErrorDialog;
 import com.companysf.filmbilet.Utilies.SQLiteHandler;
 

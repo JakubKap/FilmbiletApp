@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Connection;
+package com.companysf.filmbilet.Connection.Listener;
 
 public interface ErrorListener {
     void callBackOnError();

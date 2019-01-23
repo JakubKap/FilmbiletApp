@@ -12,15 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.companysf.filmbilet.Connection.EmptyFieldsListener;
-import com.companysf.filmbilet.Connection.ErrorListener;
-import com.companysf.filmbilet.Connection.LoginConnection;
+import com.companysf.filmbilet.Connection.Listener.EmptyFieldsListener;
+import com.companysf.filmbilet.Connection.Listener.ErrorListener;
 import com.companysf.filmbilet.Model.Login;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.Utilies.ConnectionDetector;
 import com.companysf.filmbilet.Utilies.ErrorDialog;
-import com.companysf.filmbilet.Utilies.SQLiteHandler;
-import com.companysf.filmbilet.Utilies.SessionManager;
 
 public class LoginActivity extends AppCompatActivity implements ErrorListener, EmptyFieldsListener {
     private EditText inputEmail;

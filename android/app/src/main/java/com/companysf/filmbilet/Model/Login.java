@@ -2,8 +2,8 @@ package com.companysf.filmbilet.Model;
 
 import android.content.Context;
 
-import com.companysf.filmbilet.Connection.EmptyFieldsListener;
-import com.companysf.filmbilet.Connection.ErrorListener;
+import com.companysf.filmbilet.Connection.Listener.EmptyFieldsListener;
+import com.companysf.filmbilet.Connection.Listener.ErrorListener;
 import com.companysf.filmbilet.Connection.LoginConnection;
 import com.companysf.filmbilet.Entities.Customer;
 import com.companysf.filmbilet.Utilies.ConnectionDetector;
