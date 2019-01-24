@@ -2,7 +2,6 @@ package com.companysf.filmbilet.Connection;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,8 +18,8 @@ import com.companysf.filmbilet.Entities.Movie;
 import com.companysf.filmbilet.Entities.Repertoire;
 import com.companysf.filmbilet.Entities.ReservationsList;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.Utilies.ConnectionDetector;
-import com.companysf.filmbilet.Utilies.SQLiteHandler;
+import com.companysf.filmbilet.Utils.ConnectionDetector;
+import com.companysf.filmbilet.Utils.SQLiteHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;

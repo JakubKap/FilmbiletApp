@@ -15,14 +15,11 @@ import android.widget.TextView;
 
 import com.companysf.filmbilet.Connection.CustomerReservationsConnection;
 import com.companysf.filmbilet.Connection.Listener.ServerConnectionListener;
-import com.companysf.filmbilet.Entities.Customer;
 import com.companysf.filmbilet.Entities.ReservationsList;
 import com.companysf.filmbilet.Model.Login;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Adapter.CustomerReservationsListAdapter;
-import com.companysf.filmbilet.Utilies.ErrorDialog;
-import com.companysf.filmbilet.Utilies.SQLiteHandler;
-import com.companysf.filmbilet.Utilies.SessionManager;
+import com.companysf.filmbilet.Utils.ErrorDialog;
 
 
 public class CustomerReservationsActivity extends AppCompatActivity implements ServerConnectionListener {

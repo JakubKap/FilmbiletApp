@@ -6,9 +6,9 @@ import com.companysf.filmbilet.Connection.Listener.EmptyFieldsListener;
 import com.companysf.filmbilet.Connection.Listener.ErrorListener;
 import com.companysf.filmbilet.Connection.LoginConnection;
 import com.companysf.filmbilet.Entities.Customer;
-import com.companysf.filmbilet.Utilies.ConnectionDetector;
-import com.companysf.filmbilet.Utilies.SQLiteHandler;
-import com.companysf.filmbilet.Utilies.SessionManager;
+import com.companysf.filmbilet.Utils.ConnectionDetector;
+import com.companysf.filmbilet.Utils.SQLiteHandler;
+import com.companysf.filmbilet.Utils.SessionManager;
 
 public class Login {
     private SessionManager sManager;

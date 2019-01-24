@@ -6,7 +6,7 @@ import android.util.Patterns;
 import com.companysf.filmbilet.Connection.Listener.EmptyEmailListener;
 import com.companysf.filmbilet.Connection.Listener.Listener;
 import com.companysf.filmbilet.Connection.RegisterConnection;
-import com.companysf.filmbilet.Utilies.ConnectionDetector;
+import com.companysf.filmbilet.Utils.ConnectionDetector;
 
 public class Register {
     private ConnectionDetector cd;

@@ -4,37 +4,18 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.Connection.Listener.EmptyEmailListener;
-import com.companysf.filmbilet.Connection.Listener.ErrorListener;
 import com.companysf.filmbilet.Connection.Listener.Listener;
 import com.companysf.filmbilet.Model.Login;
 import com.companysf.filmbilet.Model.Register;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.Utilies.ConnectionDetector;
-import com.companysf.filmbilet.Utilies.ErrorDialog;
-import com.companysf.filmbilet.Utilies.SessionManager;
-import com.companysf.filmbilet.App.AppConfig;
-import com.companysf.filmbilet.App.AppController;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.companysf.filmbilet.Utils.ErrorDialog;
 
 public class RegisterActivity extends AppCompatActivity implements Listener, EmptyEmailListener {
     private EditText inputName;

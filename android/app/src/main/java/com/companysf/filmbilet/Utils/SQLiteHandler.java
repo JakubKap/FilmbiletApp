@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Utilies;
+package com.companysf.filmbilet.Utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,8 +8,6 @@ import android.util.Log;
 
 import com.companysf.filmbilet.Entities.Customer;
 import com.companysf.filmbilet.R;
-
-import java.util.HashMap;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
     private Context context;

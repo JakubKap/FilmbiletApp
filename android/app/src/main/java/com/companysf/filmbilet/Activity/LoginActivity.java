@@ -16,7 +16,7 @@ import com.companysf.filmbilet.Connection.Listener.EmptyFieldsListener;
 import com.companysf.filmbilet.Connection.Listener.ErrorListener;
 import com.companysf.filmbilet.Model.Login;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.Utilies.ErrorDialog;
+import com.companysf.filmbilet.Utils.ErrorDialog;
 
 public class LoginActivity extends AppCompatActivity implements ErrorListener, EmptyFieldsListener {
     private EditText inputEmail;

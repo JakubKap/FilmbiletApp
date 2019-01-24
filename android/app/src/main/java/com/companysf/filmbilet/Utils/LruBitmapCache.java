@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Utilies;
+package com.companysf.filmbilet.Utils;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;

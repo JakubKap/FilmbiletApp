@@ -7,7 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.companysf.filmbilet.Utilies.LruBitmapCache;
+import com.companysf.filmbilet.Utils.LruBitmapCache;
 
 public class AppController extends Application {
     private RequestQueue requestQueue;

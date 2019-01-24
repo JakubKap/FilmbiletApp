@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Utilies;
+package com.companysf.filmbilet.Utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -6,15 +6,15 @@ import android.support.v7.app.AlertDialog;
 
 import com.companysf.filmbilet.R;
 
-public class ErrorDialog {
-    private Context context;
+public class ErrorDetector {
+    public Context context;
 
-    public ErrorDialog(Context context) {
+    public ErrorDetector(Context context) {
         this.context = context;
     }
 
-    public void showErrorDialog(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    public AlertDialog.Builder buildDialog(Context c, String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle(title);
         builder.setMessage(message);
 
@@ -25,6 +25,6 @@ public class ErrorDialog {
             }
         });
 
-        builder.show();
+        return builder;
     }
 }

@@ -19,8 +19,8 @@ import com.companysf.filmbilet.Model.Login;
 import com.companysf.filmbilet.Entities.MovieList;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Adapter.MoviesListAdapter;
-import com.companysf.filmbilet.Utilies.ErrorDialog;
-import com.companysf.filmbilet.Utilies.SQLiteHandler;
+import com.companysf.filmbilet.Utils.ErrorDialog;
+import com.companysf.filmbilet.Utils.SQLiteHandler;
 
 public class MainActivity extends AppCompatActivity implements ServerConnectionListener {
     private ErrorDialog errorDialog;

@@ -14,7 +14,7 @@ import com.companysf.filmbilet.Connection.Listener.ServerConnectionListener;
 import com.companysf.filmbilet.Entities.Movie;
 import com.companysf.filmbilet.Entities.MovieList;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.Utilies.ConnectionDetector;
+import com.companysf.filmbilet.Utils.ConnectionDetector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
