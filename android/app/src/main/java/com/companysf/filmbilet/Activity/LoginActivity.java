@@ -17,11 +17,13 @@ import com.companysf.filmbilet.Connection.Listener.ErrorListener;
 import com.companysf.filmbilet.Model.Login;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Utils.ErrorDialog;
+import com.companysf.filmbilet.Utils.ToastUtils;
 
 public class LoginActivity extends AppCompatActivity implements ErrorListener, EmptyFieldsListener {
     private EditText inputEmail;
     private EditText inputPassword;
     private ErrorDialog errorDialog;
+    ToastUtils toastUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         errorDialog = new ErrorDialog(this);
+        toastUtils = new ToastUtils(getApplicationContext());
         final Login login = new Login(getApplicationContext(), this, this);
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -89,9 +92,7 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
 
     @Override
     public void callBackOnError() {
-        Toast.makeText(
-                getApplicationContext(), getString(R.string.serverErrorTitle), Toast.LENGTH_LONG
-        ).show();
+        toastUtils.showLongToast(getString(R.string.serverErrorTitle));
     }
 
     @Override
@@ -104,8 +105,6 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
 
     @Override
     public void callBackOnEmptyField() {
-        Toast.makeText(getApplicationContext(),
-                getString(R.string.insertEmailAndPasswordPrompt), Toast.LENGTH_LONG)
-                .show();
+        toastUtils.showLongToast(getString(R.string.insertEmailAndPasswordPrompt));
     }
 }

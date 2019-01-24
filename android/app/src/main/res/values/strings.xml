@@ -209,5 +209,7 @@
     <string name="movieIntentExtraContentName">movie</string>
     <string name="dialogPositiveBtnText">OK</string>
     <string name="sessionManagerCustomerLogin">customerLogin</string>
+    <string name="generatePdfInfo">Plik Pdf został wygenerowany w folderze /download</string>
+    <string name="generatePdfError">Błąd tworzenia pliku pdf</string>
 
 </resources>

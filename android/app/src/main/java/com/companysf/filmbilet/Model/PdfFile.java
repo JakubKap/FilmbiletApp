@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.companysf.filmbilet.Entities.CustomerReservation;
+import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.Utils.ToastUtils;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -38,6 +40,7 @@ public class PdfFile {
     private String name;        //"reservations.pdf"
 
     private CustomerReservation reservation;
+    private ToastUtils toastUtils;
 
 
     //fontPath = "assets/opensans_regular.ttf"
@@ -66,7 +69,8 @@ public class PdfFile {
 
     private boolean createFile() {
         try {
-            //create folder in root folder
+            ToastUtils toastUtils = new ToastUtils(context);
+
             File fileDirecory = new File(this.rootFolder
                     + File.separator
                     + this.folder
@@ -89,26 +93,20 @@ public class PdfFile {
 
             this.document.addAuthor("Kino-filmbilet");
 
-            //FONT SETTINGS
-            //fontSizes
             float smallSize = 20.0f;
             float normalSize = 26.0f;
             float bigSize = 36.0f;
-            //Openssans font
             BaseFont myFont = BaseFont.createFont(this.fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            //font kinds
             this.fieldHintFont = new Font(myFont, smallSize, Font.NORMAL,
                     new BaseColor(99, 100, 102, 255)    //#636466
             );
             this.fieldValueFont = new Font(myFont, normalSize, Font.NORMAL, BaseColor.BLACK);
 
-            // line separator
             this.lineSeparator = new LineSeparator();
             this.lineSeparator.setLineColor(
                     new BaseColor(231, 232, 237, 255)   //#e7e8ed
             );
 
-            //Document title
             Font titleFont = new Font(myFont, bigSize, Font.NORMAL, BaseColor.BLACK);
             Paragraph titleContent = new Paragraph(
                     new Chunk("Rezerwacja biletów w kinie Filmbilet", titleFont)
@@ -116,19 +114,15 @@ public class PdfFile {
             titleContent.setAlignment(Element.ALIGN_CENTER);
             this.document.add(titleContent);
 
-            //movie title
             createFieldWithOneInfo(
                     "Tytuł filmu:", reservation.getRepertoire().getMovie().getTitle()
             );
-            //reservation Date
             createFieldWithOneInfo(
                     "Data rezerwacji:", reservation.getReservationDate().getStringDateTime()
             );
-            //repertoire Date
             createFieldWithOneInfo("Data seansu:",
                     reservation.getRepertoire().getDate().getStringDateTime()
             );
-            //seat numbers
             createFieldWithOneInfo("Zarezerwowane miejsca:",
                     String.format(
                             new Locale("pl", "PL"),
@@ -136,7 +130,6 @@ public class PdfFile {
                             reservation.getSeatNumbers()
                     )
             );
-            //price
             createFieldWithOneInfo("Cena wszystkich biletów",
                     String.format(
                             new Locale("pl", "PL"),
@@ -147,10 +140,10 @@ public class PdfFile {
 
             this.document.close();
 
-            Toast.makeText(context, "Plik Pdf został wygenerowany w folderze /download", Toast.LENGTH_SHORT).show();
+            toastUtils.showShortToast(context.getString(R.string.generatePdfInfo));
 
         } catch (IOException | DocumentException ie) {
-            Toast.makeText(context, "Błąd tworzenia pliku pdf", Toast.LENGTH_SHORT).show();
+            toastUtils.showShortToast(context.getString(R.string.generatePdfError));
         }
         return true;
     }
@@ -166,7 +159,6 @@ public class PdfFile {
             this.document.add(fieldHintParagraph);
             this.document.add(fieldValueParagraph);
 
-            //horizontal line
             this.document.add(new Paragraph(""));
             this.document.add(new Chunk(this.lineSeparator));
             this.document.add(new Paragraph(""));
