@@ -12,27 +12,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.companysf.filmbilet.Connection.Listener.EmptyEmailListener;
+import com.companysf.filmbilet.Connection.Listener.ErrorListener;
+import com.companysf.filmbilet.Connection.Listener.Listener;
+import com.companysf.filmbilet.Model.Login;
+import com.companysf.filmbilet.Model.Register;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.Utilies.ConnectionDetector;
+import com.companysf.filmbilet.Utilies.ErrorDialog;
 import com.companysf.filmbilet.Utilies.SessionManager;
 import com.companysf.filmbilet.App.AppConfig;
 import com.companysf.filmbilet.App.AppController;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
-    private static final String logTag = RegisterActivity.class.getSimpleName();
+public class RegisterActivity extends AppCompatActivity implements Listener, EmptyEmailListener {
     private EditText inputName;
     private EditText inputSurname;
     private EditText inputPassword;
     private EditText inputEmail;
-    private ConnectionDetector cd;
+    private ErrorDialog errorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,32 +55,40 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.password);
         inputSurname = findViewById(R.id.surname);
 
-        SessionManager sManager = new SessionManager(getApplicationContext());
-        cd = new ConnectionDetector(this);
+        Login login = new Login(getApplicationContext());
+        final Register register = new Register(getApplicationContext(), this, this);
+        errorDialog = new ErrorDialog(this);
 
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
-
         registerBtn.setTypeface(opensansBold);
         loginBtn.setTypeface(opensansBold);
 
-        if(sManager.isLoggedIn()){
-            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        if (login.userIsLoggedIn()) {
+            switchToMainActivity();
         }
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateEmail();
+                register.validateEmail(
+                        inputName.getText().toString().trim(),
+                        inputSurname.getText().toString().trim(),
+                        inputEmail.getText().toString().trim(),
+                        inputPassword.getText().toString().trim()
+                );
             }
         });
 
         inputPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                    validateEmail();
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    register.validateEmail(
+                            inputName.getText().toString().trim(),
+                            inputSurname.getText().toString().trim(),
+                            inputEmail.getText().toString().trim(),
+                            inputPassword.getText().toString().trim()
+                    );
                     return true;
                 }
                 return false;
@@ -81,98 +98,60 @@ public class RegisterActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),
-                        LoginActivity.class);
-                startActivity(i);
-                finish();
+                switchToLoginActivity();
             }
         });
     }
 
-    private void validateEmail() {
-        if (cd.connected()){
-            String name = inputName.getText().toString().trim();
-            String surname = inputSurname.getText().toString().trim();
-            String email = inputEmail.getText().toString().trim();
-            String password = inputPassword.getText().toString().trim();
-
-            if (!isEmail(email)){
-                Toast.makeText(getApplicationContext(),
-                        getString(R.string.notValidEmailMsg), Toast.LENGTH_LONG)
-                        .show();
-            } else if (name.isEmpty() || surname.isEmpty() || password.isEmpty()) {
-                Toast.makeText(getApplicationContext(),
-                        getString(R.string.emptyRegisterFieldsMsg), Toast.LENGTH_LONG)
-                        .show();
-            } else {
-                registerUser(name, surname, email, password);
-            }
-        } else{
-            cd.buildDialog(
-                    RegisterActivity.this,
-                    getString(R.string.networkConnectionErrorTitle),
-                    getString(R.string.RegisterNetworkConnectionErrorMsg)
-            ).show();
-        }
+    private void switchToMainActivity() {
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
-    boolean isEmail(String email){
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    private void switchToLoginActivity() {
+        Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(i);
+        finish();
     }
 
-    private void registerUser(final String name, final String surname, final String email, final String password) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                AppConfig.REGISTER_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(logTag, "Register request: " + response);
-                        try {
-                            JSONObject json = new JSONObject(response);
-                            boolean error = json.getBoolean(getString(R.string.error));
-                            if (error){
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        getString(R.string.serverErrorTitle),
-                                        Toast.LENGTH_SHORT).show();
-                            } else{
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        getString(R.string.registerSuccessToast),
-                                        Toast.LENGTH_LONG).show();
+    @Override
+    public void callBackOnError() {
+        Toast.makeText(
+                getApplicationContext(),
+                getString(R.string.serverErrorTitle),
+                Toast.LENGTH_SHORT
+        ).show();
+    }
 
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    getString(R.string.serverErrorTitle),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(logTag, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        getString(R.string.serverErrorTitle), Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put(getString(R.string.registerPutReqNameParam), name);
-                params.put(getString(R.string.registerPutReqSurnameParam), surname);
-                params.put(getString(R.string.registerPutReqEmailParam), email);
-                params.put(getString(R.string.registerPutReqPasswordParam), password);
+    @Override
+    public void callBackOnNoNetwork() {
+        errorDialog.showErrorDialog(
+                getString(R.string.networkConnectionErrorTitle),
+                getString(R.string.RegisterNetworkConnectionErrorMsg)
+        );
+    }
 
-                return params;
-            }
-        };
+    @Override
+    public void callBackOnSuccess() {
+        Toast.makeText(
+                getApplicationContext(),
+                getString(R.string.registerSuccessToast),
+                Toast.LENGTH_LONG).show();
+        switchToLoginActivity();
+    }
 
-        AppController.getInstance().addToRequestQueue(stringRequest, getString(R.string.registerRequestAdd));
+    @Override
+    public void callBackOnEmptyEmail() {
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.notValidEmailMsg), Toast.LENGTH_LONG
+        ).show();
+    }
+
+    @Override
+    public void callBackOnEmptyField() {
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.emptyRegisterFieldsMsg), Toast.LENGTH_LONG
+        ).show();
     }
 }
