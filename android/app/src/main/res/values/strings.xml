@@ -211,5 +211,8 @@
     <string name="sessionManagerCustomerLogin">customerLogin</string>
     <string name="generatePdfInfo">Plik Pdf został wygenerowany w folderze /download</string>
     <string name="generatePdfError">Błąd tworzenia pliku pdf</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="chooseDateTime">Wybierz datę i godzinę</string>
+    <string name="chooseSeatsText"><![CDATA[WYBÓR MIEJSCA >]]></string>
 
 </resources>
