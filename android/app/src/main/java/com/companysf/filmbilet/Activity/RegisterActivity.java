@@ -8,7 +8,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.companysf.filmbilet.Connection.Listener.EmptyEmailListener;
 import com.companysf.filmbilet.Connection.Listener.Listener;
@@ -31,8 +30,8 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button loginBtn = findViewById(R.id.btn_login);
-        Button registerBtn = findViewById(R.id.btn_register);
+        Button loginBtn = findViewById(R.id.btnLogin);
+        Button registerBtn = findViewById(R.id.btnRegister);
         inputEmail = findViewById(R.id.email);
         inputName = findViewById(R.id.name);
         inputPassword = findViewById(R.id.password);

@@ -16,14 +16,14 @@
     android:orientation="vertical">
 
     <android.support.constraint.Guideline
-        android:id="@+id/seats-buttons-line"
+        android:id="@+id/seatsButtonsLline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.86" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/title-seats-line"
+        android:id="@+id/titleSeatsLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/title-seats-line"
+        app:layout_constraintBottom_toBottomOf="@id/titleSeatsLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -69,7 +69,7 @@
         app:layout_constraintBottom_toTopOf="@id/legendContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title-seats-line">
+        app:layout_constraintTop_toTopOf="@id/titleSeatsLine">
 
         <GridLayout
             android:id="@+id/gridLayoutSeats"
@@ -86,7 +86,7 @@
 
 
             <Button
-                android:id="@+id/seatsButtonIR_1"
+                android:id="@+id/seatsButtonIR1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/seatsSpace"
@@ -100,7 +100,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIR_2"
+                android:id="@+id/seatsButtonIR2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/seatsSpace"
@@ -114,7 +114,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIR_3"
+                android:id="@+id/seatsButtonIR3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/seatsSpace"
@@ -128,7 +128,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIR_4"
+                android:id="@+id/seatsButtonIR4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/seatsSpace"
@@ -142,7 +142,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIR_5"
+                android:id="@+id/seatsButtonIR5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/seatsSpace"
@@ -156,7 +156,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIR_6"
+                android:id="@+id/seatsButtonIR6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/seatsSpace"
@@ -170,7 +170,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIR_7"
+                android:id="@+id/seatsButtonIR7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -184,7 +184,7 @@
             <!-- Nowy rząd -->
 
             <Button
-                android:id="@+id/seatsButtonIIR_1"
+                android:id="@+id/seatsButtonIIR1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -196,7 +196,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIIR_2"
+                android:id="@+id/seatsButtonIIR2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -208,7 +208,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIIR_3"
+                android:id="@+id/seatsButtonIIR3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -220,7 +220,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIIR_4"
+                android:id="@+id/seatsButtonIIR4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -232,7 +232,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIIR_5"
+                android:id="@+id/seatsButtonIIR5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -244,7 +244,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIIR_6"
+                android:id="@+id/seatsButtonIIR6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -256,94 +256,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIIR_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/seatsSpace"
-                android:width="@dimen/seatWidth"
-                android:height="@dimen/seatHeight"
-                android:background="@drawable/seat_reserved"
-                android:minWidth="@dimen/seatWidth"
-                android:minHeight="@dimen/seatHeight"
-                style="?android:attr/borderlessButtonStyle"/>
-
-
-            <!-- Nowy rząd -->
-
-            <Button
-                android:id="@+id/seatsButtonIIIR_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/seatsSpace"
-                android:width="@dimen/seatWidth"
-                android:height="@dimen/seatHeight"
-                android:background="@drawable/seat"
-                android:minWidth="@dimen/seatWidth"
-                android:minHeight="@dimen/seatHeight"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/seatsButtonIIIR_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/seatsSpace"
-                android:width="@dimen/seatWidth"
-                android:height="@dimen/seatHeight"
-                android:background="@drawable/seat"
-                android:minWidth="@dimen/seatWidth"
-                android:minHeight="@dimen/seatHeight"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/seatsButtonIIIR_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/seatsSpace"
-                android:width="@dimen/seatWidth"
-                android:height="@dimen/seatHeight"
-                android:background="@drawable/seat"
-                android:minWidth="@dimen/seatWidth"
-                android:minHeight="@dimen/seatHeight"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/seatsButtonIIIR_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/seatsSpace"
-                android:width="@dimen/seatWidth"
-                android:height="@dimen/seatHeight"
-                android:background="@drawable/seat"
-                android:minWidth="@dimen/seatWidth"
-                android:minHeight="@dimen/seatHeight"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/seatsButtonIIIR_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/seatsSpace"
-                android:width="@dimen/seatWidth"
-                android:height="@dimen/seatHeight"
-                android:background="@drawable/seat"
-                android:minWidth="@dimen/seatWidth"
-                android:minHeight="@dimen/seatHeight"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/seatsButtonIIIR_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/seatsSpace"
-                android:width="@dimen/seatWidth"
-                android:height="@dimen/seatHeight"
-                android:background="@drawable/seat"
-                android:minWidth="@dimen/seatWidth"
-                android:minHeight="@dimen/seatHeight"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/seatsButtonIIIR_7"
+                android:id="@+id/seatsButtonIIR7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -358,7 +271,7 @@
             <!-- Nowy rząd -->
 
             <Button
-                android:id="@+id/seatsButtonIVR_1"
+                android:id="@+id/seatsButtonIIIR1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -370,7 +283,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIVR_2"
+                android:id="@+id/seatsButtonIIIR2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -382,7 +295,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIVR_3"
+                android:id="@+id/seatsButtonIIIR3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -394,7 +307,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIVR_4"
+                android:id="@+id/seatsButtonIIIR4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -406,7 +319,91 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIVR_5"
+                android:id="@+id/seatsButtonIIIR5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/seatsSpace"
+                android:width="@dimen/seatWidth"
+                android:height="@dimen/seatHeight"
+                android:background="@drawable/seat"
+                android:minWidth="@dimen/seatWidth"
+                android:minHeight="@dimen/seatHeight"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/seatsButtonIIIR6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/seatsSpace"
+                android:width="@dimen/seatWidth"
+                android:height="@dimen/seatHeight"
+                android:background="@drawable/seat"
+                android:minWidth="@dimen/seatWidth"
+                android:minHeight="@dimen/seatHeight"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/seatsButtonIIIR7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/seatsSpace"
+                android:width="@dimen/seatWidth"
+                android:height="@dimen/seatHeight"
+                android:background="@drawable/seat_reserved"
+                android:minWidth="@dimen/seatWidth"
+                android:minHeight="@dimen/seatHeight"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/seatsButtonIVR1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/seatsSpace"
+                android:width="@dimen/seatWidth"
+                android:height="@dimen/seatHeight"
+                android:background="@drawable/seat"
+                android:minWidth="@dimen/seatWidth"
+                android:minHeight="@dimen/seatHeight"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/seatsButtonIVR2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/seatsSpace"
+                android:width="@dimen/seatWidth"
+                android:height="@dimen/seatHeight"
+                android:background="@drawable/seat"
+                android:minWidth="@dimen/seatWidth"
+                android:minHeight="@dimen/seatHeight"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/seatsButtonIVR3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/seatsSpace"
+                android:width="@dimen/seatWidth"
+                android:height="@dimen/seatHeight"
+                android:background="@drawable/seat"
+                android:minWidth="@dimen/seatWidth"
+                android:minHeight="@dimen/seatHeight"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/seatsButtonIVR4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/seatsSpace"
+                android:width="@dimen/seatWidth"
+                android:height="@dimen/seatHeight"
+                android:background="@drawable/seat"
+                android:minWidth="@dimen/seatWidth"
+                android:minHeight="@dimen/seatHeight"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <Button
+                android:id="@+id/seatsButtonIVR5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -418,7 +415,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIVR_6"
+                android:id="@+id/seatsButtonIVR6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -430,7 +427,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonIVR_7"
+                android:id="@+id/seatsButtonIVR7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/seatsSpace"
@@ -445,7 +442,7 @@
             <!-- Nowy rząd -->
 
             <Button
-                android:id="@+id/seatsButtonVR_1"
+                android:id="@+id/seatsButtonVR1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="@dimen/seatWidth"
@@ -456,7 +453,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonVR_2"
+                android:id="@+id/seatsButtonVR2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="@dimen/seatWidth"
@@ -467,7 +464,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonVR_3"
+                android:id="@+id/seatsButtonVR3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="@dimen/seatWidth"
@@ -478,7 +475,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonVR_4"
+                android:id="@+id/seatsButtonVR4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="@dimen/seatWidth"
@@ -489,7 +486,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonVR_5"
+                android:id="@+id/seatsButtonVR5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="@dimen/seatWidth"
@@ -500,7 +497,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonVR_6"
+                android:id="@+id/seatsButtonVR6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="@dimen/seatWidth"
@@ -511,7 +508,7 @@
                 style="?android:attr/borderlessButtonStyle"/>
 
             <Button
-                android:id="@+id/seatsButtonVR_7"
+                android:id="@+id/seatsButtonVR7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="@dimen/seatWidth"
@@ -744,7 +741,7 @@
         android:id="@+id/legendContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/seats-buttons-line"
+        app:layout_constraintBottom_toBottomOf="@id/seatsButtonsLline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gridLayoutContainer">
@@ -820,17 +817,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_goneMarginBottom="5sp"
-        app:layout_constraintTop_toTopOf="@+id/seats-buttons-line">
+        app:layout_constraintTop_toTopOf="@+id/seatsButtonsLline">
 
         <android.support.constraint.Guideline
-            android:id="@+id/percent45-line"
+            android:id="@+id/percent45Line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".48" />
 
         <android.support.constraint.Guideline
-            android:id="@+id/percent55-line"
+            android:id="@+id/percent55Line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -847,7 +844,7 @@
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/seatsSmallText"
-            app:layout_constraintEnd_toEndOf="@id/percent45-line"
+            app:layout_constraintEnd_toEndOf="@id/percent45Line"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45"
             style="?android:attr/borderlessButtonStyle"
@@ -866,7 +863,7 @@
             android:textAllCaps="false"
             android:textColor="#f9f9f9"
             android:textSize="@dimen/seatsSmallText"
-            app:layout_constraintStart_toStartOf="@id/percent55-line"
+            app:layout_constraintStart_toStartOf="@id/percent55Line"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45"
             style="?android:attr/borderlessButtonStyle"/>

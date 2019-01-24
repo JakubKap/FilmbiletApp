@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
             switchToLoginActivity();
         }
 
-        Button btnLogout = findViewById(R.id.btn_logout);
-        Button btnCustomerReservations = findViewById(R.id.btn_customer_reservations);
-        TextView customerInfo = findViewById(R.id.customer_info);
-        ListView moviesListView = findViewById(R.id.movies_list_view);
-        ImageButton btn_refresh = findViewById(R.id.btn_refresh_assets);
+        Button btnLogout = findViewById(R.id.btnLogout);
+        Button btnCustomerReservations = findViewById(R.id.btnCustomerReservations);
+        TextView customerInfo = findViewById(R.id.customerInfo);
+        ListView moviesListView = findViewById(R.id.moviesListView);
+        ImageButton btn_refresh = findViewById(R.id.btnRefreshAssets);
         swipeRefreshLayout = findViewById(R.id.swiper);
-        emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
+        emptyListRefreshLayout = findViewById(R.id.emptyListRefreshLayout);
         TextView welcomeCustomer = findViewById(R.id.welcomeCustomer);
 
         Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));

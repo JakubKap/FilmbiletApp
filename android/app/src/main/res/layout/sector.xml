@@ -19,12 +19,6 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,13 +28,13 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/title-screen-line"
+            app:layout_constraintBottom_toTopOf="@+id/titleScreenLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.Guideline
-                android:id="@+id/circleEnd-line"
+                android:id="@+id/circleEndline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -64,7 +58,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/stepNumber2"
                 android:textColor="#fff"
-                android:textSize="20dp"
+                android:textSize="@dimen/header"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,13 +71,13 @@
                 android:text="@string/selectSector"
                 android:textSize="@dimen/header"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/circleEnd-line"
+                app:layout_constraintStart_toStartOf="@id/circleEndline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.Guideline
-            android:id="@+id/title-screen-line"
+            android:id="@+id/titleScreenLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -95,13 +89,13 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:src="@drawable/screen"
-            app:layout_constraintBottom_toTopOf="@+id/screenSeats-line"
+            app:layout_constraintBottom_toTopOf="@+id/screenSeatsLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title-screen-line" />
+            app:layout_constraintTop_toTopOf="@+id/titleScreenLine" />
 
         <android.support.constraint.Guideline
-            android:id="@+id/screenSeats-line"
+            android:id="@+id/screenSeatsLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -117,7 +111,7 @@
             app:layout_constraintBottom_toTopOf="@id/summaryBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/screenSeats-line">
+            app:layout_constraintTop_toTopOf="@+id/screenSeatsLine">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/allSeats"
@@ -125,7 +119,7 @@
                 android:layout_height="wrap_content">
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/halfScreen-line"
+                    android:id="@+id/halfScreenLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -138,7 +132,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    app:layout_constraintEnd_toEndOf="@+id/halfScreen-line"
+                    app:layout_constraintEnd_toEndOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
@@ -178,28 +172,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s1HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s1HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s1HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s1HalfPriceAndPlacesHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s1HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s1HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s1HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s1HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -222,8 +216,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s1HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s1HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s1HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s1HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -233,9 +227,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s1HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s1HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s1HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s1HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec1Price"
@@ -244,9 +238,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector1Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s1HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s1HalfPriceAndPlacesHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s1HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s1HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -257,8 +251,9 @@
                             android:text="@string/priceText"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s1HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s1HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s1HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s1HalfPriceAndPlacesHorizontalLine"
+                            android:layout_marginEnd="10dp" />
                     </android.support.constraint.ConstraintLayout>
 
                     <Button
@@ -279,7 +274,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageButton
@@ -319,28 +314,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s2HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s2HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s2HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s2HalfPriceAndPlacesHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s2HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s2HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s2HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s2HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -363,8 +358,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s2HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s2HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s2HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s2HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -374,9 +369,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s2HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s2HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s2HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s2HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec2Price"
@@ -385,9 +380,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector1Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s2HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s2HalfPriceAndPlacesHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s2HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s2HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -398,8 +393,8 @@
                             android:text="@string/priceText"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s2HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s2HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s2HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s2HalfPriceAndPlacesHorizontalLine" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -421,7 +416,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintEnd_toStartOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toBottomOf="@+id/button1Container">
 
                     <ImageButton
@@ -461,28 +456,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s3HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s3HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s3HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s3HalfPriceAndPlacesHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s3HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s3HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s3HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s3HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -505,8 +500,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s3HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s3HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s3HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s3HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -516,9 +511,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s3HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s3HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s3HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s3HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec3Price"
@@ -527,9 +522,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector2Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s3HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s3HalfPriceAndPlacesHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s3HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s3HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -540,8 +535,9 @@
                             android:text="@string/price"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s3HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s3HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s3HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s3HalfPriceAndPlacesHorizontalLine"
+                            android:layout_marginEnd="10dp" />
 
 
                     </android.support.constraint.ConstraintLayout>
@@ -564,7 +560,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
-                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toBottomOf="@+id/button2Container">
 
                     <ImageButton
@@ -604,28 +600,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s4HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s4HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s4HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s4HalfPriceAndPlacesHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s4HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s4HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s4HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s4HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -648,8 +644,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s4HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s4HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s4HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s4HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -659,9 +655,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s4HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s4HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s4HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s4HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec4Price"
@@ -670,9 +666,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector2Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s4HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s4HalfPriceAndPlacesHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s4HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s4HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -683,8 +679,9 @@
                             android:text="@string/price"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s4HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s4HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s4HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s4HalfPriceAndPlacesHorizontalLine"
+                            android:layout_marginEnd="10dp" />
 
 
                     </android.support.constraint.ConstraintLayout>
@@ -708,7 +705,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintEnd_toStartOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toBottomOf="@+id/button3Container">
 
                     <ImageButton
@@ -748,28 +745,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s5HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s5HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s5HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s5HalfPriceAndPlaceHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s5HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s5HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s5HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s5HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -792,8 +789,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s5HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s5HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s5HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s5HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -803,9 +800,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s5HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s5HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s5HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s5HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec5Price"
@@ -814,9 +811,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector3Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s5HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s5HalfPriceAndPlaceHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s5HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s5HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -827,8 +824,9 @@
                             android:text="@string/price"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s5HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s5HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s5HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s5HalfPriceAndPlaceHorizontalLine"
+                            android:layout_marginEnd="10dp" />
 
 
                     </android.support.constraint.ConstraintLayout>
@@ -852,7 +850,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
-                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toBottomOf="@+id/button4Container">
 
                     <ImageButton
@@ -892,28 +890,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s6HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s6HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s6HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s6HalfPriceAndPlacesHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s6HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s6HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s6HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s6HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -936,8 +934,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s6HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s6HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s6HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s6HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -947,9 +945,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s6HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s6HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s6HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s6HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec6Price"
@@ -958,9 +956,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector3Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s6HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s6HalfPriceAndPlacesHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s6HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s6HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -971,8 +969,9 @@
                             android:text="@string/price"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s6HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s6HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s6HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s6HalfPriceAndPlacesHorizontalLine"
+                            android:layout_marginEnd="10dp" />
 
 
                     </android.support.constraint.ConstraintLayout>
@@ -996,7 +995,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintEnd_toStartOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toBottomOf="@+id/button5Container">
 
                     <ImageButton
@@ -1036,28 +1035,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s7HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s7HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s7HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s7HalfPriceAndPlacesHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s7HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s7HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s7HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s7HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -1080,8 +1079,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s7HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s7HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s7HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s7HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -1091,9 +1090,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s7HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s7HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s7HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s7HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec7Price"
@@ -1102,9 +1101,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector4Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s7HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s7HalfPriceAndPlacesHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s7HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s7HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -1115,8 +1114,9 @@
                             android:text="@string/price"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s7HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s7HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s7HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s7HalfPriceAndPlacesHorizontalLine"
+                            android:layout_marginEnd="10dp" />
 
 
                     </android.support.constraint.ConstraintLayout>
@@ -1140,7 +1140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
-                    app:layout_constraintStart_toStartOf="@+id/halfScreen-line"
+                    app:layout_constraintStart_toStartOf="@+id/halfScreenLine"
                     app:layout_constraintTop_toBottomOf="@+id/button6Container"
                     app:layout_constraintVertical_weight="10">
 
@@ -1181,28 +1181,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s8HalfPriceAndPlaces-verticalLine"
+                            android:id="@+id/s8HalfPriceAndPlacesVerticalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s8HalfPriceAndPlaces-horizontalLine"
+                            android:id="@+id/s8HalfPriceAndPlacesHorizontalLine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.6" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s8HalfPriceAndPlaces-horizontalLine2"
+                            android:id="@+id/s8HalfPriceAndPlacesHorizontalLine2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.33" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/s8HalfPriceAndPlaces-horizontalLine3"
+                            android:id="@+id/s8HalfPriceAndPlacesHorizontalLine3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -1225,8 +1225,8 @@
                             android:includeFontPadding="false"
                             android:text="@string/availablePlacesText"
                             android:textSize="6sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s8HalfPriceAndPlaces-horizontalLine3"
-                            app:layout_constraintEnd_toEndOf="@id/s8HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s8HalfPriceAndPlacesHorizontalLine3"
+                            app:layout_constraintEnd_toEndOf="@id/s8HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
@@ -1236,9 +1236,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/freeSeats"
                             android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@id/s8HalfPriceAndPlaces-verticalLine"
+                            app:layout_constraintEnd_toEndOf="@id/s8HalfPriceAndPlacesVerticalLine"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/s8HalfPriceAndPlaces-horizontalLine2" />
+                            app:layout_constraintTop_toTopOf="@id/s8HalfPriceAndPlacesHorizontalLine2" />
 
                         <TextView
                             android:id="@+id/sec8Price"
@@ -1247,9 +1247,9 @@
                             android:includeFontPadding="false"
                             android:text="@string/sector4Price"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/s8HalfPriceAndPlaces-horizontalLine"
+                            app:layout_constraintBottom_toBottomOf="@id/s8HalfPriceAndPlacesHorizontalLine"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/s8HalfPriceAndPlaces-verticalLine" />
+                            app:layout_constraintStart_toStartOf="@id/s8HalfPriceAndPlacesVerticalLine" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -1260,8 +1260,9 @@
                             android:text="@string/price"
                             android:textSize="6sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/s8HalfPriceAndPlaces-verticalLine"
-                            app:layout_constraintTop_toTopOf="@id/s8HalfPriceAndPlaces-horizontalLine" />
+                            app:layout_constraintStart_toStartOf="@+id/s8HalfPriceAndPlacesVerticalLine"
+                            app:layout_constraintTop_toTopOf="@id/s8HalfPriceAndPlacesHorizontalLine"
+                            android:layout_marginEnd="10dp" />
                     </android.support.constraint.ConstraintLayout>
 
                     <Button
@@ -1311,13 +1312,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="Wybranych miejsc: " />
+                    android:text="@string/numberOfChoosedPlaces" />
 
                 <TextView
                     android:id="@+id/secChoosedPlaces"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:text="@string/choosedPlaces0" />
 
                 <TextView
                     android:id="@+id/priceLabel"
@@ -1325,7 +1326,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text=" | Koszt:" />
+                    android:text="@string/costText" />
 
                 <TextView
                     android:id="@+id/secSummaryPrice"
@@ -1333,7 +1334,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="0 zł" />
+                    android:text="@string/cost" />
             </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>

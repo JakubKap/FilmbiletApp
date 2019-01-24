@@ -5,7 +5,7 @@
     >
 
     <RelativeLayout
-        android:id="@+id/movie_row"
+        android:id="@+id/movieRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -42,7 +42,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/genres_text"
+                android:id="@+id/genresText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/genres"
@@ -65,14 +65,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/movie_length_text"
+                android:id="@+id/movieLengthText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/movieLength"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/movie_length"
+                android:id="@+id/movieLength"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp" />
@@ -87,19 +87,17 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/min_age_text"
+                android:id="@+id/minAgeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/minAge"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/min_age"
+                android:id="@+id/minAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
-
-
 </RelativeLayout>

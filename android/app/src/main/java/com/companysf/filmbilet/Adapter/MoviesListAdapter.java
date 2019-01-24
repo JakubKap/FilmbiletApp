@@ -2,7 +2,6 @@ package com.companysf.filmbilet.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,15 +70,15 @@ public class MoviesListAdapter extends BaseAdapter {
         final Movie movie = moviesList.get(position);
 
         TextView title = convertView.findViewById(R.id.title);
-        TextView movieLength = convertView.findViewById(R.id.movie_length);
-        TextView minAge = convertView.findViewById(R.id.min_age);
+        TextView movieLength = convertView.findViewById(R.id.movieLength);
+        TextView minAge = convertView.findViewById(R.id.minAge);
         NetworkImageView picture = convertView.findViewById(R.id.picture);
         TextView genres = convertView.findViewById(R.id.genres);
-        TextView genresText = convertView.findViewById(R.id.genres_text);
-        TextView movieLengthText = convertView.findViewById(R.id.movie_length_text);
+        TextView genresText = convertView.findViewById(R.id.genresText);
+        TextView movieLengthText = convertView.findViewById(R.id.movieLengthText);
         TextView separator = convertView.findViewById(R.id.separator);
-        TextView minAgeText = convertView.findViewById(R.id.min_age_text);
-        RelativeLayout movieRow = convertView.findViewById(R.id.movie_row);
+        TextView minAgeText = convertView.findViewById(R.id.minAgeText);
+        RelativeLayout movieRow = convertView.findViewById(R.id.movieRow);
 
         title.setText(movie.getTitle());
         movieLength.setText(String.valueOf(movie.getRunningTimeMin()));

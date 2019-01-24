@@ -49,7 +49,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
             switchToLoginActivity();
 
         swipeRefreshLayout = findViewById(R.id.swiper);
-        emptyListRefreshLayout = findViewById(R.id.empty_list_refresh_layout);
+        emptyListRefreshLayout = findViewById(R.id.emptyListRefreshLayout);
         TextView title = findViewById(R.id.title);
 
         Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
@@ -57,7 +57,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
         title.setTypeface(opensansBold);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         reservationsList = new ReservationsList();
         adapter = new CustomerReservationsListAdapter(this, reservationsList.getList(),
                 opensansItalic, opensansRegular);

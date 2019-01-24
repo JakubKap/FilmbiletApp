@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.companysf.filmbilet.Connection.Listener.EmptyFieldsListener;
 import com.companysf.filmbilet.Connection.Listener.ErrorListener;
@@ -30,8 +29,8 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button loginBtn = findViewById(R.id.btn_login);
-        Button registerBtn = findViewById(R.id.btn_register);
+        Button loginBtn = findViewById(R.id.btnLogin);
+        Button registerBtn = findViewById(R.id.btnRegister);
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         errorDialog = new ErrorDialog(this);

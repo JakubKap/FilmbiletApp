@@ -214,5 +214,8 @@
     <string name="togglebutton">ToggleButton</string>
     <string name="chooseDateTime">Wybierz datę i godzinę</string>
     <string name="chooseSeatsText"><![CDATA[WYBÓR MIEJSCA >]]></string>
-
+    <string name="numberOfChoosedPlaces">Wybranych miejsc:</string>
+    <string name="choosedPlaces0">0</string>
+    <string name="costText"> | Koszt:</string>
+    <string name="cost">0 zł</string>
 </resources>

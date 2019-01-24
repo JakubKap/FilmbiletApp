@@ -22,7 +22,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/customer_info"
+            android:id="@+id/customerInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -38,7 +38,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_customer_reservations"
+            android:id="@+id/btnCustomerReservations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
@@ -51,7 +51,7 @@
             android:textColor="#f9f9f9" />
 
         <Button
-            android:id="@+id/btn_logout"
+            android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -64,7 +64,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/empty_list_refresh_layout"
+        android:id="@+id/emptyListRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -79,7 +79,7 @@
             android:layout_marginBottom="10dp"
             />
         <ImageButton
-            android:id="@+id/btn_refresh_assets"
+            android:id="@+id/btnRefreshAssets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_autorenew_black_18dp"
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content">
 
             <ListView
-                android:id="@+id/movies_list_view"
+                android:id="@+id/moviesListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:dividerHeight="4dp"
