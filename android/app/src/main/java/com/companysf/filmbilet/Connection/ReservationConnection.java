@@ -1,7 +1,6 @@
 package com.companysf.filmbilet.Connection;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,10 +8,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.companysf.filmbilet.Activity.SectorActivity;
 import com.companysf.filmbilet.App.AppConfig;
 import com.companysf.filmbilet.App.AppController;
 import com.companysf.filmbilet.Entities.Reservation;
+import com.companysf.filmbilet.Interfaces.ConnectionListener;
 import com.companysf.filmbilet.R;
 
 import org.json.JSONArray;
@@ -26,11 +25,11 @@ public class ReservationConnection {
 
     private static final String logTag = ReservationConnection.class.getSimpleName();
     private Context mContext;
-    private SectorActivity sectorActivity;
+    private ConnectionListener connectionListener;
 
-    public ReservationConnection(Context c, SectorActivity sectorActivity){
+    public ReservationConnection(Context c, ConnectionListener connectionListener){
         this.mContext = c;
-        this.sectorActivity = sectorActivity;
+        this.connectionListener = connectionListener;
     }
 
     public void getReservations(int repertoireId) {
@@ -70,6 +69,8 @@ public class ReservationConnection {
 
                                     Log.d(logTag, "choosedPlaces[ " + number + " ] = " + choosedPlaces[number]);
                                 }
+
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -83,8 +84,7 @@ public class ReservationConnection {
                             if (choosedPlaces[i])
                                 Log.d(logTag, "After choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
 
-                        //sectorActivity.updateSectors(true,choosedPlaces);
-
+                        connectionListener.onDbResponseCallback(choosedPlaces);
                     }
                 }, new Response.ErrorListener() {
             @Override

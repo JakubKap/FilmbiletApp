@@ -3,7 +3,6 @@ package com.companysf.filmbilet.WebSocket;
 import android.content.Context;
 import android.util.Log;
 
-import com.companysf.filmbilet.Activity.MainActivity;
 import com.companysf.filmbilet.Interfaces.SocketListener;
 import com.companysf.filmbilet.R;
 
@@ -25,7 +24,7 @@ public class MyWebSocketListener extends WebSocketListener {
 
     @Override
     public void onOpen(final WebSocket webSocket, okhttp3.Response response) {
-        socketListener.callback("success");
+        socketListener.onOpenCallback("success");
     }
 
     @Override

@@ -84,6 +84,20 @@ public class SectorModel {
             Log.d(logTag, "seatSetor[" + i + "] = " + seatSector[i]);
 
     }
+    public int freeSeatsOfSector(int sectorNum){
+        int freeSeats = 35;
+        for(int i =0; i<choosedSeats.length; i++){
+            if(choosedSeats[i] && seatSector[i] == (sectorNum+1))
+                freeSeats--;
+        }
+        return freeSeats;
+    }
 
+    public void setChoosedSeats(boolean[] choosedSeats) {
+        this.choosedSeats = choosedSeats;
+    }
 
+    public boolean[] getChoosedSeats() {
+        return choosedSeats;
+    }
 }

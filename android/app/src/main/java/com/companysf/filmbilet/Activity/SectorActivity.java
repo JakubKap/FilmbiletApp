@@ -1,35 +1,18 @@
 package com.companysf.filmbilet.Activity;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.Connection.ReservationConnection;
+import com.companysf.filmbilet.Interfaces.ConnectionListener;
 import com.companysf.filmbilet.Interfaces.SocketListener;
 import com.companysf.filmbilet.Model.SectorModel;
 import com.companysf.filmbilet.R;
@@ -37,36 +20,17 @@ import com.companysf.filmbilet.Utilies.ErrorDetector;
 import com.companysf.filmbilet.Utilies.SQLiteHandler;
 import com.companysf.filmbilet.Utilies.SessionManager;
 import com.companysf.filmbilet.App.AppConfig;
-import com.companysf.filmbilet.App.AppController;
-import com.companysf.filmbilet.Entities.Reservation;
-import com.companysf.filmbilet.WebSocket.Message;
 import com.companysf.filmbilet.WebSocket.MyWebSocketListener;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-
-import java.util.LinkedHashMap;
-
 import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
 
 import okhttp3.OkHttpClient;
 
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
-import okio.ByteString;
 
-
-public class SectorActivity extends AppCompatActivity implements SocketListener {
+public class SectorActivity extends AppCompatActivity implements SocketListener, ConnectionListener {
 
     private static final String logTag = MainActivity.class.getSimpleName();
 
@@ -74,6 +38,7 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
     MyWebSocketListener myWebSocketListener;
     private SQLiteHandler db;
     private ErrorDetector ed;
+
     private int repertoireId;
 
     private ReservationConnection reservationConnection;
@@ -94,7 +59,7 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
     Typeface opensansBold;
 
     private ConstraintLayout constraintLayout;
-    private ProgressBar SecProgressBar;
+    private ProgressBar secProgressBar;
     private FrameLayout secFrameLayout;
 
     @Override
@@ -141,7 +106,7 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
         freeSeats[6] = findViewById(R.id.freeSeats7);
         freeSeats[7] = findViewById(R.id.freeSeats8);
 
-        SecProgressBar = findViewById(R.id.secProgressBar);
+        secProgressBar = findViewById(R.id.secProgressBar);
         secBtnReserve = findViewById(R.id.secBtnReserve);
 
         secFrameLayout = findViewById(R.id.secFrameLayout);
@@ -222,10 +187,10 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
     }
 
     @Override
-    public void callback(String result) {
+    public void onOpenCallback(String result) {
         Log.d(logTag, "onOpen");
 
-        for(int i=0; i<sectorButtons.length; i++){
+        for (int i = 0; i < sectorButtons.length; i++) {
             final int index = i;
             sectorButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -236,6 +201,35 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
                 }
             });
         }
+    }
+
+    @Override
+    public void onDbResponseCallback(boolean[] takenSeats) {
+        sectorModel.setChoosedSeats(takenSeats);
+        for (int i = 0; i < sectorModel.getChoosedSeats().length; i++)
+            Log.d(logTag, "Model choosedSeats = " + sectorModel.getChoosedSeats()[i]);
+
+        updateSectors(true);
+
+    }
+
+    public void updateSectors(boolean ifStart) {
+        final boolean start = ifStart;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (start) {
+                    secProgressBar.setVisibility(View.INVISIBLE);
+                    secChoosedPlaces.setVisibility(View.VISIBLE);
+                    secSummaryPrice.setVisibility(View.VISIBLE);
+                    String pom = getString(R.string.summaryStartText);
+                    secSummaryPrice.setText(pom);
+                }
+                for(int i=0; i<freeSeats.length; i++)
+                    freeSeats[i].setText(String.format(new Locale("pl", "PL"), "%d",
+                            sectorModel.freeSeatsOfSector(i)));
+            }
+        });
 
     }
 
