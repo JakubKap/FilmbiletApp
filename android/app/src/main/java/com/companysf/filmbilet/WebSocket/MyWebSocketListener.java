@@ -30,6 +30,7 @@ public class MyWebSocketListener extends WebSocketListener {
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
+        Log.d(logTag, "onMessage");
 
     }
 

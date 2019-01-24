@@ -225,25 +225,18 @@ public class SectorActivity extends AppCompatActivity implements SocketListener 
     public void callback(String result) {
         Log.d(logTag, "onOpen");
 
-        View.OnClickListener buttonClicked = new View.OnClickListener() {
+        for(int i=0; i<sectorButtons.length; i++){
+            final int index = i;
+            sectorButtons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Button btn = findViewById(view.getId());
+                    Log.d(logTag, "index buttona = " + index);
 
-            @Override
-            public void onClick(View v) {
-                Button btn = findViewById(v.getId());
-                for(int i=0; i<sectorButtons.length; i++)
-                    if(sectorButtons[i].equals(btn))
-                        Log.d(logTag, "index buttona = " + i);
+                }
+            });
+        }
 
-                Log.d(logTag, "index buttona = " + 1);
-            }
-
-        };
-        for(Button sectorButton : sectorButtons)
-            sectorButton.setOnClickListener(buttonClicked);
-
-
-        /*httpClient.newWebSocket(request, myWebSocketListener);
-        httpClient.dispatcher().executorService().shutdown();*/
     }
 
 }
