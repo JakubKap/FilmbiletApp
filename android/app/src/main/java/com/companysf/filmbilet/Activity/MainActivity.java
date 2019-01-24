@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
 
     @Override
     public void callBackOnError() {
-        setRefreshLayoutVisible();
+        makeRefreshLayoutVisible();
         errorDialog.showErrorDialog(
                 getString(R.string.serverErrorTitle),
                 getString(R.string.serverErrorCheckLater)
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
 
     @Override
     public void callBackOnNoNetwork() {
-        setRefreshLayoutVisible();
+        makeRefreshLayoutVisible();
         errorDialog.showErrorDialog(
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.checkConnectionErrorStatement)
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
             swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void setRefreshLayoutVisible() {
+    private void makeRefreshLayoutVisible() {
         if (movieList.getList().isEmpty()) {
             emptyListRefreshLayout.setVisibility(View.VISIBLE);
         }
