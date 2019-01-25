@@ -207,6 +207,29 @@ public class SectorModel {
 
         return rowLabels;
     }
+    public String[] columnLabels(int index){
+        String [] columnLabels = new String[7];
+        if(index % 2 == 0){
+            columnLabels[0] = context.getString(R.string.firstColumnTextLeft);
+            columnLabels[1] = context.getString(R.string.secondColumnTextLeft);
+            columnLabels[2] = context.getString(R.string.thirdColumnTextLeft);
+            columnLabels[3] = context.getString(R.string.fourthColumnTextLeft);
+            columnLabels[4] = context.getString(R.string.fifthColumnTextLeft);
+            columnLabels[5] = context.getString(R.string.sixthColumnTextLeft);
+            columnLabels[6] = context.getString(R.string.seventhColumnTextLeft);
+        }
+        else{
+            columnLabels[0] = context.getString(R.string.firstColumnTextRight);
+            columnLabels[1] = context.getString(R.string.secondColumnTextRight);
+            columnLabels[2] = context.getString(R.string.thirdColumnTextRight);
+            columnLabels[3] = context.getString(R.string.fourthColumnTextRight);
+            columnLabels[4] = context.getString(R.string.fifthColumnTextRight);
+            columnLabels[5] = context.getString(R.string.sixthColumnTextRight);
+            columnLabels[6] = context.getString(R.string.seventhColumnTextRight);
+        }
+
+        return columnLabels;
+    }
 
     public void setChoosedSeats(boolean[] choosedSeats) {
         this.choosedSeats = choosedSeats;

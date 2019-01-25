@@ -291,6 +291,9 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         String[] rowLabels = sectorModel.rowLabels(index);
         for(int i=0; i<rowLabels.length; i++)
             rowButtons[i].setText(rowLabels[i]);
+        String[] columnLabels = sectorModel.columnLabels(index);
+        for(int i=0; i<columnLabels.length; i++)
+            columnButtons[i].setText(columnLabels[i]);
 
         int [] seatNumbers = sectorModel.seatNumbers(index);
         for(int i=0; i<seatButtons.length; i++)

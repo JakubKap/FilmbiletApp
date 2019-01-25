@@ -671,7 +671,7 @@
                 android:enabled="false"
                 android:minWidth="@dimen/seatWidth"
                 android:minHeight="@dimen/seatHeight"
-                android:text="@string/firstColumnText"
+                android:text="@string/firstColumnTextLeft"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -687,7 +687,7 @@
                 android:enabled="false"
                 android:minWidth="@dimen/seatWidth"
                 android:minHeight="@dimen/seatHeight"
-                android:text="@string/secondColumnText"
+                android:text="@string/secondColumnTextLeft"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -703,7 +703,7 @@
                 android:enabled="false"
                 android:minWidth="@dimen/seatWidth"
                 android:minHeight="@dimen/seatHeight"
-                android:text="@string/ThirdColumnText"
+                android:text="@string/thirdColumnTextLeft"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -719,7 +719,7 @@
                 android:enabled="false"
                 android:minWidth="@dimen/seatWidth"
                 android:minHeight="@dimen/seatHeight"
-                android:text="@string/fourthColumnText"
+                android:text="@string/fourthColumnTextLeft"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -735,7 +735,7 @@
                 android:enabled="false"
                 android:minWidth="@dimen/seatWidth"
                 android:minHeight="@dimen/seatHeight"
-                android:text="@string/fifthColumnText"
+                android:text="@string/fifthColumnTextLeft"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -751,7 +751,7 @@
                 android:enabled="false"
                 android:minWidth="@dimen/seatWidth"
                 android:minHeight="@dimen/seatHeight"
-                android:text="@string/sixthColumnText"
+                android:text="@string/sixthColumnTextLeft"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
 
@@ -767,7 +767,7 @@
                 android:enabled="false"
                 android:minWidth="@dimen/seatWidth"
                 android:minHeight="@dimen/seatHeight"
-                android:text="@string/seventhColumnText"
+                android:text="@string/seventhColumnTextLeft"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/seatsFontSize" />
         </LinearLayout>
