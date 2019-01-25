@@ -270,6 +270,14 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                             }
                         });
                     }
+
+                    seatsApproveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+
+                        }
+                    });
                 }
             });
         }
@@ -312,6 +320,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         for(int i=0; i<seatButtons.length; i++)
             seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
                     seatNumbers[i]));
+
         markChoosedPlaces();
     }
 
@@ -322,30 +331,41 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             @Override
             public void run() {
                 for(int i=0; i<seatNumbers.length; i++){
-                    markSeat(seatButtons[i], takenSeats[seatNumbers[i]-1], true);
                     if(takenSeats[seatNumbers[i]-1]) {
                         seatButtons[i].setEnabled(false);
+                        markTakenSeat(seatButtons[i]);
                     }
+                    else
+                        markSeat(seatButtons[i],sectorModel.getChoosedSeats()[seatNumbers[i]-1], true);
                 }
             }
         });
     }
-    public void markSeat(Button button, boolean isTaken, boolean initial){
-
-        if(!initial) {
-            Animation animation = new AlphaAnimation(1.0f, 0.0f);
-            animation.setDuration(200);
-            button.startAnimation(animation);
-        }
+    public void markSeat(Button button, boolean isTaken, boolean isInitial){
 
         if(!isTaken){
+            if(!isInitial)
+                performAnimation(button);
             button.setBackgroundResource(R.drawable.seat);
             button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
         }
+
         else{
-            button.setBackgroundResource(R.drawable.seat_reserved);
-            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+            if(!isInitial)
+                performAnimation(button);
+            button.setBackgroundResource(R.drawable.seat_choosed);
+            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
         }
+    }
+
+    public void markTakenSeat(Button button){
+        button.setBackgroundResource(R.drawable.seat_reserved);
+        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+    }
+    public void performAnimation(Button button){
+        Animation animation = new AlphaAnimation(1.0f, 0.0f);
+        animation.setDuration(200);
+        button.startAnimation(animation);
     }
 
     private void switchToLoginActivity() {
