@@ -6,8 +6,6 @@ import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 
 import com.companysf.filmbilet.entities.CustomerReservation;
-import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.utils.ToastUtils;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -36,15 +34,10 @@ public class PdfFile {
     private Font fieldValueFont;
     private LineSeparator lineSeparator;
 
-    private String name;        //"reservations.pdf"
+    private String name;
 
     private CustomerReservation reservation;
-    private ToastUtils toastUtils;
 
-
-    //fontPath = "assets/opensans_regular.ttf"
-    //rootFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-    //folder = "moje_rezerwacje_filmbilet"
     public PdfFile(Context context, File rootFolder, String folder, String name, String fontPath, CustomerReservation reservation) {
         this.context = context;
         this.name = name;
@@ -68,8 +61,6 @@ public class PdfFile {
 
     private boolean createFile() {
         try {
-            ToastUtils toastUtils = new ToastUtils(context);
-
             File fileDirecory = new File(this.rootFolder
                     + File.separator
                     + this.folder
@@ -139,10 +130,8 @@ public class PdfFile {
 
             this.document.close();
 
-            toastUtils.showShortToast(context.getString(R.string.generatePdfInfo));
-
         } catch (IOException | DocumentException ie) {
-            toastUtils.showShortToast(context.getString(R.string.generatePdfError));
+            return false;
         }
         return true;
     }

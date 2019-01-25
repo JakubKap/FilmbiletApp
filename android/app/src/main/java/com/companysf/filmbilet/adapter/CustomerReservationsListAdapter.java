@@ -13,13 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.entities.CustomerReservation;
 import com.companysf.filmbilet.services.PdfFile;
+import com.companysf.filmbilet.utils.ToastUtils;
 
 import java.util.List;
 import java.util.Locale;
 
-public class CustomerReservationsListAdapter extends RecyclerView.Adapter<CustomerReservationsListAdapter.MyViewHolder> {
+public class CustomerReservationsListAdapter
+        extends RecyclerView.Adapter<CustomerReservationsListAdapter.MyViewHolder>
+        implements ErrorListener {
     private Context context;
     private List<CustomerReservation> reservationsList;
     private Typeface opensansRegular;
@@ -35,6 +39,16 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
         this.reservationsList = reservationsList;
         this.opensansItalic = opensansItalic;
         this.opensansRegular = opensansRegular;
+    }
+
+    @Override
+    public void callBackOnError() {
+
+    }
+
+    @Override
+    public void callBackOnNoNetwork() {
+
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -129,12 +143,15 @@ public class CustomerReservationsListAdapter extends RecyclerView.Adapter<Custom
                                 context.getString(R.string.pdfFileName),
                         context.getString(R.string.opensansRegularPath),
                         customerReservation);
-                if (!pdfFile.createPdfFile())
-                    Toast.makeText(
-                            context,
-                            context.getString(R.string.modificateFilesAccessDeniedMsg),
-                            Toast.LENGTH_LONG
-                    ).show();
+                if (!pdfFile.createPdfFile()) {
+                    ToastUtils.showLongToast(
+                            context, context.getString(R.string.modificateFilesAccessDeniedMsg)
+                    );
+                } else {
+                    ToastUtils.showShortToast(
+                            context, context.getString(R.string.generatePdfInfo)
+                    );
+                }
             }
         });
     }
