@@ -15,14 +15,15 @@ public class SectorModel {
     private int numOfSeats;
 
 
-    private boolean [] choosedSector;
     private boolean[] takenSeats;
 
     private boolean[] choosedSeats;
 
     private int[] seatSector;
     private int[] seatRow;
+
     private int [] seatNumbers;
+    private int [] sectorPrices;
 
     private int[] freeSeatsInSector;
     private int[] startSecSeats;
@@ -33,10 +34,6 @@ public class SectorModel {
         this.context = context;
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
-
-        this.choosedSector = new boolean[numOfSectors];
-        for(int i = 0; i< choosedSector.length; i++)
-            choosedSector[i]=false;
 
         this.seatSector = new int[numOfSeats];
 
@@ -51,6 +48,13 @@ public class SectorModel {
         this.seatSector = new int[numOfSeats];
         this.seatRow = new int [numOfSeats];
         this.seatNumbers = new int[35];
+
+        this.sectorPrices = new int[numOfSectors/2];
+        sectorPrices[0]=10;
+        sectorPrices[1]=15;
+        sectorPrices[2]=20;
+        sectorPrices[3]=30;
+
         this.freeSeatsInSector = new int [numOfSectors];
 
         assignFirstSecSeat();
@@ -246,6 +250,34 @@ public class SectorModel {
         Log.d(logTag, "choosedSeats[" + (seatNumber-1) +"] = " + choosedSeats[seatNumber-1] );
     }
 
+    public int numOfSeats(){
+        int num=0;
+        for(int i=0; i<choosedSeats.length; i++)
+            if(choosedSeats[i])
+                num++;
+            return num;
+    }
+    public int seatsPrice(){
+        int price =0;
+
+        for(int i=0; i<choosedSeats.length; i++){
+            if(choosedSeats[i]) {
+                if (seatSector[i] == 1 || seatSector[i] == 2)
+                    price += sectorPrices[0];
+                else if (seatSector[i] == 3 || seatSector[i] == 4)
+                    price += sectorPrices[1];
+                else if (seatSector[i] == 5 || seatSector[i] == 6)
+                    price += sectorPrices[2];
+                else if (seatSector[i] == 7 || seatSector[i] == 8)
+                    price += sectorPrices[3];
+                Log.d(logTag, "Calculated price = " + price);
+            }
+        }
+
+        return price;
+
+    }
+
     public void setTakenSeats(boolean[] takenSeats) {
         this.takenSeats = takenSeats;
     }
@@ -272,5 +304,9 @@ public class SectorModel {
 
     public boolean[] getChoosedSeats() {
         return choosedSeats;
+    }
+
+    public void setSeatNumbers(int[] seatNumbers) {
+        this.seatNumbers = seatNumbers;
     }
 }

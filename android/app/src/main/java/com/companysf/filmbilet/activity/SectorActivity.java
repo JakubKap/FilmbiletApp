@@ -275,12 +275,15 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                         @Override
                         public void onClick(View view) {
                             dialog.dismiss();
+                            updateSummary();
 
                         }
                     });
                 }
             });
         }
+        //TODO na zakończenie obsługi wyczyścić tablice
+        sectorModel.setSeatNumbers(new int[35]);
     }
     public void updateSectors(boolean ifStart) {
         final boolean start = ifStart;
@@ -366,6 +369,18 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         Animation animation = new AlphaAnimation(1.0f, 0.0f);
         animation.setDuration(200);
         button.startAnimation(animation);
+    }
+
+    public void updateSummary(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                secChoosedPlaces.setText(String.format(new Locale("pl", "PL"), "%d",
+                        sectorModel.numOfSeats()));
+                secSummaryPrice.setText(String.format(new Locale("pl", "PL"), "%d",
+                        sectorModel.seatsPrice()));
+            }
+        });
     }
 
     private void switchToLoginActivity() {
