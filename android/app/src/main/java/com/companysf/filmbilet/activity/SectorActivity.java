@@ -2,15 +2,16 @@ package com.companysf.filmbilet.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,10 +22,7 @@ import com.companysf.filmbilet.interfaces.SocketListener;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.SectorModel;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.utils.ErrorDetector;
 import com.companysf.filmbilet.utils.ErrorDialog;
-import com.companysf.filmbilet.utils.SQLiteHandler;
-import com.companysf.filmbilet.utils.SessionManager;
 import com.companysf.filmbilet.WebSocket.MyWebSocketListener;
 import com.companysf.filmbilet.utils.ToastUtils;
 
@@ -288,9 +286,11 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         seatsProgressBar.setVisibility(View.INVISIBLE);
         title.setText(sectorModel.getSectorTitles()[index]);
         subtitle.setText(sectorModel.sectorSubtitle(index));
+
         String[] rowLabels = sectorModel.rowLabels(index);
         for(int i=0; i<rowLabels.length; i++)
             rowButtons[i].setText(rowLabels[i]);
+
         String[] columnLabels = sectorModel.columnLabels(index);
         for(int i=0; i<columnLabels.length; i++)
             columnButtons[i].setText(columnLabels[i]);
@@ -299,8 +299,28 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         for(int i=0; i<seatButtons.length; i++)
             seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
                     seatNumbers[i]));
+        markChoosedPlaces();
     }
 
+    public void markChoosedPlaces(){
+        final boolean [] choosedSeats = sectorModel.getChoosedSeats();
+        final int [] seatNumbers = sectorModel.getSeatNumbers();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0; i<seatNumbers.length; i++){
+                    if(choosedSeats[seatNumbers[i]-1]) {
+                        seatButtons[i].setBackgroundResource(R.drawable.seat_reserved);
+                        seatButtons[i].setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+                    }
+                    else {
+                        seatButtons[i].setBackgroundResource(R.drawable.seat);
+                        seatButtons[i].setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
+                    }
+                }
+            }
+        });
+    }
     private void switchToLoginActivity() {
         Intent intent = new Intent(SectorActivity.this, LoginActivity.class);
         startActivity(intent);

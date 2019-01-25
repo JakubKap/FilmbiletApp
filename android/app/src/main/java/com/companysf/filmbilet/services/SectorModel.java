@@ -20,6 +20,7 @@ public class SectorModel {
 
     private int[] seatSector;
     private int[] seatRow;
+    private int [] seatNumbers;
 
     private int[] freeSeatsInSector;
     private int[] startSecSeats;
@@ -43,6 +44,7 @@ public class SectorModel {
 
         this.seatSector = new int[numOfSeats];
         this.seatRow = new int [numOfSeats];
+        this.seatNumbers = new int[35];
         this.freeSeatsInSector = new int [numOfSectors];
 
         assignFirstSecSeat();
@@ -145,8 +147,6 @@ public class SectorModel {
 
         int startSeat = startSecSeats[sectorNumber];
 
-        int [] seatNumbers = new int[35];
-
         for (int i = 0; i < 35; i++) {
 
             if (i == 7 || i == 14 || i == 21 || i == 28) {
@@ -180,6 +180,7 @@ public class SectorModel {
             rowLabels[0] = context.getString(R.string.row1);
             rowLabels[1] = context.getString(R.string.row2);
             rowLabels[2] = context.getString(R.string.row3);
+
             rowLabels[3] = context.getString(R.string.row4);
             rowLabels[4] = context.getString(R.string.row5);
         }
@@ -251,4 +252,7 @@ public class SectorModel {
         return sectorTitles;
     }
 
+    public int[] getSeatNumbers() {
+        return seatNumbers;
+    }
 }
