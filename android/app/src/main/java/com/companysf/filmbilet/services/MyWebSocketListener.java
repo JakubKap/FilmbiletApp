@@ -1,11 +1,9 @@
 package com.companysf.filmbilet.WebSocket;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.companysf.filmbilet.App.AppConfig;
-import com.companysf.filmbilet.Interfaces.SocketListener;
-import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.app.AppConfig;
+import com.companysf.filmbilet.interfaces.SocketListener;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

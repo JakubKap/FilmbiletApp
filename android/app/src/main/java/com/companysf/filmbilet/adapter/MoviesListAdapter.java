@@ -2,6 +2,7 @@ package com.companysf.filmbilet.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.companysf.filmbilet.R;
 // TODO odkomentowac
 //import com.companysf.filmbilet.Activity.ChooseDateTime;
+import com.companysf.filmbilet.activity.ChooseDateTime;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.entities.Movie;
 
@@ -89,10 +91,9 @@ public class MoviesListAdapter extends BaseAdapter {
         movieRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO odkomentowac
-//                Intent intent = new Intent(context,ChooseDateTime.class);
-//                intent.putExtra(context.getString(R.string.movieIntentExtraContentName), movie);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, ChooseDateTime.class);
+                intent.putExtra(context.getString(R.string.movieIntentExtraContentName), movie);
+                context.startActivity(intent);
             }
         });
 

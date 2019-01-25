@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Model;
+package com.companysf.filmbilet.services;
 
 import android.util.Log;
 

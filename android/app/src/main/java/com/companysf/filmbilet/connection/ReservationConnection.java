@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.Connection;
+package com.companysf.filmbilet.connection;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,10 +8,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.companysf.filmbilet.App.AppConfig;
-import com.companysf.filmbilet.App.AppController;
-import com.companysf.filmbilet.Entities.Reservation;
-import com.companysf.filmbilet.Interfaces.ConnectionListener;
+import com.companysf.filmbilet.app.AppConfig;
+import com.companysf.filmbilet.app.AppController;
+import com.companysf.filmbilet.entities.Reservation;
+import com.companysf.filmbilet.interfaces.ConnectionListener;
 import com.companysf.filmbilet.R;
 
 import org.json.JSONArray;
@@ -60,7 +60,7 @@ public class ReservationConnection {
                                     Log.d(logTag, mContext.getString(R.string.resJsonLog) + reservationsJson.length());
                                     JSONObject reservationJSON = reservationsJson.getJSONObject(i);
                                     Reservation reservation = new Reservation(
-                                            reservationJSON.getInt(mContext.getString(R.string.resId)),
+                                            reservationJSON.getInt(mContext.getString(R.string.id)),
                                             reservationJSON.getInt(mContext.getString(R.string.resSeatNumber)),
                                             reservationJSON.getInt(mContext.getString(R.string.resRow))
                                     );
@@ -103,7 +103,7 @@ public class ReservationConnection {
             }
         };
 
-        AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.requestAdd));
+        AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.registerRequestAdd));
     }
 
     public void saveReservation(String customerIdPar, int seatNumberPar, int seatTypeIdPar, int rowPar,  int repertoireIdPar){
@@ -158,7 +158,7 @@ public class ReservationConnection {
             }
         };
 
-        AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.requestAdd));
+        AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.registerRequestAdd));
     }
 
 }
