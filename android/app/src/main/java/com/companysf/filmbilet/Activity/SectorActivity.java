@@ -242,6 +242,46 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
                 for(int i=0; i<freeSeats.length; i++)
                     freeSeats[i].setText(String.format(new Locale("pl", "PL"), "%d",
                             sectorModel.getFreeSeatsInSector()[i]));
+
+                seatButtons[0] = findViewById(R.id.seatsButtonIR_1);
+                seatButtons[1] = findViewById(R.id.seatsButtonIR_2);
+                seatButtons[2] = findViewById(R.id.seatsButtonIR_3);
+                seatButtons[3] = findViewById(R.id.seatsButtonIR_4);
+                seatButtons[4] = findViewById(R.id.seatsButtonIR_5);
+                seatButtons[5] = findViewById(R.id.seatsButtonIR_6);
+                seatButtons[6] = findViewById(R.id.seatsButtonIR_7);
+
+                seatButtons[7] = findViewById(R.id.seatsButtonIIR_1);
+                seatButtons[8] = findViewById(R.id.seatsButtonIIR_2);
+                seatButtons[9] = findViewById(R.id.seatsButtonIIR_3);
+                seatButtons[10] = findViewById(R.id.seatsButtonIIR_4);
+                seatButtons[11] = findViewById(R.id.seatsButtonIIR_5);
+                seatButtons[12] = findViewById(R.id.seatsButtonIIR_6);
+                seatButtons[13] = findViewById(R.id.seatsButtonIIR_7);
+
+                seatButtons[14] = findViewById(R.id.seatsButtonIIIR_1);
+                seatButtons[15] = findViewById(R.id.seatsButtonIIIR_2);
+                seatButtons[16] = findViewById(R.id.seatsButtonIIIR_3);
+                seatButtons[17] = findViewById(R.id.seatsButtonIIIR_4);
+                seatButtons[18] = findViewById(R.id.seatsButtonIIIR_5);
+                seatButtons[19] = findViewById(R.id.seatsButtonIIIR_6);
+                seatButtons[20] = findViewById(R.id.seatsButtonIIIR_7);
+
+                seatButtons[21] = findViewById(R.id.seatsButtonIVR_1);
+                seatButtons[22] = findViewById(R.id.seatsButtonIVR_2);
+                seatButtons[23] = findViewById(R.id.seatsButtonIVR_3);
+                seatButtons[24] = findViewById(R.id.seatsButtonIVR_4);
+                seatButtons[25] = findViewById(R.id.seatsButtonIVR_5);
+                seatButtons[26] = findViewById(R.id.seatsButtonIVR_6);
+                seatButtons[27] = findViewById(R.id.seatsButtonIVR_7);
+
+                seatButtons[28] = findViewById(R.id.seatsButtonVR_1);
+                seatButtons[29] = findViewById(R.id.seatsButtonVR_2);
+                seatButtons[30] = findViewById(R.id.seatsButtonVR_3);
+                seatButtons[31] = findViewById(R.id.seatsButtonVR_4);
+                seatButtons[32] = findViewById(R.id.seatsButtonVR_5);
+                seatButtons[33] = findViewById(R.id.seatsButtonVR_6);
+                seatButtons[34] = findViewById(R.id.seatsButtonVR_7);
             }
         });
 
