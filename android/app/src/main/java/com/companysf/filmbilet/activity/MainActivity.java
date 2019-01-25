@@ -2,6 +2,7 @@ package com.companysf.filmbilet.activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     private MovieList movieList;
     private MovieConnection movieConnection;
     private LinearLayout emptyListRefreshLayout;
+    private ConstraintLayout notEmptyLayout;
     SwipeRefreshLayout swipeRefreshLayout;
 
     private Login login;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
         ImageButton btn_refresh = findViewById(R.id.btnRefreshAssets);
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.emptyListRefreshLayout);
+        notEmptyLayout = findViewById(R.id.notEmptyLayout);
         TextView welcomeCustomer = findViewById(R.id.welcomeCustomer);
 
         Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
@@ -141,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     @Override
     public void callBackOnSuccess() {
         emptyListRefreshLayout.setVisibility(View.GONE);
+        notEmptyLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -152,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     private void makeRefreshLayoutVisible() {
         if (movieList.getList().isEmpty()) {
             emptyListRefreshLayout.setVisibility(View.VISIBLE);
+            notEmptyLayout.setVisibility(View.GONE);
         }
     }
 }
