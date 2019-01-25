@@ -16,6 +16,8 @@ public class SectorModel {
 
 
     private boolean [] choosedSector;
+    private boolean[] takenSeats;
+
     private boolean[] choosedSeats;
 
     private int[] seatSector;
@@ -37,6 +39,10 @@ public class SectorModel {
             choosedSector[i]=false;
 
         this.seatSector = new int[numOfSeats];
+
+        this.takenSeats = new boolean[numOfSeats];
+        for(int i = 0; i< takenSeats.length; i++)
+            takenSeats[i]=false;
 
         this.choosedSeats = new boolean[numOfSeats];
         for(int i = 0; i< choosedSeats.length; i++)
@@ -136,8 +142,8 @@ public class SectorModel {
 
     public int freeSeatsOfSector(int sectorNum){
         int freeSeats = 35;
-        for(int i =0; i<choosedSeats.length; i++){
-            if(choosedSeats[i] && seatSector[i] == (sectorNum+1))
+        for(int i = 0; i< takenSeats.length; i++){
+            if(takenSeats[i] && seatSector[i] == (sectorNum+1))
                 freeSeats--;
         }
         return freeSeats;
@@ -180,7 +186,6 @@ public class SectorModel {
             rowLabels[0] = context.getString(R.string.row1);
             rowLabels[1] = context.getString(R.string.row2);
             rowLabels[2] = context.getString(R.string.row3);
-
             rowLabels[3] = context.getString(R.string.row4);
             rowLabels[4] = context.getString(R.string.row5);
         }
@@ -232,12 +237,21 @@ public class SectorModel {
         return columnLabels;
     }
 
-    public void setChoosedSeats(boolean[] choosedSeats) {
-        this.choosedSeats = choosedSeats;
+    public void markSeat(int index){
+        int seatNumber = seatNumbers[index];
+        if(choosedSeats[seatNumber-1])
+            choosedSeats[seatNumber-1]=false;
+        else choosedSeats[seatNumber-1]=true;
+
+        Log.d(logTag, "choosedSeats[" + (seatNumber-1) +"] = " + choosedSeats[seatNumber-1] );
     }
 
-    public boolean[] getChoosedSeats() {
-        return choosedSeats;
+    public void setTakenSeats(boolean[] takenSeats) {
+        this.takenSeats = takenSeats;
+    }
+
+    public boolean[] getTakenSeats() {
+        return takenSeats;
     }
 
     public int[] getFreeSeatsInSector() {
@@ -254,5 +268,9 @@ public class SectorModel {
 
     public int[] getSeatNumbers() {
         return seatNumbers;
+    }
+
+    public boolean[] getChoosedSeats() {
+        return choosedSeats;
     }
 }

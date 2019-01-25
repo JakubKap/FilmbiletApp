@@ -2,7 +2,6 @@ package com.companysf.filmbilet.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -249,7 +248,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
                     seatsProgressBar = dialog.findViewById(R.id.seatsProgressBar);
 
-                            title.setTypeface(opensansBold);
+                    title.setTypeface(opensansBold);
                     subtitle.setTypeface(opensansBold);
                     seatsCloseButton.setTypeface(opensansRegular);
                     seatsApproveButton.setTypeface(opensansRegular);
@@ -257,6 +256,18 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     preparePopUp(index);
 
                     dialog.show();
+
+                    for(int i=0; i<seatButtons.length; i++){
+                        final int index = i;
+                        seatButtons[i].setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                sectorModel.markSeat(index);
+                                int seatNumber = sectorModel.getSeatNumbers()[index];
+                                markSeat(seatButtons[index], sectorModel.getChoosedSeats()[seatNumber - 1]);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -303,24 +314,31 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     }
 
     public void markChoosedPlaces(){
-        final boolean [] choosedSeats = sectorModel.getChoosedSeats();
+        final boolean [] takenSeats = sectorModel.getTakenSeats();
         final int [] seatNumbers = sectorModel.getSeatNumbers();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 for(int i=0; i<seatNumbers.length; i++){
-                    if(choosedSeats[seatNumbers[i]-1]) {
-                        seatButtons[i].setBackgroundResource(R.drawable.seat_reserved);
-                        seatButtons[i].setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
-                    }
-                    else {
-                        seatButtons[i].setBackgroundResource(R.drawable.seat);
-                        seatButtons[i].setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
+                    markSeat(seatButtons[i], takenSeats[seatNumbers[i]-1]);
+                    if(takenSeats[seatNumbers[i]-1]) {
+                        seatButtons[i].setEnabled(false);
                     }
                 }
             }
         });
     }
+    public void markSeat(Button button, boolean isTaken){
+        if(!isTaken){
+            button.setBackgroundResource(R.drawable.seat);
+            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
+        }
+        else{
+            button.setBackgroundResource(R.drawable.seat_reserved);
+            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+        }
+    }
+
     private void switchToLoginActivity() {
         Intent intent = new Intent(SectorActivity.this, LoginActivity.class);
         startActivity(intent);
@@ -329,10 +347,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     @Override
     public void onDbResponseCallback(boolean[] takenSeats) {
-        sectorModel.setChoosedSeats(takenSeats);
+        sectorModel.setTakenSeats(takenSeats);
         sectorModel.updateSectorSeats();
-        for (int i = 0; i < sectorModel.getChoosedSeats().length; i++)
-            Log.d(logTag, "Model choosedSeats = " + sectorModel.getChoosedSeats()[i]);
+        for (int i = 0; i < sectorModel.getTakenSeats().length; i++)
+            Log.d(logTag, "Model takenSeats = " + sectorModel.getTakenSeats()[i]);
 
         updateSectors(true);
     }
