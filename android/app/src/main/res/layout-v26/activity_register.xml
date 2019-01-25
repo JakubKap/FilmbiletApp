@@ -4,7 +4,7 @@
     android:background="@color/colorPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".Activity.RegisterActivity"
+    tools:context=".activity.RegisterActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     >
@@ -29,7 +29,7 @@
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/logo"
                     android:layout_gravity="center_horizontal"
-                    android:contentDescription="@string/logo_text" />
+                    android:contentDescription="@string/logoText" />
 
                 <EditText
                     android:id="@+id/email"
@@ -37,10 +37,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@color/white"
-                    android:hint="@string/hint_email"
+                    android:hint="@string/hintEmail"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
-                    android:autofillHints="@string/hint_email" />
+                    android:autofillHints="@string/hintEmail" />
 
                 <EditText
                     android:id="@+id/name"
@@ -48,10 +48,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@color/white"
-                    android:hint="@string/hint_name"
+                    android:hint="@string/hintName"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:autofillHints="@string/hint_name" />
+                    android:autofillHints="@string/hintName" />
 
                 <EditText
                     android:id="@+id/surname"
@@ -59,20 +59,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@color/white"
-                    android:hint="@string/hint_surname"
+                    android:hint="@string/hintSurname"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:autofillHints="@string/hint_surname" />
+                    android:autofillHints="@string/hintSurname" />
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:hint="@string/hint_password"
+                    android:hint="@string/hintPassword"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:autofillHints="@string/hint_password" />
+                    android:autofillHints="@string/hintPassword" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,7 +85,7 @@
                 >
 
                 <Button
-                    android:id="@+id/btn_register"
+                    android:id="@+id/btnRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -93,17 +93,17 @@
                     android:minHeight="40dip"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:text="@string/register_btn"
+                    android:text="@string/registerBtn"
                     android:textColor="#f9f9f9" />
 
                 <Button
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:minHeight="30dip"
                     android:padding="10dp"
-                    android:text="@string/login_btn" />
+                    android:text="@string/loginBtn" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

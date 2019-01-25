@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <android.support.constraint.Guideline
-                    android:id="@+id/title-list-line"
+                    android:id="@+id/titleListLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -32,20 +32,20 @@
                     android:layout_height="wrap_content"
                     android:text="@string/myReservationsText"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@id/title-list-line"
+                    app:layout_constraintBottom_toTopOf="@id/titleListLine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/empty_list_refresh_layout"
+                    android:id="@+id/emptyListRefreshLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:background="#f9f9f9"
                     android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="@id/title-list-line"
+                    app:layout_constraintTop_toTopOf="@id/titleListLine"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     >
@@ -58,12 +58,12 @@
                         />
                 </LinearLayout>
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:clipToPadding="false"
                     android:scrollbars="vertical"
-                    app:layout_constraintTop_toTopOf="@id/title-list-line"
+                    app:layout_constraintTop_toTopOf="@id/titleListLine"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>

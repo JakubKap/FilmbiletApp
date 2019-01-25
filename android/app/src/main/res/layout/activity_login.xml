@@ -9,7 +9,7 @@
     android:background="@color/colorPrimary"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context=".Activity.LoginActivity"
+    tools:context=".activity.LoginActivity"
     >
 
     <ImageView
@@ -19,28 +19,28 @@
         android:src="@drawable/logo"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="40dp"
-        android:contentDescription="@string/logo_text" />
+        android:contentDescription="@string/logoText" />
 
     <EditText
         android:id="@+id/email"
-        android:hint="@string/hint_email"
+        android:hint="@string/hintEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="10dp"
         android:layout_marginBottom="10dp"
         android:inputType="textEmailAddress"
-        android:autofillHints="@string/hint_email" />
+        android:autofillHints="@string/hintEmail" />
     <EditText
         android:id="@+id/password"
-        android:hint="@string/hint_password"
+        android:hint="@string/hintPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="10dp"
         android:layout_marginBottom="25dp"
         android:inputType="textPassword"
-        android:autofillHints="@string/hint_password" />
+        android:autofillHints="@string/hintPassword" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,19 +49,19 @@
         >
 
         <Button
-            android:id="@+id/btn_register"
+            android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:text="@string/register_btn"
+            android:text="@string/registerBtn"
             android:minHeight="30dip"
             android:padding="10dp"
             />
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_btn"
+            android:text="@string/loginBtn"
             android:background="@drawable/rounded_button_dark"
             android:minHeight="40dip"
             android:paddingLeft="20dp"

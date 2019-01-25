@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id = "@+id/mainLayout"
-    tools:context=".Activity.ChooseDateTime">
+    tools:context=".activity.ChooseDateTime">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toTopOf="parent"
         >
 
         <android.support.constraint.Guideline
-            android:id="@+id/circleEnd-line"
+            android:id="@+id/circleEndline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -36,11 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="1"
+            android:text="@string/stepNumber1"
             android:textColor="#fff"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/circleEnd-line"
+            app:layout_constraintEnd_toEndOf="@id/circleEndline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -49,10 +49,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="Wybierz datę i godzinę"
+            android:text="@string/chooseDateTime"
             android:textSize="@dimen/header"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/circleEnd-line"
+            app:layout_constraintStart_toStartOf="@id/circleEndline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
@@ -62,8 +62,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toTopOf="@+id/guideline1"
         >
 
@@ -75,7 +75,7 @@
             android:background="@drawable/list_row_selector">
 
             <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/picture_in_date"
+                android:id="@+id/pictureInDate"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_alignParentStart="true"
@@ -84,34 +84,34 @@
                 android:layout_marginRight="8dp" />
 
             <TextView
-                android:id="@+id/title_in_date_hours"
+                android:id="@+id/titleInDateHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/picture_in_date"
-                android:layout_toEndOf="@+id/picture_in_date"
-                android:layout_toRightOf="@+id/picture_in_date"
-                android:text="Tytuł"
+                android:layout_alignTop="@+id/pictureInDate"
+                android:layout_toEndOf="@+id/pictureInDate"
+                android:layout_toRightOf="@+id/pictureInDate"
+                android:text="@string/movieTitleText"
                 android:textSize="18sp" />
 
             <LinearLayout
-                android:id="@+id/second_row_next_to_picture"
+                android:id="@+id/secondRowNextToPicture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_in_date_hours"
+                android:layout_below="@+id/titleInDateHours"
                 android:layout_marginTop="2dp"
-                android:layout_toEndOf="@+id/picture_in_date"
-                android:layout_toRightOf="@+id/picture_in_date"
+                android:layout_toEndOf="@+id/pictureInDate"
+                android:layout_toRightOf="@+id/pictureInDate"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/genres_text_hours"
+                    android:id="@+id/genresTextHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/genres"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/genres_in_date_hours"
+                    android:id="@+id/genresInDateHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp" />
@@ -120,27 +120,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/second_row_next_to_picture"
+                android:layout_below="@+id/secondRowNextToPicture"
                 android:layout_marginTop="0dp"
-                android:layout_toEndOf="@+id/picture_in_date"
-                android:layout_toRightOf="@+id/picture_in_date"
+                android:layout_toEndOf="@+id/pictureInDate"
+                android:layout_toRightOf="@+id/pictureInDate"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/movie_length_text_hours"
+                    android:id="@+id/movieLengthTextHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/movie_length"
+                    android:text="@string/movieLength"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/movie_length_in_date_hours"
+                    android:id="@+id/movieLengthInDateHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/separator_hours"
+                    android:id="@+id/separatorHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -149,23 +149,20 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/min_age_text_hours"
+                    android:id="@+id/minAgeTextHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/min_age"
+                    android:text="@string/minAge"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/min_age_in_date_hours"
+                    android:id="@+id/minAgeInDateHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp" />
             </LinearLayout>
         </RelativeLayout>
-
-
     </RelativeLayout>
-
 
     <GridView
         android:id="@+id/hoursGridView"
@@ -180,9 +177,9 @@
         android:scrollbars="horizontal"
         android:verticalSpacing="10sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
 
@@ -212,7 +209,7 @@
         app:layout_constraintGuide_percent="0.40" />
 
     <Button
-        android:id="@+id/btn_accept_time"
+        android:id="@+id/btnAcceptTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -220,9 +217,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/button_close_light"
+        android:background="@drawable/rounded_button_light"
         android:padding="10sp"
-        android:text="WYBÓR MIEJSCA >"
+        android:text="@string/chooseSeatsText"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.891"
@@ -237,7 +234,7 @@
         app:layout_constraintGuide_begin="70dp"
         app:layout_constraintGuide_percent="0.55" />
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_left"
+        android:id="@+id/guidelineLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -245,7 +242,7 @@
         app:layout_constraintGuide_percent="0.05"/>
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_right"
+        android:id="@+id/guidelineRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -254,7 +251,7 @@
 
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_after_1_btn"
+        android:id="@+id/guidelineAfter1Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -262,7 +259,7 @@
         app:layout_constraintGuide_percent="0.23"/>
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_after_2_btn"
+        android:id="@+id/guidelineAfter2Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -270,7 +267,7 @@
         app:layout_constraintGuide_percent="0.41"/>
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_after_3_btn"
+        android:id="@+id/guidelineAfter3Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -278,7 +275,7 @@
         app:layout_constraintGuide_percent="0.59"/>
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline_after_4_btn"
+        android:id="@+id/guidelineAfter4Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -299,8 +296,8 @@
         android:layout_marginBottom="7dp"
         android:background="@drawable/gradient_date_button"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_after_1_btn"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineAfter1Btn"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <ToggleButton
@@ -315,10 +312,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="ToggleButton"
+        android:text="@string/togglebutton"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_after_2_btn"
-        app:layout_constraintStart_toStartOf="@+id/guideline_after_1_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineAfter2Btn"
+        app:layout_constraintStart_toStartOf="@+id/guidelineAfter1Btn"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <ToggleButton
@@ -333,10 +330,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="ToggleButton"
+        android:text="@string/togglebutton"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_after_3_btn"
-        app:layout_constraintStart_toStartOf="@+id/guideline_after_2_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineAfter3Btn"
+        app:layout_constraintStart_toStartOf="@+id/guidelineAfter2Btn"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <ToggleButton
@@ -351,10 +348,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="ToggleButton"
+        android:text="@string/togglebutton"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_after_4_btn"
-        app:layout_constraintStart_toStartOf="@+id/guideline_after_3_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineAfter4Btn"
+        app:layout_constraintStart_toStartOf="@+id/guidelineAfter3Btn"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <ToggleButton
@@ -369,10 +366,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="ToggleButton"
+        android:text="@string/togglebutton"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_after_4_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineAfter4Btn"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 </android.support.constraint.ConstraintLayout>
