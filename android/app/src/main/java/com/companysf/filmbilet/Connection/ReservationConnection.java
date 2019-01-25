@@ -47,6 +47,7 @@ public class ReservationConnection {
                             JSONObject json = new JSONObject(response);
                             boolean error = json.getBoolean(mContext.getString(R.string.error));
                             if (error) {
+                                //TODO zmiana w php na error = false
                                 if (!json.getString(mContext.getString(R.string.message)).
                                         equals(mContext.getString(R.string.noResForRep)))
                                     Toast.makeText(

@@ -3,10 +3,12 @@ package com.companysf.filmbilet.WebSocket;
 import android.content.Context;
 import android.util.Log;
 
+import com.companysf.filmbilet.App.AppConfig;
 import com.companysf.filmbilet.Interfaces.SocketListener;
 import com.companysf.filmbilet.R;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
@@ -14,12 +16,16 @@ import okio.ByteString;
 public class MyWebSocketListener extends WebSocketListener {
 
     private static final String logTag = MyWebSocketListener.class.getSimpleName();
-    Context mContext;
     SocketListener socketListener;
+    OkHttpClient httpClient;
+    Request request;
 
-    public MyWebSocketListener(Context c, SocketListener socketListener){
-        this.mContext = c;
+    public MyWebSocketListener(SocketListener socketListener){
         this.socketListener = socketListener;
+        this.httpClient  = new OkHttpClient();
+        this.request = new Request.Builder().url(AppConfig.websocketURL).build();
+        httpClient.newWebSocket(request, this);
+        httpClient.dispatcher().executorService().shutdown();
     }
 
     @Override
@@ -51,7 +57,7 @@ public class MyWebSocketListener extends WebSocketListener {
 
     @Override
     public void onFailure(WebSocket webSocket, Throwable t, okhttp3.Response response) {
-        Log.d(logTag, mContext.getString(R.string.socketFailure) + t.getMessage());
+        Log.d(logTag, "onFailure: " + t.getMessage());
     }
 
     private void sendMessageToServer(OkHttpClient httpClient, WebSocket webSocket) {

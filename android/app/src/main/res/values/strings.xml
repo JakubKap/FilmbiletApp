@@ -145,7 +145,6 @@
     <string name ="seatTypeId">seatTypeId</string>
 
     <string name="requestAdd">req_register</string>
-    <string name="socketFailure">onFailure: </string>
     <string name="socketCloseReason">Zarezerwowowano miejsca</string>
     <string name="socketSendError">sendMessageToServer: client rowny null</string>
     
