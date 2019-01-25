@@ -108,10 +108,10 @@ public class PdfFile {
                     "Tytuł filmu:", reservation.getRepertoire().getMovie().getTitle()
             );
             createFieldWithOneInfo(
-                    "Data rezerwacji:", reservation.getReservationDate().getStringDateTime()
+                    "Data rezerwacji:", reservation.getReservationDateFormat().getStringDateTime()
             );
             createFieldWithOneInfo("Data seansu:",
-                    reservation.getRepertoire().getDate().getStringDateTime()
+                    reservation.getRepertoire().getDateFormat().getStringDateTime()
             );
             createFieldWithOneInfo("Zarezerwowane miejsca:",
                     String.format(

@@ -1,15 +1,15 @@
 package com.companysf.filmbilet.entities;
 
-import com.companysf.filmbilet.services.Date;
+import com.companysf.filmbilet.services.DateFormat;
 
 public class Repertoire {
     private Movie movie;
-    private Date date;
+    private DateFormat dateFormat;
     private int id;
 
     public Repertoire(Movie movie, String dateTime, int id) {
         this.movie = movie;
-        this.date = new Date(dateTime);
+        this.dateFormat = new DateFormat(dateTime);
         this.id = id;
     }
 
@@ -17,12 +17,12 @@ public class Repertoire {
         return movie;
     }
 
-    public Date getDate() {
-        return date;
+    public DateFormat getDateFormat() {
+        return dateFormat;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
     }
 
     public int getId() {

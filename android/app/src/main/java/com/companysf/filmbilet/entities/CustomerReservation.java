@@ -1,28 +1,28 @@
 package com.companysf.filmbilet.entities;
 
 
-import com.companysf.filmbilet.services.Date;
+import com.companysf.filmbilet.services.DateFormat;
 
 public class CustomerReservation {
     private String seatNumbers;
-    private Date reservationDate;
+    private DateFormat reservationDateFormat;
     private Repertoire repertoire;
     private float price;
 
     public CustomerReservation(String seatNumbers, String reservationDate,
                                Repertoire repertoire, float price) {
         this.seatNumbers = seatNumbers;
-        this.reservationDate = new Date(reservationDate);
+        this.reservationDateFormat = new DateFormat(reservationDate);
         this.repertoire = repertoire;
         this.price = price;
     }
 
-    public Date getReservationDate() {
-        return reservationDate;
+    public DateFormat getReservationDateFormat() {
+        return reservationDateFormat;
     }
 
-    public void setReservationDate(Date reservationDate) {
-        this.reservationDate = reservationDate;
+    public void setReservationDateFormat(DateFormat reservationDateFormat) {
+        this.reservationDateFormat = reservationDateFormat;
     }
 
     public Repertoire getRepertoire() {

@@ -3,13 +3,14 @@ package com.companysf.filmbilet.services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class Date {
+public class DateFormat {
     private GregorianCalendar date;
 
-    public Date(String dateTime) {
+    public DateFormat(String dateTime) {
         this.date = new GregorianCalendar();
         convertMySQLToJavaDateTime(dateTime);
     }
@@ -17,7 +18,7 @@ public class Date {
     private void convertMySQLToJavaDateTime(String mySQLDateTime) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", new Locale("pl", "PL"));
         try {
-            java.util.Date date = format.parse(mySQLDateTime);
+            Date date = format.parse(mySQLDateTime);
             this.date.setTime(date);
         } catch (ParseException e) {
             e.printStackTrace();

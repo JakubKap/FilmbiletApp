@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
@@ -105,10 +104,10 @@ public class CustomerReservationsListAdapter
                 )
         );
         myViewHolder.reservationDate.setText(
-                customerReservation.getReservationDate().getStringDateTime()
+                customerReservation.getReservationDateFormat().getStringDateTime()
         );
         myViewHolder.repertoireDate.setText(
-                customerReservation.getRepertoire().getDate().getStringDateTime()
+                customerReservation.getRepertoire().getDateFormat().getStringDateTime()
         );
 
         myViewHolder.title.setTypeface(opensansRegular);
@@ -128,9 +127,9 @@ public class CustomerReservationsListAdapter
                 CustomerReservation customerReservation =
                         reservationsList.get(myViewHolder.getAdapterPosition());
                 String reservationDate =
-                        customerReservation.getReservationDate().getStringDate() +
+                        customerReservation.getReservationDateFormat().getStringDate() +
                                 context.getString(R.string.dateTimeSeparator) +
-                                customerReservation.getReservationDate().getStringTime(
+                                customerReservation.getReservationDateFormat().getStringTime(
                                         context.getString(R.string.timeSeparator)
                                 );
 

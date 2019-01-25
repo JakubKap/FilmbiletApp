@@ -57,8 +57,9 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         reservationsList = new ReservationsList();
-        adapter = new CustomerReservationsListAdapter(this, reservationsList.getList(),
-                opensansItalic, opensansRegular);
+        adapter = new CustomerReservationsListAdapter(
+                this, reservationsList.getList(), opensansItalic, opensansRegular
+        );
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
