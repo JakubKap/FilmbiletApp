@@ -58,6 +58,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     private ConstraintLayout constraintLayout;
     private ProgressBar secProgressBar;
+    private ProgressBar seatsProgressBar;
     private TextView title, subtitle;
 
     @Override
@@ -71,7 +72,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         }
 
         reservationConnection = new ReservationConnection(this, this, this);
-        sectorModel = new SectorModel(8, 280);
+        sectorModel = new SectorModel(this,8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -248,7 +249,9 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     rowButtons[3] = dialog.findViewById(R.id.seatsButtonIVR);
                     rowButtons[4] = dialog.findViewById(R.id.seatsButtonVR);
 
-                    title.setTypeface(opensansBold);
+                    seatsProgressBar = dialog.findViewById(R.id.seatsProgressBar);
+
+                            title.setTypeface(opensansBold);
                     subtitle.setTypeface(opensansBold);
                     seatsCloseButton.setTypeface(opensansRegular);
                     seatsApproveButton.setTypeface(opensansRegular);
@@ -282,6 +285,9 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     }
 
     public void preparePopUp(int index){
+        seatsProgressBar.setVisibility(View.INVISIBLE);
+        title.setText(sectorModel.getSectorTitles()[index]);
+
         int [] seatNumbers = sectorModel.seatNumbers(index);
         for(int i=0; i<seatButtons.length; i++)
             seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",

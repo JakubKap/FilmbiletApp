@@ -1,9 +1,15 @@
 package com.companysf.filmbilet.services;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.companysf.filmbilet.R;
 
 public class SectorModel {
     private static final String logTag = SectorModel.class.getSimpleName();
+
+    private Context context;
+
     private int repertoireId;
     private int numOfSectors;
     private int numOfSeats;
@@ -17,8 +23,10 @@ public class SectorModel {
 
     private int[] freeSeatsInSector;
     private int[] startSecSeats;
+    private String[] sectorTitles;
 
-    public SectorModel(int numOfSectors, int numOfSeats){
+    public SectorModel(Context context, int numOfSectors, int numOfSeats){
+        this.context = context;
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
 
@@ -37,7 +45,15 @@ public class SectorModel {
         this.freeSeatsInSector = new int [numOfSectors];
 
         assignFirstSecSeat();
-
+        sectorTitles = new String[numOfSectors];
+        sectorTitles[0] = context.getString(R.string.upperSector1Text);
+        sectorTitles[1] = context.getString(R.string.upperSector2Text);
+        sectorTitles[2] = context.getString(R.string.upperSector3Text);
+        sectorTitles[3] = context.getString(R.string.upperSector4Text);
+        sectorTitles[4] = context.getString(R.string.upperSector5Text);
+        sectorTitles[5] = context.getString(R.string.upperSector6Text);
+        sectorTitles[6] = context.getString(R.string.upperSector7Text);
+        sectorTitles[7] = context.getString(R.string.upperSector8Text);
     }
 
     public void assignFirstSecSeat(){
@@ -155,5 +171,9 @@ public class SectorModel {
 
     public void setRepertoireId(int repertoireId) {
         this.repertoireId = repertoireId;
+    }
+
+    public String[] getSectorTitles() {
+        return sectorTitles;
     }
 }
