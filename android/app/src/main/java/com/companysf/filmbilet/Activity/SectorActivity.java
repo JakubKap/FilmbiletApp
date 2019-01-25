@@ -1,11 +1,13 @@
 package com.companysf.filmbilet.Activity;
 
+import android.app.Dialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -198,6 +200,18 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
                     Button btn = findViewById(view.getId());
                     Log.d(logTag, "index buttona = " + index);
 
+                    if(sectorModel.getFreeSeatsInSector()[index] == 0) {
+                        ed.buildDialog(SectorActivity.this, getString(R.string.emptySectorTitle),
+                                getString(R.string.emptySectorMsg)).show();
+                        return;
+                    }
+
+                    final Dialog dialog = new Dialog(SectorActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.seat);
+
+
+                    dialog.show();
                 }
             });
         }
@@ -206,11 +220,11 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
     @Override
     public void onDbResponseCallback(boolean[] takenSeats) {
         sectorModel.setChoosedSeats(takenSeats);
+        sectorModel.updateSectorSeats();
         for (int i = 0; i < sectorModel.getChoosedSeats().length; i++)
             Log.d(logTag, "Model choosedSeats = " + sectorModel.getChoosedSeats()[i]);
 
         updateSectors(true);
-
     }
 
     public void updateSectors(boolean ifStart) {
@@ -227,7 +241,7 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
                 }
                 for(int i=0; i<freeSeats.length; i++)
                     freeSeats[i].setText(String.format(new Locale("pl", "PL"), "%d",
-                            sectorModel.freeSeatsOfSector(i)));
+                            sectorModel.getFreeSeatsInSector()[i]));
             }
         });
 

@@ -14,6 +14,7 @@ public class SectorModel {
     private int[] seatSector;
     private int[] seatRow;
 
+    private int[] freeSeatsInSector;
     public SectorModel(int numOfSectors, int numOfSeats){
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
@@ -30,6 +31,7 @@ public class SectorModel {
 
         this.seatSector = new int[numOfSeats];
         this.seatRow = new int [numOfSeats];
+        this.freeSeatsInSector = new int [numOfSectors];
 
     }
 
@@ -84,6 +86,12 @@ public class SectorModel {
             Log.d(logTag, "seatSetor[" + i + "] = " + seatSector[i]);
 
     }
+    public void updateSectorSeats(){
+        for(int i=0; i<freeSeatsInSector.length; i++)
+            freeSeatsInSector[i] = freeSeatsOfSector(i);
+    }
+
+
     public int freeSeatsOfSector(int sectorNum){
         int freeSeats = 35;
         for(int i =0; i<choosedSeats.length; i++){
@@ -99,5 +107,9 @@ public class SectorModel {
 
     public boolean[] getChoosedSeats() {
         return choosedSeats;
+    }
+
+    public int[] getFreeSeatsInSector() {
+        return freeSeatsInSector;
     }
 }
