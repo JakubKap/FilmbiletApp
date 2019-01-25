@@ -23,7 +23,6 @@ import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.SQLiteHandler;
 
 public class MainActivity extends AppCompatActivity implements ServerConnectionListener {
-    private ErrorDialog errorDialog;
     private MovieList movieList;
     private MovieConnection movieConnection;
     private LinearLayout emptyListRefreshLayout;
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
                 opensansItalic
         );
         movieConnection = new MovieConnection(this, this, movieList, adapter);
-        errorDialog = new ErrorDialog(this);
         SQLiteHandler db = new SQLiteHandler(this);
         Customer customer = db.getCustomer();
 
@@ -123,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     @Override
     public void callBackOnError() {
         makeRefreshLayoutVisible();
-        errorDialog.showErrorDialog(
+        ErrorDialog.showErrorDialog(
+                this,
                 getString(R.string.serverErrorTitle),
                 getString(R.string.serverErrorCheckLater)
         );
@@ -132,7 +131,8 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     @Override
     public void callBackOnNoNetwork() {
         makeRefreshLayoutVisible();
-        errorDialog.showErrorDialog(
+        ErrorDialog.showErrorDialog(
+                this,
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.checkConnectionErrorStatement)
         );

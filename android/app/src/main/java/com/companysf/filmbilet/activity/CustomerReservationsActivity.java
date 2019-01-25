@@ -28,14 +28,12 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
     private CustomerReservationsListAdapter adapter;
     private ReservationsList reservationsList;
-    private ErrorDialog errorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_reservations);
 
-        errorDialog = new ErrorDialog(this);
         Login login = new Login(this);
         final CustomerReservationsConnection customerReservationsConnection =
                 new CustomerReservationsConnection(
@@ -97,7 +95,8 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
     @Override
     public void callBackOnError() {
         makeRefreshLayoutVisible();
-        errorDialog.showErrorDialog(
+        ErrorDialog.showErrorDialog(
+                this,
                 getString(R.string.serverErrorTitle),
                 getString(R.string.serverErrorCheckLater)
         );
@@ -106,7 +105,8 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
     @Override
     public void callBackOnNoNetwork() {
         makeRefreshLayoutVisible();
-        errorDialog.showErrorDialog(
+        ErrorDialog.showErrorDialog(
+                this,
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.checkConnectionErrorStatement)
         );

@@ -22,7 +22,6 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
     private EditText inputSurname;
     private EditText inputPassword;
     private EditText inputEmail;
-    private ErrorDialog errorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
 
         Login login = new Login(this);
         final Register register = new Register(this, this, this);
-        errorDialog = new ErrorDialog(this);
 
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
         registerBtn.setTypeface(opensansBold);
@@ -103,7 +101,8 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
 
     @Override
     public void callBackOnNoNetwork() {
-        errorDialog.showErrorDialog(
+        ErrorDialog.showErrorDialog(
+                this,
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.RegisterNetworkConnectionErrorMsg)
         );

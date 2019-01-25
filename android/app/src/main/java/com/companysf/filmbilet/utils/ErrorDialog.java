@@ -7,13 +7,8 @@ import android.support.v7.app.AlertDialog;
 import com.companysf.filmbilet.R;
 
 public class ErrorDialog {
-    private Context context;
 
-    public ErrorDialog(Context context) {
-        this.context = context;
-    }
-
-    public void showErrorDialog(String title, String message) {
+    public static void showErrorDialog(Context context, String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);

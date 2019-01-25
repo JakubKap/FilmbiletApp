@@ -21,7 +21,6 @@ import com.companysf.filmbilet.utils.ToastUtils;
 public class LoginActivity extends AppCompatActivity implements ErrorListener, EmptyFieldsListener {
     private EditText inputEmail;
     private EditText inputPassword;
-    private ErrorDialog errorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
         Button registerBtn = findViewById(R.id.btnRegister);
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
-        errorDialog = new ErrorDialog(this);
         final Login login = new Login(this, this, this);
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -94,7 +92,8 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
 
     @Override
     public void callBackOnNoNetwork() {
-        errorDialog.showErrorDialog(
+        ErrorDialog.showErrorDialog(
+                this,
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.loginNetworkConnectionErrorMsg)
         );
