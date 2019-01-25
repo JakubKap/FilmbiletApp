@@ -4,12 +4,12 @@ public class Customer {
     private String name;
     private String surname;
     private String email;
-    private String id;
+    private int id;
 
     public Customer() {
     }
 
-    public Customer(String name, String surname, String email, String id) {
+    public Customer(String name, String surname, String email, int id) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -40,11 +40,10 @@ public class Customer {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
-
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

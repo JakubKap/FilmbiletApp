@@ -106,7 +106,10 @@ public class CustomerReservationsConnection {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put(context.getString(R.string.reservationPutReqParam), getCustomerId());
+                    params.put(
+                            context.getString(R.string.reservationPutReqParam),
+                            Integer.toString(getCustomerId())
+                    );
                     return params;
                 }
             };
@@ -121,7 +124,7 @@ public class CustomerReservationsConnection {
         updateDataFromServer(false);
     }
 
-    private String getCustomerId() {
+    private int getCustomerId() {
         SQLiteHandler db = new SQLiteHandler(context);
         Customer customer = db.getCustomer();
         return customer.getId();

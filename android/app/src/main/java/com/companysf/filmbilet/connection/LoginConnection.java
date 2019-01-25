@@ -42,9 +42,9 @@ public class LoginConnection {
                 try {
                     JSONObject json = new JSONObject(response);
                     boolean error = json.getBoolean(context.getString(R.string.error));
-                    if (error){
+                    if (error) {
                         errorListener.callBackOnError();
-                    } else{
+                    } else {
                         JSONObject customerJson =
                                 json.getJSONObject(context.getString(R.string.customerJsonName));
                         Log.d(logTag, "customerName: " + customerJson.getString("name") + "i jego id: " + Integer.toString(customerJson.getInt("id")));
@@ -59,9 +59,7 @@ public class LoginConnection {
                                 customerJson.getString(
                                         context.getString(R.string.jsonCustomerEmail)
                                 ),
-                                Integer.toString(
-                                        customerJson.getInt(context.getString(R.string.jsonCustomerId))
-                                )
+                                customerJson.getInt(context.getString(R.string.jsonCustomerId))
                         );
                         login.saveUserOnDevice(customer);
                     }
@@ -76,7 +74,7 @@ public class LoginConnection {
                 Log.e(logTag, "Login Error: " + error.getMessage());
                 errorListener.callBackOnError();
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();

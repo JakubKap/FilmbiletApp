@@ -30,7 +30,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                         customerName + "TEXT, " +
                         customerSurname + "TEXT, " +
                         customerEmail + "TEXT, " +
-                        customerId + "TEXT)";
+                        customerId + "INTEGER)";
         db.execSQL(createLoginTable);
         Log.d(TAG, "Database tables created");
     }
@@ -54,9 +54,20 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void addCustomer(Customer customer) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        Log.d(TAG, "Przed dodaniem do sqlite customera");
         db.execSQL(
-                "INSERT INTO customer values(?,?,?,?)",
-                new String[]{customer.getName(),customer.getSurname(),customer.getEmail(),customer.getId()}
+                "INSERT INTO customer (" +
+                        customerName + "," +
+                        customerSurname + "," +
+                        customerEmail + "," +
+                        customerId +
+                        ") values(" +
+                        customer.getName() + "," +
+                        customer.getSurname() + "," +
+                        customer.getEmail() + "," +
+                        customer.getId() +
+                        ")"
+//                new String[]{customer.getName(),customer.getSurname(),customer.getEmail(),customer.getId()}
         );
         db.close();
 
@@ -98,7 +109,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             customer.setName(cursor.getString(0));
             customer.setSurname(cursor.getString(1));
             customer.setEmail(cursor.getString(2));
-            customer.setId(cursor.getString(3));
+            customer.setId(cursor.getInt(3));
 
             Log.d(TAG, "cursor.getCount() > 0");
         }
