@@ -287,7 +287,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     public void preparePopUp(int index){
         seatsProgressBar.setVisibility(View.INVISIBLE);
         title.setText(sectorModel.getSectorTitles()[index]);
-
+        subtitle.setText(sectorModel.sectorSubtitle(index));
         int [] seatNumbers = sectorModel.seatNumbers(index);
         for(int i=0; i<seatButtons.length; i++)
             seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",

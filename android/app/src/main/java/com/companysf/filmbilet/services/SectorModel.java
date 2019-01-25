@@ -24,6 +24,7 @@ public class SectorModel {
     private int[] freeSeatsInSector;
     private int[] startSecSeats;
     private String[] sectorTitles;
+    private String[] sectorSubitles;
 
     public SectorModel(Context context, int numOfSectors, int numOfSeats){
         this.context = context;
@@ -54,6 +55,13 @@ public class SectorModel {
         sectorTitles[5] = context.getString(R.string.upperSector6Text);
         sectorTitles[6] = context.getString(R.string.upperSector7Text);
         sectorTitles[7] = context.getString(R.string.upperSector8Text);
+
+        sectorSubitles = new String[numOfSectors/2];
+        sectorSubitles[0] = context.getString(R.string.sector1Subtitle);
+        sectorSubitles[1] = context.getString(R.string.sector2Subtitle);
+        sectorSubitles[2] = context.getString(R.string.sector3Subtitle);
+        sectorSubitles[3] = context.getString(R.string.sector4Subtitle);
+
     }
 
     public void assignFirstSecSeat(){
@@ -154,7 +162,16 @@ public class SectorModel {
         }
 
         return seatNumbers;
-
+    }
+    public String sectorSubtitle(int index){
+       if(index == 0 || index == 1)
+           return sectorSubitles[0];
+       else if(index == 2 || index == 3)
+            return sectorSubitles[1];
+        if(index == 4 || index == 5)
+            return sectorSubitles[2];
+        else
+            return sectorSubitles[3];
     }
 
     public void setChoosedSeats(boolean[] choosedSeats) {
