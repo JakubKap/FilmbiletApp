@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         errorDialog = new ErrorDialog(this);
-        toastUtils = new ToastUtils(getApplicationContext());
-        final Login login = new Login(getApplicationContext(), this, this);
+        toastUtils = new ToastUtils(this);
+        final Login login = new Login(this, this, this);
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(inputEmail.getWindowToken(), 0);
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
     }
 
     private void switchToRegisterActivity() {
-        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
         finish();
     }

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        login = new Login(getApplicationContext());
+        login = new Login(this);
         if (!login.userIsLoggedIn()) {
             switchToLoginActivity();
         }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
         );
         movieConnection = new MovieConnection(this, this, movieList, adapter);
         errorDialog = new ErrorDialog(this);
-        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
+        SQLiteHandler db = new SQLiteHandler(this);
         Customer customer = db.getCustomer();
 
         moviesListView.setAdapter(adapter);

@@ -37,10 +37,10 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
         inputPassword = findViewById(R.id.password);
         inputSurname = findViewById(R.id.surname);
 
-        Login login = new Login(getApplicationContext());
-        final Register register = new Register(getApplicationContext(), this, this);
+        Login login = new Login(this);
+        final Register register = new Register(this, this, this);
         errorDialog = new ErrorDialog(this);
-        toastUtils = new ToastUtils(getApplicationContext());
+        toastUtils = new ToastUtils(this);
 
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
         registerBtn.setTypeface(opensansBold);

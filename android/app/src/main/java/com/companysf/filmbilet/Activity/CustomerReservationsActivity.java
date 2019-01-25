@@ -35,7 +35,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_reservations);
 
-        errorDialog = new ErrorDialog(getApplicationContext());
+        errorDialog = new ErrorDialog(this);
         Login login = new Login(this);
         final CustomerReservationsConnection customerReservationsConnection =
                 new CustomerReservationsConnection(
