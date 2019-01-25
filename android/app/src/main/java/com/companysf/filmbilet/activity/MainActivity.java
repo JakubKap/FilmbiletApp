@@ -22,8 +22,6 @@ import com.companysf.filmbilet.adapter.MoviesListAdapter;
 import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.SQLiteHandler;
 
-import java.util.Locale;
-
 public class MainActivity extends AppCompatActivity implements ServerConnectionListener {
     private MovieList movieList;
     private MovieConnection movieConnection;
@@ -74,10 +72,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
         Customer customer = db.getCustomer();
 
         moviesListView.setAdapter(adapter);
-        String customerId = String.format(
-                Integer.toString(customer.getId()), new Locale("pl", "PL")
-        );
-        customerInfo.setText(customerId);
+        customerInfo.setText(customer.getEmail());
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
