@@ -1,75 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:background="@color/colorPrimary"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    tools:context=".activity.LoginActivity"
-    >
+    android:gravity="center_horizontal"
+    android:padding="20dp"
+    tools:context=".activity.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="40dp"
-        android:contentDescription="@string/logoText" />
+        android:contentDescription="@string/logoText"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/email"
-        android:hint="@string/hintEmail"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:autofillHints="@string/hintEmail"
         android:background="@color/white"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp"
+        android:hint="@string/hintEmail"
         android:inputType="textEmailAddress"
-        android:autofillHints="@string/hintEmail" />
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <EditText
         android:id="@+id/password"
-        android:hint="@string/hintPassword"
-        android:layout_width="match_parent"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="10dp"
-        android:layout_marginBottom="25dp"
-        android:inputType="textPassword"
+        android:layout_marginTop="10dp"
         android:autofillHints="@string/hintPassword"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:hint="@string/hintPassword"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        >
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="5dp"
+        android:background="@null"
+        android:minHeight="30dip"
+        android:padding="10dp"
+        android:text="@string/registerBtn"
+        app:layout_constraintEnd_toStartOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="@string/registerBtn"
-            android:minHeight="30dip"
-            android:padding="10dp"
-            />
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loginBtn"
-            android:background="@drawable/rounded_button_dark"
-            android:minHeight="40dip"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_marginStart="5dp"
-            android:textColor="#f9f9f9"
-            />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_dark"
+        android:minHeight="40dip"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/loginBtn"
+        android:textColor="#f9f9f9"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnRegister"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
