@@ -4,6 +4,7 @@ import android.util.Log;
 
 public class SectorModel {
     private static final String logTag = SectorModel.class.getSimpleName();
+    private int repertoireId;
     private int numOfSectors;
     private int numOfSeats;
 
@@ -111,5 +112,9 @@ public class SectorModel {
 
     public int[] getFreeSeatsInSector() {
         return freeSeatsInSector;
+    }
+
+    public void setRepertoireId(int repertoireId) {
+        this.repertoireId = repertoireId;
     }
 }

@@ -1,6 +1,7 @@
 package com.companysf.filmbilet.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -13,30 +14,30 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.interfaces.ConnectionListener;
 import com.companysf.filmbilet.interfaces.SocketListener;
+import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.SectorModel;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.utils.ErrorDetector;
+import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.SQLiteHandler;
 import com.companysf.filmbilet.utils.SessionManager;
 import com.companysf.filmbilet.WebSocket.MyWebSocketListener;
+import com.companysf.filmbilet.utils.ToastUtils;
 
 
 import java.util.Locale;
 
 
-public class SectorActivity extends AppCompatActivity implements SocketListener, ConnectionListener {
+public class SectorActivity extends AppCompatActivity implements ErrorListener, SocketListener, ConnectionListener {
 
     private static final String logTag = MainActivity.class.getSimpleName();
 
-    private SessionManager sManager;
     MyWebSocketListener myWebSocketListener;
-    private SQLiteHandler db;
-    private ErrorDetector ed;
-
-    private int repertoireId;
+    private Login login;
 
     private ReservationConnection reservationConnection;
     private SectorModel sectorModel;
@@ -64,17 +65,13 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sector);
 
-        sManager = new SessionManager(getApplicationContext());
-        db = new SQLiteHandler(getApplicationContext());
-
-        if (!sManager.isLoggedIn()) {
-            logOutCustomer();
+        login = new Login(this);
+        if (!login.userIsLoggedIn()) {
+            switchToLoginActivity();
         }
 
-        reservationConnection = new ReservationConnection(this, this);
+        reservationConnection = new ReservationConnection(this, this, this);
         sectorModel = new SectorModel(8, 280);
-
-        ed = new ErrorDetector(this);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -82,6 +79,7 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
         rowButtons = new Button[5];
         freeSeats = new TextView[8];
 
+        //TODO sprawdzić, czy potrzebne
         constraintLayout = findViewById(R.id.constraintLayout);
 
         sectorButtons[0] = findViewById(R.id.secButton1);
@@ -105,29 +103,12 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
         secProgressBar = findViewById(R.id.secProgressBar);
         secBtnReserve = findViewById(R.id.secBtnReserve);
 
-       /* secFrameLayout = findViewById(R.id.secFrameLayout);
-        secFrameLayout.getForeground().setAlpha(0);*/
-
         secChoosedPlaces = findViewById(R.id.secChoosedPlaces);
         secSummaryPrice = findViewById(R.id.secSummaryPrice);
 
-        opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
-        opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
-
-        for (TextView freeSeat : freeSeats)
-            freeSeat.setTypeface(opensansRegular);
-
-        secBtnReserve.setTypeface(opensansBold);
-
-        secChoosedPlaces.setTypeface(opensansBold);
-
-        secSummaryPrice.setTypeface(opensansBold);
-
         TextView stepNumber2 = findViewById(R.id.stepNumber2);
-        stepNumber2.setTypeface(opensansBold);
 
         TextView selectSectorText = findViewById(R.id.selectSectorText);
-        selectSectorText.setTypeface(opensansBold);
 
         TextView[] secLabels = new TextView[8];
         secLabels[0] = findViewById(R.id.sec1Label);
@@ -139,9 +120,6 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
         secLabels[6] = findViewById(R.id.sec7Label);
         secLabels[7] = findViewById(R.id.sec8Label);
 
-        for (TextView secLabel : secLabels)
-            secLabel.setTypeface(opensansBold);
-
         TextView[] secPrices = new TextView[8];
         secPrices[0] = findViewById(R.id.sec1Price);
         secPrices[1] = findViewById(R.id.sec2Price);
@@ -152,29 +130,42 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
         secPrices[6] = findViewById(R.id.sec7Price);
         secPrices[7] = findViewById(R.id.sec8Price);
 
-        for (TextView secPrice : secPrices)
-            secPrice.setTypeface(opensansRegular);
-
         TextView choosedPlacesText = findViewById(R.id.choosedPlacesText);
-        choosedPlacesText.setTypeface(opensansRegular);
 
         TextView priceLabel = findViewById(R.id.priceLabel);
         priceLabel.setTypeface(opensansRegular);
+
+        opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
+        opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+
+        for (TextView freeSeat : freeSeats)
+            freeSeat.setTypeface(opensansRegular);
+
+        secBtnReserve.setTypeface(opensansBold);
+        secChoosedPlaces.setTypeface(opensansBold);
+        secSummaryPrice.setTypeface(opensansBold);
+
+        for (TextView secLabel : secLabels)
+            secLabel.setTypeface(opensansBold);
+
+        stepNumber2.setTypeface(opensansBold);
+        selectSectorText.setTypeface(opensansBold);
+
+        for (TextView secPrice : secPrices)
+            secPrice.setTypeface(opensansRegular);
+
+        choosedPlacesText.setTypeface(opensansRegular);
 
         sectorModel.assignRowToSeat();
         sectorModel.assignSectorToSeat();
 
         Bundle b = getIntent().getExtras();
-        repertoireId = b.getInt(getString(R.string.scheduleId));
+        int repertoireId = b.getInt(getString(R.string.scheduleId));
         reservationConnection.getReservations(repertoireId);
-
+        sectorModel.setRepertoireId(repertoireId);
         myWebSocketListener = new MyWebSocketListener(this);
     }
 
-    private void logOutCustomer() {
-        sManager.setLogin(false);
-        db.deleteCustomers();
-    }
 
     @Override
     public void onOpenCallback(String result) {
@@ -189,8 +180,7 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
                     Log.d(logTag, "index buttona = " + index);
 
                     if(sectorModel.getFreeSeatsInSector()[index] == 0) {
-                        ed.buildDialog(SectorActivity.this, getString(R.string.emptySectorTitle),
-                                getString(R.string.emptySectorMsg)).show();
+                        ErrorDialog.showErrorDialog(getApplicationContext(), getString(R.string.emptySectorTitle), getString(R.string.emptySectorMsg));
                         return;
                     }
 
@@ -244,6 +234,12 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
         }
     }
 
+    private void switchToLoginActivity() {
+        Intent intent = new Intent(SectorActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onDbResponseCallback(boolean[] takenSeats) {
         sectorModel.setChoosedSeats(takenSeats);
@@ -275,6 +271,20 @@ public class SectorActivity extends AppCompatActivity implements SocketListener,
 
     }
 
+    @Override
+    public void callBackOnError() {
+        ToastUtils.showLongToast(this, getString(R.string.serverErrorTitle));
+
+    }
+
+    @Override
+    public void callBackOnNoNetwork() {
+        ErrorDialog.showErrorDialog(
+                this,
+                getString(R.string.networkConnectionErrorTitle),
+                getString(R.string.loginNetworkConnectionErrorMsg)
+        );
+    }
 }
 
 
