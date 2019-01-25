@@ -11,7 +11,7 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.entities.Schedule;
+import com.companysf.filmbilet.services.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;

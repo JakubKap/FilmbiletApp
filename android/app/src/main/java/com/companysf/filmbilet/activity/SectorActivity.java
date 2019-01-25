@@ -36,7 +36,7 @@
 //import com.companysf.filmbilet.App.AppConfig;
 //import com.companysf.filmbilet.App.AppController;
 //import com.companysf.filmbilet.Entities.Reservation;
-//import com.companysf.filmbilet.WebSocket.Message;
+//import com.companysf.filmbilet.WebSocket.WebSocketMessage;
 //
 //
 //import org.json.JSONArray;
@@ -1332,7 +1332,7 @@
 //            @Override
 //            public void onMessage(WebSocket webSocket, String text) {
 //
-//                Message message = new Message(text);
+//                WebSocketMessage message = new WebSocketMessage(text);
 //
 //                //asyncTask i kolko do momentu ...
 //                for (int i = 0; i < choosedPlaces.length; i++) {
@@ -1401,7 +1401,7 @@
 //
 //    private void sendMessageToServer(OkHttpClient httpClient, WebSocket webSocket) {
 //        if (httpClient != null) {
-//            Message message = new Message(myChoosedPlaces);
+//            WebSocketMessage message = new WebSocketMessage(myChoosedPlaces);
 //            webSocket.send(message.getChoosedPlacesString());
 //            webSocket.close(1000, getString(R.string.socketCloseReason));
 //        } else {

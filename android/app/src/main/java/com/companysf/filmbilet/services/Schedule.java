@@ -1,4 +1,6 @@
-package com.companysf.filmbilet.entities;
+package com.companysf.filmbilet.services;
+
+import android.support.annotation.NonNull;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -6,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Schedule {
     private int id;
@@ -63,10 +66,16 @@ public class Schedule {
         castDate();
     }
 
+    //TODO przeniesienie do klasy DateFormat
+
     public void castDate(){
         DateFormat format;
         try{
-            Date theDate = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss").parse(datePom);
+            Date theDate =
+                    new SimpleDateFormat(
+                            "yyyy-MM-dd kk:mm:ss",
+                            new Locale("pl", "PL")
+                    ).parse(datePom);
             date.setTime(theDate);
         }catch(ParseException e){
             e.printStackTrace();
@@ -106,6 +115,8 @@ public class Schedule {
     }
 
 
+    @NonNull
+    @Override
     public String toString(){
         return "id = " + id  + ", year = " +  getYear() + ", month = " + getMonth()
                 + ", dayOfMonth = " + getDayOfMonth() + ", dayOfWeek = " + dayOfWeek

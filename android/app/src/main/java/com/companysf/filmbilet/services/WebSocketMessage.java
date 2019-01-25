@@ -1,12 +1,12 @@
-package com.companysf.filmbilet.webSocket;
+package com.companysf.filmbilet.services;
 
 import com.google.gson.Gson;
 
-public class Message {
+public class WebSocketMessage {
     private boolean choosedPlaces [];
     private String choosedPlacesString;
 
-    public Message(boolean[] choosedPlaces) {
+    public WebSocketMessage(boolean[] choosedPlaces) {
         this.choosedPlaces = choosedPlaces;
 
         // convert to Json string
@@ -14,7 +14,7 @@ public class Message {
         this.choosedPlacesString = gson.toJson(choosedPlaces);
     }
 
-    public Message(String choosedPlaceString) {
+    public WebSocketMessage(String choosedPlaceString) {
         this.choosedPlacesString = choosedPlaceString;
 
         //covert Json string to array
