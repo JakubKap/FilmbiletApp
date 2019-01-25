@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
     private EditText inputEmail;
     private EditText inputPassword;
     private ErrorDialog errorDialog;
-    ToastUtils toastUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,6 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         errorDialog = new ErrorDialog(this);
-        toastUtils = new ToastUtils(this);
         final Login login = new Login(this, this, this);
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -91,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
 
     @Override
     public void callBackOnError() {
-        toastUtils.showLongToast(getString(R.string.serverErrorTitle));
+        ToastUtils.showLongToast(this, getString(R.string.serverErrorTitle));
     }
 
     @Override
@@ -104,6 +102,6 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
 
     @Override
     public void callBackOnEmptyField() {
-        toastUtils.showLongToast(getString(R.string.insertEmailAndPasswordPrompt));
+        ToastUtils.showLongToast(this, getString(R.string.insertEmailAndPasswordPrompt));
     }
 }

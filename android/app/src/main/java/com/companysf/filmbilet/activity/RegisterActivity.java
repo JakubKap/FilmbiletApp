@@ -23,7 +23,6 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
     private EditText inputPassword;
     private EditText inputEmail;
     private ErrorDialog errorDialog;
-    private ToastUtils toastUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
         Login login = new Login(this);
         final Register register = new Register(this, this, this);
         errorDialog = new ErrorDialog(this);
-        toastUtils = new ToastUtils(this);
 
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
         registerBtn.setTypeface(opensansBold);
@@ -100,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
 
     @Override
     public void callBackOnError() {
-        toastUtils.showShortToast(getString(R.string.serverErrorTitle));
+        ToastUtils.showShortToast(this, getString(R.string.serverErrorTitle));
     }
 
     @Override
@@ -113,17 +111,17 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
 
     @Override
     public void callBackOnSuccess() {
-        toastUtils.showLongToast(getString(R.string.registerSuccessToast));
+        ToastUtils.showLongToast(this, getString(R.string.registerSuccessToast));
         switchToLoginActivity();
     }
 
     @Override
     public void callBackOnEmptyEmail() {
-        toastUtils.showLongToast(getString(R.string.notValidEmailMsg));
+        ToastUtils.showLongToast(this, getString(R.string.notValidEmailMsg));
     }
 
     @Override
     public void callBackOnEmptyField() {
-        toastUtils.showLongToast(getString(R.string.emptyRegisterFieldsMsg));
+        ToastUtils.showLongToast(this, getString(R.string.emptyRegisterFieldsMsg));
     }
 }
