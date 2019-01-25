@@ -61,11 +61,11 @@ public class SectorModel {
         sectorSubitles[1] = context.getString(R.string.sector2Subtitle);
         sectorSubitles[2] = context.getString(R.string.sector3Subtitle);
         sectorSubitles[3] = context.getString(R.string.sector4Subtitle);
-
     }
 
     public void assignFirstSecSeat(){
         startSecSeats = new int[numOfSectors];
+
         int firstSeat = 1;
         for(int i=0; i<startSecSeats.length; i++){
             startSecSeats[i] = firstSeat;
@@ -174,6 +174,40 @@ public class SectorModel {
             return sectorSubitles[3];
     }
 
+    public String [] rowLabels(int index){
+        String[] rowLabels = new String[5];
+        if(index == 0 || index == 1) {
+            rowLabels[0] = context.getString(R.string.row1);
+            rowLabels[1] = context.getString(R.string.row2);
+            rowLabels[2] = context.getString(R.string.row3);
+            rowLabels[3] = context.getString(R.string.row4);
+            rowLabels[4] = context.getString(R.string.row5);
+        }
+        else if(index == 2 || index == 3) {
+            rowLabels[0] = context.getString(R.string.row6);
+            rowLabels[1] = context.getString(R.string.row7);
+            rowLabels[2] = context.getString(R.string.row8);
+            rowLabels[3] = context.getString(R.string.row9);
+            rowLabels[4] = context.getString(R.string.row10);
+        }
+        if(index == 4 || index == 5) {
+            rowLabels[0] = context.getString(R.string.row11);
+            rowLabels[1] = context.getString(R.string.row12);
+            rowLabels[2] = context.getString(R.string.row13);
+            rowLabels[3] = context.getString(R.string.row14);
+            rowLabels[4] = context.getString(R.string.row15);
+        }
+        else if(index == 6 || index == 7){
+            rowLabels[0] = context.getString(R.string.row16);
+            rowLabels[1] = context.getString(R.string.row17);
+            rowLabels[2] = context.getString(R.string.row18);
+            rowLabels[3] = context.getString(R.string.row19);
+            rowLabels[4] = context.getString(R.string.row20);
+        }
+
+        return rowLabels;
+    }
+
     public void setChoosedSeats(boolean[] choosedSeats) {
         this.choosedSeats = choosedSeats;
     }
@@ -193,4 +227,5 @@ public class SectorModel {
     public String[] getSectorTitles() {
         return sectorTitles;
     }
+
 }

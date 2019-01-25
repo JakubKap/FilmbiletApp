@@ -288,6 +288,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         seatsProgressBar.setVisibility(View.INVISIBLE);
         title.setText(sectorModel.getSectorTitles()[index]);
         subtitle.setText(sectorModel.sectorSubtitle(index));
+        String[] rowLabels = sectorModel.rowLabels(index);
+        for(int i=0; i<rowLabels.length; i++)
+            rowButtons[i].setText(rowLabels[i]);
+
         int [] seatNumbers = sectorModel.seatNumbers(index);
         for(int i=0; i<seatButtons.length; i++)
             seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
