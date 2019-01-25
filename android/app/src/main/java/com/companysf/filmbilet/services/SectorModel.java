@@ -16,6 +16,8 @@ public class SectorModel {
     private int[] seatRow;
 
     private int[] freeSeatsInSector;
+    private int[] startSecSeats;
+
     public SectorModel(int numOfSectors, int numOfSeats){
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
@@ -34,8 +36,21 @@ public class SectorModel {
         this.seatRow = new int [numOfSeats];
         this.freeSeatsInSector = new int [numOfSectors];
 
+        assignFirstSecSeat();
+
     }
 
+    public void assignFirstSecSeat(){
+        startSecSeats = new int[numOfSectors];
+        int firstSeat = 1;
+        for(int i=0; i<startSecSeats.length; i++){
+            startSecSeats[i] = firstSeat;
+            if(i%2 == 0)
+                firstSeat+=7;
+            else firstSeat+=63;
+            Log.d(logTag,"First seat dla i = " + i + " = " +  startSecSeats[i]);
+        }
+    }
     public void assignRowToSeat(){
         int value = 1;
 
@@ -100,6 +115,30 @@ public class SectorModel {
                 freeSeats--;
         }
         return freeSeats;
+    }
+
+    public int[] seatNumbers(int sectorNumber){
+
+        int startSeat = startSecSeats[sectorNumber];
+
+        int [] seatNumbers = new int[35];
+
+        for (int i = 0; i < 35; i++) {
+
+            if (i == 7 || i == 14 || i == 21 || i == 28) {
+                startSeat += 7;
+                seatNumbers[i] = startSeat;
+                Log.d(logTag, "Dodana wartość do siatki: " + startSeat + " dla i = " + i);
+                startSeat++;
+            } else {
+                seatNumbers[i] = startSeat;
+                Log.d(logTag, "Dodana wartość do siatki: " + startSeat + " dla i = " + i);
+                startSeat++;
+            }
+        }
+
+        return seatNumbers;
+
     }
 
     public void setChoosedSeats(boolean[] choosedSeats) {

@@ -58,7 +58,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     private ConstraintLayout constraintLayout;
     private ProgressBar secProgressBar;
-    private FrameLayout secFrameLayout;
+    private TextView title, subtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,68 +188,78 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.seat);
 
-                    seatButtons[0] = findViewById(R.id.seatsButtonIR1);
-                    seatButtons[1] = findViewById(R.id.seatsButtonIR2);
-                    seatButtons[2] = findViewById(R.id.seatsButtonIR3);
-                    seatButtons[3] = findViewById(R.id.seatsButtonIR4);
-                    seatButtons[4] = findViewById(R.id.seatsButtonIR5);
-                    seatButtons[5] = findViewById(R.id.seatsButtonIR6);
-                    seatButtons[6] = findViewById(R.id.seatsButtonIR7);
+                    seatButtons[0] = dialog.findViewById(R.id.seatsButtonIR1);
+                    seatButtons[1] = dialog.findViewById(R.id.seatsButtonIR2);
+                    seatButtons[2] = dialog.findViewById(R.id.seatsButtonIR3);
+                    seatButtons[3] = dialog.findViewById(R.id.seatsButtonIR4);
+                    seatButtons[4] = dialog.findViewById(R.id.seatsButtonIR5);
+                    seatButtons[5] = dialog.findViewById(R.id.seatsButtonIR6);
+                    seatButtons[6] = dialog.findViewById(R.id.seatsButtonIR7);
 
-                    seatButtons[7] = findViewById(R.id.seatsButtonIIR1);
-                    seatButtons[8] = findViewById(R.id.seatsButtonIIR2);
-                    seatButtons[9] = findViewById(R.id.seatsButtonIIR3);
-                    seatButtons[10] = findViewById(R.id.seatsButtonIIR4);
-                    seatButtons[11] = findViewById(R.id.seatsButtonIIR5);
-                    seatButtons[12] = findViewById(R.id.seatsButtonIIR6);
-                    seatButtons[13] = findViewById(R.id.seatsButtonIIR7);
+                    seatButtons[7] = dialog.findViewById(R.id.seatsButtonIIR1);
+                    seatButtons[8] = dialog.findViewById(R.id.seatsButtonIIR2);
+                    seatButtons[9] = dialog.findViewById(R.id.seatsButtonIIR3);
+                    seatButtons[10] = dialog.findViewById(R.id.seatsButtonIIR4);
+                    seatButtons[11] = dialog.findViewById(R.id.seatsButtonIIR5);
+                    seatButtons[12] = dialog.findViewById(R.id.seatsButtonIIR6);
+                    seatButtons[13] = dialog.findViewById(R.id.seatsButtonIIR7);
 
-                    seatButtons[14] = findViewById(R.id.seatsButtonIIIR1);
-                    seatButtons[15] = findViewById(R.id.seatsButtonIIIR2);
-                    seatButtons[16] = findViewById(R.id.seatsButtonIIIR3);
-                    seatButtons[17] = findViewById(R.id.seatsButtonIIIR4);
-                    seatButtons[18] = findViewById(R.id.seatsButtonIIIR5);
-                    seatButtons[19] = findViewById(R.id.seatsButtonIIIR6);
-                    seatButtons[20] = findViewById(R.id.seatsButtonIIIR7);
+                    seatButtons[14] = dialog.findViewById(R.id.seatsButtonIIIR1);
+                    seatButtons[15] = dialog.findViewById(R.id.seatsButtonIIIR2);
+                    seatButtons[16] = dialog.findViewById(R.id.seatsButtonIIIR3);
+                    seatButtons[17] = dialog.findViewById(R.id.seatsButtonIIIR4);
+                    seatButtons[18] = dialog.findViewById(R.id.seatsButtonIIIR5);
+                    seatButtons[19] = dialog.findViewById(R.id.seatsButtonIIIR6);
+                    seatButtons[20] = dialog.findViewById(R.id.seatsButtonIIIR7);
 
-                    seatButtons[21] = findViewById(R.id.seatsButtonIVR1);
-                    seatButtons[22] = findViewById(R.id.seatsButtonIVR2);
-                    seatButtons[23] = findViewById(R.id.seatsButtonIVR3);
-                    seatButtons[24] = findViewById(R.id.seatsButtonIVR4);
-                    seatButtons[25] = findViewById(R.id.seatsButtonIVR5);
-                    seatButtons[26] = findViewById(R.id.seatsButtonIVR6);
-                    seatButtons[27] = findViewById(R.id.seatsButtonIVR7);
+                    seatButtons[21] = dialog.findViewById(R.id.seatsButtonIVR1);
+                    seatButtons[22] = dialog.findViewById(R.id.seatsButtonIVR2);
+                    seatButtons[23] = dialog.findViewById(R.id.seatsButtonIVR3);
+                    seatButtons[24] = dialog.findViewById(R.id.seatsButtonIVR4);
+                    seatButtons[25] = dialog.findViewById(R.id.seatsButtonIVR5);
+                    seatButtons[26] = dialog.findViewById(R.id.seatsButtonIVR6);
+                    seatButtons[27] = dialog.findViewById(R.id.seatsButtonIVR7);
 
-                    seatButtons[28] = findViewById(R.id.seatsButtonVR1);
-                    seatButtons[29] = findViewById(R.id.seatsButtonVR2);
-                    seatButtons[30] = findViewById(R.id.seatsButtonVR3);
-                    seatButtons[31] = findViewById(R.id.seatsButtonVR4);
-                    seatButtons[32] = findViewById(R.id.seatsButtonVR5);
-                    seatButtons[33] = findViewById(R.id.seatsButtonVR6);
-                    seatButtons[34] = findViewById(R.id.seatsButtonVR7);
+                    seatButtons[28] = dialog.findViewById(R.id.seatsButtonVR1);
+                    seatButtons[29] = dialog.findViewById(R.id.seatsButtonVR2);
+                    seatButtons[30] = dialog.findViewById(R.id.seatsButtonVR3);
+                    seatButtons[31] = dialog.findViewById(R.id.seatsButtonVR4);
+                    seatButtons[32] = dialog.findViewById(R.id.seatsButtonVR5);
+                    seatButtons[33] = dialog.findViewById(R.id.seatsButtonVR6);
+                    seatButtons[34] = dialog.findViewById(R.id.seatsButtonVR7);
+
+                    seatsApproveButton = dialog.findViewById(R.id.seatsApproveButton);
+                    seatsCloseButton = dialog.findViewById(R.id.seatsCloseButton);
+
+                    title = dialog.findViewById(R.id.title);
+                    subtitle = dialog.findViewById(R.id.subtitle);
+
+                    columnButtons[0] = dialog.findViewById(R.id.seatsButton1C);
+                    columnButtons[1] = dialog.findViewById(R.id.seatsButton2C);
+                    columnButtons[2] = dialog.findViewById(R.id.seatsButton3C);
+                    columnButtons[3] = dialog.findViewById(R.id.seatsButton4C);
+                    columnButtons[4] = dialog.findViewById(R.id.seatsButton5C);
+                    columnButtons[5] = dialog.findViewById(R.id.seatsButton6C);
+                    columnButtons[6] = dialog.findViewById(R.id.seatsButton7C);
+
+                    rowButtons[0] = dialog.findViewById(R.id.seatsButtonIR);
+                    rowButtons[1] = dialog.findViewById(R.id.seatsButtonIIR);
+                    rowButtons[2] = dialog.findViewById(R.id.seatsButtonIIIR);
+                    rowButtons[3] = dialog.findViewById(R.id.seatsButtonIVR);
+                    rowButtons[4] = dialog.findViewById(R.id.seatsButtonVR);
+
+                    title.setTypeface(opensansBold);
+                    subtitle.setTypeface(opensansBold);
+                    seatsCloseButton.setTypeface(opensansRegular);
+                    seatsApproveButton.setTypeface(opensansRegular);
+
+                    preparePopUp(index);
 
                     dialog.show();
                 }
             });
         }
     }
-
-    private void switchToLoginActivity() {
-        Intent intent = new Intent(SectorActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public void onDbResponseCallback(boolean[] takenSeats) {
-        sectorModel.setChoosedSeats(takenSeats);
-        sectorModel.updateSectorSeats();
-        for (int i = 0; i < sectorModel.getChoosedSeats().length; i++)
-            Log.d(logTag, "Model choosedSeats = " + sectorModel.getChoosedSeats()[i]);
-
-        updateSectors(true);
-    }
-
     public void updateSectors(boolean ifStart) {
         final boolean start = ifStart;
         runOnUiThread(new Runnable() {
@@ -269,6 +279,29 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             }
         });
 
+    }
+
+    public void preparePopUp(int index){
+        int [] seatNumbers = sectorModel.seatNumbers(index);
+        for(int i=0; i<seatButtons.length; i++)
+            seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
+                    seatNumbers[i]));
+    }
+
+    private void switchToLoginActivity() {
+        Intent intent = new Intent(SectorActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onDbResponseCallback(boolean[] takenSeats) {
+        sectorModel.setChoosedSeats(takenSeats);
+        sectorModel.updateSectorSeats();
+        for (int i = 0; i < sectorModel.getChoosedSeats().length; i++)
+            Log.d(logTag, "Model choosedSeats = " + sectorModel.getChoosedSeats()[i]);
+
+        updateSectors(true);
     }
 
     @Override
