@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -264,7 +266,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                             public void onClick(View view) {
                                 sectorModel.markSeat(index);
                                 int seatNumber = sectorModel.getSeatNumbers()[index];
-                                markSeat(seatButtons[index], sectorModel.getChoosedSeats()[seatNumber - 1]);
+                                markSeat(seatButtons[index], sectorModel.getChoosedSeats()[seatNumber - 1], false);
                             }
                         });
                     }
@@ -320,7 +322,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             @Override
             public void run() {
                 for(int i=0; i<seatNumbers.length; i++){
-                    markSeat(seatButtons[i], takenSeats[seatNumbers[i]-1]);
+                    markSeat(seatButtons[i], takenSeats[seatNumbers[i]-1], true);
                     if(takenSeats[seatNumbers[i]-1]) {
                         seatButtons[i].setEnabled(false);
                     }
@@ -328,7 +330,14 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             }
         });
     }
-    public void markSeat(Button button, boolean isTaken){
+    public void markSeat(Button button, boolean isTaken, boolean initial){
+
+        if(!initial) {
+            Animation animation = new AlphaAnimation(1.0f, 0.0f);
+            animation.setDuration(200);
+            button.startAnimation(animation);
+        }
+
         if(!isTaken){
             button.setBackgroundResource(R.drawable.seat);
             button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
