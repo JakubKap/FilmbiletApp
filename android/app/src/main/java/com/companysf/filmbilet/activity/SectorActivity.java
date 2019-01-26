@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.interfaces.ConnectionListener;
+import com.companysf.filmbilet.interfaces.OnMessageListener;
 import com.companysf.filmbilet.interfaces.SocketListener;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.SectorModel;
@@ -31,9 +32,9 @@ import com.companysf.filmbilet.utils.ToastUtils;
 import java.util.Locale;
 
 
-public class SectorActivity extends AppCompatActivity implements ErrorListener, SocketListener, ConnectionListener {
+public class SectorActivity extends AppCompatActivity implements ErrorListener, SocketListener, ConnectionListener, OnMessageListener {
 
-    private static final String logTag = MainActivity.class.getSimpleName();
+    private static final String logTag = SectorActivity.class.getSimpleName();
 
     MyWebSocketListener myWebSocketListener;
     private Login login;
@@ -71,7 +72,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         }
 
         reservationConnection = new ReservationConnection(this, this, this);
-        sectorModel = new SectorModel(this,8, 280);
+        sectorModel = new SectorModel(this,this,8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -332,24 +333,30 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     }
 
     public void preparePopUp(int index){
-        seatsProgressBar.setVisibility(View.INVISIBLE);
-        title.setText(sectorModel.getSectorTitles()[index]);
-        subtitle.setText(sectorModel.sectorSubtitle(index));
+        final int sectorIndex = index;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                seatsProgressBar.setVisibility(View.INVISIBLE);
+                title.setText(sectorModel.getSectorTitles()[sectorIndex]);
+                subtitle.setText(sectorModel.sectorSubtitle(sectorIndex));
 
-        String[] rowLabels = sectorModel.rowLabels(index);
-        for(int i=0; i<rowLabels.length; i++)
-            rowButtons[i].setText(rowLabels[i]);
+                String[] rowLabels = sectorModel.rowLabels(sectorIndex);
+                for (int i = 0; i < rowLabels.length; i++)
+                    rowButtons[i].setText(rowLabels[i]);
 
-        String[] columnLabels = sectorModel.columnLabels(index);
-        for(int i=0; i<columnLabels.length; i++)
-            columnButtons[i].setText(columnLabels[i]);
+                String[] columnLabels = sectorModel.columnLabels(sectorIndex);
+                for (int i = 0; i < columnLabels.length; i++)
+                    columnButtons[i].setText(columnLabels[i]);
 
-        int [] seatNumbers = sectorModel.seatNumbers(index);
-        for(int i=0; i<seatButtons.length; i++)
-            seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
-                    seatNumbers[i]));
+                int[] seatNumbers = sectorModel.seatNumbers(sectorIndex);
+                for (int i = 0; i < seatButtons.length; i++)
+                    seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
+                            seatNumbers[i]));
 
-        markChoosedPlaces();
+                markChoosedPlaces();
+            }
+        });
     }
 
     public void markChoosedPlaces(){
@@ -359,6 +366,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             @Override
             public void run() {
                 for(int i=0; i<seatNumbers.length; i++){
+                    Log.d(logTag, "Mark seatNumber[i] = " + seatNumbers[i]);
                     if(takenSeats[seatNumbers[i]-1]) {
                         seatButtons[i].setEnabled(false);
                         markTakenSeat(seatButtons[i]);
@@ -370,30 +378,47 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         });
     }
     public void markSeat(Button button, boolean isTaken, boolean isInitial){
-
-        if(!isTaken){
-            if(!isInitial)
-                performAnimation(button);
-            button.setBackgroundResource(R.drawable.seat);
-            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
-        }
-
-        else{
-            if(!isInitial)
-                performAnimation(button);
-            button.setBackgroundResource(R.drawable.seat_choosed);
-            button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.black));
-        }
+        final boolean finalIsTaken = isTaken;
+        final boolean finalIsInitial = isInitial;
+        final Button finalButton = button;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (!finalIsTaken) {
+                    if (!finalIsInitial)
+                        performAnimation(finalButton);
+                    finalButton.setBackgroundResource(R.drawable.seat);
+                    finalButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+                } else {
+                    if (!finalIsInitial)
+                        performAnimation(finalButton);
+                    finalButton.setBackgroundResource(R.drawable.seat_choosed);
+                    finalButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+                }
+            }
+        });
     }
 
     public void markTakenSeat(Button button){
-        button.setBackgroundResource(R.drawable.seat_reserved);
-        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+        final Button finalButton = button;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                finalButton.setBackgroundResource(R.drawable.seat_reserved);
+                finalButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+            }
+        });
     }
     public void performAnimation(Button button){
-        Animation animation = new AlphaAnimation(1.0f, 0.0f);
-        animation.setDuration(200);
-        button.startAnimation(animation);
+        final Button finalButton = button;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Animation animation = new AlphaAnimation(1.0f, 0.0f);
+                animation.setDuration(200);
+                finalButton.startAnimation(animation);
+            }
+        });
     }
 
     public void updateSummary(){
@@ -446,6 +471,16 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.loginNetworkConnectionErrorMsg)
         );
+    }
+
+    @Override
+    public void showDialogCallback(String takenSeatsNumbers, int seatCount) {
+        if(seatCount == 1){
+            ErrorDialog.showErrorDialog(getApplicationContext(), getString(R.string.choosedPlaceTitle), getString(R.string.choosedPlaceMsg));
+        }
+        else
+            ErrorDialog.showErrorDialog(getApplicationContext(), getString(R.string.choosedPlacesTitle), getString(R.string.choosedPlacesMsg));
+
     }
 }
 

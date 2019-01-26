@@ -4,11 +4,15 @@ import android.content.Context;
 import android.util.Log;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.interfaces.OnMessageListener;
+
+import java.util.Locale;
 
 public class SectorModel {
     private static final String logTag = SectorModel.class.getSimpleName();
 
     private Context context;
+    private OnMessageListener onMessageListener;
 
     private int repertoireId;
     private int numOfSectors;
@@ -31,8 +35,9 @@ public class SectorModel {
     private String[] sectorTitles;
     private String[] sectorSubitles;
 
-    public SectorModel(Context context, int numOfSectors, int numOfSeats){
+    public SectorModel(Context context, OnMessageListener onMessageListener, int numOfSectors, int numOfSeats){
         this.context = context;
+        this.onMessageListener = onMessageListener;
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
 
@@ -293,13 +298,19 @@ public class SectorModel {
     }
 
     public void reactOnMessage(boolean[] reservedSeats){
+        boolean [] takenYourSeats = new boolean[numOfSeats];
+        for(int i=0; i<takenYourSeats.length;i++)
+            takenYourSeats[i] = false;
+
         for (int i = 0; i < choosedSeats.length; i++) {
             boolean choosedBefore = choosedSeats[i];
             choosedSeats [i] = ( choosedSeats[i] ^ reservedSeats[i] ) & choosedSeats[i];
 
             if(choosedBefore && !choosedSeats[i]){
                 takenSeats[i] = true;
+                takenYourSeats[i]=true;
                 Log.d(logTag,"Znaleziona wartość zajętego miejsca = " + i);
+
             }
             else if(reservedSeats[i]) {
                 takenSeats[i] = true;
@@ -312,7 +323,37 @@ public class SectorModel {
 
         updateSectorSeats();
 
-    }
+        int sizeOfNumbersArray=0;
+        for(int i=0; i<takenYourSeats.length;i++)
+            if(takenYourSeats[i])
+                sizeOfNumbersArray++;
+
+        if(sizeOfNumbersArray>0){
+            int [] takenSeatsNumbers = new int[sizeOfNumbersArray];
+            int firstIndex=0;
+            for(int i=0; i<takenYourSeats.length; i++){
+                if(takenYourSeats[i]) {
+                    int seatNumber = i;
+                    takenSeatsNumbers[firstIndex] = seatNumber++;
+                    firstIndex++;
+                }
+            }
+            String takenSeats = String.format(new Locale("pl", "PL"), "%d",
+                    takenSeatsNumbers[0]);
+
+            if(sizeOfNumbersArray > 1) {
+                StringBuilder sB = new StringBuilder(takenSeats);
+
+                for (int i = 1; i < takenSeatsNumbers.length; i++) {
+                    sB.append(", ");
+                    sB.append(takenSeatsNumbers[i]);
+                }
+                takenSeats = sB.toString();
+            }
+            onMessageListener.showDialogCallback(takenSeats, sizeOfNumbersArray);
+            }
+
+        }
 
     public boolean[] getChoosedSeatsPrev() {
         return choosedSeatsPrev;
