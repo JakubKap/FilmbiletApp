@@ -67,7 +67,10 @@ public class CustomerReservationsConnection {
                                                     context.getString
                                                             (R.string.customerReservationsJsonName)
                                             );
+                                    Log.d(logTag, "przed wyczyszczeniem listy");
                                     reservationsList.getList().clear();
+                                    Log.d(logTag, "po wyczyszczeniu listy");
+
 
                                     for (int i = 0; i < CustomerReservationJson.length(); i++) {
                                         Log.d(logTag, "CustomerReservationJson LOG " + CustomerReservationJson.length());
@@ -91,6 +94,7 @@ public class CustomerReservationsConnection {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Log.d(logTag, "exception customerServiceConnection");
                                 serverConnectionListener.callBackOnError();
                             }
                         }
@@ -98,7 +102,7 @@ public class CustomerReservationsConnection {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d(logTag, "Error on response");
+                            Log.d(logTag, "Exception customerService");
                             serverConnectionListener.callBackOnError();
                         }
                     }
@@ -110,6 +114,7 @@ public class CustomerReservationsConnection {
                             context.getString(R.string.reservationPutReqParam),
                             Integer.toString(getCustomerId())
                     );
+                    Log.d(logTag, "POST: customer id: " + Integer.toString(getCustomerId()));
                     return params;
                 }
             };

@@ -10,7 +10,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.activity.LoginActivity;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
-import com.companysf.filmbilet.connection.Listener.ErrorListener;
+import com.companysf.filmbilet.connection.Listener.Listener;
 import com.companysf.filmbilet.entities.Customer;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.R;
@@ -23,13 +23,13 @@ import java.util.Map;
 
 public class LoginConnection {
     private Context context;
-    private ErrorListener errorListener;
+    private Listener listener;
     private Login login;
     private static final String logTag = LoginActivity.class.getSimpleName();
 
-    public LoginConnection(Context context, ErrorListener errorListener) {
+    public LoginConnection(Context context, Listener listener) {
         this.context = context;
-        this.errorListener = errorListener;
+        this.listener = listener;
         login = new Login(context);
     }
 
@@ -43,7 +43,7 @@ public class LoginConnection {
                     JSONObject json = new JSONObject(response);
                     boolean error = json.getBoolean(context.getString(R.string.error));
                     if (error) {
-                        errorListener.callBackOnError();
+                        listener.callBackOnError();
                     } else {
                         JSONObject customerJson =
                                 json.getJSONObject(context.getString(R.string.customerJsonName));
@@ -61,18 +61,19 @@ public class LoginConnection {
                                 ),
                                 customerJson.getInt(context.getString(R.string.jsonCustomerId))
                         );
+                        listener.callBackOnSuccess();
                         login.saveUserOnDevice(customer);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    errorListener.callBackOnError();
+                    listener.callBackOnError();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(logTag, "Login Error: " + error.getMessage());
-                errorListener.callBackOnError();
+                listener.callBackOnError();
             }
         }) {
             @Override

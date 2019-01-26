@@ -3,7 +3,7 @@ package com.companysf.filmbilet.services;
 import android.content.Context;
 
 import com.companysf.filmbilet.connection.Listener.EmptyFieldsListener;
-import com.companysf.filmbilet.connection.Listener.ErrorListener;
+import com.companysf.filmbilet.connection.Listener.Listener;
 import com.companysf.filmbilet.connection.LoginConnection;
 import com.companysf.filmbilet.entities.Customer;
 import com.companysf.filmbilet.utils.ConnectionDetector;
@@ -15,7 +15,7 @@ public class Login {
     private Context context;
     private SQLiteHandler db;
     private ConnectionDetector cd;
-    private ErrorListener errorListener;
+    private Listener listener;
     private EmptyFieldsListener emptyFieldsListener;
 
     public Login(Context context) {
@@ -24,20 +24,16 @@ public class Login {
         sManager = new SessionManager(context);
     }
 
-    public Login(Context context, ErrorListener errorListener, EmptyFieldsListener emptyFieldsListener) {
+    public Login(Context context, Listener listener, EmptyFieldsListener emptyFieldsListener) {
         this.context = context;
         this.cd = new ConnectionDetector(context);
         sManager = new SessionManager(context);
-        this.errorListener = errorListener;
+        this.listener = listener;
         this.emptyFieldsListener = emptyFieldsListener;
     }
 
     public boolean userIsLoggedIn() {
-
-        if (!sManager.isLoggedIn()) {
-            return false;
-        }
-        return true;
+        return sManager.isLoggedIn();
     }
 
     public void logOutCustomer() {
@@ -51,7 +47,7 @@ public class Login {
     }
 
     public void loginCustomer(String email, String password) {
-        LoginConnection loginConnection = new LoginConnection(context, errorListener);
+        LoginConnection loginConnection = new LoginConnection(context, listener);
         if (cd.connected()) {
             if (!email.isEmpty() && !password.isEmpty()) {
                 loginConnection.checkLogin(email, password);
@@ -59,7 +55,7 @@ public class Login {
                 emptyFieldsListener.callBackOnEmptyField();
             }
         } else {
-            errorListener.callBackOnError();
+            listener.callBackOnError();
         }
     }
 

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
     private CustomerReservationsListAdapter adapter;
     private ReservationsList reservationsList;
+    private static final String TAG = CustomerReservationsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +37,6 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         setContentView(R.layout.activity_customer_reservations);
 
         Login login = new Login(this);
-        final CustomerReservationsConnection customerReservationsConnection =
-                new CustomerReservationsConnection(
-                        this,
-                        this,
-                        reservationsList,
-                        adapter
-                );
 
         if (!login.userIsLoggedIn())
             switchToLoginActivity();
@@ -60,6 +55,14 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         adapter = new CustomerReservationsListAdapter(
                 this, reservationsList.getList(), opensansItalic, opensansRegular
         );
+
+        final CustomerReservationsConnection customerReservationsConnection =
+                new CustomerReservationsConnection(
+                        this,
+                        this,
+                        reservationsList,
+                        adapter
+                );
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -90,6 +93,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
     @Override
     public void callBackOnSuccess() {
+        Log.d(TAG, "callBack on success w klasie CustomerReservations");
         emptyListRefreshLayout.setVisibility(View.GONE);
     }
 

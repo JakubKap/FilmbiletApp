@@ -12,13 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.companysf.filmbilet.connection.Listener.EmptyFieldsListener;
-import com.companysf.filmbilet.connection.Listener.ErrorListener;
+import com.companysf.filmbilet.connection.Listener.Listener;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.ToastUtils;
 
-public class LoginActivity extends AppCompatActivity implements ErrorListener, EmptyFieldsListener {
+public class LoginActivity extends AppCompatActivity implements Listener, EmptyFieldsListener {
     private EditText inputEmail;
     private EditText inputPassword;
 
@@ -102,5 +102,10 @@ public class LoginActivity extends AppCompatActivity implements ErrorListener, E
     @Override
     public void callBackOnEmptyField() {
         ToastUtils.showLongToast(this, getString(R.string.insertEmailAndPasswordPrompt));
+    }
+
+    @Override
+    public void callBackOnSuccess() {
+        switchToMainActivity();
     }
 }

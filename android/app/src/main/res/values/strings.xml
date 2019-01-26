@@ -193,7 +193,7 @@
     <string name="loginNetworkConnectionErrorMsg">Żeby móc się zalogować, potrzebujesz dostępu do internetu</string>
     <string name="RegisterNetworkConnectionErrorMsg">Żeby móc się zarejestrować, potrzebujesz dostępu do internetu</string>
     <string name="sqLiteCustomerTable">customer</string>
-    <string name="sqLiteDatabaseName">apiDB</string>
+    <string name="sqLiteDatabaseName">filmBiletDB</string>
     <string name="sqLiteCustomerEmail">email</string>
     <string name="notValidEmailMsg">Wprowadzony email nie jest poprawny!</string>
     <string name="emptyRegisterFieldsMsg">Proszę uzupełnić wszystkie pola!</string>

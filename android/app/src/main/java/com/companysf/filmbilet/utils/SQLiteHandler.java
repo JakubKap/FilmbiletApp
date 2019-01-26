@@ -1,129 +1,83 @@
 package com.companysf.filmbilet.utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.SimpleCursorAdapter;
 
 import com.companysf.filmbilet.entities.Customer;
 import com.companysf.filmbilet.R;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
-    private Context context;
     private static final String TAG = SQLiteHandler.class.getSimpleName();
 
-    private static final String customerName = "name";
-    private static final String customerSurname = "surname";
-    private static final String customerEmail = "email";
-    private static final String customerId = "id";
+    private static final String DATABASE_NAME = "filmbiletDB.db";
+    private static final int DATABASE_VERSION = 1;
+
+    private static final String TABLE_NAME = "customerTbName";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_NAME = "name";
+    private static final String COLUMN_SURNAME = "surname";
+    private static final String COLUMN_EMAIL = "email";
+    private static final String COLUMN_CUSTOMER_ID = "id";
 
     public SQLiteHandler(Context context) {
-        super(context, context.getString(R.string.sqLiteDatabaseName), null, 1);
-        this.context = context;
+        super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createLoginTable =
-                "CREATE TABLE customer" + "(" +
-                        customerName + "TEXT, " +
-                        customerSurname + "TEXT, " +
-                        customerEmail + "TEXT, " +
-                        customerId + "INTEGER)";
-        db.execSQL(createLoginTable);
+        db.execSQL(
+                "CREATE TABLE " + TABLE_NAME +
+                        "(" + COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                        COLUMN_NAME + " TEXT, " +
+                        COLUMN_EMAIL + " TEXT, " +
+                        COLUMN_SURNAME + " TEXT, " +
+                        COLUMN_CUSTOMER_ID + " INTEGER)"
+        );
         Log.d(TAG, "Database tables created");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS customer");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-    //TODO metoda do usuniecia
-//    public void addCustomer(String name, String surname, String email, String id) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        db.execSQL("INSERT INTO customer values(?,?,?,?)",new String[]{name,surname,email,id});
-//        db.close();
-//
-//        Log.d(TAG, "New customer inserted into DB: ");
-//    }
-
     public void addCustomer(Customer customer) {
         SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
-        Log.d(TAG, "Przed dodaniem do sqlite customera");
-        db.execSQL(
-                "INSERT INTO customer (" +
-                        customerName + "," +
-                        customerSurname + "," +
-                        customerEmail + "," +
-                        customerId +
-                        ") values(" +
-                        customer.getName() + "," +
-                        customer.getSurname() + "," +
-                        customer.getEmail() + "," +
-                        customer.getId() +
-                        ")"
-//                new String[]{customer.getName(),customer.getSurname(),customer.getEmail(),customer.getId()}
-        );
-        db.close();
+        contentValues.put(COLUMN_NAME, customer.getName());
+        contentValues.put(COLUMN_EMAIL, customer.getEmail());
+        contentValues.put(COLUMN_SURNAME, customer.getSurname());
+        contentValues.put(COLUMN_CUSTOMER_ID, customer.getId());
 
-        Log.d(TAG, "New customer inserted into DB: ");
+        db.insert(TABLE_NAME, null, contentValues);
     }
-
-    //TODO metoda do usuniecia
-//    public HashMap<String, String> getCustomer() {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        HashMap<String, String> customer = new HashMap<>();
-//        Cursor cursor = db.rawQuery("SELECT * FROM customer", null);
-//
-//        //move to first row
-//        cursor.moveToFirst();
-//        if (cursor.getCount() > 0) {
-//            customer.put(customerName, cursor.getString(0));
-//            customer.put(customerSurname, cursor.getString(1));
-//            customer.put(customerEmail, cursor.getString(2));
-//            customer.put(customerId, cursor.getString(3));
-//
-//            Log.d(TAG, "cursor.getCount() > 0");
-//        }
-//        cursor.close();
-//        db.close();
-//
-//        Log.d(TAG, "Getting customer from Sqlite: ");
-//        return customer;
-//    }
 
     public Customer getCustomer() {
         SQLiteDatabase db = this.getReadableDatabase();
-
-        Customer customer = new Customer();
-        Cursor cursor = db.rawQuery("SELECT * FROM customer", null);
-
+        Cursor cursor =  db.rawQuery( "SELECT * FROM " + TABLE_NAME, null );
         cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
-            customer.setName(cursor.getString(0));
-            customer.setSurname(cursor.getString(1));
-            customer.setEmail(cursor.getString(2));
-            customer.setId(cursor.getInt(3));
-
-            Log.d(TAG, "cursor.getCount() > 0");
+        String name = cursor.getString(cursor.getColumnIndex(SQLiteHandler.COLUMN_NAME));
+        String email = cursor.getString(cursor.getColumnIndex(SQLiteHandler.COLUMN_EMAIL));
+        String surname = cursor.getString(cursor.getColumnIndex(SQLiteHandler.COLUMN_SURNAME));
+        int id = cursor.getInt(cursor.getColumnIndex(SQLiteHandler.COLUMN_CUSTOMER_ID));
+        if (!cursor.isClosed()) {
+            cursor.close();
         }
-        cursor.close();
-        db.close();
 
-        Log.d(TAG, "Getting customer from Sqlite: ");
-        return customer;
+        return new Customer(name, surname, email, id);
     }
 
     public void deleteCustomers() {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(context.getString(R.string.sqLiteCustomerTable), null, null);
+        db.delete(TABLE_NAME, null, null);
         db.close();
 
         Log.d(TAG, "Table customer was deleted from SQLite");

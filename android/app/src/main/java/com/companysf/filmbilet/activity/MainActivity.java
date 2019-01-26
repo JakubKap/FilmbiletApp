@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,6 +24,8 @@ import com.companysf.filmbilet.adapter.MoviesListAdapter;
 import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.SQLiteHandler;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements ServerConnectionListener {
     private MovieList movieList;
     private MovieConnection movieConnection;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     SwipeRefreshLayout swipeRefreshLayout;
 
     private Login login;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,70 +43,76 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
 
         login = new Login(this);
         if (!login.userIsLoggedIn()) {
+            Log.d(TAG, "Przelaczam do logowania");
             switchToLoginActivity();
+        } else {
+            Log.d(TAG, "Zostaje w main");
+
+            Button btnLogout = findViewById(R.id.btnLogout);
+            Button btnCustomerReservations = findViewById(R.id.btnCustomerReservations);
+            TextView customerInfo = findViewById(R.id.customerInfo);
+            ListView moviesListView = findViewById(R.id.moviesListView);
+            ImageButton btn_refresh = findViewById(R.id.btnRefreshAssets);
+            swipeRefreshLayout = findViewById(R.id.swiper);
+            emptyListRefreshLayout = findViewById(R.id.emptyListRefreshLayout);
+            notEmptyLayout = findViewById(R.id.notEmptyLayout);
+            TextView welcomeCustomer = findViewById(R.id.welcomeCustomer);
+
+            Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
+            Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+            Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
+
+            welcomeCustomer.setTypeface(opensansRegular);
+            customerInfo.setTypeface(opensansRegular);
+            btnCustomerReservations.setTypeface(opensansBold);
+            btnLogout.setTypeface(opensansBold);
+
+            movieList = new MovieList();
+            MoviesListAdapter adapter = new MoviesListAdapter(
+                    this,
+                    MainActivity.this,
+                    movieList.getList(),
+                    opensansRegular,
+                    opensansBold,
+                    opensansItalic
+            );
+            movieConnection = new MovieConnection(this, this, movieList, adapter);
+            SQLiteHandler db = new SQLiteHandler(this);
+
+            Customer customer = db.getCustomer();
+
+            moviesListView.setAdapter(adapter);
+            customerInfo.setText(customer.getEmail());
+            Log.d(TAG, "customer id from mainActivity: " + customer.getId());
+
+            btnLogout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    logOutCustomer();
+                }
+            });
+            btnCustomerReservations.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switchToCustomerReservations();
+                }
+            });
+            btn_refresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    movieConnection.updateDataFromServer();
+                }
+            });
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    movieConnection.updateDataFromServer(true);
+                }
+            });
+
+            movieConnection.updateDataFromServer();
         }
 
-        Button btnLogout = findViewById(R.id.btnLogout);
-        Button btnCustomerReservations = findViewById(R.id.btnCustomerReservations);
-        TextView customerInfo = findViewById(R.id.customerInfo);
-        ListView moviesListView = findViewById(R.id.moviesListView);
-        ImageButton btn_refresh = findViewById(R.id.btnRefreshAssets);
-        swipeRefreshLayout = findViewById(R.id.swiper);
-        emptyListRefreshLayout = findViewById(R.id.emptyListRefreshLayout);
-        notEmptyLayout = findViewById(R.id.notEmptyLayout);
-        TextView welcomeCustomer = findViewById(R.id.welcomeCustomer);
-
-        Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
-        Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
-        Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
-
-        welcomeCustomer.setTypeface(opensansRegular);
-        customerInfo.setTypeface(opensansRegular);
-        btnCustomerReservations.setTypeface(opensansBold);
-        btnLogout.setTypeface(opensansBold);
-
-        movieList = new MovieList();
-        MoviesListAdapter adapter = new MoviesListAdapter(
-                this,
-                MainActivity.this,
-                movieList.getList(),
-                opensansRegular,
-                opensansBold,
-                opensansItalic
-        );
-        movieConnection = new MovieConnection(this, this, movieList, adapter);
-        SQLiteHandler db = new SQLiteHandler(this);
-        Customer customer = db.getCustomer();
-
-        moviesListView.setAdapter(adapter);
-        customerInfo.setText(customer.getEmail());
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOutCustomer();
-            }
-        });
-        btnCustomerReservations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToCustomerReservations();
-            }
-        });
-        btn_refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                movieConnection.updateDataFromServer();
-            }
-        });
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                movieConnection.updateDataFromServer(true);
-            }
-        });
-
-        movieConnection.updateDataFromServer();
     }
 
     private void logOutCustomer() {
@@ -116,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
         finish();
     }
 
-    private void  switchToCustomerReservations() {
+    private void switchToCustomerReservations() {
         Intent intent = new Intent(MainActivity.this, CustomerReservationsActivity.class);
         startActivity(intent);
     }
