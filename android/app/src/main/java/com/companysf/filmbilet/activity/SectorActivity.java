@@ -179,9 +179,9 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     Button btn = findViewById(view.getId());
                     Log.d(logTag, "index buttona = " + index);
 
-                    sectorModel.setMarkedSeats();
-                    for(int i =0; i<sectorModel.getMarkedSeats().length; i++)
-                        if(sectorModel.getMarkedSeats()[i])
+                    sectorModel.assignSeatsPrev();
+                    for(int i = 0; i<sectorModel.getChoosedSeatsPrev().length; i++)
+                        if(sectorModel.getChoosedSeatsPrev()[i])
                             Log.d(logTag, "Marked seat after opening sector " + i);
 
                     if(sectorModel.getFreeSeatsInSector()[index] == 0) {
@@ -289,13 +289,13 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                         public void onClick(View view) {
                             dialog.dismiss();
 
-                            sectorModel.setChoosedSeats();
+                            sectorModel.restoreChoosedSeats();
 
-                            for(int i =0; i<sectorModel.getMarkedSeats().length; i++)
-                                if(sectorModel.getMarkedSeats()[i])
+                            for(int i = 0; i<sectorModel.getChoosedSeatsPrev().length; i++)
+                                if(sectorModel.getChoosedSeatsPrev()[i])
                                     Log.d(logTag, "Marked seat after closing sector " + i);
 
-                            sectorModel.setChoosedSeats();
+                            sectorModel.restoreChoosedSeats();
                             for(int i =0; i<sectorModel.getChoosedSeats().length; i++)
                                 if(sectorModel.getChoosedSeats()[i])
                                     Log.d(logTag, "Choosed Mseat after closing sector " + i);

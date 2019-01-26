@@ -18,7 +18,7 @@ public class SectorModel {
     private boolean[] takenSeats;
 
     private boolean[] choosedSeats;
-    private boolean[] markedSeats;
+    private boolean[] choosedSeatsPrev;
 
     private int[] seatSector;
     private int[] seatRow;
@@ -43,10 +43,10 @@ public class SectorModel {
             takenSeats[i]=false;
 
         this.choosedSeats = new boolean[numOfSeats];
-        this.markedSeats = new boolean[numOfSeats];
+        this.choosedSeatsPrev = new boolean[numOfSeats];
         for(int i = 0; i< choosedSeats.length; i++) {
             choosedSeats[i] = false;
-            markedSeats[i]=false;
+            choosedSeatsPrev[i]=false;
         }
 
         this.seatSector = new int[numOfSeats];
@@ -248,7 +248,7 @@ public class SectorModel {
     public void markSeat(int index){
         int seatNumber = seatNumbers[index];
         choosedSeats[seatNumber-1] = !choosedSeats[seatNumber-1];
-        markedSeats[seatNumber-1] = !choosedSeats[seatNumber-1];
+        choosedSeatsPrev[seatNumber-1] = !choosedSeats[seatNumber-1];
         Log.d(logTag, "choosedSeats[" + (seatNumber-1) +"] = " + choosedSeats[seatNumber-1] );
     }
 
@@ -281,19 +281,19 @@ public class SectorModel {
     }
 
     public void clearMarkedSeats(){
-        for(int i=0; i<markedSeats.length; i++)
-            markedSeats[i]=false;
+        for(int i = 0; i< choosedSeatsPrev.length; i++)
+            choosedSeatsPrev[i]=false;
     }
 
-    public boolean[] getMarkedSeats() {
-        return markedSeats;
+    public boolean[] getChoosedSeatsPrev() {
+        return choosedSeatsPrev;
     }
 
-    public void setMarkedSeats() {
-        System.arraycopy(choosedSeats, 0, markedSeats, 0, choosedSeats.length);
+    public void assignSeatsPrev() {
+        System.arraycopy(choosedSeats, 0, choosedSeatsPrev, 0, choosedSeats.length);
     }
-    public void setChoosedSeats(){
-        System.arraycopy(markedSeats, 0, choosedSeats, 0, markedSeats.length);
+    public void restoreChoosedSeats(){
+        System.arraycopy(choosedSeatsPrev, 0, choosedSeats, 0, choosedSeatsPrev.length);
     }
 
 
@@ -329,7 +329,7 @@ public class SectorModel {
         this.seatNumbers = seatNumbers;
     }
 
-    public void setChoosedSeats(boolean[] choosedSeats) {
+    public void restoreChoosedSeats(boolean[] choosedSeats) {
         this.choosedSeats = choosedSeats;
     }
 }
