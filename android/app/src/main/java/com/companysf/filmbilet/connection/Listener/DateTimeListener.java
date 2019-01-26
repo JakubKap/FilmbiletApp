@@ -5,4 +5,5 @@ import com.companysf.filmbilet.services.Schedule;
 import java.util.List;
 
 public interface DateTimeListener {
+    public void callbackOnSetUi();
 }

@@ -23,10 +23,10 @@ public class HoursAdapter extends BaseAdapter {
     DateTime dateTime;
     List<Schedule> scheduleList;
 
-    public HoursAdapter(Context c, DateTime dateTime, List<Schedule> scheduleList) {
+    public HoursAdapter(Context c, DateTime dateTime) {
         mContext = c;
         this.dateTime = dateTime;
-        this.scheduleList = scheduleList;
+        this.scheduleList = dateTime.getScheduleList();
     }
 
 

@@ -2,8 +2,8 @@ package com.companysf.filmbilet.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,43 +13,25 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.StringRequest;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.HoursAdapter;
+import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.services.DateTime;
-import com.companysf.filmbilet.utils.ErrorDetector;
-import com.companysf.filmbilet.app.AppConfig;
-import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.entities.Movie;
 import com.companysf.filmbilet.services.Schedule;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 
-public class ChooseDateTimeActivity extends AppCompatActivity implements Serializable, ErrorListener {
+public class ChooseDateTimeActivity extends AppCompatActivity implements Serializable, ErrorListener, DateTimeListener {
 
     private static final String logTag = ChooseDateTimeActivity.class.getSimpleName();
     private int movieId;
@@ -117,12 +99,11 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
         builder =  new AlertDialog.Builder(this);
 
-        dateTime = new DateTime(this, movieId, this);
+        dateTime = new DateTime(this, movieId, this, this);
 /*
         hoursAdapter = new HoursAdapter(this, dateTime);
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);*/
-
 
         for (int i = 0; i < datesButtons.length; i++) {
             final int finalI = i;
@@ -131,7 +112,24 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     //Log.d(logTag, "Stan buttona = " + Boolean.toString(datesButtons[finalI].isChecked()));
+                    if(!dateTime.getSelectedDate()[finalI]){
+                        dateTime.chooseDate(finalI);
 
+                        for(int j=0; j<dateTime.getSelectedDate().length;j++)
+                            markSeat(datesButtons[j], j);
+                            //hoursAdapter.clear
+
+                        dateTime.prepareDateButtons();
+                        updateDateButtons();
+                        dateTime.prepareHoursForDate(finalI);
+                    }
+                    else{
+                        updateDateButtons();
+                        dateTime.getSelectedDate()[finalI] = true;
+                    }
+                    Log.d(logTag, "\nStan wszystkich przycisków (po kliknięciu dowolnego): ");
+                    for (int k = 0; k < dateTime.getSelectedDate().length; k++)
+                        Log.d(logTag, "Stan po selectedDate[" + k + "]= " + dateTime.getSelectedDate()[k]);
 
                 }
 
@@ -178,6 +176,44 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         });
 
     }
+    public void markSeat(ToggleButton button, int index){
+        final ToggleButton finalButton = button;
+        final int finalIndex = index;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (!dateTime.getSelectedDate()[finalIndex]) {
+                    Log.d(logTag, "normal button index = " + finalIndex);
+                    finalButton.setBackgroundResource(R.drawable.normal_date_button);
+                    finalButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+
+                } else {
+                    Log.d(logTag, "choosed button index = " + finalIndex);
+                    finalButton.setBackgroundResource(R.drawable.gradient_date_button);
+                    finalButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+                }
+            }
+        });
+    }
+
+    public void updateDateButtons(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+            List<Schedule> uniqueDates = dateTime.getUniqueDates();
+                int i = 0;
+                for (Schedule r : uniqueDates) {
+                    String text = Integer.toString(r.getDayOfMonth());
+                    text = text + "\n" + r.getDayOfWeek();
+                    datesButtons[i].setText(text);
+                    datesButtons[i].setTextOn(text);
+                    datesButtons[i].setTextOff(text);
+                    i++;
+                }
+            }
+        });
+    }
+
     @Override
     public void callBackOnError() {
         showLongToast(this, getString(R.string.serverErrorTitle));
@@ -190,6 +226,20 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.loginNetworkConnectionErrorMsg)
         );
+    }
+    @Override
+    public void callbackOnSetUi() {
+        Log.d(logTag, "callbackOnSetUi");
+        hoursAdapter = new HoursAdapter(this, dateTime);
+
+        GridView hoursGridView = findViewById(R.id.hoursGridView);
+        hoursGridView.setNumColumns(2);
+
+        hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
+        hoursGridView.setAdapter(hoursAdapter);
+
+        dateTime.prepareDateButtons();
+        updateDateButtons();
     }
 
     public void showDialog(String title, String message){
@@ -213,6 +263,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
             }
         });
     }
+
 
 
 }
