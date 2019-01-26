@@ -15,8 +15,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.companysf.filmbilet.R;
 // TODO odkomentowac
-//import com.companysf.filmbilet.Activity.ChooseDateTime;
-import com.companysf.filmbilet.activity.ChooseDateTime;
+//import com.companysf.filmbilet.Activity.ChooseDateTimeActivity;
+import com.companysf.filmbilet.activity.ChooseDateTimeActivity;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.entities.Movie;
 
@@ -91,7 +91,7 @@ public class MoviesListAdapter extends BaseAdapter {
         movieRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ChooseDateTime.class);
+                Intent intent = new Intent(context, ChooseDateTimeActivity.class);
                 intent.putExtra(context.getString(R.string.movieIntentExtraContentName), movie);
                 context.startActivity(intent);
             }

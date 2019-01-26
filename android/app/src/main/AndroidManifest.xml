@@ -45,7 +45,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.ChooseDateTime"
+            android:name=".activity.ChooseDateTimeActivity"
            android:screenOrientation="portrait">
         </activity>
 

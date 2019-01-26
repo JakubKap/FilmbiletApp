@@ -6,23 +6,23 @@ import android.util.Log;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
-import com.companysf.filmbilet.interfaces.ConnectionListener;
-import com.companysf.filmbilet.interfaces.ModelListener;
-import com.companysf.filmbilet.interfaces.SocketListener;
+import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
+import com.companysf.filmbilet.connection.Listener.SectorListener;
+import com.companysf.filmbilet.connection.Listener.SocketListener;
 
 import java.util.Locale;
 
 import okhttp3.WebSocket;
 
-public class SectorModel implements SocketListener {
-    private static final String logTag = SectorModel.class.getSimpleName();
+public class Sector implements SocketListener {
+    private static final String logTag = Sector.class.getSimpleName();
 
     private Context context;
     private WebSocket webSocket;
     private ErrorListener errorListener;
-    private ConnectionListener connectionListener;
+    private ReservationConnListener reservationConnListener;
     private ReservationConnection reservationConnection;
-    private ModelListener modelListener;
+    private SectorListener sectorListener;
     private MyWebSocketListener myWebSocketListener;
 
     private int repertoireId;
@@ -47,13 +47,13 @@ public class SectorModel implements SocketListener {
     private String[] sectorTitles;
     private String[] sectorSubitles;
 
-    public SectorModel(Context context, ErrorListener errorListener,ConnectionListener connectionListener,ModelListener modelListener, int numOfSectors, int numOfSeats){
+    public Sector(Context context, ErrorListener errorListener, ReservationConnListener reservationConnListener, SectorListener sectorListener, int numOfSectors, int numOfSeats){
         this.context = context;
         this.errorListener = errorListener;
-        this.connectionListener = connectionListener;
-        this.modelListener = modelListener;
+        this.reservationConnListener = reservationConnListener;
+        this.sectorListener = sectorListener;
         this.myWebSocketListener = new MyWebSocketListener(this);
-        this.reservationConnection = new ReservationConnection(context, errorListener,connectionListener);
+        this.reservationConnection = new ReservationConnection(context, errorListener, reservationConnListener);
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
 
@@ -325,7 +325,7 @@ public class SectorModel implements SocketListener {
     public void onMessageCallback(boolean[] reservedSeats) {
         Log.d(logTag, "onMessage");
         reactOnMessage(reservedSeats);
-        modelListener.updateUiCallback();
+        sectorListener.updateUiCallback();
         prepareDialog();
 
     }
@@ -390,7 +390,7 @@ public class SectorModel implements SocketListener {
                 }
 
                 Log.d(logTag, "sizeofArrayNumber after= " + sizeOfNumbersArray);
-                modelListener.showDialogCallback(takenSeatsNum, sizeOfNumbersArray);
+                sectorListener.showDialogCallback(takenSeatsNum, sizeOfNumbersArray);
             }
 
         }
@@ -438,7 +438,7 @@ public class SectorModel implements SocketListener {
             myWebSocketListener.prepareMessage(context,this.webSocket, takenSeats);
         }
         else
-            modelListener.socketCloseError();
+            sectorListener.socketCloseError();
 
     }
 

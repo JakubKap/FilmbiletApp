@@ -2,7 +2,6 @@ package com.companysf.filmbilet.connection;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -12,7 +11,7 @@ import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.entities.Reservation;
-import com.companysf.filmbilet.interfaces.ConnectionListener;
+import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.utils.ConnectionDetector;
 
@@ -28,13 +27,13 @@ public class ReservationConnection {
     private static final String logTag = ReservationConnection.class.getSimpleName();
     private Context mContext;
     private ErrorListener errorListener;
-    private ConnectionListener connectionListener;
+    private ReservationConnListener reservationConnListener;
     private ConnectionDetector cd;
 
-    public ReservationConnection(Context c, ErrorListener errorListener, ConnectionListener connectionListener){
+    public ReservationConnection(Context c, ErrorListener errorListener, ReservationConnListener reservationConnListener){
         this.mContext = c;
         this.errorListener = errorListener;
-        this.connectionListener = connectionListener;
+        this.reservationConnListener = reservationConnListener;
         this.cd = new ConnectionDetector(c);
     }
 
@@ -83,7 +82,7 @@ public class ReservationConnection {
                                 if (choosedPlaces[i])
                                     Log.d(logTag, "After choosedPlaces[ " + i + " ] = " + choosedPlaces[i]);
 
-                            connectionListener.onDbResponseCallback(choosedPlaces);
+                            reservationConnListener.onDbResponseCallback(choosedPlaces);
                         }
                     }, new Response.ErrorListener() {
                 @Override

@@ -1,4 +1,4 @@
-package com.companysf.filmbilet.interfaces;
+package com.companysf.filmbilet.connection.Listener;
 
 import okhttp3.WebSocket;
 

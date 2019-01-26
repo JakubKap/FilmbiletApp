@@ -11,6 +11,7 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.services.DateTime;
 import com.companysf.filmbilet.services.Schedule;
 
 import java.util.ArrayList;
@@ -19,37 +20,16 @@ import java.util.List;
 public class HoursAdapter extends BaseAdapter {
     private static final String logTag = HoursAdapter.class.getSimpleName();
     private Context mContext;
-    private List<Schedule> scheduleList;
-    private List<ToggleButton> toggleButtons;
-    private List<Integer> selectedSchedules;
+    DateTime dateTime;
+    List<Schedule> scheduleList;
 
-    public HoursAdapter(Context c, List<Schedule> scheduleArrayList){
+    public HoursAdapter(Context c, DateTime dateTime, List<Schedule> scheduleList) {
         mContext = c;
-        scheduleList = scheduleArrayList;
-        boolean[] selectedHour = new boolean[scheduleList.size()];
-        selectedSchedules = new ArrayList<>();
-        toggleButtons = new ArrayList<>();
-
-        if(selectedSchedules.size() > 0)
-            selectedSchedules.clear();
-
-        if(selectedHour.length > 0){
-            selectedHour[0] = true;
-
-            for(int i = 1; i< selectedHour.length; i++)
-                selectedHour[i] = false;
-        }
+        this.dateTime = dateTime;
+        this.scheduleList = scheduleList;
     }
 
 
-    public List<Integer> getSelectedSchedules() {
-        return selectedSchedules;
-    }
-
-    public void clearListOfSchedules(){
-        if(selectedSchedules.size() > 0)
-            selectedSchedules.clear();
-    }
     @Override
     public int getCount() {
         return scheduleList.size();
@@ -110,37 +90,11 @@ public class HoursAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                int objToRemove = -1;
-                if(b) {
-                    Log.d(logTag, "Dodana wartość repertuaru = " + scheduleList.get(position).getId());
-                    selectedSchedules.add(scheduleList.get(position).getId());
-                }
-                else{
-                    Log.d(logTag,"Usunięta wartość repertuaru = " + scheduleList.get(position).getId());
-                    objToRemove = scheduleList.get(position).getId();
-                }
-
-                if(objToRemove>0){
-                    Log.d(logTag, "Przed usunięciem:");
-                    selectedSchedules.remove(Integer.valueOf(objToRemove));
-                    Log.d(logTag, "Po usunięciu:");
-                }
-
-                Log.d(logTag, "Zawartość selected schedules: ");
-                for(Integer i : selectedSchedules)
-                    Log.d(logTag, "Wartość selectedSchedules = " + i);
-
-               /* else
-                    finalToggleButton.setBackgroundResource(R.drawable.normal_hour_button);*/
 
             }
         });
 
         //dodanie ToggleButtona do tablicy
-        toggleButtons.add(toggleButton);
-
-       for(ToggleButton t : toggleButtons)
-            Log.d(logTag, "Zawartość toggleButtons = " + t.getText());
 
         return toggleButton;
     }
