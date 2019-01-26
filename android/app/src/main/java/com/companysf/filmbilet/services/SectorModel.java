@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.connection.Listener.ErrorListener;
+import com.companysf.filmbilet.connection.ReservationConnection;
+import com.companysf.filmbilet.interfaces.ConnectionListener;
 import com.companysf.filmbilet.interfaces.OnMessageListener;
 
 import java.util.Locale;
@@ -12,6 +15,9 @@ public class SectorModel {
     private static final String logTag = SectorModel.class.getSimpleName();
 
     private Context context;
+    private ErrorListener errorListener;
+    private ConnectionListener connectionListener;
+    private ReservationConnection reservationConnection;
     private OnMessageListener onMessageListener;
 
     private int repertoireId;
@@ -36,9 +42,12 @@ public class SectorModel {
     private String[] sectorTitles;
     private String[] sectorSubitles;
 
-    public SectorModel(Context context, OnMessageListener onMessageListener, int numOfSectors, int numOfSeats){
+    public SectorModel(Context context, OnMessageListener onMessageListener, ErrorListener errorListener, ConnectionListener connectionListener, int numOfSectors, int numOfSeats){
         this.context = context;
         this.onMessageListener = onMessageListener;
+        this.errorListener = errorListener;
+        this.connectionListener = connectionListener;
+        this.reservationConnection = new ReservationConnection(context, errorListener,connectionListener);
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
 
@@ -372,7 +381,32 @@ public class SectorModel {
                 num++;
         return num;
     }
+    public int seatTypeId(int index){
+        int sectorNum = seatSector[index];
+        int seatTypeId=1;
+
+        if(sectorNum == 1 || sectorNum == 2)
+            seatTypeId = 1;
+        else if(sectorNum == 3 || sectorNum == 4)
+            seatTypeId = 2;
+        else if(sectorNum == 5 || sectorNum == 6)
+            seatTypeId = 3;
+        else if(sectorNum == 7 || sectorNum == 8)
+            seatTypeId = 4;
+        return seatTypeId;
+
+    }
+
     public void saveToDb(){
+        for(int i=0; i<choosedSeats.length; i++){
+            if(choosedSeats[i]){
+                //TODO przesyłać String reprezentujący id usera
+                int seatNumber = i+1;
+                int seatTypeId = seatTypeId(i);
+                int row = seatRow[i];
+                reservationConnection.saveReservation("1",seatNumber, seatTypeId, row, repertoireId);
+            }
+        }
 
     }
 

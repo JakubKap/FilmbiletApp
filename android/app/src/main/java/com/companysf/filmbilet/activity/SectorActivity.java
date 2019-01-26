@@ -72,7 +72,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         }
 
         reservationConnection = new ReservationConnection(this, this, this);
-        sectorModel = new SectorModel(this,this,8, 280);
+        sectorModel = new SectorModel(this,this, this,this, 8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
