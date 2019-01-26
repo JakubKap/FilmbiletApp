@@ -3,6 +3,7 @@ package com.companysf.filmbilet.services;
 import android.content.Context;
 import android.util.Log;
 
+import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.Listener.RepertoireConnListener;
@@ -22,12 +23,15 @@ public class DateTime implements RepertoireConnListener {
     private ErrorListener errorListener;
     private DateTimeListener dateTimeListener;
     private boolean[] selectedDate;
+    private boolean[] selectedHour;
 
     private List<Schedule> scheduleList;
-    private List<Schedule> selectedSchedules;
+    private List<Integer> selectedSchedules;
     private List<Schedule> hoursForDate;
+
     private List<Schedule> uniqueDates;
     int movieId;
+
 
     public DateTime(Context context, int movieId, ErrorListener errorListener, DateTimeListener dateTimeListener){
         this.context = context;
@@ -56,7 +60,7 @@ public class DateTime implements RepertoireConnListener {
 
         for(Schedule schedule : hoursForDate)
             Log.d(logTag,"hoursForDate = " + schedule.toString());
-        
+
         for(Schedule schedule : scheduleList)
             Log.d(logTag,"scheduleList after prepare= " + schedule.toString());
 
@@ -79,6 +83,13 @@ public class DateTime implements RepertoireConnListener {
                 Log.d(logTag, "Dodana wartość do hoursForDate = " + r.toString());
             }
 
+        }
+        selectedHour = new boolean[hoursForDate.size()];
+        if(selectedHour.length > 0){
+            selectedHour[0] = true;
+
+            for(int i = 1; i< selectedHour.length; i++)
+                selectedHour[i] = false;
         }
     }
 
@@ -141,6 +152,43 @@ public class DateTime implements RepertoireConnListener {
         if(selectedSchedules.size() > 0)
             selectedSchedules.clear();
     }
+    public String hourAndMin(int position){
+        //budowanie textu
+        String text = Integer.toString(hoursForDate.get(position).getHourOfDay());
+
+        StringBuilder sB = new StringBuilder(text);
+        sB.append(context.getString(R.string.colon));
+
+        if(hoursForDate.get(position).getMinute() < 10)
+            sB.append(context.getString(R.string.zero));
+
+        sB.append(Integer.toString(hoursForDate.get(position).getMinute()));
+
+        if(hoursForDate.get(position).getHourOfDay() < 10)
+            sB.insert(0, context.getString(R.string.zero));
+
+        return sB.toString();
+    }
+
+    public void markAnHour(int position, boolean isSelected){
+        int objToRemove=-1;
+        if(isSelected){
+            Log.d(logTag, "Dodana wartość repertuaru = " + scheduleList.get(position).getId());
+            selectedSchedules.add(hoursForDate.get(position).getId());
+        }
+        else{
+            Log.d(logTag,"Usunięta wartość repertuaru = " + scheduleList.get(position).getId());
+            objToRemove = hoursForDate.get(position).getId();
+        }
+        if(objToRemove>0){
+            Log.d(logTag, "Przed usunięciem:");
+            selectedSchedules.remove(Integer.valueOf(objToRemove));
+            Log.d(logTag, "Po usunięciu:");
+        }
+        Log.d(logTag, "Zawartość selected schedules: ");
+        for(Integer i : selectedSchedules)
+            Log.d(logTag, "Wartość selectedSchedules = " + i);
+    }
 
     public boolean[] getSelectedDate() {
         return selectedDate;
@@ -156,5 +204,12 @@ public class DateTime implements RepertoireConnListener {
 
     public List<Schedule> getUniqueDates() {
         return uniqueDates;
+    }
+    public List<Integer> getSelectedSchedules() {
+        return selectedSchedules;
+    }
+
+    public boolean[] getSelectedHour() {
+        return selectedHour;
     }
 }
