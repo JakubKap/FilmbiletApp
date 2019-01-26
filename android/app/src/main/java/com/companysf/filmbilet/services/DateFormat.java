@@ -64,9 +64,9 @@ public class DateFormat {
             stringBuilder.append("0");
         stringBuilder.append(timeSeparator);
 
-        stringBuilder.append(Integer.toString(timeArray[1]));   //minute
-        if (timeArray[1] == 0)
+        if (timeArray[1] < 10)
             stringBuilder.append("0");
+        stringBuilder.append(Integer.toString(timeArray[1]));   //minute
 
         return stringBuilder.toString();
     }

@@ -139,7 +139,7 @@ public class CustomerReservationsListAdapter
                         context.getString(R.string.pdfFileFolderName),
                         context.getString(R.string.pdfFileName) +
                                 reservationDate +
-                                context.getString(R.string.pdfFileName),
+                                context.getString(R.string.pdfFileExtension),
                         context.getString(R.string.opensansRegularPath),
                         customerReservation);
                 if (!pdfFile.createPdfFile()) {
