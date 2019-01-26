@@ -1,9 +1,10 @@
-package com.companysf.filmbilet.WebSocket;
+package com.companysf.filmbilet.services;
 
 import android.util.Log;
 
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.interfaces.SocketListener;
+import com.companysf.filmbilet.services.WebSocketMessage;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,6 +35,9 @@ public class MyWebSocketListener extends WebSocketListener {
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         Log.d(logTag, "onMessage");
+        WebSocketMessage message = new WebSocketMessage(text);
+
+        socketListener.onMessageCallback(message.getChoosedPlaces());
 
     }
 

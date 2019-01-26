@@ -24,7 +24,7 @@ import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.SectorModel;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.utils.ErrorDialog;
-import com.companysf.filmbilet.WebSocket.MyWebSocketListener;
+import com.companysf.filmbilet.services.MyWebSocketListener;
 import com.companysf.filmbilet.utils.ToastUtils;
 
 
@@ -406,6 +406,15 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                         sectorModel.seatsPrice()));
             }
         });
+    }
+
+    @Override
+    public void onMessageCallback(boolean[] reservedSeats) {
+        Log.d(logTag, "onMessage");
+        sectorModel.reactOnMessage(reservedSeats);
+        markChoosedPlaces();
+        updateSectors(false);
+        updateSummary();
     }
 
     private void switchToLoginActivity() {

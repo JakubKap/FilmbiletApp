@@ -285,10 +285,6 @@ public class SectorModel {
             choosedSeatsPrev[i]=false;
     }
 
-    public boolean[] getChoosedSeatsPrev() {
-        return choosedSeatsPrev;
-    }
-
     public void assignSeatsPrev() {
         System.arraycopy(choosedSeats, 0, choosedSeatsPrev, 0, choosedSeats.length);
     }
@@ -296,7 +292,31 @@ public class SectorModel {
         System.arraycopy(choosedSeatsPrev, 0, choosedSeats, 0, choosedSeatsPrev.length);
     }
 
+    public void reactOnMessage(boolean[] reservedSeats){
+        for (int i = 0; i < choosedSeats.length; i++) {
+            boolean choosedBefore = choosedSeats[i];
+            choosedSeats [i] = ( choosedSeats[i] ^ reservedSeats[i] ) & choosedSeats[i];
 
+            if(choosedBefore && !choosedSeats[i]){
+                takenSeats[i] = true;
+                Log.d(logTag,"Znaleziona wartość zajętego miejsca = " + i);
+            }
+            else if(reservedSeats[i]) {
+                takenSeats[i] = true;
+                Log.d(logTag,"Znaleziona wartość niezajętego miejsca = " + i);
+            }
+
+            if(choosedSeats[i])
+                Log.d(logTag, "OnMessage choosedSeats[" + i +"] = " );
+        }
+
+        updateSectorSeats();
+
+    }
+
+    public boolean[] getChoosedSeatsPrev() {
+        return choosedSeatsPrev;
+    }
     public void setTakenSeats(boolean[] takenSeats) {
         this.takenSeats = takenSeats;
     }
