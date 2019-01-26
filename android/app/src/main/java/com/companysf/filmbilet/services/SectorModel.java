@@ -398,6 +398,8 @@ public class SectorModel {
     }
 
     public void saveToDb(){
+        for(int i=0; i<choosedSeats.length;i++)
+            Log.d(logTag, "takenSeats before = " + takenSeats[i]);
         for(int i=0; i<choosedSeats.length; i++){
             if(choosedSeats[i]){
                 //TODO przesyłać String reprezentujący id usera
@@ -408,6 +410,8 @@ public class SectorModel {
                 reservationConnection.saveReservation("1",seatNumber, seatTypeId, row, repertoireId);
             }
         }
+        for(int i=0; i<choosedSeats.length;i++)
+            Log.d(logTag, "takenSeats after = " + takenSeats[i]);
         onMessageListener.msgToServerCallback(takenSeats);
     }
 

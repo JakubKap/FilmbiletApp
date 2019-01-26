@@ -1,7 +1,9 @@
 package com.companysf.filmbilet.services;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.interfaces.SocketListener;
 import com.companysf.filmbilet.services.WebSocketMessage;
@@ -30,7 +32,7 @@ public class MyWebSocketListener extends WebSocketListener {
 
     @Override
     public void onOpen(final WebSocket webSocket, okhttp3.Response response) {
-        socketListener.onOpenCallback("success");
+        socketListener.onOpenCallback(webSocket);
     }
 
     @Override
@@ -66,5 +68,12 @@ public class MyWebSocketListener extends WebSocketListener {
     public OkHttpClient getHttpClient() {
         return httpClient;
     }
+
+    public void prepareMessage(Context c, WebSocket webSocket, boolean[] myChoosedPlaces){
+        WebSocketMessage message = new WebSocketMessage(myChoosedPlaces);
+        webSocket.send(message.getChoosedPlacesString());
+        webSocket.close(1000, c.getString(R.string.socketCloseReason));
+    }
+
 
 }

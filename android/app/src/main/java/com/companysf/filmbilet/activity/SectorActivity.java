@@ -39,6 +39,8 @@ import com.companysf.filmbilet.utils.ToastUtils;
 
 import java.util.Locale;
 
+import okhttp3.WebSocket;
+
 import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 
 
@@ -47,6 +49,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     private static final String logTag = SectorActivity.class.getSimpleName();
 
     MyWebSocketListener myWebSocketListener;
+    WebSocket webSocket;
     private Login login;
     AlertDialog.Builder builder;
 
@@ -182,9 +185,9 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
 
     @Override
-    public void onOpenCallback(String result) {
+    public void onOpenCallback(WebSocket webSocket) {
         Log.d(logTag, "onOpen");
-
+        this.webSocket = webSocket;
         for (int i = 0; i < sectorButtons.length; i++) {
             final int index = i;
             sectorButtons[i].setOnClickListener(new View.OnClickListener() {
@@ -517,8 +520,15 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     public void msgToServerCallback(boolean[] choosedPlaces) {
         Log.d(logTag, "msgToServerCallback");
         if(myWebSocketListener.getHttpClient() != null){
-            WebSocketMessage message = new WebSocketMessage(choosedPlaces);
-            //myWebSocketListener.
+            if(myWebSocketListener.getHttpClient() != null){
+                myWebSocketListener.prepareMessage(this,this.webSocket, choosedPlaces);
+            }
+        }
+        else{
+            showDialog(
+                    getString(R.string.serverErrorTitle),
+                    getString(R.string.serverErrorMsg)
+                    );
         }
 
     }
