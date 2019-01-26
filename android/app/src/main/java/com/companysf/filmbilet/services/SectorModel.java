@@ -7,18 +7,23 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.interfaces.ConnectionListener;
-import com.companysf.filmbilet.interfaces.OnMessageListener;
+import com.companysf.filmbilet.interfaces.ModelListener;
+import com.companysf.filmbilet.interfaces.SocketListener;
 
 import java.util.Locale;
 
-public class SectorModel {
+import okhttp3.WebSocket;
+
+public class SectorModel implements SocketListener {
     private static final String logTag = SectorModel.class.getSimpleName();
 
     private Context context;
+    private WebSocket webSocket;
     private ErrorListener errorListener;
     private ConnectionListener connectionListener;
     private ReservationConnection reservationConnection;
-    private OnMessageListener onMessageListener;
+    private ModelListener modelListener;
+    private MyWebSocketListener myWebSocketListener;
 
     private int repertoireId;
     private int numOfSectors;
@@ -42,11 +47,12 @@ public class SectorModel {
     private String[] sectorTitles;
     private String[] sectorSubitles;
 
-    public SectorModel(Context context, OnMessageListener onMessageListener, ErrorListener errorListener, ConnectionListener connectionListener, int numOfSectors, int numOfSeats){
+    public SectorModel(Context context, ErrorListener errorListener,ConnectionListener connectionListener,ModelListener modelListener, int numOfSectors, int numOfSeats){
         this.context = context;
-        this.onMessageListener = onMessageListener;
         this.errorListener = errorListener;
         this.connectionListener = connectionListener;
+        this.modelListener = modelListener;
+        this.myWebSocketListener = new MyWebSocketListener(this);
         this.reservationConnection = new ReservationConnection(context, errorListener,connectionListener);
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
@@ -309,6 +315,21 @@ public class SectorModel {
         System.arraycopy(choosedSeatsPrev, 0, choosedSeats, 0, choosedSeatsPrev.length);
     }
 
+    @Override
+    public void onOpenCallback(WebSocket webSocket) {
+        Log.d(logTag, "onOpenCallback");
+        this.webSocket = webSocket;
+    }
+
+    @Override
+    public void onMessageCallback(boolean[] reservedSeats) {
+        Log.d(logTag, "onMessage");
+        reactOnMessage(reservedSeats);
+        modelListener.updateUiCallback();
+        prepareDialog();
+
+    }
+
     public void reactOnMessage(boolean[] reservedSeats){
         for(int i=0; i<takenYourSeats.length; i++)
             takenYourSeats[i]=false;
@@ -332,7 +353,7 @@ public class SectorModel {
                 Log.d(logTag, "OnMessage choosedSeats[" + i +"] = " );
         }
 
-        updateSectorSeats();
+            updateSectorSeats();
 
         }
 
@@ -351,7 +372,7 @@ public class SectorModel {
                 for(int i=0; i<takenYourSeats.length; i++){
                     if(takenYourSeats[i]) {
                         int seatNumber = i;
-                        takenSeatsNumbers[firstIndex] = seatNumber++;
+                        takenSeatsNumbers[firstIndex] = ++seatNumber;
                         firstIndex++;
                     }
                 }
@@ -369,7 +390,7 @@ public class SectorModel {
                 }
 
                 Log.d(logTag, "sizeofArrayNumber after= " + sizeOfNumbersArray);
-                onMessageListener.showDialogCallback(takenSeatsNum, sizeOfNumbersArray);
+                modelListener.showDialogCallback(takenSeatsNum, sizeOfNumbersArray);
             }
 
         }
@@ -412,7 +433,13 @@ public class SectorModel {
         }
         for(int i=0; i<choosedSeats.length;i++)
             Log.d(logTag, "takenSeats after = " + takenSeats[i]);
-        onMessageListener.msgToServerCallback(takenSeats);
+
+        if(myWebSocketListener.getHttpClient() != null){
+            myWebSocketListener.prepareMessage(context,this.webSocket, takenSeats);
+        }
+        else
+            modelListener.socketCloseError();
+
     }
 
     public boolean[] getChoosedSeatsPrev() {
@@ -453,4 +480,5 @@ public class SectorModel {
     public void restoreChoosedSeats(boolean[] choosedSeats) {
         this.choosedSeats = choosedSeats;
     }
+
 }

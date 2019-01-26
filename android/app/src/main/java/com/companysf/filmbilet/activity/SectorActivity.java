@@ -1,12 +1,10 @@
 package com.companysf.filmbilet.activity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -14,42 +12,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.accessibility.AccessibilityManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.interfaces.ConnectionListener;
-import com.companysf.filmbilet.interfaces.OnMessageListener;
-import com.companysf.filmbilet.interfaces.SocketListener;
+import com.companysf.filmbilet.interfaces.ModelListener;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.SectorModel;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.services.WebSocketMessage;
-import com.companysf.filmbilet.utils.ErrorDetector;
-import com.companysf.filmbilet.utils.ErrorDialog;
-import com.companysf.filmbilet.services.MyWebSocketListener;
-import com.companysf.filmbilet.utils.ToastUtils;
 
 
 import java.util.Locale;
 
-import okhttp3.WebSocket;
-
 import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 
 
-public class SectorActivity extends AppCompatActivity implements ErrorListener, SocketListener, ConnectionListener, OnMessageListener {
+public class SectorActivity extends AppCompatActivity implements ErrorListener,  ConnectionListener, ModelListener {
 
     private static final String logTag = SectorActivity.class.getSimpleName();
 
-    MyWebSocketListener myWebSocketListener;
-    WebSocket webSocket;
     private Login login;
     AlertDialog.Builder builder;
 
@@ -88,7 +74,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         builder =  new AlertDialog.Builder(this);
 
         reservationConnection = new ReservationConnection(this, this, this);
-        sectorModel = new SectorModel(this,this, this,this, 8, 280);
+        sectorModel = new SectorModel(this,this, this, this,8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -180,14 +166,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         int repertoireId = b.getInt(getString(R.string.scheduleId));
         reservationConnection.getReservations(repertoireId);
         sectorModel.setRepertoireId(repertoireId);
-        myWebSocketListener = new MyWebSocketListener(this);
-    }
 
-
-    @Override
-    public void onOpenCallback(WebSocket webSocket) {
-        Log.d(logTag, "onOpen");
-        this.webSocket = webSocket;
         for (int i = 0; i < sectorButtons.length; i++) {
             final int index = i;
             sectorButtons[i].setOnClickListener(new View.OnClickListener() {
@@ -340,8 +319,9 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     sectorModel.saveToDb();
             }
         });
-
     }
+
+
     public void updateSectors(boolean ifStart) {
         final boolean start = ifStart;
         runOnUiThread(new Runnable() {
@@ -464,20 +444,17 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         });
     }
 
-    @Override
-    public void onMessageCallback(boolean[] reservedSeats) {
-        Log.d(logTag, "onMessage");
-        sectorModel.reactOnMessage(reservedSeats);
-        markChoosedPlaces();
-        updateSectors(false);
-        updateSummary();
-        sectorModel.prepareDialog();
-    }
-
     private void switchToLoginActivity() {
         Intent intent = new Intent(SectorActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+    @Override
+    public void updateUiCallback() {
+        Log.d(logTag, "updateUiCallback");
+        markChoosedPlaces();
+        updateSectors(false);
+        updateSummary();
     }
 
     @Override
@@ -517,6 +494,15 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     }
 
     @Override
+    public void socketCloseError() {
+        showDialog(
+                getString(R.string.serverErrorTitle),
+                getString(R.string.serverErrorMsg)
+        );
+    }
+
+    /*
+    @Override
     public void msgToServerCallback(boolean[] choosedPlaces) {
         Log.d(logTag, "msgToServerCallback");
         if(myWebSocketListener.getHttpClient() != null){
@@ -528,10 +514,12 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             showDialog(
                     getString(R.string.serverErrorTitle),
                     getString(R.string.serverErrorMsg)
-                    );
+            );
         }
 
-    }
+    }*/
+
+
     public void showDialog(String title, String message){
         final String finalTitle = title;
         final String finalMessage = message;
@@ -553,6 +541,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             }
         });
     }
+
 }
 
 
