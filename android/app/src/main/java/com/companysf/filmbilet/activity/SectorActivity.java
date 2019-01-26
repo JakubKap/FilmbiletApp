@@ -179,6 +179,11 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     Button btn = findViewById(view.getId());
                     Log.d(logTag, "index buttona = " + index);
 
+                    sectorModel.setMarkedSeats();
+                    for(int i =0; i<sectorModel.getMarkedSeats().length; i++)
+                        if(sectorModel.getMarkedSeats()[i])
+                            Log.d(logTag, "Marked seat after opening sector " + i);
+
                     if(sectorModel.getFreeSeatsInSector()[index] == 0) {
                         ErrorDialog.showErrorDialog(getApplicationContext(), getString(R.string.emptySectorTitle), getString(R.string.emptySectorMsg));
                         return;
@@ -276,7 +281,26 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                         public void onClick(View view) {
                             dialog.dismiss();
                             updateSummary();
+                        }
+                    });
 
+                    seatsCloseButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+
+                            sectorModel.setChoosedSeats();
+
+                            for(int i =0; i<sectorModel.getMarkedSeats().length; i++)
+                                if(sectorModel.getMarkedSeats()[i])
+                                    Log.d(logTag, "Marked seat after closing sector " + i);
+
+                            sectorModel.setChoosedSeats();
+                            for(int i =0; i<sectorModel.getChoosedSeats().length; i++)
+                                if(sectorModel.getChoosedSeats()[i])
+                                    Log.d(logTag, "Choosed Mseat after closing sector " + i);
+
+                            updateSummary();
                         }
                     });
                 }
@@ -284,6 +308,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         }
         //TODO na zakończenie obsługi wyczyścić tablice
         sectorModel.setSeatNumbers(new int[35]);
+        sectorModel.clearMarkedSeats();
     }
     public void updateSectors(boolean ifStart) {
         final boolean start = ifStart;
