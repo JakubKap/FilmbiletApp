@@ -23,6 +23,7 @@ public class SectorModel {
 
     private boolean[] choosedSeats;
     private boolean[] choosedSeatsPrev;
+    boolean [] takenYourSeats;
 
     private int[] seatSector;
     private int[] seatRow;
@@ -49,9 +50,11 @@ public class SectorModel {
 
         this.choosedSeats = new boolean[numOfSeats];
         this.choosedSeatsPrev = new boolean[numOfSeats];
+        this.takenYourSeats = new boolean[numOfSeats];
         for(int i = 0; i< choosedSeats.length; i++) {
             choosedSeats[i] = false;
             choosedSeatsPrev[i]=false;
+            takenYourSeats[i] = false;
         }
 
         this.seatSector = new int[numOfSeats];
@@ -298,9 +301,8 @@ public class SectorModel {
     }
 
     public void reactOnMessage(boolean[] reservedSeats){
-        boolean [] takenYourSeats = new boolean[numOfSeats];
-        for(int i=0; i<takenYourSeats.length;i++)
-            takenYourSeats[i] = false;
+        for(int i=0; i<takenYourSeats.length; i++)
+            takenYourSeats[i]=false;
 
         for (int i = 0; i < choosedSeats.length; i++) {
             boolean choosedBefore = choosedSeats[i];
@@ -323,37 +325,56 @@ public class SectorModel {
 
         updateSectorSeats();
 
-        int sizeOfNumbersArray=0;
-        for(int i=0; i<takenYourSeats.length;i++)
-            if(takenYourSeats[i])
-                sizeOfNumbersArray++;
+        }
 
-        if(sizeOfNumbersArray>0){
-            int [] takenSeatsNumbers = new int[sizeOfNumbersArray];
-            int firstIndex=0;
-            for(int i=0; i<takenYourSeats.length; i++){
-                if(takenYourSeats[i]) {
-                    int seatNumber = i;
-                    takenSeatsNumbers[firstIndex] = seatNumber++;
-                    firstIndex++;
+        public void prepareDialog(){
+
+            int sizeOfNumbersArray=0;
+            for(int i=0; i<takenYourSeats.length;i++)
+                if(takenYourSeats[i])
+                    sizeOfNumbersArray++;
+
+            Log.d(logTag, "sizeofArrayNumber before= " + sizeOfNumbersArray);
+
+            if(sizeOfNumbersArray>0){
+                int [] takenSeatsNumbers = new int[sizeOfNumbersArray];
+                int firstIndex=0;
+                for(int i=0; i<takenYourSeats.length; i++){
+                    if(takenYourSeats[i]) {
+                        int seatNumber = i;
+                        takenSeatsNumbers[firstIndex] = seatNumber++;
+                        firstIndex++;
+                    }
                 }
-            }
-            String takenSeats = String.format(new Locale("pl", "PL"), "%d",
-                    takenSeatsNumbers[0]);
+                String takenSeatsNum = String.format(new Locale("pl", "PL"), "%d",
+                        takenSeatsNumbers[0]);
 
-            if(sizeOfNumbersArray > 1) {
-                StringBuilder sB = new StringBuilder(takenSeats);
+                if(sizeOfNumbersArray > 1) {
+                    StringBuilder sB = new StringBuilder(takenSeatsNum);
 
-                for (int i = 1; i < takenSeatsNumbers.length; i++) {
-                    sB.append(", ");
-                    sB.append(takenSeatsNumbers[i]);
+                    for (int i = 1; i < takenSeatsNumbers.length; i++) {
+                        sB.append(", ");
+                        sB.append(takenSeatsNumbers[i]);
+                    }
+                    takenSeatsNum = sB.toString();
                 }
-                takenSeats = sB.toString();
-            }
-            onMessageListener.showDialogCallback(takenSeats, sizeOfNumbersArray);
+
+                Log.d(logTag, "sizeofArrayNumber after= " + sizeOfNumbersArray);
+                onMessageListener.showDialogCallback(takenSeatsNum, sizeOfNumbersArray);
             }
 
         }
+
+    public int numOfChoosedSeats(){
+        int num=0;
+        for(int i=0; i<choosedSeats.length; i++)
+            if(choosedSeats[i])
+                num++;
+        return num;
+    }
+    public void saveToDb(){
+
+    }
 
     public boolean[] getChoosedSeatsPrev() {
         return choosedSeatsPrev;

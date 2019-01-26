@@ -306,10 +306,23 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     });
                 }
             });
+            //TODO na zakończenie obsługi wyczyścić tablice
+            sectorModel.setSeatNumbers(new int[35]);
+            sectorModel.clearMarkedSeats();
         }
-        //TODO na zakończenie obsługi wyczyścić tablice
-        sectorModel.setSeatNumbers(new int[35]);
-        sectorModel.clearMarkedSeats();
+        secBtnReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(sectorModel.numOfChoosedSeats() == 0)
+                    ErrorDialog.showErrorDialog(getApplicationContext(),
+                            getString(R.string.noChoosedPlacesTitle),
+                            getString(R.string.noChoosedPlacesMsg)
+                    );
+                else
+                    sectorModel.saveToDb();
+            }
+        });
+
     }
     public void updateSectors(boolean ifStart) {
         final boolean start = ifStart;
@@ -440,6 +453,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         markChoosedPlaces();
         updateSectors(false);
         updateSummary();
+        sectorModel.prepareDialog();
     }
 
     private void switchToLoginActivity() {
@@ -461,7 +475,6 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     @Override
     public void callBackOnError() {
         ToastUtils.showLongToast(this, getString(R.string.serverErrorTitle));
-
     }
 
     @Override
@@ -475,13 +488,18 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     @Override
     public void showDialogCallback(String takenSeatsNumbers, int seatCount) {
-        if(seatCount == 1){
-            ErrorDialog.showErrorDialog(getApplicationContext(), getString(R.string.choosedPlaceTitle), getString(R.string.choosedPlaceMsg));
-        }
-        else
-            ErrorDialog.showErrorDialog(getApplicationContext(), getString(R.string.choosedPlacesTitle), getString(R.string.choosedPlacesMsg));
+        Log.d(logTag, "showDialogCallback");
 
+        if(seatCount > 1){
+            Log.d(logTag, "showDialogCallback>1 - seatCount = " + seatCount);
+            ErrorDialog.showErrorDialog(this, getString(R.string.choosedPlacesTitle), getString(R.string.choosedPlacesMsg));
+        }
+        else {
+            ErrorDialog.showErrorDialog(this, getString(R.string.choosedPlaceTitle), getString(R.string.choosedPlaceMsg));
+            Log.d(logTag, "showDialogCallback=1 - seatCount = " + seatCount);
+        }
     }
+
 }
 
 
