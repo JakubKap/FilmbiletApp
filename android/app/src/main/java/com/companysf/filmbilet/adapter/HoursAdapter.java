@@ -26,9 +26,9 @@ public class HoursAdapter extends BaseAdapter {
     public HoursAdapter(Context c, DateTime dateTime) {
         mContext = c;
         this.dateTime = dateTime;
-        this.scheduleList = dateTime.getScheduleList();
+        this.scheduleList = dateTime.getHoursForDate();
+        Log.d(logTag, "scheduleList.size() == " + scheduleList.size());
     }
-
 
     @Override
     public int getCount() {
@@ -96,6 +96,7 @@ public class HoursAdapter extends BaseAdapter {
 
         //dodanie ToggleButtona do tablicy
 
+        Log.d(logTag, "scheduleList.size() == " + scheduleList.size());
         return toggleButton;
     }
 }

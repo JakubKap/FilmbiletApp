@@ -24,6 +24,7 @@ public class DateTime implements RepertoireConnListener {
     private boolean[] selectedDate;
 
     private List<Schedule> scheduleList;
+    private List<Schedule> selectedSchedules;
     private List<Schedule> hoursForDate;
     private List<Schedule> uniqueDates;
     int movieId;
@@ -35,6 +36,8 @@ public class DateTime implements RepertoireConnListener {
         repertoireConnection = new RepertoireConnection(context, errorListener, this);
         repertoireConnection.getRepertoireForMovie(movieId);
 
+        this.selectedSchedules = new ArrayList<>();
+
         this.selectedDate = new boolean[5];
         this.selectedDate[0] = true;
         for(int i=1; i<selectedDate.length;i++)
@@ -45,21 +48,31 @@ public class DateTime implements RepertoireConnListener {
     @Override
     public void onDbResponseCallback(List<Schedule> scheduleList) {
         Log.d(logTag, "onDbResponseCallback");
-        this.scheduleList = scheduleList;
-        this.hoursForDate = scheduleList;
+        this.scheduleList = new ArrayList<>(scheduleList);
+        this.hoursForDate = new ArrayList<>(scheduleList);
 
         for(Schedule schedule : scheduleList)
-            Log.d(logTag,"schedule = " + schedule.toString());
+            Log.d(logTag,"scheduleList before prepare= " + schedule.toString());
+
+        for(Schedule schedule : hoursForDate)
+            Log.d(logTag,"hoursForDate = " + schedule.toString());
+        
+        for(Schedule schedule : scheduleList)
+            Log.d(logTag,"scheduleList after prepare= " + schedule.toString());
 
         dateTimeListener.callbackOnSetUi();
 
     }
 
     public void prepareHoursForDate(int index) {
-
         if (hoursForDate.size() > 0) hoursForDate.clear();
+        Log.d(logTag, "prepareHoursForDate przed forEach, scheduleList.size() = " + scheduleList.size());
 
         for (Schedule r : scheduleList) {
+            Log.d(logTag, "schedule in prepare = " + r.toString());
+            for(Schedule  uniq : uniqueDates)
+                Log.d(logTag, "uniqueDates in prepare = " + uniq.toString());
+
             if (r.getYear() == uniqueDates.get(index).getYear() && r.getMonth() == uniqueDates.get(index).getMonth()
                     && r.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()) {
                 hoursForDate.add(r);
@@ -69,9 +82,7 @@ public class DateTime implements RepertoireConnListener {
         }
     }
 
-
     public void prepareDateButtons(){
-        //sortowanie elementów w kolekcji (zgodnie z kolejnością dat)
         Collections.sort(scheduleList, new Comparator<Schedule>() {
             @Override
             public int compare(Schedule r1, Schedule r2) {
@@ -84,7 +95,6 @@ public class DateTime implements RepertoireConnListener {
 
         for (Schedule r : uniqueDates)
             Log.d(logTag, "Zawartość uniqueDates przed filtrowaniem= " + r.toString());
-        //wstawienie do kolekcji uniqueDates unikalnych dat z Schedule List
 
         for (Schedule r : scheduleList) {
             int innerInc = 0;
@@ -112,22 +122,9 @@ public class DateTime implements RepertoireConnListener {
         for (Schedule r : uniqueDates)
             Log.d(logTag, "Zawartość uniqueDates po filtrowaniu= " + r.toString());
 
+        for (Schedule r : scheduleList)
+            Log.d(logTag, "Zawartość scheduleList po filtrowaniu= " + r.toString());
 
-        /*runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                int i = 0;
-                for (Schedule r : uniqueDates) {
-                    String text = Integer.toString(r.getDayOfMonth());
-                    text = text + "\n" + r.getDayOfWeek();
-                    datesButtons[i].setText(text);
-                    datesButtons[i].setTextOn(text);
-                    datesButtons[i].setTextOff(text);
-                    i++;
-                }
-
-            }
-        });*/
     }
     public void chooseDate(int index){
         for(int i =0; i<selectedDate.length; i++){
@@ -140,12 +137,21 @@ public class DateTime implements RepertoireConnListener {
         Log.d(logTag, "selectedDate[" + index + "] = " + selectedDate[index]);
     }
 
+    public void clearListOfSchedules(){
+        if(selectedSchedules.size() > 0)
+            selectedSchedules.clear();
+    }
+
     public boolean[] getSelectedDate() {
         return selectedDate;
     }
 
     public List<Schedule> getScheduleList() {
         return scheduleList;
+    }
+
+    public List<Schedule> getHoursForDate() {
+        return hoursForDate;
     }
 
     public List<Schedule> getUniqueDates() {

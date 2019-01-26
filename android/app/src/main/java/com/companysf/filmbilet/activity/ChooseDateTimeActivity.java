@@ -111,17 +111,21 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //Log.d(logTag, "Stan buttona = " + Boolean.toString(datesButtons[finalI].isChecked()));
+                    Log.d(logTag, "Stan buttona przed= " + Boolean.toString(datesButtons[finalI].isChecked()));
                     if(!dateTime.getSelectedDate()[finalI]){
                         dateTime.chooseDate(finalI);
 
                         for(int j=0; j<dateTime.getSelectedDate().length;j++)
                             markSeat(datesButtons[j], j);
-                            //hoursAdapter.clear
 
                         dateTime.prepareDateButtons();
-                        updateDateButtons();
+                        //updateDateButtons();
+
+                        Log.d(logTag, "Stan buttona po= " + Boolean.toString(datesButtons[finalI].isChecked()));
                         dateTime.prepareHoursForDate(finalI);
+                        dateTime.clearListOfSchedules();
+                        hoursAdapter.notifyDataSetChanged();
+
                     }
                     else{
                         updateDateButtons();
@@ -154,7 +158,6 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
                 //Views
                 TextView title = findViewById(R.id.titleInDateHours);
                 TextView movieLength = findViewById(R.id.movieLengthInDateHours);
@@ -230,16 +233,18 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     @Override
     public void callbackOnSetUi() {
         Log.d(logTag, "callbackOnSetUi");
-        hoursAdapter = new HoursAdapter(this, dateTime);
+        hoursAdapter = new HoursAdapter(getApplicationContext(), dateTime);
 
         GridView hoursGridView = findViewById(R.id.hoursGridView);
         hoursGridView.setNumColumns(2);
 
+        dateTime.prepareDateButtons();
+        updateDateButtons();
+
+        dateTime.prepareHoursForDate(0);
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
 
-        dateTime.prepareDateButtons();
-        updateDateButtons();
     }
 
     public void showDialog(String title, String message){
