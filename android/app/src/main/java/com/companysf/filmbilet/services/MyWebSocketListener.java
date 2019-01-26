@@ -16,6 +16,7 @@ public class MyWebSocketListener extends WebSocketListener {
 
     private static final String logTag = MyWebSocketListener.class.getSimpleName();
     SocketListener socketListener;
+
     OkHttpClient httpClient;
     Request request;
 
@@ -62,6 +63,8 @@ public class MyWebSocketListener extends WebSocketListener {
         Log.d(logTag, "onFailure: " + t.getMessage());
     }
 
-    private void sendMessageToServer(OkHttpClient httpClient, WebSocket webSocket) {
+    public OkHttpClient getHttpClient() {
+        return httpClient;
     }
+
 }

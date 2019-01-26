@@ -104,10 +104,10 @@
     <string name ="summaryStartText">0 zł</string>
 
     <string name="choosedPlaceTitle">Zajęcie miejsca</string>
-    <string name="choosedPlaceMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze </string>
+    <string name="choosedPlaceMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze:\u0020</string>
 
     <string name="choosedPlacesTitle">Zajęcie miejsc</string>
-    <string name="choosedPlacesMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach </string>
+    <string name="choosedPlacesMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach:\u0020</string>
 
     <string name="emptySectorTitle">Brak miejsc w sektorze</string>
     <string name="emptySectorMsg">Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.</string>

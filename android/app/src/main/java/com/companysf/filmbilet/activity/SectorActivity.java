@@ -1,21 +1,26 @@
 package com.companysf.filmbilet.activity;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.accessibility.AccessibilityManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
@@ -25,12 +30,16 @@ import com.companysf.filmbilet.interfaces.SocketListener;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.SectorModel;
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.services.WebSocketMessage;
+import com.companysf.filmbilet.utils.ErrorDetector;
 import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.services.MyWebSocketListener;
 import com.companysf.filmbilet.utils.ToastUtils;
 
 
 import java.util.Locale;
+
+import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 
 
 public class SectorActivity extends AppCompatActivity implements ErrorListener, SocketListener, ConnectionListener, OnMessageListener {
@@ -39,6 +48,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     MyWebSocketListener myWebSocketListener;
     private Login login;
+    AlertDialog.Builder builder;
 
     private ReservationConnection reservationConnection;
     private SectorModel sectorModel;
@@ -71,6 +81,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         if (!login.userIsLoggedIn()) {
             switchToLoginActivity();
         }
+
+        builder =  new AlertDialog.Builder(this);
 
         reservationConnection = new ReservationConnection(this, this, this);
         sectorModel = new SectorModel(this,this, this,this, 8, 280);
@@ -187,7 +199,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                             Log.d(logTag, "Marked seat after opening sector " + i);
 
                     if(sectorModel.getFreeSeatsInSector()[index] == 0) {
-                        ErrorDialog.showErrorDialog(getApplicationContext(), getString(R.string.emptySectorTitle), getString(R.string.emptySectorMsg));
+                        showDialog(
+                                getString(R.string.emptySectorTitle),
+                                getString(R.string.emptySectorMsg)
+                        );
                         return;
                     }
 
@@ -314,11 +329,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         secBtnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sectorModel.numOfChoosedSeats() == 0)
-                    ErrorDialog.showErrorDialog(getApplicationContext(),
-                            getString(R.string.noChoosedPlacesTitle),
-                            getString(R.string.noChoosedPlacesMsg)
-                    );
+                if(sectorModel.numOfChoosedSeats() == 0) {
+                    showDialog(getString(R.string.noChoosedPlacesTitle),
+                            getString(R.string.noChoosedPlacesMsg));
+                }
                 else
                     sectorModel.saveToDb();
             }
@@ -475,13 +489,12 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     @Override
     public void callBackOnError() {
-        ToastUtils.showLongToast(this, getString(R.string.serverErrorTitle));
+        showLongToast(this, getString(R.string.serverErrorTitle));
     }
 
     @Override
     public void callBackOnNoNetwork() {
-        ErrorDialog.showErrorDialog(
-                this,
+        showDialog(
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.loginNetworkConnectionErrorMsg)
         );
@@ -489,22 +502,46 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     @Override
     public void showDialogCallback(String takenSeatsNumbers, int seatCount) {
-        Log.d(logTag, "showDialogCallback");
+        if (seatCount > 1)
+            showDialog(getString(R.string.choosedPlacesTitle),
+                    getString(R.string.choosedPlacesMsg) + takenSeatsNumbers
+            );
+        else
+            showDialog(getString(R.string.choosedPlaceTitle),
+                    getString(R.string.choosedPlaceMsg) + takenSeatsNumbers
+            );
 
-        if(seatCount > 1){
-            Log.d(logTag, "showDialogCallback>1 - seatCount = " + seatCount);
-            ErrorDialog.showErrorDialog(this, getString(R.string.choosedPlacesTitle), getString(R.string.choosedPlacesMsg));
-        }
-        else {
-            ErrorDialog.showErrorDialog(this, getString(R.string.choosedPlaceTitle), getString(R.string.choosedPlaceMsg));
-            Log.d(logTag, "showDialogCallback=1 - seatCount = " + seatCount);
-        }
     }
 
     @Override
     public void msgToServerCallback(boolean[] choosedPlaces) {
         Log.d(logTag, "msgToServerCallback");
-        
+        if(myWebSocketListener.getHttpClient() != null){
+            WebSocketMessage message = new WebSocketMessage(choosedPlaces);
+            //myWebSocketListener.
+        }
+
+    }
+    public void showDialog(String title, String message){
+        final String finalTitle = title;
+        final String finalMessage = message;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.setTitle(finalTitle);
+                builder.setMessage(finalMessage);
+                builder.setPositiveButton(getString(R.string.dialogPositiveBtnText),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                builder.show();
+            }
+        });
     }
 }
 
