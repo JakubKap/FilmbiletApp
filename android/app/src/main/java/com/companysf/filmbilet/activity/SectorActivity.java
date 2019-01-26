@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -500,6 +501,11 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         }
     }
 
+    @Override
+    public void msgToServerCallback(boolean[] choosedPlaces) {
+        Log.d(logTag, "msgToServerCallback");
+        
+    }
 }
 
 

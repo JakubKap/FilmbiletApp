@@ -404,10 +404,11 @@ public class SectorModel {
                 int seatNumber = i+1;
                 int seatTypeId = seatTypeId(i);
                 int row = seatRow[i];
+                takenSeats[i] = true;
                 reservationConnection.saveReservation("1",seatNumber, seatTypeId, row, repertoireId);
             }
         }
-
+        onMessageListener.msgToServerCallback(takenSeats);
     }
 
     public boolean[] getChoosedSeatsPrev() {
