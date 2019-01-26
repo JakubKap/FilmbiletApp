@@ -190,6 +190,15 @@ public class DateTime implements RepertoireConnListener {
             Log.d(logTag, "Wartość selectedSchedules = " + i);
     }
 
+    public void checkNumOfChoices(){
+        if(selectedSchedules.size() == 0)
+            dateTimeListener.callBackOnBadChoice(true);
+        else if(selectedSchedules.size() > 1)
+            dateTimeListener.callBackOnBadChoice(false);
+        else
+            dateTimeListener.callBackSuccess();
+
+    }
     public boolean[] getSelectedDate() {
         return selectedDate;
     }

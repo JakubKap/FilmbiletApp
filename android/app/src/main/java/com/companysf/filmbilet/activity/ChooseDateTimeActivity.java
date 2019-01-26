@@ -143,8 +143,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         btnAcceptTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                dateTime.checkNumOfChoices();
             }
         });
     }
@@ -245,6 +244,26 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
 
+    }
+    @Override
+    public void callBackOnBadChoice(boolean noChoice) {
+        if(noChoice)
+            showDialog(getString(R.string.noChoosedHourTitle),
+                    getString(R.string.wrongNumOfHours)
+            );
+        else
+            showDialog(getString(R.string.wrongChoosedHourTitle),
+                    getString(R.string.wrongNumOfHours)
+            );
+    }
+
+    @Override
+    public void callBackSuccess() {
+        int scheduleId = dateTime.getSelectedSchedules().get(0);
+        Log.d(logTag,"Końcowy scheduleId " + scheduleId);
+        Intent intent = new Intent(ChooseDateTimeActivity.this, SectorActivity.class);
+        intent.putExtra(getString(R.string.scheduleId), scheduleId);
+        startActivity(intent);
     }
 
     public void showDialog(String title, String message){
