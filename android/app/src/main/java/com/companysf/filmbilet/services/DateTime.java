@@ -23,7 +23,6 @@ public class DateTime implements RepertoireConnListener {
     private ErrorListener errorListener;
     private DateTimeListener dateTimeListener;
     private boolean[] selectedDate;
-    private boolean[] selectedHour;
 
     private List<Schedule> scheduleList;
     private List<Integer> selectedSchedules;
@@ -84,13 +83,7 @@ public class DateTime implements RepertoireConnListener {
             }
 
         }
-        selectedHour = new boolean[hoursForDate.size()];
-        if(selectedHour.length > 0){
-            selectedHour[0] = true;
 
-            for(int i = 1; i< selectedHour.length; i++)
-                selectedHour[i] = false;
-        }
     }
 
     public void prepareDateButtons(){
@@ -153,7 +146,6 @@ public class DateTime implements RepertoireConnListener {
             selectedSchedules.clear();
     }
     public String hourAndMin(int position){
-        //budowanie textu
         String text = Integer.toString(hoursForDate.get(position).getHourOfDay());
 
         StringBuilder sB = new StringBuilder(text);
@@ -181,9 +173,7 @@ public class DateTime implements RepertoireConnListener {
             objToRemove = hoursForDate.get(position).getId();
         }
         if(objToRemove>0){
-            Log.d(logTag, "Przed usunięciem:");
             selectedSchedules.remove(Integer.valueOf(objToRemove));
-            Log.d(logTag, "Po usunięciu:");
         }
         Log.d(logTag, "Zawartość selected schedules: ");
         for(Integer i : selectedSchedules)
@@ -218,7 +208,4 @@ public class DateTime implements RepertoireConnListener {
         return selectedSchedules;
     }
 
-    public boolean[] getSelectedHour() {
-        return selectedHour;
-    }
 }

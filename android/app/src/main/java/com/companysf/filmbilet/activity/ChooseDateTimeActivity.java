@@ -100,10 +100,6 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         builder =  new AlertDialog.Builder(this);
 
         dateTime = new DateTime(this, movieId, this, this);
-/*
-        hoursAdapter = new HoursAdapter(this, dateTime);
-        hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
-        hoursGridView.setAdapter(hoursAdapter);*/
 
         for (int i = 0; i < datesButtons.length; i++) {
             final int finalI = i;
@@ -119,7 +115,6 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                             markSeat(datesButtons[j], j);
 
                         dateTime.prepareDateButtons();
-                        //updateDateButtons();
 
                         Log.d(logTag, "Stan buttona po= " + Boolean.toString(datesButtons[finalI].isChecked()));
                         dateTime.prepareHoursForDate(finalI);
@@ -157,7 +152,6 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Views
                 TextView title = findViewById(R.id.titleInDateHours);
                 TextView movieLength = findViewById(R.id.movieLengthInDateHours);
                 TextView minAge = findViewById(R.id.minAgeInDateHours);
@@ -165,7 +159,6 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 TextView genres = findViewById(R.id.genresInDateHours);
 
                 Log.d(logTag, "Pozytywnie odnaleziono elementy opisujące film");
-                //set views text
                 title.setText(movie.getTitle());
                 movieLength.setText(String.valueOf(movie.getRunningTimeMin()));
                 minAge.setText(String.valueOf(movie.getAge()));

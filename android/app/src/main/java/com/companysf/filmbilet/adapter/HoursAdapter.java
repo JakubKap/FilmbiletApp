@@ -23,13 +23,11 @@ public class HoursAdapter extends BaseAdapter {
     private Context mContext;
     private DateTime dateTime;
     private List<Schedule> hoursForDate;
-    //private List<ToggleButton> toggleButtons;
 
     public HoursAdapter(Context c, DateTime dateTime) {
         mContext = c;
         this.dateTime = dateTime;
         this.hoursForDate = dateTime.getHoursForDate();
-        //this.toggleButtons = new ArrayList<>();
 
         if(dateTime.getSelectedSchedules().size() > 0){
             dateTime.getSelectedSchedules().clear();
