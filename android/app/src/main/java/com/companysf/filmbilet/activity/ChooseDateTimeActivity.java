@@ -25,6 +25,7 @@ import com.companysf.filmbilet.entities.Repertoire;
 import com.companysf.filmbilet.services.DateTime;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.entities.Movie;
+import com.companysf.filmbilet.services.Login;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -35,6 +36,7 @@ import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 public class ChooseDateTimeActivity extends AppCompatActivity implements Serializable, ErrorListener, DateTimeListener {
 
     private static final String logTag = ChooseDateTimeActivity.class.getSimpleName();
+    private Login login;
     private int movieId;
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
@@ -46,6 +48,11 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
+
+        login = new Login(this);
+        if (!login.userIsLoggedIn()) {
+            switchToLoginActivity();
+        }
 
         Intent intent = getIntent();
         Movie movie = (Movie) intent.getSerializableExtra(getString(R.string.movie));
@@ -142,6 +149,12 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 dateTime.checkNumOfChoices();
             }
         });
+    }
+
+    private void switchToLoginActivity() {
+        Intent intent = new Intent(ChooseDateTimeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void updateMovieInfo(Movie sentMovie) {
