@@ -21,7 +21,7 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.HoursAdapter;
 import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
-import com.companysf.filmbilet.services.DateTime;
+import com.companysf.filmbilet.services.ChooseDateTime;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.entities.Movie;
 import com.companysf.filmbilet.services.Schedule;
@@ -37,7 +37,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     private int movieId;
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
-    DateTime dateTime;
+    ChooseDateTime chooseDateTime;
 
     private AlertDialog.Builder builder;
 
@@ -99,7 +99,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
         builder =  new AlertDialog.Builder(this);
 
-        dateTime = new DateTime(this, movieId, this, this);
+        chooseDateTime = new ChooseDateTime(this, movieId, this, this);
 
         for (int i = 0; i < datesButtons.length; i++) {
             final int finalI = i;
@@ -108,27 +108,27 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Log.d(logTag, "Stan buttona przed= " + Boolean.toString(datesButtons[finalI].isChecked()));
-                    if(!dateTime.getSelectedDate()[finalI]){
-                        dateTime.chooseDate(finalI);
+                    if(!chooseDateTime.getSelectedDate()[finalI]){
+                        chooseDateTime.chooseDate(finalI);
 
-                        for(int j=0; j<dateTime.getSelectedDate().length;j++)
+                        for(int j = 0; j< chooseDateTime.getSelectedDate().length; j++)
                             markSeat(datesButtons[j], j);
 
-                        dateTime.prepareDateButtons();
+                        chooseDateTime.prepareDateButtons();
 
                         Log.d(logTag, "Stan buttona po= " + Boolean.toString(datesButtons[finalI].isChecked()));
-                        dateTime.prepareHoursForDate(finalI);
-                        dateTime.clearListOfSchedules();
+                        chooseDateTime.prepareHoursForDate(finalI);
+                        chooseDateTime.clearListOfSchedules();
                         hoursAdapter.notifyDataSetChanged();
 
                     }
                     else{
                         updateDateButtons();
-                        dateTime.getSelectedDate()[finalI] = true;
+                        chooseDateTime.getSelectedDate()[finalI] = true;
                     }
                     Log.d(logTag, "\nStan wszystkich przycisków (po kliknięciu dowolnego): ");
-                    for (int k = 0; k < dateTime.getSelectedDate().length; k++)
-                        Log.d(logTag, "Stan po selectedDate[" + k + "]= " + dateTime.getSelectedDate()[k]);
+                    for (int k = 0; k < chooseDateTime.getSelectedDate().length; k++)
+                        Log.d(logTag, "Stan po selectedDate[" + k + "]= " + chooseDateTime.getSelectedDate()[k]);
 
                 }
 
@@ -138,7 +138,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         btnAcceptTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dateTime.checkNumOfChoices();
+                chooseDateTime.checkNumOfChoices();
             }
         });
     }
@@ -177,7 +177,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (!dateTime.getSelectedDate()[finalIndex]) {
+                if (!chooseDateTime.getSelectedDate()[finalIndex]) {
                     Log.d(logTag, "normal button index = " + finalIndex);
                     finalButton.setBackgroundResource(R.drawable.normal_date_button);
                     finalButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
@@ -195,7 +195,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            List<Schedule> uniqueDates = dateTime.getUniqueDates();
+            List<Schedule> uniqueDates = chooseDateTime.getUniqueDates();
                 int i = 0;
                 for (Schedule r : uniqueDates) {
                     String text = Integer.toString(r.getDayOfMonth());
@@ -225,15 +225,15 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     @Override
     public void callbackOnSetUi() {
         Log.d(logTag, "callbackOnSetUi");
-        hoursAdapter = new HoursAdapter(getApplicationContext(), dateTime);
+        hoursAdapter = new HoursAdapter(getApplicationContext(), chooseDateTime);
 
         GridView hoursGridView = findViewById(R.id.hoursGridView);
         hoursGridView.setNumColumns(2);
 
-        dateTime.prepareDateButtons();
+        chooseDateTime.prepareDateButtons();
         updateDateButtons();
 
-        dateTime.prepareHoursForDate(0);
+        chooseDateTime.prepareHoursForDate(0);
         hoursGridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         hoursGridView.setAdapter(hoursAdapter);
 
@@ -252,7 +252,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
     @Override
     public void callBackSuccess() {
-        int scheduleId = dateTime.getSelectedSchedules().get(0);
+        int scheduleId = chooseDateTime.getSelectedSchedules().get(0);
         Log.d(logTag,"Końcowy scheduleId " + scheduleId);
         Intent intent = new Intent(ChooseDateTimeActivity.this, SectorActivity.class);
         intent.putExtra(getString(R.string.scheduleId), scheduleId);
@@ -280,7 +280,4 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
             }
         });
     }
-
-
-
 }

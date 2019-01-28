@@ -69,7 +69,6 @@ public class Schedule {
     //TODO przeniesienie do klasy DateFormat
 
     public void castDate(){
-        DateFormat format;
         try{
             Date theDate =
                     new SimpleDateFormat(

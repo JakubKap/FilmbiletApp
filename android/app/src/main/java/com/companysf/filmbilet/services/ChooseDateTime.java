@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DateTime implements RepertoireConnListener {
-    private static final String logTag = DateTime.class.getSimpleName();
+public class ChooseDateTime implements RepertoireConnListener {
+    private static final String logTag = ChooseDateTime.class.getSimpleName();
     private Context context;
     private RepertoireConnection repertoireConnection;
     private ErrorListener errorListener;
@@ -32,7 +32,7 @@ public class DateTime implements RepertoireConnListener {
     int movieId;
 
 
-    public DateTime(Context context, int movieId, ErrorListener errorListener, DateTimeListener dateTimeListener){
+    public ChooseDateTime(Context context, int movieId, ErrorListener errorListener, DateTimeListener dateTimeListener){
         this.context = context;
         this.movieId = movieId;
         this.dateTimeListener = dateTimeListener;
@@ -71,17 +71,16 @@ public class DateTime implements RepertoireConnListener {
         if (hoursForDate.size() > 0) hoursForDate.clear();
         Log.d(logTag, "prepareHoursForDate przed forEach, scheduleList.size() = " + scheduleList.size());
 
-        for (Schedule r : scheduleList) {
-            Log.d(logTag, "schedule in prepare = " + r.toString());
-            for(Schedule  uniq : uniqueDates)
-                Log.d(logTag, "uniqueDates in prepare = " + uniq.toString());
+        for (Schedule schedule : scheduleList) {
+            Log.d(logTag, "schedule in prepare = " + schedule.toString());
+            for(Schedule uniqueDate : uniqueDates)
+                Log.d(logTag, "uniqueDates in prepare = " + uniqueDate.toString());
 
-            if (r.getYear() == uniqueDates.get(index).getYear() && r.getMonth() == uniqueDates.get(index).getMonth()
-                    && r.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()) {
-                hoursForDate.add(r);
-                Log.d(logTag, "Dodana wartość do hoursForDate = " + r.toString());
+            if (schedule.getYear() == uniqueDates.get(index).getYear() && schedule.getMonth() == uniqueDates.get(index).getMonth()
+                    && schedule.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()) {
+                hoursForDate.add(schedule);
+                Log.d(logTag, "Dodana wartość do hoursForDate = " + schedule.toString());
             }
-
         }
 
     }
@@ -100,17 +99,17 @@ public class DateTime implements RepertoireConnListener {
         for (Schedule r : uniqueDates)
             Log.d(logTag, "Zawartość uniqueDates przed filtrowaniem= " + r.toString());
 
-        for (Schedule r : scheduleList) {
+        for (Schedule schedule : scheduleList) {
             int innerInc = 0;
             int index = 0;
             for (Schedule ud : uniqueDates) {
 
-                if (r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
-                        && r.getDayOfMonth() == ud.getDayOfMonth())
+                if (schedule.getYear() == ud.getYear() && schedule.getMonth() == ud.getMonth()
+                        && schedule.getDayOfMonth() == ud.getDayOfMonth())
                     innerInc++;
 
-                if (innerInc >= 2 && r.getYear() == ud.getYear() && r.getMonth() == ud.getMonth()
-                        && r.getDayOfMonth() == ud.getDayOfMonth()) {
+                if (innerInc >= 2 && schedule.getYear() == ud.getYear() && schedule.getMonth() == ud.getMonth()
+                        && schedule.getDayOfMonth() == ud.getDayOfMonth()) {
 
                     if (dateIndexesToRemove.add(index))
                         Log.d(logTag, "Dodany index = " + index);
@@ -123,11 +122,11 @@ public class DateTime implements RepertoireConnListener {
             for (Integer i : dateIndexesToRemove)
                 uniqueDates.remove(scheduleList.get(i));
 
-        for (Schedule r : uniqueDates)
-            Log.d(logTag, "Zawartość uniqueDates po filtrowaniu= " + r.toString());
+        for (Schedule schedule : uniqueDates)
+            Log.d(logTag, "Zawartość uniqueDates po filtrowaniu= " + schedule.toString());
 
-        for (Schedule r : scheduleList)
-            Log.d(logTag, "Zawartość scheduleList po filtrowaniu= " + r.toString());
+        for (Schedule schedule : scheduleList)
+            Log.d(logTag, "Zawartość scheduleList po filtrowaniu= " + schedule.toString());
 
     }
     public void chooseDate(int index){

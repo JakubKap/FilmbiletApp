@@ -1,7 +1,6 @@
 package com.companysf.filmbilet.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -12,26 +11,25 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.services.DateTime;
+import com.companysf.filmbilet.services.ChooseDateTime;
 import com.companysf.filmbilet.services.Schedule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HoursAdapter extends BaseAdapter {
     private static final String logTag = HoursAdapter.class.getSimpleName();
     private Context mContext;
-    private DateTime dateTime;
+    private ChooseDateTime chooseDateTime;
     private List<Schedule> hoursForDate;
 
-    public HoursAdapter(Context c, DateTime dateTime) {
+    public HoursAdapter(Context c, ChooseDateTime chooseDateTime) {
         mContext = c;
-        this.dateTime = dateTime;
-        this.hoursForDate = dateTime.getHoursForDate();
+        this.chooseDateTime = chooseDateTime;
+        this.hoursForDate = chooseDateTime.getHoursForDate();
 
-        if(dateTime.getSelectedSchedules().size() > 0){
-            dateTime.getSelectedSchedules().clear();
-            Log.d(logTag, "Size of selectedSchedule = " + dateTime.getSelectedSchedules().size());
+        if(chooseDateTime.getSelectedSchedules().size() > 0){
+            chooseDateTime.getSelectedSchedules().clear();
+            Log.d(logTag, "Size of selectedSchedule = " + chooseDateTime.getSelectedSchedules().size());
         }
 
     }
@@ -69,7 +67,7 @@ public class HoursAdapter extends BaseAdapter {
         }
 
         Log.d(logTag, "Position w getView = " + position + ", converView = " + convertView);
-        String text = dateTime.hourAndMin(position);
+        String text = chooseDateTime.hourAndMin(position);
 
         toggleButton.setText(text);
         toggleButton.setTextOn(text);
@@ -79,7 +77,7 @@ public class HoursAdapter extends BaseAdapter {
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                dateTime.markAnHour(position, b);
+                chooseDateTime.markAnHour(position, b);
             }
         });
 
