@@ -12,8 +12,7 @@ import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.Listener.RepertoireConnListener;
-import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
-import com.companysf.filmbilet.services.Schedule;
+import com.companysf.filmbilet.entities.Repertoire;
 import com.companysf.filmbilet.utils.ConnectionDetector;
 
 import org.json.JSONArray;
@@ -45,7 +44,7 @@ public class RepertoireConnection {
             Log.d(logTag, "Jest polaczenie inter");
             final int finalMovieId = movieId;
 
-            final List<Schedule> scheduleList = new ArrayList<>();
+            final List<Repertoire> repertoireList = new ArrayList<>();
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     AppConfig.GET_MOVIE_REPERTOIRE,
                     new Response.Listener<String>() {
@@ -58,17 +57,17 @@ public class RepertoireConnection {
                                 if (error) {
                                     errorListener.callBackOnError();
                                 } else {
-                                    JSONArray schedulesJson = json.getJSONArray(mContext.getString(R.string.repertoire));
-                                    for (int i = 0; i < schedulesJson.length(); i++) {
-                                        Log.d(logTag, mContext.getString(R.string.schedJsonLog) + schedulesJson.length());
-                                        JSONObject scheduleJSON = schedulesJson.getJSONObject(i);
-                                        Schedule schedule = new Schedule(
-                                                scheduleJSON.getInt(mContext.getString(R.string.id)),
-                                                scheduleJSON.getString(mContext.getString(R.string.date))
+                                    JSONArray repertoiresJson = json.getJSONArray(mContext.getString(R.string.repertoire));
+                                    for (int i = 0; i < repertoiresJson.length(); i++) {
+                                        Log.d(logTag, mContext.getString(R.string.resJsonLog) + repertoiresJson.length());
+                                        JSONObject repertoireJSON = repertoiresJson.getJSONObject(i);
+                                        Repertoire repertoire = new Repertoire(
+                                                repertoireJSON.getInt(mContext.getString(R.string.id)),
+                                                repertoireJSON.getString(mContext.getString(R.string.date))
                                         );
 
-                                        scheduleList.add(schedule);
-                                        Log.d(logTag, "Pobrany Schedule z BD= " + schedule.toString());
+                                        repertoireList.add(repertoire);
+                                        Log.d(logTag, "Pobrany Repertoire z BD= " + repertoire.toString());
 
                                     }
                                 }
@@ -77,18 +76,11 @@ public class RepertoireConnection {
                             }
 
 
-                            for (Schedule r : scheduleList)
-                                Log.d(logTag, "Zawartość scheduleList po pobraniu danych z BD = " + r.toString());
+                            for (Repertoire repertoire : repertoireList)
+                                Log.d(logTag, "Zawartość repertoireList po pobraniu danych z BD = " + repertoire.toString());
 
 
-                            repertoireConnListener.onDbResponseCallback(scheduleList);
-                            /*
-                            //zaktulizowanie wyglądu ToggleButton'ów związanych z datą i dniem
-                            updateDateButtons();
-                            //zaktulizowanie wyglądu ToggleButton'ów związanych z godziną
-                            hoursAdapter.notifyDataSetChanged();
-                            prepareHoursForDate(0);
-                            Log.d(logTag, "Po zaktualizowaniu");*/
+                            repertoireConnListener.onDbResponseCallback(repertoireList);
 
                         }
                     }, new Response.ErrorListener() {

@@ -151,7 +151,7 @@
     <string name="id">id</string>
     <string name="resSeatNumber">seatNumber</string>
     <string name="resRow">row</string>
-    <string name="repId">repertoireId</string>
+    <string name="repertoireId">repertoireId</string>
 
     <string name="customerId">customerId</string>
     <string name ="seatTypeId">seatTypeId</string>

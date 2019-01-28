@@ -94,7 +94,7 @@ public class ReservationConnection {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put(mContext.getString(R.string.repId), repertoireIdString);
+                    params.put(mContext.getString(R.string.repertoireId), repertoireIdString);
                     return params;
                 }
             };
@@ -149,7 +149,7 @@ public class ReservationConnection {
                     params.put(mContext.getString(R.string.resSeatNumber), seatNumber);
                     params.put(mContext.getString(R.string.resRow), row);
                     params.put(mContext.getString(R.string.seatTypeId), seatTypeId);
-                    params.put(mContext.getString(R.string.repId), repertoireId);
+                    params.put(mContext.getString(R.string.repertoireId), repertoireId);
                     return params;
                 }
             };

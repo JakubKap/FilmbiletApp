@@ -13,6 +13,11 @@ public class Repertoire {
         this.id = id;
     }
 
+    public Repertoire(int id,String dateTime){
+        this.id = id;
+        this.dateFormat = new DateFormat(dateTime);
+    }
+
     public Movie getMovie() {
         return movie;
     }

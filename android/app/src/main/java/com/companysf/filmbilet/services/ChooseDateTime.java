@@ -3,11 +3,11 @@ package com.companysf.filmbilet.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.Listener.RepertoireConnListener;
 import com.companysf.filmbilet.connection.RepertoireConnection;
+import com.companysf.filmbilet.entities.Repertoire;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,16 +19,15 @@ import java.util.Set;
 public class ChooseDateTime implements RepertoireConnListener {
     private static final String logTag = ChooseDateTime.class.getSimpleName();
     private Context context;
-    private RepertoireConnection repertoireConnection;
     private ErrorListener errorListener;
     private DateTimeListener dateTimeListener;
     private boolean[] selectedDate;
 
-    private List<Schedule> scheduleList;
-    private List<Integer> selectedSchedules;
-    private List<Schedule> hoursForDate;
+    private List<Repertoire> repertoireList;
+    private List<Integer> selectedRepertoires;
+    private List<Repertoire> hoursForDate;
 
-    private List<Schedule> uniqueDates;
+    private List<Repertoire> currentWeek;
     int movieId;
 
 
@@ -36,10 +35,10 @@ public class ChooseDateTime implements RepertoireConnListener {
         this.context = context;
         this.movieId = movieId;
         this.dateTimeListener = dateTimeListener;
-        repertoireConnection = new RepertoireConnection(context, errorListener, this);
+        RepertoireConnection repertoireConnection = new RepertoireConnection(context, errorListener, this);
         repertoireConnection.getRepertoireForMovie(movieId);
 
-        this.selectedSchedules = new ArrayList<>();
+        this.selectedRepertoires = new ArrayList<>();
 
         this.selectedDate = new boolean[5];
         this.selectedDate[0] = true;
@@ -47,21 +46,20 @@ public class ChooseDateTime implements RepertoireConnListener {
             selectedDate[i]=false;
     }
 
-
     @Override
-    public void onDbResponseCallback(List<Schedule> scheduleList) {
+    public void onDbResponseCallback(List<Repertoire> repertoireList) {
         Log.d(logTag, "onDbResponseCallback");
-        this.scheduleList = new ArrayList<>(scheduleList);
-        this.hoursForDate = new ArrayList<>(scheduleList);
+        this.repertoireList = new ArrayList<>(repertoireList);
+        this.hoursForDate = new ArrayList<>(repertoireList);
 
-        for(Schedule schedule : scheduleList)
-            Log.d(logTag,"scheduleList before prepare= " + schedule.toString());
+        for(Repertoire repertoire : this.repertoireList)
+            Log.d(logTag,"repertoireList before prepare= " + repertoire.toString());
 
-        for(Schedule schedule : hoursForDate)
-            Log.d(logTag,"hoursForDate = " + schedule.toString());
+        for(Repertoire repertoire : hoursForDate)
+            Log.d(logTag,"hoursForDate = " + repertoire.toString());
 
-        for(Schedule schedule : scheduleList)
-            Log.d(logTag,"scheduleList after prepare= " + schedule.toString());
+        for(Repertoire repertoire : this.repertoireList)
+            Log.d(logTag,"repertoireList after prepare= " + repertoire.toString());
 
         dateTimeListener.callbackOnSetUi();
 
@@ -69,47 +67,44 @@ public class ChooseDateTime implements RepertoireConnListener {
 
     public void prepareHoursForDate(int index) {
         if (hoursForDate.size() > 0) hoursForDate.clear();
-        Log.d(logTag, "prepareHoursForDate przed forEach, scheduleList.size() = " + scheduleList.size());
+        Log.d(logTag, "prepareHoursForDate przed forEach, repertoireList.size() = " + repertoireList.size());
 
-        for (Schedule schedule : scheduleList) {
-            Log.d(logTag, "schedule in prepare = " + schedule.toString());
-            for(Schedule uniqueDate : uniqueDates)
-                Log.d(logTag, "uniqueDates in prepare = " + uniqueDate.toString());
+        for (Repertoire repertoire : repertoireList) {
+            Log.d(logTag, "repertoire in prepare = " + repertoire.toString());
+            for(Repertoire currRep : currentWeek)
+                Log.d(logTag, "currentWeek in prepare = " + currRep.toString());
 
-            if (schedule.getYear() == uniqueDates.get(index).getYear() && schedule.getMonth() == uniqueDates.get(index).getMonth()
-                    && schedule.getDayOfMonth() == uniqueDates.get(index).getDayOfMonth()) {
-                hoursForDate.add(schedule);
-                Log.d(logTag, "Dodana wartość do hoursForDate = " + schedule.toString());
+            if(repertoire.getDateFormat().isHourInDay(currentWeek.get(index).getDateFormat())){
+                hoursForDate.add(repertoire);
+                Log.d(logTag, "Dodana wartość do hoursForDate = " + repertoire.toString());
             }
         }
 
     }
 
     public void prepareDateButtons(){
-        Collections.sort(scheduleList, new Comparator<Schedule>() {
+        Collections.sort(repertoireList, new Comparator<Repertoire>() {
             @Override
-            public int compare(Schedule r1, Schedule r2) {
-                return r1.getDate().compareTo(r2.getDate());
+            public int compare(Repertoire r1, Repertoire r2) {
+                return r1.getDateFormat().getDate().compareTo(r2.getDateFormat().getDate());
             }
         });
 
-        uniqueDates = new ArrayList<>(scheduleList);
+        currentWeek = new ArrayList<>(repertoireList);
         Set<Integer> dateIndexesToRemove = new HashSet<>();
 
-        for (Schedule r : uniqueDates)
-            Log.d(logTag, "Zawartość uniqueDates przed filtrowaniem= " + r.toString());
+        for (Repertoire currRep : currentWeek)
+            Log.d(logTag, "Zawartość currentWeek przed filtrowaniem= " + currRep.toString());
 
-        for (Schedule schedule : scheduleList) {
+        for (Repertoire repertoire : repertoireList) {
             int innerInc = 0;
             int index = 0;
-            for (Schedule ud : uniqueDates) {
+            for (Repertoire currRep : currentWeek) {
 
-                if (schedule.getYear() == ud.getYear() && schedule.getMonth() == ud.getMonth()
-                        && schedule.getDayOfMonth() == ud.getDayOfMonth())
+                if(repertoire.getDateFormat().isHourInDay(currRep.getDateFormat()))
                     innerInc++;
 
-                if (innerInc >= 2 && schedule.getYear() == ud.getYear() && schedule.getMonth() == ud.getMonth()
-                        && schedule.getDayOfMonth() == ud.getDayOfMonth()) {
+                if (innerInc >= 2 && repertoire.getDateFormat().isHourInDay(currRep.getDateFormat())) {
 
                     if (dateIndexesToRemove.add(index))
                         Log.d(logTag, "Dodany index = " + index);
@@ -120,15 +115,15 @@ public class ChooseDateTime implements RepertoireConnListener {
 
         if (dateIndexesToRemove.size() > 0)
             for (Integer i : dateIndexesToRemove)
-                uniqueDates.remove(scheduleList.get(i));
+                currentWeek.remove(repertoireList.get(i));
 
-        for (Schedule schedule : uniqueDates)
-            Log.d(logTag, "Zawartość uniqueDates po filtrowaniu= " + schedule.toString());
+        for (Repertoire repertoire : currentWeek)
+            Log.d(logTag, "Zawartość currentWeek po filtrowaniu= " + repertoire.toString());
 
-        for (Schedule schedule : scheduleList)
-            Log.d(logTag, "Zawartość scheduleList po filtrowaniu= " + schedule.toString());
-
+        for (Repertoire repertoire : repertoireList)
+            Log.d(logTag, "Zawartość repertoireList po filtrowaniu= " + repertoire.toString());
     }
+
     public void chooseDate(int index){
         for(int i =0; i<selectedDate.length; i++){
             if(i!=index){
@@ -140,71 +135,50 @@ public class ChooseDateTime implements RepertoireConnListener {
         Log.d(logTag, "selectedDate[" + index + "] = " + selectedDate[index]);
     }
 
-    public void clearListOfSchedules(){
-        if(selectedSchedules.size() > 0)
-            selectedSchedules.clear();
-    }
-    public String hourAndMin(int position){
-        String text = Integer.toString(hoursForDate.get(position).getHourOfDay());
-
-        StringBuilder sB = new StringBuilder(text);
-        sB.append(context.getString(R.string.colon));
-
-        if(hoursForDate.get(position).getMinute() < 10)
-            sB.append(context.getString(R.string.zero));
-
-        sB.append(Integer.toString(hoursForDate.get(position).getMinute()));
-
-        if(hoursForDate.get(position).getHourOfDay() < 10)
-            sB.insert(0, context.getString(R.string.zero));
-
-        return sB.toString();
+    public void clearListOfRepertoires(){
+        if(selectedRepertoires.size() > 0)
+            selectedRepertoires.clear();
     }
 
     public void markAnHour(int position, boolean isSelected){
         int objToRemove=-1;
         if(isSelected){
-            Log.d(logTag, "Dodana wartość repertuaru = " + scheduleList.get(position).getId());
-            selectedSchedules.add(hoursForDate.get(position).getId());
+            Log.d(logTag, "Dodana wartość repertuaru = " + repertoireList.get(position).getId());
+            selectedRepertoires.add(hoursForDate.get(position).getId());
         }
         else{
-            Log.d(logTag,"Usunięta wartość repertuaru = " + scheduleList.get(position).getId());
+            Log.d(logTag,"Usunięta wartość repertuaru = " + repertoireList.get(position).getId());
             objToRemove = hoursForDate.get(position).getId();
         }
         if(objToRemove>0){
-            selectedSchedules.remove(Integer.valueOf(objToRemove));
+            selectedRepertoires.remove(Integer.valueOf(objToRemove));
         }
-        Log.d(logTag, "Zawartość selected schedules: ");
-        for(Integer i : selectedSchedules)
-            Log.d(logTag, "Wartość selectedSchedules = " + i);
+        Log.d(logTag, "Zawartość selected repertoires: ");
+        for(Integer i : selectedRepertoires)
+            Log.d(logTag, "Wartość selectedRepertoires = " + i);
     }
 
     public void checkNumOfChoices(){
-        if(selectedSchedules.size() == 0)
+        if(selectedRepertoires.size() == 0)
             dateTimeListener.callBackOnBadChoice(true);
-        else if(selectedSchedules.size() > 1)
+        else if(selectedRepertoires.size() > 1)
             dateTimeListener.callBackOnBadChoice(false);
         else
             dateTimeListener.callBackSuccess();
-
     }
+
     public boolean[] getSelectedDate() {
         return selectedDate;
     }
 
-    public List<Schedule> getScheduleList() {
-        return scheduleList;
-    }
-
-    public List<Schedule> getHoursForDate() {
+    public List<Repertoire> getHoursForDate() {
         return hoursForDate;
     }
 
-    public List<Schedule> getUniqueDates() {
-        return uniqueDates;
+    public List<Repertoire> getCurrentWeek() {
+        return currentWeek;
     }
-    public List<Integer> getSelectedSchedules() {
-        return selectedSchedules;
+    public List<Integer> getSelectedRepertoires() {
+        return selectedRepertoires;
     }
-
 }

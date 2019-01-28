@@ -21,12 +21,14 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.HoursAdapter;
 import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
+import com.companysf.filmbilet.entities.Repertoire;
 import com.companysf.filmbilet.services.ChooseDateTime;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.entities.Movie;
-import com.companysf.filmbilet.services.Schedule;
+import com.companysf.filmbilet.services.Login;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
@@ -34,6 +36,7 @@ import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 public class ChooseDateTimeActivity extends AppCompatActivity implements Serializable, ErrorListener, DateTimeListener {
 
     private static final String logTag = ChooseDateTimeActivity.class.getSimpleName();
+    private Login login;
     private int movieId;
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
@@ -45,6 +48,11 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
+
+        login = new Login(this);
+        if (!login.userIsLoggedIn()) {
+            switchToLoginActivity();
+        }
 
         Intent intent = getIntent();
         Movie movie = (Movie) intent.getSerializableExtra(getString(R.string.movie));
@@ -118,7 +126,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
                         Log.d(logTag, "Stan buttona po= " + Boolean.toString(datesButtons[finalI].isChecked()));
                         chooseDateTime.prepareHoursForDate(finalI);
-                        chooseDateTime.clearListOfSchedules();
+                        chooseDateTime.clearListOfRepertoires();
                         hoursAdapter.notifyDataSetChanged();
 
                     }
@@ -141,6 +149,12 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 chooseDateTime.checkNumOfChoices();
             }
         });
+    }
+
+    private void switchToLoginActivity() {
+        Intent intent = new Intent(ChooseDateTimeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void updateMovieInfo(Movie sentMovie) {
@@ -195,11 +209,11 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            List<Schedule> uniqueDates = chooseDateTime.getUniqueDates();
+            List<Repertoire> uniqueDates = chooseDateTime.getCurrentWeek();
                 int i = 0;
-                for (Schedule r : uniqueDates) {
-                    String text = Integer.toString(r.getDayOfMonth());
-                    text = text + "\n" + r.getDayOfWeek();
+                for (Repertoire repertoire : uniqueDates) {
+                    String text = Integer.toString(repertoire.getDateFormat().getDate().get(Calendar.DAY_OF_MONTH));
+                    text = text + "\n" + repertoire.getDateFormat().dayOfWeek();
                     datesButtons[i].setText(text);
                     datesButtons[i].setTextOn(text);
                     datesButtons[i].setTextOff(text);
@@ -252,10 +266,10 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
     @Override
     public void callBackSuccess() {
-        int scheduleId = chooseDateTime.getSelectedSchedules().get(0);
-        Log.d(logTag,"Końcowy scheduleId " + scheduleId);
+        int repertoireId = chooseDateTime.getSelectedRepertoires().get(0);
+        Log.d(logTag,"Końcowy repertoireId " + repertoireId);
         Intent intent = new Intent(ChooseDateTimeActivity.this, SectorActivity.class);
-        intent.putExtra(getString(R.string.scheduleId), scheduleId);
+        intent.putExtra(getString(R.string.repertoireId), repertoireId);
         startActivity(intent);
     }
 

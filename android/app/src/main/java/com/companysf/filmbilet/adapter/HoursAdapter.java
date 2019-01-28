@@ -12,7 +12,7 @@ import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.services.ChooseDateTime;
-import com.companysf.filmbilet.services.Schedule;
+import com.companysf.filmbilet.entities.Repertoire;
 
 import java.util.List;
 
@@ -20,15 +20,15 @@ public class HoursAdapter extends BaseAdapter {
     private static final String logTag = HoursAdapter.class.getSimpleName();
     private Context mContext;
     private ChooseDateTime chooseDateTime;
-    private List<Schedule> hoursForDate;
+    private List<Repertoire> hoursForDate;
 
     public HoursAdapter(Context c, ChooseDateTime chooseDateTime) {
         mContext = c;
         this.chooseDateTime = chooseDateTime;
         this.hoursForDate = chooseDateTime.getHoursForDate();
 
-        if(chooseDateTime.getSelectedSchedules().size() > 0){
-            chooseDateTime.getSelectedSchedules().clear();
+        if(chooseDateTime.getSelectedRepertoires().size() > 0){
+            chooseDateTime.getSelectedRepertoires().clear();
             Log.d(logTag, "Size of selectedSchedule = " + chooseDateTime.getSelectedSchedules().size());
         }
 
@@ -67,7 +67,7 @@ public class HoursAdapter extends BaseAdapter {
         }
 
         Log.d(logTag, "Position w getView = " + position + ", converView = " + convertView);
-        String text = chooseDateTime.hourAndMin(position);
+        String text = hoursForDate.get(position).getDateFormat().getStringTime(":");
 
         toggleButton.setText(text);
         toggleButton.setTextOn(text);

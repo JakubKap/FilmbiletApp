@@ -38,7 +38,7 @@ public class DateFormat {
 
         StringBuilder stringBuilder = new StringBuilder(date);
         for (int i = 0; i < 2; i++) {
-            if (dateArray[i] < 10){
+            if (dateArray[i] < 10) {
                 stringBuilder.append("0");
             }
             stringBuilder.append(Integer.toString(dateArray[i]));   //Day and month
@@ -73,5 +73,42 @@ public class DateFormat {
 
     public GregorianCalendar getDate() {
         return date;
+    }
+
+    public String dayOfWeek() {
+
+        String dayOfWeek;
+        switch (date.get(Calendar.DAY_OF_WEEK)) {
+            case 2:
+                dayOfWeek = "PON.";
+                break;
+            case 3:
+                dayOfWeek = "WT.";
+                break;
+            case 4:
+                dayOfWeek = "ŚR.";
+                break;
+            case 5:
+                dayOfWeek = "CZW.";
+                break;
+            case 6:
+                dayOfWeek = "PT.";
+                break;
+            case 7:
+                dayOfWeek = "SOB.";
+                break;
+            default:
+                dayOfWeek = "NIEDZ.";
+                break;
+        }
+        return dayOfWeek;
+    }
+
+    boolean isHourInDay(DateFormat compareDate) {
+
+        return (date.get(Calendar.YEAR) == compareDate.getDate().get(Calendar.YEAR)
+                && date.get(Calendar.MONTH) == compareDate.getDate().get(Calendar.MONTH)
+                && date.get(Calendar.DAY_OF_MONTH) == compareDate.getDate().get(Calendar.DAY_OF_MONTH)
+        );
     }
 }
