@@ -163,7 +163,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         sector.assignSectorToSeat();
 
         Bundle b = getIntent().getExtras();
-        int repertoireId = b.getInt(getString(R.string.scheduleId));
+        int repertoireId = b.getInt(getString(R.string.repertoireId));
         reservationConnection.getReservations(repertoireId);
         sector.setRepertoireId(repertoireId);
 

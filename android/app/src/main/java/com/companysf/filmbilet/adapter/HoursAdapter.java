@@ -1,7 +1,6 @@
 package com.companysf.filmbilet.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -12,26 +11,25 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.entities.Repertoire;
 import com.companysf.filmbilet.services.DateTime;
-import com.companysf.filmbilet.services.Schedule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HoursAdapter extends BaseAdapter {
     private static final String logTag = HoursAdapter.class.getSimpleName();
     private Context mContext;
     private DateTime dateTime;
-    private List<Schedule> hoursForDate;
+    private List<Repertoire> hoursForDate;
 
     public HoursAdapter(Context c, DateTime dateTime) {
         mContext = c;
         this.dateTime = dateTime;
         this.hoursForDate = dateTime.getHoursForDate();
 
-        if(dateTime.getSelectedSchedules().size() > 0){
-            dateTime.getSelectedSchedules().clear();
-            Log.d(logTag, "Size of selectedSchedule = " + dateTime.getSelectedSchedules().size());
+        if(dateTime.getSelectedRepertoires().size() > 0){
+            dateTime.getSelectedRepertoires().clear();
+            Log.d(logTag, "Size of selectedRepertoires = " + dateTime.getSelectedRepertoires().size());
         }
 
     }
@@ -69,7 +67,7 @@ public class HoursAdapter extends BaseAdapter {
         }
 
         Log.d(logTag, "Position w getView = " + position + ", converView = " + convertView);
-        String text = dateTime.hourAndMin(position);
+        String text = hoursForDate.get(position).getDateFormat().getStringTime(":");
 
         toggleButton.setText(text);
         toggleButton.setTextOn(text);

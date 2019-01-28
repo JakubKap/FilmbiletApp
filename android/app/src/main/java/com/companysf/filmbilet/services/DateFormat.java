@@ -74,4 +74,42 @@ public class DateFormat {
     public GregorianCalendar getDate() {
         return date;
     }
+
+    public String dayOfWeek(){
+
+        String dayOfWeek = "NIEDZ.";
+        switch(date.get(Calendar.DAY_OF_WEEK)){
+            case 1:
+                dayOfWeek = "NIEDZ.";
+                break;
+            case 2:
+                dayOfWeek="PON.";
+                break;
+            case 3:
+                dayOfWeek="WT.";
+                break;
+            case 4:
+                dayOfWeek="ŚR.";
+                break;
+            case 5:
+                dayOfWeek="CZW.";
+                break;
+            case 6:
+                dayOfWeek="PT.";
+                break;
+            case 7:
+                dayOfWeek="SOB.";
+                break;
+        }
+
+        return dayOfWeek;
+    }
+
+    public boolean isHourInDay(DateFormat compareDate){
+
+        return (date.get(Calendar.YEAR) == compareDate.getDate().get(Calendar.YEAR)
+                && date.get(Calendar.MONTH) == compareDate.getDate().get(Calendar.MONTH)
+                 && date.get(Calendar.DAY_OF_MONTH) == compareDate.getDate().get(Calendar.DAY_OF_MONTH));
+
+    }
 }

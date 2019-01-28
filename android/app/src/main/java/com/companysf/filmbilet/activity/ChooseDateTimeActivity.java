@@ -21,12 +21,13 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.HoursAdapter;
 import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
+import com.companysf.filmbilet.entities.Repertoire;
 import com.companysf.filmbilet.services.DateTime;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.entities.Movie;
-import com.companysf.filmbilet.services.Schedule;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
@@ -118,7 +119,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
                         Log.d(logTag, "Stan buttona po= " + Boolean.toString(datesButtons[finalI].isChecked()));
                         dateTime.prepareHoursForDate(finalI);
-                        dateTime.clearListOfSchedules();
+                        dateTime.clearListOfRepertoires();
                         hoursAdapter.notifyDataSetChanged();
 
                     }
@@ -195,11 +196,11 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            List<Schedule> uniqueDates = dateTime.getUniqueDates();
+            List<Repertoire> uniqueDates = dateTime.getCurrentWeek();
                 int i = 0;
-                for (Schedule r : uniqueDates) {
-                    String text = Integer.toString(r.getDayOfMonth());
-                    text = text + "\n" + r.getDayOfWeek();
+                for (Repertoire repertoire : uniqueDates) {
+                    String text = Integer.toString(repertoire.getDateFormat().getDate().get(Calendar.DAY_OF_MONTH));
+                    text = text + "\n" + repertoire.getDateFormat().dayOfWeek();
                     datesButtons[i].setText(text);
                     datesButtons[i].setTextOn(text);
                     datesButtons[i].setTextOff(text);
@@ -252,10 +253,10 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
     @Override
     public void callBackSuccess() {
-        int scheduleId = dateTime.getSelectedSchedules().get(0);
-        Log.d(logTag,"Końcowy scheduleId " + scheduleId);
+        int repertoireId = dateTime.getSelectedRepertoires().get(0);
+        Log.d(logTag,"Końcowy repertoireId " + repertoireId);
         Intent intent = new Intent(ChooseDateTimeActivity.this, SectorActivity.class);
-        intent.putExtra(getString(R.string.scheduleId), scheduleId);
+        intent.putExtra(getString(R.string.repertoireId), repertoireId);
         startActivity(intent);
     }
 
