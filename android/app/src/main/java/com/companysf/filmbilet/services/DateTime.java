@@ -19,7 +19,6 @@ import java.util.Set;
 public class DateTime implements RepertoireConnListener {
     private static final String logTag = DateTime.class.getSimpleName();
     private Context context;
-    private RepertoireConnection repertoireConnection;
     private ErrorListener errorListener;
     private DateTimeListener dateTimeListener;
     private boolean[] selectedDate;
@@ -36,7 +35,7 @@ public class DateTime implements RepertoireConnListener {
         this.context = context;
         this.movieId = movieId;
         this.dateTimeListener = dateTimeListener;
-        repertoireConnection = new RepertoireConnection(context, errorListener, this);
+        RepertoireConnection repertoireConnection = new RepertoireConnection(context, errorListener, this);
         repertoireConnection.getRepertoireForMovie(movieId);
 
         this.selectedRepertoires = new ArrayList<>();
@@ -46,7 +45,6 @@ public class DateTime implements RepertoireConnListener {
         for(int i=1; i<selectedDate.length;i++)
             selectedDate[i]=false;
     }
-
 
     @Override
     public void onDbResponseCallback(List<Repertoire> repertoireList) {
@@ -80,7 +78,6 @@ public class DateTime implements RepertoireConnListener {
                 hoursForDate.add(repertoire);
                 Log.d(logTag, "Dodana wartość do hoursForDate = " + repertoire.toString());
             }
-
         }
 
     }
@@ -125,8 +122,8 @@ public class DateTime implements RepertoireConnListener {
 
         for (Repertoire repertoire : repertoireList)
             Log.d(logTag, "Zawartość repertoireList po filtrowaniu= " + repertoire.toString());
-
     }
+
     public void chooseDate(int index){
         for(int i =0; i<selectedDate.length; i++){
             if(i!=index){
@@ -168,14 +165,10 @@ public class DateTime implements RepertoireConnListener {
             dateTimeListener.callBackOnBadChoice(false);
         else
             dateTimeListener.callBackSuccess();
-
     }
+
     public boolean[] getSelectedDate() {
         return selectedDate;
-    }
-
-    public List<Repertoire> getRepertoireList() {
-        return repertoireList;
     }
 
     public List<Repertoire> getHoursForDate() {
@@ -188,5 +181,4 @@ public class DateTime implements RepertoireConnListener {
     public List<Integer> getSelectedRepertoires() {
         return selectedRepertoires;
     }
-
 }
