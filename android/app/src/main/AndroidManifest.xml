@@ -40,14 +40,14 @@
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait">
         </activity>
-        <!--<activity-->
-            <!--android:name=".Activity.SectorActivity"-->
-            <!--android:screenOrientation="portrait">-->
-        <!--</activity>-->
-        <!--<activity-->
-            <!--android:name=".Activity.ChooseDateTime"-->
-            <!--android:screenOrientation="portrait">-->
-        <!--</activity>-->
+        <activity
+            android:name=".activity.SectorActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.ChooseDateTimeActivity"
+           android:screenOrientation="portrait">
+        </activity>
 
     </application>
 

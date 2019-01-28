@@ -48,13 +48,20 @@
     <string name="availablePlacesText">dostępnych</string>
     <string name="priceText">cena</string>
     <string name="titleActivityTestSector">testSectorActivity</string>
-    <string name="firstColumnText">1</string>
-    <string name="secondColumnText">2</string>
-    <string name="ThirdColumnText">3</string>
-    <string name="fourthColumnText">4</string>
-    <string name="fifthColumnText">5</string>
-    <string name="sixthColumnText">6</string>
-    <string name="seventhColumnText">7</string>
+    <string name="firstColumnTextLeft">1</string>
+    <string name="secondColumnTextLeft">2</string>
+    <string name="thirdColumnTextLeft">3</string>
+    <string name="fourthColumnTextLeft">4</string>
+    <string name="fifthColumnTextLeft">5</string>
+    <string name="sixthColumnTextLeft">6</string>
+    <string name="seventhColumnTextLeft">7</string>
+    <string name="firstColumnTextRight">8</string>
+    <string name="secondColumnTextRight">9</string>
+    <string name="thirdColumnTextRight">10</string>
+    <string name="fourthColumnTextRight">11</string>
+    <string name="fifthColumnTextRight">12</string>
+    <string name="sixthColumnTextRight">13</string>
+    <string name="seventhColumnTextRight">14</string>
     <string name="freeSeats">13</string>
     <string name="approveBtnText">Zatwierdź</string>
     <string name="cancelBtnText">Anuluj</string>
@@ -66,7 +73,11 @@
     <string name="repertoireDateText">Data seansu</string>
     <string name="myReservationsText">Moje rezerwacje:</string>
     <string name="pdfText">PDF</string>
-    <string name="priceText20">Cena za miejsce: 20zł</string>
+    <string name="priceText20">Cena za miejsce: </string>
+    <string name="sector1Subtitle">Cena za miejsce: 10 zł</string>
+    <string name="sector2Subtitle">Cena za miejsce: 15 zł</string>
+    <string name="sector3Subtitle">Cena za miejsce: 20 zł</string>
+    <string name="sector4Subtitle">Cena za miejsce: 30 zł</string>
     <string name="row1">I</string>
     <string name="row2">II</string>
     <string name="row3">III</string>
@@ -93,10 +104,10 @@
     <string name ="summaryStartText">0 zł</string>
 
     <string name="choosedPlaceTitle">Zajęcie miejsca</string>
-    <string name="choosedPlaceMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze </string>
+    <string name="choosedPlaceMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze:\u0020</string>
 
     <string name="choosedPlacesTitle">Zajęcie miejsc</string>
-    <string name="choosedPlacesMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach </string>
+    <string name="choosedPlacesMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach:\u0020</string>
 
     <string name="emptySectorTitle">Brak miejsc w sektorze</string>
     <string name="emptySectorMsg">Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.</string>

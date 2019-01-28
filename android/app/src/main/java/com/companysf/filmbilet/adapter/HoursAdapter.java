@@ -2,6 +2,7 @@ package com.companysf.filmbilet.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.services.DateTime;
 import com.companysf.filmbilet.services.Schedule;
 
 import java.util.ArrayList;
@@ -19,45 +21,29 @@ import java.util.List;
 public class HoursAdapter extends BaseAdapter {
     private static final String logTag = HoursAdapter.class.getSimpleName();
     private Context mContext;
-    private List<Schedule> scheduleList;
-    private List<ToggleButton> toggleButtons;
-    private List<Integer> selectedSchedules;
+    private DateTime dateTime;
+    private List<Schedule> hoursForDate;
 
-    public HoursAdapter(Context c, List<Schedule> scheduleArrayList){
+    public HoursAdapter(Context c, DateTime dateTime) {
         mContext = c;
-        scheduleList = scheduleArrayList;
-        boolean[] selectedHour = new boolean[scheduleList.size()];
-        selectedSchedules = new ArrayList<>();
-        toggleButtons = new ArrayList<>();
+        this.dateTime = dateTime;
+        this.hoursForDate = dateTime.getHoursForDate();
 
-        if(selectedSchedules.size() > 0)
-            selectedSchedules.clear();
-
-        if(selectedHour.length > 0){
-            selectedHour[0] = true;
-
-            for(int i = 1; i< selectedHour.length; i++)
-                selectedHour[i] = false;
+        if(dateTime.getSelectedSchedules().size() > 0){
+            dateTime.getSelectedSchedules().clear();
+            Log.d(logTag, "Size of selectedSchedule = " + dateTime.getSelectedSchedules().size());
         }
+
     }
 
-
-    public List<Integer> getSelectedSchedules() {
-        return selectedSchedules;
-    }
-
-    public void clearListOfSchedules(){
-        if(selectedSchedules.size() > 0)
-            selectedSchedules.clear();
-    }
     @Override
     public int getCount() {
-        return scheduleList.size();
+        return hoursForDate.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return scheduleList.get(position);
+        return hoursForDate.get(position);
     }
 
     @Override
@@ -69,7 +55,7 @@ public class HoursAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ToggleButton toggleButton;
 
-        Log.d(logTag, "Nowoutworzony przycisk dla id = " + (scheduleList.get(position).getId()));
+        Log.d(logTag, "Nowoutworzony przycisk dla id = " + (hoursForDate.get(position).getId()));
         if(convertView == null){
             toggleButton = new ToggleButton(mContext);
             toggleButton.setLayoutParams(new GridView.LayoutParams(400, 200));
@@ -83,65 +69,22 @@ public class HoursAdapter extends BaseAdapter {
         }
 
         Log.d(logTag, "Position w getView = " + position + ", converView = " + convertView);
-
-        //budowanie textu
-        String text = Integer.toString(scheduleList.get(position).getHourOfDay());
-
-        StringBuilder sB = new StringBuilder(text);
-        sB.append(mContext.getString(R.string.colon));
-
-        if(scheduleList.get(position).getMinute() < 10)
-            sB.append(mContext.getString(R.string.zero));
-
-        sB.append(Integer.toString(scheduleList.get(position).getMinute()));
-
-        if(scheduleList.get(position).getHourOfDay() < 10)
-            sB.insert(0, mContext.getString(R.string.zero));
-
-
-        text = sB.toString();
+        String text = dateTime.hourAndMin(position);
 
         toggleButton.setText(text);
         toggleButton.setTextOn(text);
         toggleButton.setTextOff(text);
-        toggleButton.setTextColor(Color.BLACK);
+        toggleButton.setTextColor(ContextCompat.getColor(mContext, R.color.black));
 
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                int objToRemove = -1;
-                if(b) {
-                    Log.d(logTag, "Dodana wartość repertuaru = " + scheduleList.get(position).getId());
-                    selectedSchedules.add(scheduleList.get(position).getId());
-                }
-                else{
-                    Log.d(logTag,"Usunięta wartość repertuaru = " + scheduleList.get(position).getId());
-                    objToRemove = scheduleList.get(position).getId();
-                }
-
-                if(objToRemove>0){
-                    Log.d(logTag, "Przed usunięciem:");
-                    selectedSchedules.remove(Integer.valueOf(objToRemove));
-                    Log.d(logTag, "Po usunięciu:");
-                }
-
-                Log.d(logTag, "Zawartość selected schedules: ");
-                for(Integer i : selectedSchedules)
-                    Log.d(logTag, "Wartość selectedSchedules = " + i);
-
-               /* else
-                    finalToggleButton.setBackgroundResource(R.drawable.normal_hour_button);*/
-
+                dateTime.markAnHour(position, b);
             }
         });
 
-        //dodanie ToggleButtona do tablicy
-        toggleButtons.add(toggleButton);
 
-       for(ToggleButton t : toggleButtons)
-            Log.d(logTag, "Zawartość toggleButtons = " + t.getText());
-
+        Log.d(logTag, "hoursForDate.size() == " + hoursForDate.size());
         return toggleButton;
     }
 }
