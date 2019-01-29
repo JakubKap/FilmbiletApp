@@ -164,8 +164,13 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     showDialog(getString(R.string.noChoosedPlacesTitle),
                             getString(R.string.noChoosedPlacesMsg));
                 }
-                else
+                else {
                     sector.saveToDb();
+                    //Intent intent = new Intent(this, CustomerReservationsActivity.class);
+                    Intent intent = new Intent(SectorActivity.this, CustomerReservationsActivity.class);
+                    startActivity(intent);
+
+                }
             }
         });
     }
