@@ -164,11 +164,11 @@ public class SectorService implements SocketListener {
 
             if (i == 7 || i == 14 || i == 21 || i == 28) {
                 startSeat += 7;
-                sectors[i].setSeatNumbers(i,startSeat);
+                sectors[sectorNumber].setSeatNumbers(i,startSeat);
                 Log.d(logTag, "Dodana wartość do siatki: " + startSeat + " dla i = " + i);
                 startSeat++;
             } else {
-                sectors[i].setSeatNumbers(i,startSeat);
+                sectors[sectorNumber].setSeatNumbers(i,startSeat);
                 Log.d(logTag, "Dodana wartość do siatki: " + startSeat + " dla i = " + i);
                 startSeat++;
             }
@@ -263,7 +263,7 @@ public class SectorService implements SocketListener {
 
         for (int i = 0; i < hall.getChoosedSeats().length; i++) {
             if (hall.getChoosedSeats()[i]) {
-                price += sectors[i-1].getSectorPrice();
+                price += sectors[hall.getSeatSector()[i]-1].getSectorPrice();
                 Log.d(logTag, "Calculated price = " + price);
             }
         }
