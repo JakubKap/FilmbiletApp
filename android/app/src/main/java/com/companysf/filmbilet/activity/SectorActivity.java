@@ -71,10 +71,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             switchToLoginActivity();
         }
 
-        builder =  new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(this);
 
         ReservationConnection reservationConnection = new ReservationConnection(this, this, this);
-        sectorService = new SectorService(this,this, this, this,8, 280);
+        sectorService = new SectorService(this, this, this, this, 8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -157,17 +157,16 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
         for (int i = 0; i < sectorButtons.length; i++) {
             setPopupOnSector(i);
-            sectorService.setSeatNumbers(i,new int[35]);
+            sectorService.setSeatNumbers(i, new int[35]);
             sectorService.clearMarkedSeats();
         }
         secBtnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sectorService.numOfChoosedSeats() == 0) {
+                if (sectorService.numOfChoosedSeats() == 0) {
                     showDialog(getString(R.string.noChoosedPlacesTitle),
                             getString(R.string.noChoosedPlacesMsg));
-                }
-                else {
+                } else {
                     sectorService.saveToDb();
                     //Intent intent = new Intent(this, CustomerReservationsActivity.class);
                     Intent intent = new Intent(SectorActivity.this, CustomerReservationsActivity.class);
@@ -188,11 +187,11 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                 currentSector = sectorIndex;
 
                 sectorService.assignSeatsPrev();
-                for(int i = 0; i< sectorService.getChoosedSeatsPrev().length; i++)
-                    if(sectorService.getChoosedSeatsPrev()[i])
+                for (int i = 0; i < sectorService.getChoosedSeatsPrev().length; i++)
+                    if (sectorService.getChoosedSeatsPrev()[i])
                         Log.d(logTag, "Marked seat after opening sectorService " + i);
 
-                if(sectorService.getFreeSeatsInSector(index) == 0) {
+                if (sectorService.getFreeSeatsInSector(index) == 0) {
                     showDialog(
                             getString(R.string.emptySectorTitle),
                             getString(R.string.emptySectorMsg)
@@ -271,7 +270,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
                 dialog.show();
 
-                for(int i=0; i<seatButtons.length; i++){
+                for (int i = 0; i < seatButtons.length; i++) {
                     final int index = i;
                     seatButtons[i].setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -299,13 +298,13 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
                         sectorService.restoreChoosedSeats();
 
-                        for(int i = 0; i< sectorService.getChoosedSeatsPrev().length; i++)
-                            if(sectorService.getChoosedSeatsPrev()[i])
+                        for (int i = 0; i < sectorService.getChoosedSeatsPrev().length; i++)
+                            if (sectorService.getChoosedSeatsPrev()[i])
                                 Log.d(logTag, "Marked seat after closing sectorService " + i);
 
                         sectorService.restoreChoosedSeats();
-                        for(int i = 0; i< sectorService.getChoosedSeats().length; i++)
-                            if(sectorService.getChoosedSeats()[i])
+                        for (int i = 0; i < sectorService.getChoosedSeats().length; i++)
+                            if (sectorService.getChoosedSeats()[i])
                                 Log.d(logTag, "Choosed Mseat after closing sectorService " + i);
 
                         currentSector = -1;
@@ -328,9 +327,12 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     String pom = getString(R.string.summaryStartText);
                     secSummaryPrice.setText(pom);
                 }
-                for(int i=0; i<freeSeats.length; i++) {
-                    String text = String.format(new Locale("pl", "PL"), "%d",
-                            sectorService.getFreeSeatsInSector(i))
+                for (int i = 0; i < freeSeats.length; i++) {
+                    String text = String.format(
+                            new Locale(getString(R.string.polish), getString(R.string.poland)),
+                            "%d",
+                            sectorService.getFreeSeatsInSector(i)
+                    )
                             + getString(R.string.currency);
                     freeSeats[i].setText(text);
                 }
@@ -341,62 +343,59 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     }
 
     public String sectorTitle(int index) {
-        if(index == 0)
+        if (index == 0)
             return getString(R.string.upperSector1Text);
-        else if(index == 1)
+        else if (index == 1)
             return getString(R.string.upperSector2Text);
-        else if(index == 2)
+        else if (index == 2)
             return getString(R.string.upperSector3Text);
-        else if(index == 3)
+        else if (index == 3)
             return getString(R.string.upperSector4Text);
-        else if(index == 4)
+        else if (index == 4)
             return getString(R.string.upperSector5Text);
-        else if(index == 5)
+        else if (index == 5)
             return getString(R.string.upperSector6Text);
-        else if(index == 6)
+        else if (index == 6)
             return getString(R.string.upperSector7Text);
         else
             return getString(R.string.upperSector8Text);
 
     }
-    public String sectorSubtitle(int index){
-        if(index == 0 || index == 1)
+
+    public String sectorSubtitle(int index) {
+        if (index == 0 || index == 1)
             return getString(R.string.sector1Subtitle);
-        else if(index == 2 || index == 3)
+        else if (index == 2 || index == 3)
             return getString(R.string.sector2Subtitle);
-        else if(index == 4 || index == 5)
+        else if (index == 4 || index == 5)
             return getString(R.string.sector3Subtitle);
         else
             return getString(R.string.sector4Subtitle);
 
     }
 
-
-
-    public String [] rowLabels(int index){
+    public String[] rowLabels(int index) {
         String[] rowLabels = new String[5];
-        if(index == 0 || index == 1) {
+        if (index == 0 || index == 1) {
             rowLabels[0] = getString(R.string.row1);
             rowLabels[1] = getString(R.string.row2);
             rowLabels[2] = getString(R.string.row3);
             rowLabels[3] = getString(R.string.row4);
             rowLabels[4] = getString(R.string.row5);
-        }
-        else if(index == 2 || index == 3) {
+        } else if (index == 2 || index == 3) {
             rowLabels[0] = getString(R.string.row6);
             rowLabels[1] = getString(R.string.row7);
             rowLabels[2] = getString(R.string.row8);
             rowLabels[3] = getString(R.string.row9);
             rowLabels[4] = getString(R.string.row10);
         }
-        if(index == 4 || index == 5) {
+        if (index == 4 || index == 5) {
             rowLabels[0] = getString(R.string.row11);
             rowLabels[1] = getString(R.string.row12);
             rowLabels[2] = getString(R.string.row13);
             rowLabels[3] = getString(R.string.row14);
             rowLabels[4] = getString(R.string.row15);
-        }
-        else if(index == 6 || index == 7){
+        } else if (index == 6 || index == 7) {
             rowLabels[0] = getString(R.string.row16);
             rowLabels[1] = getString(R.string.row17);
             rowLabels[2] = getString(R.string.row18);
@@ -406,9 +405,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
         return rowLabels;
     }
-    public String[] columnLabels(int index){
-        String [] columnLabels = new String[7];
-        if(index % 2 == 0){
+
+    public String[] columnLabels(int index) {
+        String[] columnLabels = new String[7];
+        if (index % 2 == 0) {
             columnLabels[0] = getString(R.string.firstColumnTextLeft);
             columnLabels[1] = getString(R.string.secondColumnTextLeft);
             columnLabels[2] = getString(R.string.thirdColumnTextLeft);
@@ -416,8 +416,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             columnLabels[4] = getString(R.string.fifthColumnTextLeft);
             columnLabels[5] = getString(R.string.sixthColumnTextLeft);
             columnLabels[6] = getString(R.string.seventhColumnTextLeft);
-        }
-        else{
+        } else {
             columnLabels[0] = getString(R.string.firstColumnTextRight);
             columnLabels[1] = getString(R.string.secondColumnTextRight);
             columnLabels[2] = getString(R.string.thirdColumnTextRight);
@@ -430,7 +429,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         return columnLabels;
     }
 
-    public void setPopupMetadata(int index){
+    public void setPopupMetadata(int index) {
         final int sectorIndex = index;
         runOnUiThread(new Runnable() {
             @Override
@@ -449,16 +448,21 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
                 int[] seatNumbers = sectorService.seatNumbers(sectorIndex);
                 for (int i = 0; i < seatButtons.length; i++)
-                    seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
-                            seatNumbers[i]));
+                    seatButtons[i].setText(
+                            String.format(
+                                    new Locale(getString(R.string.polish), getString(R.string.poland)),
+                                    "%d",
+                                    seatNumbers[i]
+                            )
+                    );
 
                 markChoosedPlaces(sectorIndex);
             }
         });
     }
 
-    public void markChoosedPlaces(int sectorIndex){
-        if(sectorIndex > 0) {
+    public void markChoosedPlaces(int sectorIndex) {
+        if (sectorIndex > 0) {
             final boolean[] takenSeats = sectorService.getTakenSeats();
             final int[] seatNumbers = sectorService.getSeatNumbers(sectorIndex);
             runOnUiThread(new Runnable() {
@@ -476,7 +480,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             });
         }
     }
-    public void markSeat(Button button, boolean isTaken, boolean isInitial){
+
+    public void markSeat(Button button, boolean isTaken, boolean isInitial) {
         final boolean finalIsTaken = isTaken;
         final boolean finalIsInitial = isInitial;
         final Button finalButton = button;
@@ -498,7 +503,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         });
     }
 
-    public void markTakenSeat(Button button){
+    public void markTakenSeat(Button button) {
         final Button finalButton = button;
         runOnUiThread(new Runnable() {
             @Override
@@ -508,7 +513,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             }
         });
     }
-    public void performAnimation(Button button){
+
+    public void performAnimation(Button button) {
         final Button finalButton = button;
         runOnUiThread(new Runnable() {
             @Override
@@ -520,14 +526,24 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         });
     }
 
-    public void updateSummary(){
+    public void updateSummary() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                secChoosedPlaces.setText(String.format(new Locale("pl", "PL"), "%d",
-                        sectorService.numOfSeats()));
-                secSummaryPrice.setText(String.format(new Locale("pl", "PL"), "%d",
-                        sectorService.seatsPrice()));
+                secChoosedPlaces.setText(
+                        String.format(
+                                new Locale(getString(R.string.polish), getString(R.string.poland)),
+                                "%d",
+                                sectorService.numOfSeats()
+                        )
+                );
+                secSummaryPrice.setText(
+                        String.format(
+                                new Locale(getString(R.string.polish), getString(R.string.poland)),
+                                "%d",
+                                sectorService.seatsPrice()
+                        )
+                );
             }
         });
     }
@@ -537,6 +553,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         startActivity(intent);
         finish();
     }
+
     @Override
     public void updateUiCallback() {
         Log.d(logTag, "updateUiCallback");
@@ -588,7 +605,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         );
     }
 
-    public void showDialog(String title, String message){
+    public void showDialog(String title, String message) {
         final String finalTitle = title;
         final String finalMessage = message;
 
