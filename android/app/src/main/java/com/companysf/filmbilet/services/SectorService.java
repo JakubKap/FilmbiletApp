@@ -3,7 +3,6 @@ package com.companysf.filmbilet.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
@@ -62,10 +61,10 @@ public class SectorService implements ReservationConnListener, SocketListener {
         }
 
         assignFirstSecSeat();
-        reservationConnection.getReservations(repertoireId);
+        reservationConnection.updateReservationsFromServer(repertoireId);
     }
 
-    public void assignFirstSecSeat(){
+    private void assignFirstSecSeat(){
 
         int firstSeat = 1;
         for(int i=0; i<sectors.length; i++){
@@ -330,13 +329,11 @@ public class SectorService implements ReservationConnListener, SocketListener {
         }
         for(int i=0; i<hall.getChoosedSeats().length;i++)
             Log.d(logTag, "takenSeats after = " + hall.getTakenSeats()[i]);
-
         if(myWebSocketListener.getHttpClient() != null){
             myWebSocketListener.prepareMessage(context,this.webSocket, hall.getTakenSeats());
         }
         else
             sectorListener.socketCloseError();
-
     }
 
     public int sectorSubtitleIndex(int sectorIndex){
@@ -351,14 +348,10 @@ public class SectorService implements ReservationConnListener, SocketListener {
     public int rowLabelsType(int sectorIndex){
         if (sectorIndex == 0 || sectorIndex == 1)
             return 0;
-
          else if (sectorIndex == 2 || sectorIndex == 3)
              return 1;
-
-
         else if (sectorIndex == 4 || sectorIndex == 5)
             return 2;
-
         else
             return 3;
     }
@@ -368,31 +361,21 @@ public class SectorService implements ReservationConnListener, SocketListener {
     public boolean[] getChoosedSeatsPrev() {
         return hall.getChoosedSeatsPrev();
     }
-    public void setTakenSeats(boolean[] takenSeats) {
+    private void setTakenSeats(boolean[] takenSeats) {
         this.hall.setTakenSeats(takenSeats);
     }
-
     public boolean[] getTakenSeats() {
         return hall.getTakenSeats();
     }
-
     public int getFreeSeatsInSector(int index) {
         return sectors[index].getFreeSeats();
     }
-
-    public void setRepertoireId(int repertoireId) {
-        this.repertoireId = repertoireId;
-    }
-
-
     public int[] getSeatNumbers(int index) {
         return sectors[index].getSeatNumbers();
     }
-
     public boolean[] getChoosedSeats() {
         return hall.getChoosedSeats();
     }
-
     public void setSeatNumbers(int index, int[] seatNumbers) {
         this.sectors[index].setSeatNumbers(seatNumbers);
     }

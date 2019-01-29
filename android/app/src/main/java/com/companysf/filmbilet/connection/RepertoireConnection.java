@@ -39,7 +39,7 @@ public class RepertoireConnection {
         this.cd = new ConnectionDetector(c);
     }
 
-    public void getRepertoireForMovie(int movieId) {
+    public void updateRepertoireForMovieFromServer(int movieId) {
         if (cd.connected()) {
             Log.d(logTag, "Jest polaczenie inter");
             final int finalMovieId = movieId;
@@ -68,17 +68,14 @@ public class RepertoireConnection {
 
                                         repertoireList.add(repertoire);
                                         Log.d(logTag, "Pobrany Repertoire z BD= " + repertoire.toString());
-
                                     }
                                 }
                             } catch (JSONException e) {
                                 errorListener.callBackOnError();
                             }
 
-
                             for (Repertoire repertoire : repertoireList)
                                 Log.d(logTag, "Zawartość repertoireList po pobraniu danych z BD = " + repertoire.toString());
-
 
                             repertoireConnListener.onDbResponseCallback(repertoireList);
 
@@ -100,8 +97,6 @@ public class RepertoireConnection {
             };
 
             AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.registerRequestAdd));
-
-
         } else {
             errorListener.callBackOnNoNetwork();
             Log.d(logTag, "Brak polaczenia inter");

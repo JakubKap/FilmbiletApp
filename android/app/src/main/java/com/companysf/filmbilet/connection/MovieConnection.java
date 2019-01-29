@@ -2,7 +2,6 @@ package com.companysf.filmbilet.connection;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -15,7 +14,6 @@ import com.companysf.filmbilet.entities.Movie;
 import com.companysf.filmbilet.entities.MovieList;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.utils.ConnectionDetector;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

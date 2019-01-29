@@ -3,15 +3,12 @@ package com.companysf.filmbilet.entities;
 public class Hall {
 
     private int numOfSeatsInHall;
-
     private boolean[] takenSeats;
     private boolean[] choosedSeats;
     private boolean[] choosedSeatsPrev;
     private boolean [] takenYourSeats;
-
     private int[] seatSector;
     private int[] seatRow;
-
 
     public Hall(int numOfSeatsInHall){
         this.numOfSeatsInHall = numOfSeatsInHall;
@@ -53,15 +50,6 @@ public class Hall {
         this.seatRow[index] = value;
     }
 
-
-    public int getNumOfSeatsInHall() {
-        return numOfSeatsInHall;
-    }
-
-    public void setNumOfSeatsInHall(int numOfSeatsInHall) {
-        this.numOfSeatsInHall = numOfSeatsInHall;
-    }
-
     public boolean[] getTakenSeats() {
         return takenSeats;
     }
@@ -87,7 +75,7 @@ public class Hall {
     }
 
     public void setChoosedSeatsPrev(int index, boolean value) {
-        this.choosedSeatsPrev = choosedSeatsPrev;
+        this.choosedSeatsPrev[index] = value;
     }
 
     public boolean[] getTakenYourSeats() {

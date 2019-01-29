@@ -151,7 +151,6 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         sectorService.assignRowToSeat();
         sectorService.assignSectorToSeat();
 
-
         for (int i = 0; i < sectorButtons.length; i++) {
             setPopupOnSector(i);
             sectorService.setSeatNumbers(i, new int[35]);
@@ -165,21 +164,18 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                             getString(R.string.noChoosedPlacesMsg));
                 } else {
                     sectorService.saveToDb();
-                    //Intent intent = new Intent(this, CustomerReservationsActivity.class);
                     Intent intent = new Intent(SectorActivity.this, CustomerReservationsActivity.class);
                     startActivity(intent);
-
                 }
             }
         });
     }
 
     private void setPopupOnSector(final int sectorIndex) {
-        final int index = sectorIndex;
         sectorButtons[sectorIndex].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(logTag, "index buttona = " + index);
+                Log.d(logTag, "index buttona = " + sectorIndex);
 
                 currentSector = sectorIndex;
 
@@ -188,7 +184,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     if (sectorService.getChoosedSeatsPrev()[i])
                         Log.d(logTag, "Marked seat after opening sectorService " + i);
 
-                if (sectorService.getFreeSeatsInSector(index) == 0) {
+                if (sectorService.getFreeSeatsInSector(sectorIndex) == 0) {
                     showDialog(
                             getString(R.string.emptySectorTitle),
                             getString(R.string.emptySectorMsg)
@@ -263,7 +259,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                 seatsCloseButton.setTypeface(opensansRegular);
                 seatsApproveButton.setTypeface(opensansRegular);
 
-                setPopupMetadata(index);
+                setPopupMetadata(sectorIndex);
 
                 dialog.show();
 
@@ -361,9 +357,9 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     public String sectorSubtitle(int index) {
         if (sectorService.sectorSubtitleIndex(index) == 0)
             return getString(R.string.sector1Subtitle);
-        else if (sectorService.sectorSubtitleIndex(index) == 2)
+        else if (sectorService.sectorSubtitleIndex(index) == 1)
             return getString(R.string.sector2Subtitle);
-        else if (sectorService.sectorSubtitleIndex(index) == 3)
+        else if (sectorService.sectorSubtitleIndex(index) == 2)
             return getString(R.string.sector3Subtitle);
         else
             return getString(R.string.sector4Subtitle);
