@@ -14,8 +14,9 @@
         android:id="@+id/Logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FilmBilet"
-        android:textSize="40dp"
+        android:text="@string/filmbilet"
+        android:textSize="40sp"
+        android:textColor="@color/colorPrimaryDark"
         android:fontFamily="@font/opensans_bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_begin="130sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -229,4 +229,5 @@
     <string name="choosedPlaces0">0</string>
     <string name="costText"> | Koszt:</string>
     <string name="cost">0 zł</string>
+    <string name="filmbilet">FilmBilet</string>
 </resources>

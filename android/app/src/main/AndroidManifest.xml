@@ -33,11 +33,13 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.LoginActivity"
+            android:theme="@style/LoginRegisterTheme"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activity.RegisterActivity"
+            android:theme="@style/LoginRegisterTheme"
             android:screenOrientation="portrait">
         </activity>
         <activity
