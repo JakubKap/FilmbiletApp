@@ -9,10 +9,6 @@
     android:layout_marginTop="0dp"
     android:layout_marginRight="0dp"
     android:layout_marginBottom="0dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="40dp"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp"
     android:background="@drawable/pop_bg"
     android:orientation="vertical">
 
@@ -66,7 +62,6 @@
         android:id="@+id/gridLayoutContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="45dp"
         app:layout_constraintBottom_toTopOf="@id/legendContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -881,6 +876,8 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/seatsSmallText"
             app:layout_constraintEnd_toEndOf="@id/percent45Line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45"
             style="?android:attr/borderlessButtonStyle"
@@ -900,6 +897,8 @@
             android:textColor="#f9f9f9"
             android:textSize="@dimen/seatsSmallText"
             app:layout_constraintStart_toStartOf="@id/percent55Line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45"
             style="?android:attr/borderlessButtonStyle"/>

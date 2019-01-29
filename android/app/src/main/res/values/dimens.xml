@@ -7,8 +7,8 @@
     <dimen name="seatsSpace">8sp</dimen>
     <dimen name="icon_size">3sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="seatWidth">15sp</dimen>
-    <dimen name="seatHeight">10sp</dimen>
+    <dimen name="seatWidth">20sp</dimen>
+    <dimen name="seatHeight">15sp</dimen>
     <dimen name="linearLayoutRowsMarginRight">15sp</dimen>
     <dimen name="linearLayoutRowsMarginBottom">5sp</dimen>
     <dimen name="linearLayoutColumnsMarginRight">5sp</dimen>
