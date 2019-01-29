@@ -6,6 +6,7 @@ import android.util.Log;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.connection.Listener.SocketListener;
+import com.companysf.filmbilet.entities.WebsocketMessage;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -37,9 +38,14 @@ public class MyWebSocketListener extends WebSocketListener {
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         Log.d(logTag, "onMessage");
-        WebSocketMessage message = new WebSocketMessage(text);
+        WebsocketMessage message = new WebsocketMessage(text);
+//        WebSocketMessageService messageService = new WebSocketMessageService(text);
+        WebSocketMessageService messageService = new WebSocketMessageService();
 
-        socketListener.onMessageCallback(message.getChoosedPlaces());
+        socketListener.onMessageCallback(
+//                messageService.getChoosedPlaces()
+                messageService.convertJsonStringToArray(message.getChoosedPlacesString())
+        );
 
     }
 
@@ -69,8 +75,12 @@ public class MyWebSocketListener extends WebSocketListener {
     }
 
     public void prepareMessage(Context c, WebSocket webSocket, boolean[] myChoosedPlaces){
-        WebSocketMessage message = new WebSocketMessage(myChoosedPlaces);
-        webSocket.send(message.getChoosedPlacesString());
+        WebsocketMessage message = new WebsocketMessage(myChoosedPlaces);
+//        WebSocketMessageService message = new WebSocketMessageService(myChoosedPlaces);
+        WebSocketMessageService messageService = new WebSocketMessageService();
+        webSocket.send(
+                messageService.convertToJsonString(message.getChoosedPlaces())
+        );
         webSocket.close(1000, c.getString(R.string.socketCloseReason));
     }
 
