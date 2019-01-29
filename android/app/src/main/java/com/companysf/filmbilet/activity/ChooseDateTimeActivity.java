@@ -19,11 +19,11 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.HoursAdapter;
+import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.entities.Repertoire;
 import com.companysf.filmbilet.services.ChooseDateTime;
-import com.companysf.filmbilet.app.CustomVolleyRequest;
 import com.companysf.filmbilet.entities.Movie;
 import com.companysf.filmbilet.services.Login;
 
@@ -40,6 +40,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     private int movieId;
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
+    private ImageLoader imageLoader;
     ChooseDateTime chooseDateTime;
 
     private AlertDialog.Builder builder;
@@ -58,7 +59,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         Movie movie = (Movie) intent.getSerializableExtra(getString(R.string.movie));
         movieId = movie.getId();
 
-        updateMovieInfo(movie);
+        settingMovieInfo(movie);
 
         datesButtons[0] = findViewById(R.id.toggleButton1);
         datesButtons[1] = findViewById(R.id.toggleButton2);
@@ -81,7 +82,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         TextView selectSectorText = findViewById(R.id.selectSectorText);
         selectSectorText.setTypeface(opensansBold);
 
-        TextView titleInDateHours =findViewById(R.id.titleInDateHours);
+        TextView titleInDateHours = findViewById(R.id.titleInDateHours);
         titleInDateHours.setTypeface(opensansBold);
 
         TextView genresTextHours = findViewById(R.id.genresTextHours);
@@ -105,7 +106,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         TextView minAgeInDateHours = findViewById(R.id.minAgeInDateHours);
         minAgeInDateHours.setTypeface(opensansItalic);
 
-        builder =  new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(this);
 
         chooseDateTime = new ChooseDateTime(this, movieId, this, this);
 
@@ -116,10 +117,10 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Log.d(logTag, "Stan buttona przed= " + Boolean.toString(datesButtons[finalI].isChecked()));
-                    if(!chooseDateTime.getSelectedDate()[finalI]){
+                    if (!chooseDateTime.getSelectedDate()[finalI]) {
                         chooseDateTime.chooseDate(finalI);
 
-                        for(int j = 0; j< chooseDateTime.getSelectedDate().length; j++)
+                        for (int j = 0; j < chooseDateTime.getSelectedDate().length; j++)
                             markSeat(datesButtons[j], j);
 
                         chooseDateTime.prepareDateButtons();
@@ -129,8 +130,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                         chooseDateTime.clearListOfRepertoires();
                         hoursAdapter.notifyDataSetChanged();
 
-                    }
-                    else{
+                    } else {
                         updateDateButtons();
                         chooseDateTime.getSelectedDate()[finalI] = true;
                     }
@@ -157,35 +157,28 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         finish();
     }
 
-    public void updateMovieInfo(Movie sentMovie) {
-        final Movie movie = sentMovie;
-        final ImageLoader imageLoader;
-        imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
-                .getImageLoader();
+    public void settingMovieInfo(Movie sentMovie) {
+        if (imageLoader == null) {
+            imageLoader = AppController.getInstance().getImageLoader();
+        }
+        TextView title = findViewById(R.id.titleInDateHours);
+        TextView movieLength = findViewById(R.id.movieLengthInDateHours);
+        TextView minAge = findViewById(R.id.minAgeInDateHours);
+        NetworkImageView picture = findViewById(R.id.pictureInDate);
+        TextView genres = findViewById(R.id.genresInDateHours);
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TextView title = findViewById(R.id.titleInDateHours);
-                TextView movieLength = findViewById(R.id.movieLengthInDateHours);
-                TextView minAge = findViewById(R.id.minAgeInDateHours);
-                NetworkImageView picture = findViewById(R.id.pictureInDate);
-                TextView genres = findViewById(R.id.genresInDateHours);
-
-                Log.d(logTag, "Pozytywnie odnaleziono elementy opisujące film");
-                title.setText(movie.getTitle());
-                movieLength.setText(String.valueOf(movie.getRunningTimeMin()));
-                minAge.setText(String.valueOf(movie.getAge()));
-                Log.d(logTag, "Przed ustawieniem obrazka");
-                picture.setImageUrl(movie.getPictureURL(), imageLoader);
-                Log.d(logTag, "Po ustawieniu obrazka");
-                genres.setText(movie.getGenres());
-                Log.d(logTag, "Po ustawieniu gatunku");
-            }
-        });
-
+        Log.d(logTag, "Pozytywnie odnaleziono elementy opisujące film");
+        title.setText(sentMovie.getTitle());
+        movieLength.setText(String.valueOf(sentMovie.getRunningTimeMin()));
+        minAge.setText(String.valueOf(sentMovie.getAge()));
+        Log.d(logTag, "Przed ustawieniem obrazka");
+        picture.setImageUrl(sentMovie.getPictureURL(), imageLoader);
+        Log.d(logTag, "Po ustawieniu obrazka");
+        genres.setText(sentMovie.getGenres());
+        Log.d(logTag, "Po ustawieniu gatunku");
     }
-    public void markSeat(ToggleButton button, int index){
+
+    public void markSeat(ToggleButton button, int index) {
         final ToggleButton finalButton = button;
         final int finalIndex = index;
         runOnUiThread(new Runnable() {
@@ -205,11 +198,11 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         });
     }
 
-    public void updateDateButtons(){
+    public void updateDateButtons() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            List<Repertoire> uniqueDates = chooseDateTime.getCurrentWeek();
+                List<Repertoire> uniqueDates = chooseDateTime.getCurrentWeek();
                 int i = 0;
                 for (Repertoire repertoire : uniqueDates) {
                     String text = Integer.toString(repertoire.getDateFormat().getDate().get(Calendar.DAY_OF_MONTH));
@@ -236,6 +229,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 getString(R.string.loginNetworkConnectionErrorMsg)
         );
     }
+
     @Override
     public void callbackOnSetUi() {
         Log.d(logTag, "callbackOnSetUi");
@@ -252,9 +246,10 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         hoursGridView.setAdapter(hoursAdapter);
 
     }
+
     @Override
     public void callBackOnBadChoice(boolean noChoice) {
-        if(noChoice)
+        if (noChoice)
             showDialog(getString(R.string.noChoosedHourTitle),
                     getString(R.string.wrongNumOfHours)
             );
@@ -267,13 +262,13 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     @Override
     public void callBackSuccess() {
         int repertoireId = chooseDateTime.getSelectedRepertoires().get(0);
-        Log.d(logTag,"Końcowy repertoireId " + repertoireId);
+        Log.d(logTag, "Końcowy repertoireId " + repertoireId);
         Intent intent = new Intent(ChooseDateTimeActivity.this, SectorActivity.class);
         intent.putExtra(getString(R.string.repertoireId), repertoireId);
         startActivity(intent);
     }
 
-    public void showDialog(String title, String message){
+    public void showDialog(String title, String message) {
         final String finalTitle = title;
         final String finalMessage = message;
 
