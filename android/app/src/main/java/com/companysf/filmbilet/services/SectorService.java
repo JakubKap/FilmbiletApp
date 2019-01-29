@@ -126,13 +126,13 @@ public class SectorService implements ReservationConnListener, SocketListener {
             Log.d(logTag, "seatSetor[" + i + "] = " + hall.getSeatSector()[i]);
 
     }
-    private void updateSectorSeats(){
+    public void updateSectorSeats(){
         for(int i=0; i<sectors.length; i++)
             sectors[i].setFreeSeats(freeSeatsOfSector(i));
     }
 
 
-    private int freeSeatsOfSector(int sectorNum){
+    public int freeSeatsOfSector(int sectorNum){
         int freeSeats = 35;
         for(int i = 0; i< hall.getTakenSeats().length; i++){
             if(hall.getTakenSeats()[i] && hall.getSeatSector()[i] == (sectorNum+1))
@@ -226,7 +226,7 @@ public class SectorService implements ReservationConnListener, SocketListener {
         prepareDialog();
     }
 
-    private void reactOnMessage(boolean[] reservedSeats){
+    public void reactOnMessage(boolean[] reservedSeats){
         for(int i=0; i<hall.getTakenYourSeats().length; i++)
             hall.setTakenYourSeats(i,false);
 
@@ -250,7 +250,7 @@ public class SectorService implements ReservationConnListener, SocketListener {
             updateSectorSeats();
         }
 
-        private void prepareDialog(){
+        public void prepareDialog(){
 
             int sizeOfNumbersArray=0;
             for(int i=0; i<hall.getTakenYourSeats().length;i++)

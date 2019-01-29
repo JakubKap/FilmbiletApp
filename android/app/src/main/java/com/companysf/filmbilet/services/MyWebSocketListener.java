@@ -17,14 +17,15 @@ import okio.ByteString;
 public class MyWebSocketListener extends WebSocketListener {
 
     private static final String logTag = MyWebSocketListener.class.getSimpleName();
-    private SocketListener socketListener;
+    SocketListener socketListener;
 
-    private OkHttpClient httpClient;
+    OkHttpClient httpClient;
+    Request request;
 
-    MyWebSocketListener(SocketListener socketListener){
+    public MyWebSocketListener(SocketListener socketListener){
         this.socketListener = socketListener;
         this.httpClient  = new OkHttpClient();
-        Request request = new Request.Builder().url(AppConfig.websocketURL).build();
+        this.request = new Request.Builder().url(AppConfig.websocketURL).build();
         httpClient.newWebSocket(request, this);
         httpClient.dispatcher().executorService().shutdown();
     }
@@ -38,8 +39,11 @@ public class MyWebSocketListener extends WebSocketListener {
     public void onMessage(WebSocket webSocket, String text) {
         Log.d(logTag, "onMessage");
         WebsocketMessage message = new WebsocketMessage(text);
+//        WebSocketMessageService messageService = new WebSocketMessageService(text);
         WebSocketMessageService messageService = new WebSocketMessageService();
+
         socketListener.onMessageCallback(
+//                messageService.getChoosedPlaces()
                 messageService.convertJsonStringToArray(message.getChoosedPlacesString())
         );
 
@@ -66,12 +70,13 @@ public class MyWebSocketListener extends WebSocketListener {
         Log.d(logTag, "onFailure: " + t.getMessage());
     }
 
-    OkHttpClient getHttpClient() {
+    public OkHttpClient getHttpClient() {
         return httpClient;
     }
 
-    void prepareMessage(Context c, WebSocket webSocket, boolean[] myChoosedPlaces){
+    public void prepareMessage(Context c, WebSocket webSocket, boolean[] myChoosedPlaces){
         WebsocketMessage message = new WebsocketMessage(myChoosedPlaces);
+//        WebSocketMessageService message = new WebSocketMessageService(myChoosedPlaces);
         WebSocketMessageService messageService = new WebSocketMessageService();
         webSocket.send(
                 messageService.convertToJsonString(message.getChoosedPlaces())
