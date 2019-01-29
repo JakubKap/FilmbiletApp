@@ -340,20 +340,110 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     }
 
+    public String sectorTitle(int index) {
+        if(index == 0)
+            return getString(R.string.upperSector1Text);
+        else if(index == 1)
+            return getString(R.string.upperSector2Text);
+        else if(index == 2)
+            return getString(R.string.upperSector3Text);
+        else if(index == 3)
+            return getString(R.string.upperSector4Text);
+        else if(index == 4)
+            return getString(R.string.upperSector5Text);
+        else if(index == 5)
+            return getString(R.string.upperSector6Text);
+        else if(index == 6)
+            return getString(R.string.upperSector7Text);
+        else
+            return getString(R.string.upperSector8Text);
+
+    }
+    public String sectorSubtitle(int index){
+        if(index == 0 || index == 1)
+            return getString(R.string.sector1Subtitle);
+        else if(index == 2 || index == 3)
+            return getString(R.string.sector2Subtitle);
+        else if(index == 4 || index == 5)
+            return getString(R.string.sector3Subtitle);
+        else
+            return getString(R.string.sector4Subtitle);
+
+    }
+
+
+
+    public String [] rowLabels(int index){
+        String[] rowLabels = new String[5];
+        if(index == 0 || index == 1) {
+            rowLabels[0] = getString(R.string.row1);
+            rowLabels[1] = getString(R.string.row2);
+            rowLabels[2] = getString(R.string.row3);
+            rowLabels[3] = getString(R.string.row4);
+            rowLabels[4] = getString(R.string.row5);
+        }
+        else if(index == 2 || index == 3) {
+            rowLabels[0] = getString(R.string.row6);
+            rowLabels[1] = getString(R.string.row7);
+            rowLabels[2] = getString(R.string.row8);
+            rowLabels[3] = getString(R.string.row9);
+            rowLabels[4] = getString(R.string.row10);
+        }
+        if(index == 4 || index == 5) {
+            rowLabels[0] = getString(R.string.row11);
+            rowLabels[1] = getString(R.string.row12);
+            rowLabels[2] = getString(R.string.row13);
+            rowLabels[3] = getString(R.string.row14);
+            rowLabels[4] = getString(R.string.row15);
+        }
+        else if(index == 6 || index == 7){
+            rowLabels[0] = getString(R.string.row16);
+            rowLabels[1] = getString(R.string.row17);
+            rowLabels[2] = getString(R.string.row18);
+            rowLabels[3] = getString(R.string.row19);
+            rowLabels[4] = getString(R.string.row20);
+        }
+
+        return rowLabels;
+    }
+    public String[] columnLabels(int index){
+        String [] columnLabels = new String[7];
+        if(index % 2 == 0){
+            columnLabels[0] = getString(R.string.firstColumnTextLeft);
+            columnLabels[1] = getString(R.string.secondColumnTextLeft);
+            columnLabels[2] = getString(R.string.thirdColumnTextLeft);
+            columnLabels[3] = getString(R.string.fourthColumnTextLeft);
+            columnLabels[4] = getString(R.string.fifthColumnTextLeft);
+            columnLabels[5] = getString(R.string.sixthColumnTextLeft);
+            columnLabels[6] = getString(R.string.seventhColumnTextLeft);
+        }
+        else{
+            columnLabels[0] = getString(R.string.firstColumnTextRight);
+            columnLabels[1] = getString(R.string.secondColumnTextRight);
+            columnLabels[2] = getString(R.string.thirdColumnTextRight);
+            columnLabels[3] = getString(R.string.fourthColumnTextRight);
+            columnLabels[4] = getString(R.string.fifthColumnTextRight);
+            columnLabels[5] = getString(R.string.sixthColumnTextRight);
+            columnLabels[6] = getString(R.string.seventhColumnTextRight);
+        }
+
+        return columnLabels;
+    }
+
     public void setPopupMetadata(int index){
         final int sectorIndex = index;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 seatsProgressBar.setVisibility(View.INVISIBLE);
-                title.setText(sectorService.getSectorTitles()[sectorIndex]);
-                subtitle.setText(sectorService.sectorSubtitle(sectorIndex));
+                title.setText(sectorTitle(sectorIndex));
+                subtitle.setText(sectorSubtitle(sectorIndex));
 
-                String[] rowLabels = sectorService.rowLabels(sectorIndex);
+                String[] rowLabels = rowLabels(sectorIndex);
                 for (int i = 0; i < rowLabels.length; i++)
                     rowButtons[i].setText(rowLabels[i]);
 
-                String[] columnLabels = sectorService.columnLabels(sectorIndex);
+                String[] columnLabels = columnLabels(sectorIndex);
                 for (int i = 0; i < columnLabels.length; i++)
                     columnButtons[i].setText(columnLabels[i]);
 

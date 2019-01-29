@@ -34,8 +34,6 @@ public class SectorService implements SocketListener {
     private Hall hall;
     private Sector [] sectors;
 
-    private String[] sectorTitles;
-    private String[] sectorSubitles;
 
     public SectorService(Context context, ErrorListener errorListener,
                          ReservationConnListener reservationConnListener,
@@ -64,21 +62,6 @@ public class SectorService implements SocketListener {
         }
 
         assignFirstSecSeat();
-        sectorTitles = new String[numOfSectors];
-        sectorTitles[0] = context.getString(R.string.upperSector1Text);
-        sectorTitles[1] = context.getString(R.string.upperSector2Text);
-        sectorTitles[2] = context.getString(R.string.upperSector3Text);
-        sectorTitles[3] = context.getString(R.string.upperSector4Text);
-        sectorTitles[4] = context.getString(R.string.upperSector5Text);
-        sectorTitles[5] = context.getString(R.string.upperSector6Text);
-        sectorTitles[6] = context.getString(R.string.upperSector7Text);
-        sectorTitles[7] = context.getString(R.string.upperSector8Text);
-
-        sectorSubitles = new String[numOfSectors/2];
-        sectorSubitles[0] = context.getString(R.string.sector1Subtitle);
-        sectorSubitles[1] = context.getString(R.string.sector2Subtitle);
-        sectorSubitles[2] = context.getString(R.string.sector3Subtitle);
-        sectorSubitles[3] = context.getString(R.string.sector4Subtitle);
     }
 
     public void assignFirstSecSeat(){
@@ -177,73 +160,6 @@ public class SectorService implements SocketListener {
         }
 
         return sectors[sectorNumber].getSeatNumbers();
-    }
-    public String sectorSubtitle(int index){
-       if(index == 0 || index == 1)
-           return sectorSubitles[0];
-       else if(index == 2 || index == 3)
-            return sectorSubitles[1];
-        if(index == 4 || index == 5)
-            return sectorSubitles[2];
-        else
-            return sectorSubitles[3];
-    }
-
-    public String [] rowLabels(int index){
-        String[] rowLabels = new String[5];
-        if(index == 0 || index == 1) {
-            rowLabels[0] = context.getString(R.string.row1);
-            rowLabels[1] = context.getString(R.string.row2);
-            rowLabels[2] = context.getString(R.string.row3);
-            rowLabels[3] = context.getString(R.string.row4);
-            rowLabels[4] = context.getString(R.string.row5);
-        }
-        else if(index == 2 || index == 3) {
-            rowLabels[0] = context.getString(R.string.row6);
-            rowLabels[1] = context.getString(R.string.row7);
-            rowLabels[2] = context.getString(R.string.row8);
-            rowLabels[3] = context.getString(R.string.row9);
-            rowLabels[4] = context.getString(R.string.row10);
-        }
-        if(index == 4 || index == 5) {
-            rowLabels[0] = context.getString(R.string.row11);
-            rowLabels[1] = context.getString(R.string.row12);
-            rowLabels[2] = context.getString(R.string.row13);
-            rowLabels[3] = context.getString(R.string.row14);
-            rowLabels[4] = context.getString(R.string.row15);
-        }
-        else if(index == 6 || index == 7){
-            rowLabels[0] = context.getString(R.string.row16);
-            rowLabels[1] = context.getString(R.string.row17);
-            rowLabels[2] = context.getString(R.string.row18);
-            rowLabels[3] = context.getString(R.string.row19);
-            rowLabels[4] = context.getString(R.string.row20);
-        }
-
-        return rowLabels;
-    }
-    public String[] columnLabels(int index){
-        String [] columnLabels = new String[7];
-        if(index % 2 == 0){
-            columnLabels[0] = context.getString(R.string.firstColumnTextLeft);
-            columnLabels[1] = context.getString(R.string.secondColumnTextLeft);
-            columnLabels[2] = context.getString(R.string.thirdColumnTextLeft);
-            columnLabels[3] = context.getString(R.string.fourthColumnTextLeft);
-            columnLabels[4] = context.getString(R.string.fifthColumnTextLeft);
-            columnLabels[5] = context.getString(R.string.sixthColumnTextLeft);
-            columnLabels[6] = context.getString(R.string.seventhColumnTextLeft);
-        }
-        else{
-            columnLabels[0] = context.getString(R.string.firstColumnTextRight);
-            columnLabels[1] = context.getString(R.string.secondColumnTextRight);
-            columnLabels[2] = context.getString(R.string.thirdColumnTextRight);
-            columnLabels[3] = context.getString(R.string.fourthColumnTextRight);
-            columnLabels[4] = context.getString(R.string.fifthColumnTextRight);
-            columnLabels[5] = context.getString(R.string.sixthColumnTextRight);
-            columnLabels[6] = context.getString(R.string.seventhColumnTextRight);
-        }
-
-        return columnLabels;
     }
 
     public void markSeat(int sectorIndex, int seatIndex){
@@ -429,9 +345,6 @@ public class SectorService implements SocketListener {
         this.repertoireId = repertoireId;
     }
 
-    public String[] getSectorTitles() {
-        return sectorTitles;
-    }
 
     public int[] getSeatNumbers(int index) {
         return sectors[index].getSeatNumbers();
