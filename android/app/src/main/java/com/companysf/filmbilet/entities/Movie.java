@@ -31,10 +31,6 @@ public class Movie implements Serializable {
         return genres;
     }
 
-    public void setGenres(String genres) {
-        this.genres = genres;
-    }
-
     public int getRunningTimeMin() {
         return runningTimeMin;
     }

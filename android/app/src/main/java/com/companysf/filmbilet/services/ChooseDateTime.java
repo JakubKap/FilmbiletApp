@@ -18,8 +18,6 @@ import java.util.Set;
 
 public class ChooseDateTime implements RepertoireConnListener {
     private static final String logTag = ChooseDateTime.class.getSimpleName();
-    private Context context;
-    private ErrorListener errorListener;
     private DateTimeListener dateTimeListener;
     private boolean[] selectedDate;
 
@@ -28,15 +26,14 @@ public class ChooseDateTime implements RepertoireConnListener {
     private List<Repertoire> hoursForDate;
 
     private List<Repertoire> currentWeek;
-    int movieId;
 
 
-    public ChooseDateTime(Context context, int movieId, ErrorListener errorListener, DateTimeListener dateTimeListener){
-        this.context = context;
-        this.movieId = movieId;
+    public ChooseDateTime(Context context, int movieId, ErrorListener errorListener,
+                          DateTimeListener dateTimeListener) {
         this.dateTimeListener = dateTimeListener;
-        RepertoireConnection repertoireConnection = new RepertoireConnection(context, errorListener, this);
-        repertoireConnection.getRepertoireForMovie(movieId);
+        RepertoireConnection repertoireConnection =
+                new RepertoireConnection(context, errorListener, this);
+        repertoireConnection.updateRepertoireForMovieFromServer(movieId);
 
         this.selectedRepertoires = new ArrayList<>();
 
@@ -79,7 +76,6 @@ public class ChooseDateTime implements RepertoireConnListener {
                 Log.d(logTag, "Dodana wartość do hoursForDate = " + repertoire.toString());
             }
         }
-
     }
 
     public void prepareDateButtons(){

@@ -55,7 +55,7 @@ public class HoursAdapter extends BaseAdapter {
             toggleButton = new ToggleButton(mContext);
             toggleButton.setLayoutParams(new GridView.LayoutParams(400, 200));
 
-           toggleButton.setBackgroundResource(R.drawable.toggle_button_selector);
+            toggleButton.setBackgroundResource(R.drawable.toggle_button_selector);
 
             toggleButton.setPadding(8, 8, 8, 8);
         }

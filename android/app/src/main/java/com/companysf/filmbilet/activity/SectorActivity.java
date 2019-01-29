@@ -21,8 +21,10 @@ import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
 import com.companysf.filmbilet.connection.Listener.SectorListener;
+import com.companysf.filmbilet.entities.Hall;
+import com.companysf.filmbilet.entities.Sector;
 import com.companysf.filmbilet.services.Login;
-import com.companysf.filmbilet.services.Sector;
+import com.companysf.filmbilet.services.SectorService;
 import com.companysf.filmbilet.R;
 
 
@@ -31,13 +33,13 @@ import java.util.Locale;
 import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 
 
-public class SectorActivity extends AppCompatActivity implements ErrorListener, ReservationConnListener, SectorListener {
+public class SectorActivity extends AppCompatActivity implements ErrorListener, SectorListener {
 
     private static final String logTag = SectorActivity.class.getSimpleName();
 
     AlertDialog.Builder builder;
 
-    private Sector sector;
+    private SectorService sectorService;
 
     private Button[] seatButtons;
     private Button[] sectorButtons;
@@ -58,6 +60,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     private ProgressBar seatsProgressBar;
     private TextView title, subtitle;
 
+    private int currentSector;
+    private Hall hall;
+    private Sector[] sectors;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +75,16 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             switchToLoginActivity();
         }
 
-        builder =  new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(this);
 
-        ReservationConnection reservationConnection = new ReservationConnection(this, this, this);
-        sector = new Sector(this,this, this, this,8, 280);
+        Bundle bundle = getIntent().getExtras();
+        int repertoireId = bundle.getInt(getString(R.string.repertoireId));
+
+        hall = new Hall(280);
+
+        sectors = new Sector[8];
+
+        sectorService = new SectorService(repertoireId, this, hall,sectors,this, this, 8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -144,50 +156,44 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         for (TextView secPrice : secPrices)
             secPrice.setTypeface(opensansRegular);
 
-        sector.assignRowToSeat();
-        sector.assignSectorToSeat();
-
-        Bundle bundle = getIntent().getExtras();
-        int repertoireId = bundle.getInt(getString(R.string.repertoireId));
-        reservationConnection.getReservations(repertoireId);
-        sector.setRepertoireId(repertoireId);
+        sectorService.assignRowToSeat();
+        sectorService.assignSectorToSeat();
 
         for (int i = 0; i < sectorButtons.length; i++) {
             setPopupOnSector(i);
-            sector.setSeatNumbers(new int[35]);
-            sector.clearMarkedSeats();
+            //sectorService.setSeatNumbers(i, new int[35]);
+            sectors[i].setSeatNumbers(new int[35]);
+            sectorService.clearMarkedSeats();
         }
         secBtnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sector.numOfChoosedSeats() == 0) {
+                if (sectorService.numOfChoosedSeats() == 0) {
                     showDialog(getString(R.string.noChoosedPlacesTitle),
                             getString(R.string.noChoosedPlacesMsg));
-                }
-                else {
-                    sector.saveToDb();
-                    //Intent intent = new Intent(this, CustomerReservationsActivity.class);
+                } else {
+                    sectorService.saveToDb();
                     Intent intent = new Intent(SectorActivity.this, CustomerReservationsActivity.class);
                     startActivity(intent);
-
                 }
             }
         });
     }
 
-    private void setPopupOnSector(int sectorIndex) {
-        final int index = sectorIndex;
+    private void setPopupOnSector(final int sectorIndex) {
         sectorButtons[sectorIndex].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(logTag, "index buttona = " + index);
+                Log.d(logTag, "index buttona = " + sectorIndex);
 
-                sector.assignSeatsPrev();
-                for(int i = 0; i< sector.getChoosedSeatsPrev().length; i++)
-                    if(sector.getChoosedSeatsPrev()[i])
-                        Log.d(logTag, "Marked seat after opening activity_sector " + i);
+                currentSector = sectorIndex;
 
-                if(sector.getFreeSeatsInSector()[index] == 0) {
+                sectorService.assignSeatsPrev();
+                for (int i = 0; i < hall.getChoosedSeatsPrev().length; i++)
+                    if (hall.getChoosedSeatsPrev()[i])
+                        Log.d(logTag, "Marked seat after opening sectorService " + i);
+
+                if(sectors[sectorIndex].getFreeSeats() == 0){
                     showDialog(
                             getString(R.string.emptySectorTitle),
                             getString(R.string.emptySectorMsg)
@@ -262,18 +268,18 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                 seatsCloseButton.setTypeface(opensansRegular);
                 seatsApproveButton.setTypeface(opensansRegular);
 
-                setPopupMetadata(index);
+                setPopupMetadata(sectorIndex);
 
                 dialog.show();
 
-                for(int i=0; i<seatButtons.length; i++){
+                for (int i = 0; i < seatButtons.length; i++) {
                     final int index = i;
                     seatButtons[i].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            sector.markSeat(index);
-                            int seatNumber = sector.getSeatNumbers()[index];
-                            markSeat(seatButtons[index], sector.getChoosedSeats()[seatNumber - 1], false);
+                            sectorService.markSeat(sectorIndex, index);
+                            int seatNumber = sectors[sectorIndex].getSeatNumbers()[index];
+                            markSeat(seatButtons[index], hall.getChoosedSeats()[seatNumber - 1], false);
                         }
                     });
                 }
@@ -283,6 +289,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     public void onClick(View view) {
                         dialog.dismiss();
                         updateSummary();
+                        currentSector = -1;
                     }
                 });
 
@@ -291,17 +298,18 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     public void onClick(View view) {
                         dialog.dismiss();
 
-                        sector.restoreChoosedSeats();
+                        sectorService.restoreChoosedSeats();
 
-                        for(int i = 0; i< sector.getChoosedSeatsPrev().length; i++)
-                            if(sector.getChoosedSeatsPrev()[i])
-                                Log.d(logTag, "Marked seat after closing activity_sector " + i);
+                        for (int i = 0; i < hall.getChoosedSeatsPrev().length; i++)
+                            if (hall.getChoosedSeatsPrev()[i])
+                                Log.d(logTag, "Marked seat after closing sectorService " + i);
 
-                        sector.restoreChoosedSeats();
-                        for(int i = 0; i< sector.getChoosedSeats().length; i++)
-                            if(sector.getChoosedSeats()[i])
-                                Log.d(logTag, "Choosed Mseat after closing activity_sector " + i);
+                        sectorService.restoreChoosedSeats();
+                        for (int i = 0; i < hall.getChoosedSeats().length; i++)
+                            if (hall.getChoosedSeats()[i])
+                                Log.d(logTag, "Choosed Mseat after closing sectorService " + i);
 
+                        currentSector = -1;
                         updateSummary();
                     }
                 });
@@ -321,61 +329,160 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     String pom = getString(R.string.summaryStartText);
                     secSummaryPrice.setText(pom);
                 }
-                for(int i=0; i<freeSeats.length; i++)
-                    freeSeats[i].setText(String.format(new Locale("pl", "PL"), "%d",
-                            sector.getFreeSeatsInSector()[i]));
+                for (int i = 0; i < freeSeats.length; i++) {
+                    String text = String.format(
+                            new Locale(getString(R.string.polish), getString(R.string.poland)),
+                            "%d",
+                            sectors[i].getFreeSeats()
+                    )
+                            + getString(R.string.currency);
+                    freeSeats[i].setText(text);
+                }
 
             }
         });
 
     }
 
-    public void setPopupMetadata(int index){
+    public String sectorTitle(int index) {
+        if (index == 0)
+            return getString(R.string.upperSector1Text);
+        else if (index == 1)
+            return getString(R.string.upperSector2Text);
+        else if (index == 2)
+            return getString(R.string.upperSector3Text);
+        else if (index == 3)
+            return getString(R.string.upperSector4Text);
+        else if (index == 4)
+            return getString(R.string.upperSector5Text);
+        else if (index == 5)
+            return getString(R.string.upperSector6Text);
+        else if (index == 6)
+            return getString(R.string.upperSector7Text);
+        else
+            return getString(R.string.upperSector8Text);
+    }
+
+    public String sectorSubtitle(int index) {
+        if (sectorService.sectorSubtitleIndex(index) == 0)
+            return getString(R.string.sector1Subtitle);
+        else if (sectorService.sectorSubtitleIndex(index) == 1)
+            return getString(R.string.sector2Subtitle);
+        else if (sectorService.sectorSubtitleIndex(index) == 2)
+            return getString(R.string.sector3Subtitle);
+        else
+            return getString(R.string.sector4Subtitle);
+
+    }
+
+    public String[] rowLabels(int index) {
+        String[] rowLabels = new String[5];
+        if (sectorService.rowLabelsType(index) == 0) {
+            rowLabels[0] = getString(R.string.row1);
+            rowLabels[1] = getString(R.string.row2);
+            rowLabels[2] = getString(R.string.row3);
+            rowLabels[3] = getString(R.string.row4);
+            rowLabels[4] = getString(R.string.row5);
+        } else if (sectorService.rowLabelsType(index) == 1) {
+            rowLabels[0] = getString(R.string.row6);
+            rowLabels[1] = getString(R.string.row7);
+            rowLabels[2] = getString(R.string.row8);
+            rowLabels[3] = getString(R.string.row9);
+            rowLabels[4] = getString(R.string.row10);
+        }
+        if (sectorService.rowLabelsType(index) == 2) {
+            rowLabels[0] = getString(R.string.row11);
+            rowLabels[1] = getString(R.string.row12);
+            rowLabels[2] = getString(R.string.row13);
+            rowLabels[3] = getString(R.string.row14);
+            rowLabels[4] = getString(R.string.row15);
+        } else  {
+            rowLabels[0] = getString(R.string.row16);
+            rowLabels[1] = getString(R.string.row17);
+            rowLabels[2] = getString(R.string.row18);
+            rowLabels[3] = getString(R.string.row19);
+            rowLabels[4] = getString(R.string.row20);
+        }
+
+        return rowLabels;
+    }
+
+    public String[] columnLabels(int index) {
+        String[] columnLabels = new String[7];
+        if (sectorService.columnLabelsType(index)) {
+            columnLabels[0] = getString(R.string.firstColumnTextLeft);
+            columnLabels[1] = getString(R.string.secondColumnTextLeft);
+            columnLabels[2] = getString(R.string.thirdColumnTextLeft);
+            columnLabels[3] = getString(R.string.fourthColumnTextLeft);
+            columnLabels[4] = getString(R.string.fifthColumnTextLeft);
+            columnLabels[5] = getString(R.string.sixthColumnTextLeft);
+            columnLabels[6] = getString(R.string.seventhColumnTextLeft);
+        } else {
+            columnLabels[0] = getString(R.string.firstColumnTextRight);
+            columnLabels[1] = getString(R.string.secondColumnTextRight);
+            columnLabels[2] = getString(R.string.thirdColumnTextRight);
+            columnLabels[3] = getString(R.string.fourthColumnTextRight);
+            columnLabels[4] = getString(R.string.fifthColumnTextRight);
+            columnLabels[5] = getString(R.string.sixthColumnTextRight);
+            columnLabels[6] = getString(R.string.seventhColumnTextRight);
+        }
+
+        return columnLabels;
+    }
+
+    public void setPopupMetadata(int index) {
         final int sectorIndex = index;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 seatsProgressBar.setVisibility(View.INVISIBLE);
-                title.setText(sector.getSectorTitles()[sectorIndex]);
-                subtitle.setText(sector.sectorSubtitle(sectorIndex));
+                title.setText(sectorTitle(sectorIndex));
+                subtitle.setText(sectorSubtitle(sectorIndex));
 
-                String[] rowLabels = sector.rowLabels(sectorIndex);
+                String[] rowLabels = rowLabels(sectorIndex);
                 for (int i = 0; i < rowLabels.length; i++)
                     rowButtons[i].setText(rowLabels[i]);
 
-                String[] columnLabels = sector.columnLabels(sectorIndex);
+                String[] columnLabels = columnLabels(sectorIndex);
                 for (int i = 0; i < columnLabels.length; i++)
                     columnButtons[i].setText(columnLabels[i]);
 
-                int[] seatNumbers = sector.seatNumbers(sectorIndex);
+                int[] seatNumbers = sectorService.seatNumbers(sectorIndex);
                 for (int i = 0; i < seatButtons.length; i++)
-                    seatButtons[i].setText(String.format(new Locale("pl", "PL"), "%d",
-                            seatNumbers[i]));
+                    seatButtons[i].setText(
+                            String.format(
+                                    new Locale(getString(R.string.polish), getString(R.string.poland)),
+                                    "%d",
+                                    seatNumbers[i]
+                            )
+                    );
 
-                markChoosedPlaces();
+                markChoosedPlaces(sectorIndex);
             }
         });
     }
 
-    public void markChoosedPlaces(){
-        final boolean [] takenSeats = sector.getTakenSeats();
-        final int [] seatNumbers = sector.getSeatNumbers();
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                for(int i=0; i<seatNumbers.length; i++){
-                    Log.d(logTag, "Mark seatNumber[i] = " + seatNumbers[i]);
-                    if(takenSeats[seatNumbers[i]-1]) {
-                        seatButtons[i].setEnabled(false);
-                        markTakenSeat(seatButtons[i]);
+    public void markChoosedPlaces(int sectorIndex) {
+        if (sectorIndex > 0) {
+            final boolean[] takenSeats = hall.getTakenSeats();
+            final int[] seatNumbers = sectors[sectorIndex].getSeatNumbers();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < seatNumbers.length; i++) {
+                        Log.d(logTag, "Mark seatNumber[i] = " + seatNumbers[i]);
+                        if (takenSeats[seatNumbers[i] - 1]) {
+                            seatButtons[i].setEnabled(false);
+                            markTakenSeat(seatButtons[i]);
+                        } else
+                            markSeat(seatButtons[i], hall.getChoosedSeats()[seatNumbers[i] - 1], true);
                     }
-                    else
-                        markSeat(seatButtons[i], sector.getChoosedSeats()[seatNumbers[i]-1], true);
                 }
-            }
-        });
+            });
+        }
     }
-    public void markSeat(Button button, boolean isTaken, boolean isInitial){
+
+    public void markSeat(Button button, boolean isTaken, boolean isInitial) {
         final boolean finalIsTaken = isTaken;
         final boolean finalIsInitial = isInitial;
         final Button finalButton = button;
@@ -397,7 +504,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         });
     }
 
-    public void markTakenSeat(Button button){
+    public void markTakenSeat(Button button) {
         final Button finalButton = button;
         runOnUiThread(new Runnable() {
             @Override
@@ -407,7 +514,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             }
         });
     }
-    public void performAnimation(Button button){
+
+    public void performAnimation(Button button) {
         final Button finalButton = button;
         runOnUiThread(new Runnable() {
             @Override
@@ -419,14 +527,24 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         });
     }
 
-    public void updateSummary(){
+    public void updateSummary() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                secChoosedPlaces.setText(String.format(new Locale("pl", "PL"), "%d",
-                        sector.numOfSeats()));
-                secSummaryPrice.setText(String.format(new Locale("pl", "PL"), "%d",
-                        sector.seatsPrice()));
+                secChoosedPlaces.setText(
+                        String.format(
+                                new Locale(getString(R.string.polish), getString(R.string.poland)),
+                                "%d",
+                                sectorService.numOfSeats()
+                        )
+                );
+                secSummaryPrice.setText(
+                        String.format(
+                                new Locale(getString(R.string.polish), getString(R.string.poland)),
+                                "%d",
+                                sectorService.seatsPrice()
+                        )
+                );
             }
         });
     }
@@ -436,22 +554,18 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         startActivity(intent);
         finish();
     }
+
     @Override
-    public void updateUiCallback() {
+    public void updateUiCallback(boolean isMessage) {
         Log.d(logTag, "updateUiCallback");
-        markChoosedPlaces();
-        updateSectors(false);
-        updateSummary();
-    }
+        if(isMessage) {
+            markChoosedPlaces(currentSector);
+            updateSectors(false);
+            updateSummary();
+        }
+        else
+            updateSectors(true);
 
-    @Override
-    public void onDbResponseCallback(boolean[] takenSeats) {
-        sector.setTakenSeats(takenSeats);
-        sector.updateSectorSeats();
-        for (int i = 0; i < sector.getTakenSeats().length; i++)
-            Log.d(logTag, "Model takenSeats = " + sector.getTakenSeats()[i]);
-
-        updateSectors(true);
     }
 
     @Override
@@ -487,7 +601,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         );
     }
 
-    public void showDialog(String title, String message){
+    public void showDialog(String title, String message) {
         final String finalTitle = title;
         final String finalMessage = message;
 

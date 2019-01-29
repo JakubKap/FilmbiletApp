@@ -30,14 +30,14 @@ public class ReservationConnection {
     private ReservationConnListener reservationConnListener;
     private ConnectionDetector cd;
 
-    public ReservationConnection(Context c, ErrorListener errorListener, ReservationConnListener reservationConnListener){
+    public ReservationConnection(Context c, ErrorListener errorListener, ReservationConnListener reservationConnListener) {
         this.mContext = c;
         this.errorListener = errorListener;
         this.reservationConnListener = reservationConnListener;
         this.cd = new ConnectionDetector(c);
     }
 
-    public void getReservations(int repertoireId) {
+    public void updateReservationsFromServer(int repertoireId) {
 
         if (cd.connected()) {
             Log.d(logTag, "Jest polaczenie inter");
@@ -62,20 +62,17 @@ public class ReservationConnection {
                                         JSONObject reservationJSON = reservationsJson.getJSONObject(i);
                                         Reservation reservation = new Reservation(
                                                 reservationJSON.getInt(mContext.getString(R.string.id)),
-                                                reservationJSON.getInt(mContext.getString(R.string.resSeatNumber)),
-                                                reservationJSON.getInt(mContext.getString(R.string.resRow))
+                                                reservationJSON.getInt(mContext.getString(R.string.resSeatNumber))
                                         );
 
                                         choosedPlaces[reservation.getSeatNumber() - 1] = true;
                                         int number = reservation.getSeatNumber() - 1;
                                         Log.d(logTag, "choosedPlaces[ " + number + " ] = " + choosedPlaces[number]);
                                     }
-
-
                                 }
                             } catch (JSONException e) {
                                 errorListener.callBackOnError();
-                        }
+                            }
 
                             for (int i = 0; i < choosedPlaces.length; i++)
                                 if (choosedPlaces[i])
@@ -99,19 +96,17 @@ public class ReservationConnection {
             };
 
             AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.registerRequestAdd));
-        }
-        else{
+        } else {
             errorListener.callBackOnNoNetwork();
             Log.d(logTag, "Brak polaczenia inter");
         }
     }
 
-    public void saveReservation(String customerIdPar, int seatNumberPar, int seatTypeIdPar, int rowPar,  int repertoireIdPar){
+    public void saveReservation(int customerIdPar, int seatNumberPar, int seatTypeIdPar, int rowPar, int repertoireIdPar) {
 
         if (cd.connected()) {
             Log.d(logTag, "Jest polaczenie inter");
-            //final String customerId = customerIdPar;
-            final String customerId = customerIdPar;
+            final String customerId = Integer.toString(customerIdPar);
             final String seatNumber = Integer.toString(seatNumberPar);
             final String seatTypeId = Integer.toString(seatTypeIdPar);
             final String row = Integer.toString(rowPar);
@@ -153,8 +148,7 @@ public class ReservationConnection {
                 }
             };
             AppController.getInstance().addToRequestQueue(stringRequest, mContext.getString(R.string.registerRequestAdd));
-        }
-        else{
+        } else {
             errorListener.callBackOnNoNetwork();
             Log.d(logTag, "Brak polaczenia inter");
         }

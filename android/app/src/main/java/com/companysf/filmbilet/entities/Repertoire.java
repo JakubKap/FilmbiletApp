@@ -26,10 +26,6 @@ public class Repertoire {
         return dateFormat;
     }
 
-    public void setDateFormat(DateFormat dateFormat) {
-        this.dateFormat = dateFormat;
-    }
-
     public int getId() {
         return id;
     }

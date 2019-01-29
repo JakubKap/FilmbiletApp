@@ -4,14 +4,11 @@ public class Reservation {
 
     private int id;
     private int seatNumber;
-    private int row;
 
-    public Reservation(int id, int seatNumber, int row) {
+    public Reservation(int id, int seatNumber) {
         this.id = id;
         this.seatNumber = seatNumber;
-        this.row = row;
     }
-
 
     public int getId() {
         return id;
@@ -25,11 +22,4 @@ public class Reservation {
         return seatNumber;
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
 }

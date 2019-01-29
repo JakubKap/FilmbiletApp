@@ -6,6 +6,7 @@ import android.util.Log;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.app.AppConfig;
 import com.companysf.filmbilet.connection.Listener.SocketListener;
+import com.companysf.filmbilet.entities.WebsocketMessage;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -16,15 +17,14 @@ import okio.ByteString;
 public class MyWebSocketListener extends WebSocketListener {
 
     private static final String logTag = MyWebSocketListener.class.getSimpleName();
-    SocketListener socketListener;
+    private SocketListener socketListener;
 
-    OkHttpClient httpClient;
-    Request request;
+    private OkHttpClient httpClient;
 
     public MyWebSocketListener(SocketListener socketListener){
         this.socketListener = socketListener;
         this.httpClient  = new OkHttpClient();
-        this.request = new Request.Builder().url(AppConfig.websocketURL).build();
+        Request request = new Request.Builder().url(AppConfig.websocketURL).build();
         httpClient.newWebSocket(request, this);
         httpClient.dispatcher().executorService().shutdown();
     }
@@ -37,9 +37,12 @@ public class MyWebSocketListener extends WebSocketListener {
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         Log.d(logTag, "onMessage");
-        WebSocketMessage message = new WebSocketMessage(text);
+        WebsocketMessage message = new WebsocketMessage(text);
+        WebSocketMessageService messageService = new WebSocketMessageService();
 
-        socketListener.onMessageCallback(message.getChoosedPlaces());
+        socketListener.onMessageCallback(
+                messageService.convertJsonStringToArray(message.getChoosedPlacesString())
+        );
 
     }
 
@@ -69,8 +72,11 @@ public class MyWebSocketListener extends WebSocketListener {
     }
 
     public void prepareMessage(Context c, WebSocket webSocket, boolean[] myChoosedPlaces){
-        WebSocketMessage message = new WebSocketMessage(myChoosedPlaces);
-        webSocket.send(message.getChoosedPlacesString());
+        WebsocketMessage message = new WebsocketMessage(myChoosedPlaces);
+        WebSocketMessageService messageService = new WebSocketMessageService();
+        webSocket.send(
+                messageService.convertToJsonString(message.getChoosedPlaces())
+        );
         webSocket.close(1000, c.getString(R.string.socketCloseReason));
     }
 
