@@ -62,7 +62,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sector);
+        setContentView(R.layout.activity_sector);
 
         Login login = new Login(this);
         if (!login.userIsLoggedIn()) {
@@ -185,7 +185,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                 sector.assignSeatsPrev();
                 for(int i = 0; i< sector.getChoosedSeatsPrev().length; i++)
                     if(sector.getChoosedSeatsPrev()[i])
-                        Log.d(logTag, "Marked seat after opening sector " + i);
+                        Log.d(logTag, "Marked seat after opening activity_sector " + i);
 
                 if(sector.getFreeSeatsInSector()[index] == 0) {
                     showDialog(
@@ -295,12 +295,12 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
                         for(int i = 0; i< sector.getChoosedSeatsPrev().length; i++)
                             if(sector.getChoosedSeatsPrev()[i])
-                                Log.d(logTag, "Marked seat after closing sector " + i);
+                                Log.d(logTag, "Marked seat after closing activity_sector " + i);
 
                         sector.restoreChoosedSeats();
                         for(int i = 0; i< sector.getChoosedSeats().length; i++)
                             if(sector.getChoosedSeats()[i])
-                                Log.d(logTag, "Choosed Mseat after closing sector " + i);
+                                Log.d(logTag, "Choosed Mseat after closing activity_sector " + i);
 
                         updateSummary();
                     }

@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.TextView;
 import com.companysf.filmbilet.connection.Listener.EmptyEmailListener;
 import com.companysf.filmbilet.connection.Listener.Listener;
 import com.companysf.filmbilet.services.Login;
@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
 
         Button loginBtn = findViewById(R.id.btnLogin);
         Button registerBtn = findViewById(R.id.btnRegister);
+        TextView logo = findViewById(R.id.logo);
         inputEmail = findViewById(R.id.email);
         inputName = findViewById(R.id.name);
         inputPassword = findViewById(R.id.password);
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
         final Register register = new Register(this, this, this);
 
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+        logo.setTypeface(opensansBold);
         registerBtn.setTypeface(opensansBold);
         loginBtn.setTypeface(opensansBold);
 

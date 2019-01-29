@@ -27,7 +27,6 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout emptyListRefreshLayout;
 
-    private CustomerReservationsListAdapter adapter;
     private ReservationsList reservationsList;
     private static final String TAG = CustomerReservationsActivity.class.getSimpleName();
 
@@ -52,7 +51,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         reservationsList = new ReservationsList();
-        adapter = new CustomerReservationsListAdapter(
+        CustomerReservationsListAdapter adapter = new CustomerReservationsListAdapter(
                 this, reservationsList.getList(), opensansItalic, opensansRegular
         );
 

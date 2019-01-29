@@ -25,22 +25,4 @@ public class ConnectionDetector {
                 activeNetwork != null
         );
     }
-
-    //TODO metoda do usuniecia
-    public AlertDialog.Builder buildDialog(Context context, String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
-        builder.setMessage(message);
-
-        builder.setPositiveButton(context.getString(R.string.dialogPositiveBtnText), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        return builder;
-    }
-
-
 }

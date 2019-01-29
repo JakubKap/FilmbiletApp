@@ -24,8 +24,6 @@ import com.companysf.filmbilet.adapter.MoviesListAdapter;
 import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.SQLiteHandler;
 
-import java.util.Locale;
-
 public class MainActivity extends AppCompatActivity implements ServerConnectionListener {
     private MovieList movieList;
     private MovieConnection movieConnection;

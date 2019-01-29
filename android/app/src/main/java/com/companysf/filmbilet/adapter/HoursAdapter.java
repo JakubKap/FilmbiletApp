@@ -9,11 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ToggleButton;
-
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.services.ChooseDateTime;
 import com.companysf.filmbilet.entities.Repertoire;
-
 import java.util.List;
 
 public class HoursAdapter extends BaseAdapter {
@@ -31,7 +29,6 @@ public class HoursAdapter extends BaseAdapter {
             chooseDateTime.getSelectedRepertoires().clear();
             Log.d(logTag, "Size of selectedSchedule = " + chooseDateTime.getSelectedRepertoires().size());
         }
-
     }
 
     @Override
