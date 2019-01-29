@@ -1,9 +1,11 @@
 package com.companysf.filmbilet.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,10 +23,7 @@ import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.entities.MovieList;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.MoviesListAdapter;
-import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.SQLiteHandler;
-
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ServerConnectionListener {
     private MovieList movieList;
@@ -134,8 +133,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     @Override
     public void callBackOnError() {
         makeRefreshLayoutVisible();
-        ErrorDialog.showErrorDialog(
-                this,
+        showDialog(
                 getString(R.string.serverErrorTitle),
                 getString(R.string.serverErrorCheckLater)
         );
@@ -144,8 +142,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
     @Override
     public void callBackOnNoNetwork() {
         makeRefreshLayoutVisible();
-        ErrorDialog.showErrorDialog(
-                this,
+        showDialog(
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.checkConnectionErrorStatement)
         );
@@ -168,5 +165,20 @@ public class MainActivity extends AppCompatActivity implements ServerConnectionL
             emptyListRefreshLayout.setVisibility(View.VISIBLE);
             notEmptyLayout.setVisibility(View.GONE);
         }
+    }
+
+    public void showDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(getString(R.string.dialogPositiveBtnText),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.show();
     }
 }

@@ -1,8 +1,10 @@
 package com.companysf.filmbilet.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,7 +16,6 @@ import com.companysf.filmbilet.connection.Listener.Listener;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.Register;
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.utils.ErrorDialog;
 import com.companysf.filmbilet.utils.ToastUtils;
 
 public class RegisterActivity extends AppCompatActivity implements Listener, EmptyEmailListener {
@@ -101,11 +102,11 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
 
     @Override
     public void callBackOnNoNetwork() {
-        ErrorDialog.showErrorDialog(
-                this,
+        showDialog(
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.RegisterNetworkConnectionErrorMsg)
         );
+
     }
 
     @Override
@@ -122,5 +123,20 @@ public class RegisterActivity extends AppCompatActivity implements Listener, Emp
     @Override
     public void callBackOnEmptyField() {
         ToastUtils.showLongToast(this, getString(R.string.emptyRegisterFieldsMsg));
+    }
+
+    public void showDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(getString(R.string.dialogPositiveBtnText),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.show();
     }
 }

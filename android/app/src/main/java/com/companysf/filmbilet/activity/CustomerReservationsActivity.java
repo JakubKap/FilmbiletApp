@@ -1,9 +1,11 @@
 package com.companysf.filmbilet.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +22,6 @@ import com.companysf.filmbilet.entities.ReservationsList;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.CustomerReservationsListAdapter;
-import com.companysf.filmbilet.utils.ErrorDialog;
 
 
 public class CustomerReservationsActivity extends AppCompatActivity implements ServerConnectionListener {
@@ -100,8 +101,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
     @Override
     public void callBackOnError() {
         makeRefreshLayoutVisible();
-        ErrorDialog.showErrorDialog(
-                this,
+        showDialog(
                 getString(R.string.serverErrorTitle),
                 getString(R.string.serverErrorCheckLater)
         );
@@ -110,8 +110,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
     @Override
     public void callBackOnNoNetwork() {
         makeRefreshLayoutVisible();
-        ErrorDialog.showErrorDialog(
-                this,
+        showDialog(
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.checkConnectionErrorStatement)
         );
@@ -121,5 +120,20 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         if (reservationsList.getList().isEmpty()) {
             emptyListRefreshLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void showDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(getString(R.string.dialogPositiveBtnText),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.show();
     }
 }
