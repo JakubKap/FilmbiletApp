@@ -326,6 +326,32 @@ public class SectorService implements SocketListener {
 
     }
 
+    public int sectorSubtitleIndex(int sectorIndex){
+        if (sectorIndex == 0 || sectorIndex == 1)
+            return 0;
+        else if(sectorIndex == 2 || sectorIndex == 3)
+            return 1;
+        else if(sectorIndex == 4 || sectorIndex == 5)
+            return 2;
+        else return 3;
+    }
+    public int rowLabelsType(int sectorIndex){
+        if (sectorIndex == 0 || sectorIndex == 1)
+            return 0;
+
+         else if (sectorIndex == 2 || sectorIndex == 3)
+             return 1;
+
+
+        else if (sectorIndex == 4 || sectorIndex == 5)
+            return 2;
+
+        else
+            return 3;
+    }
+    public boolean columnLabelsType(int sectorIndex){
+        return (sectorIndex % 2 == 0);
+    }
     public boolean[] getChoosedSeatsPrev() {
         return hall.getChoosedSeatsPrev();
     }

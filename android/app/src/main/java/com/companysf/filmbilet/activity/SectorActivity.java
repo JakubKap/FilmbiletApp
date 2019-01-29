@@ -359,15 +359,14 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
             return getString(R.string.upperSector7Text);
         else
             return getString(R.string.upperSector8Text);
-
     }
 
     public String sectorSubtitle(int index) {
-        if (index == 0 || index == 1)
+        if (sectorService.sectorSubtitleIndex(index) == 0)
             return getString(R.string.sector1Subtitle);
-        else if (index == 2 || index == 3)
+        else if (sectorService.sectorSubtitleIndex(index) == 2)
             return getString(R.string.sector2Subtitle);
-        else if (index == 4 || index == 5)
+        else if (sectorService.sectorSubtitleIndex(index) == 3)
             return getString(R.string.sector3Subtitle);
         else
             return getString(R.string.sector4Subtitle);
@@ -376,26 +375,26 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     public String[] rowLabels(int index) {
         String[] rowLabels = new String[5];
-        if (index == 0 || index == 1) {
+        if (sectorService.rowLabelsType(index) == 0) {
             rowLabels[0] = getString(R.string.row1);
             rowLabels[1] = getString(R.string.row2);
             rowLabels[2] = getString(R.string.row3);
             rowLabels[3] = getString(R.string.row4);
             rowLabels[4] = getString(R.string.row5);
-        } else if (index == 2 || index == 3) {
+        } else if (sectorService.rowLabelsType(index) == 1) {
             rowLabels[0] = getString(R.string.row6);
             rowLabels[1] = getString(R.string.row7);
             rowLabels[2] = getString(R.string.row8);
             rowLabels[3] = getString(R.string.row9);
             rowLabels[4] = getString(R.string.row10);
         }
-        if (index == 4 || index == 5) {
+        if (sectorService.rowLabelsType(index) == 2) {
             rowLabels[0] = getString(R.string.row11);
             rowLabels[1] = getString(R.string.row12);
             rowLabels[2] = getString(R.string.row13);
             rowLabels[3] = getString(R.string.row14);
             rowLabels[4] = getString(R.string.row15);
-        } else if (index == 6 || index == 7) {
+        } else  {
             rowLabels[0] = getString(R.string.row16);
             rowLabels[1] = getString(R.string.row17);
             rowLabels[2] = getString(R.string.row18);
@@ -408,7 +407,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     public String[] columnLabels(int index) {
         String[] columnLabels = new String[7];
-        if (index % 2 == 0) {
+        if (sectorService.columnLabelsType(index)) {
             columnLabels[0] = getString(R.string.firstColumnTextLeft);
             columnLabels[1] = getString(R.string.secondColumnTextLeft);
             columnLabels[2] = getString(R.string.thirdColumnTextLeft);
