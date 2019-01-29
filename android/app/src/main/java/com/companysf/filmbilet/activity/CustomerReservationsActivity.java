@@ -23,8 +23,6 @@ import com.companysf.filmbilet.entities.ReservationsList;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.CustomerReservationsListAdapter;
-import com.companysf.filmbilet.utils.ErrorDialog;
-
 
 public class CustomerReservationsActivity extends AppCompatActivity implements ServerConnectionListener {
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -110,7 +108,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
     @Override
     public void callBackOnError() {
-        makeRefreshLayoutVisible();
+        makeEmptyListLayoutVisible();
         showDialog(
                 getString(R.string.serverErrorTitle),
                 getString(R.string.serverErrorCheckLater)
@@ -119,7 +117,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
     @Override
     public void callBackOnNoNetwork() {
-        makeRefreshLayoutVisible();
+        makeEmptyListLayoutVisible();
         showDialog(
                 getString(R.string.networkConnectionErrorTitle),
                 getString(R.string.checkConnectionErrorStatement)
