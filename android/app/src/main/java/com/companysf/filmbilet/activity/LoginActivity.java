@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements Listener, EmptyF
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(inputEmail.getWindowToken(), 0);
 
+
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
         loginBtn.setTypeface(opensansBold);
         registerBtn.setTypeface(opensansBold);
