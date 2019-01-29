@@ -36,8 +36,6 @@ import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 public class ChooseDateTimeActivity extends AppCompatActivity implements Serializable, ErrorListener, DateTimeListener {
 
     private static final String logTag = ChooseDateTimeActivity.class.getSimpleName();
-    private Login login;
-    private int movieId;
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
     private ImageLoader imageLoader;
@@ -50,14 +48,14 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_date_time);
 
-        login = new Login(this);
+        Login login = new Login(this);
         if (!login.userIsLoggedIn()) {
             switchToLoginActivity();
         }
 
         Intent intent = getIntent();
         Movie movie = (Movie) intent.getSerializableExtra(getString(R.string.movie));
-        movieId = movie.getId();
+        int movieId = movie.getId();
 
         settingMovieInfo(movie);
 

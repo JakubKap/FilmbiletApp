@@ -33,7 +33,6 @@ public class Hall {
         }
     }
 
-
     public int[] getSeatSector() {
         return seatSector;
     }

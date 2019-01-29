@@ -21,10 +21,6 @@ public class CustomerReservation {
         return reservationDateFormat;
     }
 
-    public void setReservationDateFormat(DateFormat reservationDateFormat) {
-        this.reservationDateFormat = reservationDateFormat;
-    }
-
     public Repertoire getRepertoire() {
         return repertoire;
     }
@@ -33,15 +29,7 @@ public class CustomerReservation {
         return price;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
     public String getSeatNumbers() {
         return seatNumbers;
-    }
-
-    public void setSeatNumbers(String seatNumbers) {
-        this.seatNumbers = seatNumbers;
     }
 }

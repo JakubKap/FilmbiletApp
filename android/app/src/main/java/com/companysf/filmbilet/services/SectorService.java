@@ -126,13 +126,13 @@ public class SectorService implements ReservationConnListener, SocketListener {
             Log.d(logTag, "seatSetor[" + i + "] = " + hall.getSeatSector()[i]);
 
     }
-    public void updateSectorSeats(){
+    private void updateSectorSeats(){
         for(int i=0; i<sectors.length; i++)
             sectors[i].setFreeSeats(freeSeatsOfSector(i));
     }
 
 
-    public int freeSeatsOfSector(int sectorNum){
+    private int freeSeatsOfSector(int sectorNum){
         int freeSeats = 35;
         for(int i = 0; i< hall.getTakenSeats().length; i++){
             if(hall.getTakenSeats()[i] && hall.getSeatSector()[i] == (sectorNum+1))

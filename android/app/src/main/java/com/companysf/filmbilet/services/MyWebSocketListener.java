@@ -67,11 +67,11 @@ public class MyWebSocketListener extends WebSocketListener {
         Log.d(logTag, "onFailure: " + t.getMessage());
     }
 
-    public OkHttpClient getHttpClient() {
+    OkHttpClient getHttpClient() {
         return httpClient;
     }
 
-    public void prepareMessage(Context c, WebSocket webSocket, boolean[] myChoosedPlaces){
+    void prepareMessage(Context c, WebSocket webSocket, boolean[] myChoosedPlaces){
         WebsocketMessage message = new WebsocketMessage(myChoosedPlaces);
         WebSocketMessageService messageService = new WebSocketMessageService();
         webSocket.send(
