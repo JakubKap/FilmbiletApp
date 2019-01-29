@@ -263,7 +263,7 @@ public class SectorService implements SocketListener {
 
         for (int i = 0; i < hall.getChoosedSeats().length; i++) {
             if (hall.getChoosedSeats()[i]) {
-                price += sectors[hall.getSeatSector()[i] - 1].getSectorPrice();
+                price += sectors[hall.getSeatSector()[i]-1].getSectorPrice();
                 Log.d(logTag, "Calculated price = " + price);
             }
         }

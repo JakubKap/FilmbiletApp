@@ -271,14 +271,13 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
                 dialog.show();
 
-                final int finalSectorIndex = sectorIndex;
                 for(int i=0; i<seatButtons.length; i++){
                     final int index = i;
                     seatButtons[i].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            sectorService.markSeat(finalSectorIndex, index);
-                            int seatNumber = sectorService.getSeatNumbers(finalSectorIndex)[index];
+                            sectorService.markSeat(sectorIndex, index);
+                            int seatNumber = sectorService.getSeatNumbers(sectorIndex)[index];
                             markSeat(seatButtons[index], sectorService.getChoosedSeats()[seatNumber - 1], false);
                         }
                     });
