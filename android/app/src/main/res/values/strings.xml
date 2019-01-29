@@ -213,4 +213,12 @@
     <string name="costText"> | Koszt:</string>
     <string name="cost">0 zł</string>
     <string name="filmbilet">FilmBilet</string>
+    <string name="allTicketsPrice">Cena wszystkich biletów</string>
+    <string name="reservedSeats">Zarezerwowane miejsca:</string>
+    <string name="repertoireDate">Data seansu:</string>
+    <string name="reservationDate">Data rezerwacji:</string>
+    <string name="myReservationMovieTitle">Tytuł filmu:</string>
+    <string name="reservingTicketsText">Rezerwacja biletów w kinie Filmbilet</string>
+    <string name="pdfAuthor">Kino-filmbilet</string>
+    <string name="emptyString"> </string>
 </resources>
