@@ -70,8 +70,9 @@
     <string name="currencyAndSeatsText">zł. Miejsca:</string>
     <string name="reservationDateText">Data rezerwacji</string>
     <string name="repertoireDateText">Data seansu</string>
-    <string name="myReservationsText">Moje rezerwacje:</string>
+    <string name="myReservationsText">Moje rezerwacje</string>
     <string name="pdfText">PDF</string>
+    <string name="home">HOME</string>
     <string name="priceText20">Cena za miejsce: </string>
     <string name="sector1Subtitle">Cena za miejsce: 10 zł</string>
     <string name="sector2Subtitle">Cena za miejsce: 15 zł</string>

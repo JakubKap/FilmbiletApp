@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,11 +44,13 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.emptyListRefreshLayout);
         TextView title = findViewById(R.id.title);
+        Button homeBtn = findViewById(R.id.homeBtn);
 
         Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
         Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
         title.setTypeface(opensansBold);
+        homeBtn.setTypeface(opensansRegular);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         reservationsList = new ReservationsList();
@@ -70,6 +73,12 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
         customerReservationsConnection.updateDataFromServer();
 
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToMainActivity();
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -122,5 +131,11 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         } else {
             emptyListRefreshLayout.setVisibility(View.GONE);
         }
+    }
+
+    private void switchToMainActivity() {
+        Intent intent = new Intent(CustomerReservationsActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
