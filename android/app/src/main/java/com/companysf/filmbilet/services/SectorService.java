@@ -9,13 +9,15 @@ import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
 import com.companysf.filmbilet.connection.Listener.SectorListener;
 import com.companysf.filmbilet.connection.Listener.SocketListener;
+import com.companysf.filmbilet.entities.Hall;
+import com.companysf.filmbilet.entities.Sector;
 
 import java.util.Locale;
 
 import okhttp3.WebSocket;
 
-public class Sector implements SocketListener {
-    private static final String logTag = Sector.class.getSimpleName();
+public class SectorService implements SocketListener {
+    private static final String logTag = SectorService.class.getSimpleName();
 
     private Context context;
     private WebSocket webSocket;
@@ -27,26 +29,15 @@ public class Sector implements SocketListener {
     private int numOfSectors;
     private int numOfSeats;
 
-    private boolean[] takenSeats;
+    private Hall hall;
+    private Sector [] sectors;
 
-    private boolean[] choosedSeats;
-    private boolean[] choosedSeatsPrev;
-    private boolean [] takenYourSeats;
-
-    private int[] seatSector;
-    private int[] seatRow;
-
-    private int [] seatNumbers;
-    private int [] sectorPrices;
-
-    private int[] freeSeatsInSector;
-    private int[] startSecSeats;
     private String[] sectorTitles;
     private String[] sectorSubitles;
 
-    public Sector(Context context, ErrorListener errorListener,
-                  ReservationConnListener reservationConnListener,
-                  SectorListener sectorListener, int numOfSectors, int numOfSeats){
+    public SectorService(Context context, ErrorListener errorListener,
+                         ReservationConnListener reservationConnListener,
+                         SectorListener sectorListener, int numOfSectors, int numOfSeats){
         this.context = context;
         this.sectorListener = sectorListener;
         this.myWebSocketListener = new MyWebSocketListener(this);
@@ -56,32 +47,22 @@ public class Sector implements SocketListener {
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
 
-        this.seatSector = new int[numOfSeats];
+        this.hall = new Hall(numOfSeats);
+        this.sectors = new Sector[numOfSectors];
 
-        this.takenSeats = new boolean[numOfSeats];
-        for(int i = 0; i< takenSeats.length; i++)
-            takenSeats[i]=false;
 
-        this.choosedSeats = new boolean[numOfSeats];
-        this.choosedSeatsPrev = new boolean[numOfSeats];
-        this.takenYourSeats = new boolean[numOfSeats];
-        for(int i = 0; i< choosedSeats.length; i++) {
-            choosedSeats[i] = false;
-            choosedSeatsPrev[i]=false;
-            takenYourSeats[i] = false;
+        for(int i=0; i<sectors.length; i++){
+            if(i==0 || i==1)
+                sectors[i].setSectorPrice(10);
+            else if (i==2 || i==3)
+                sectors[i].setSectorPrice(15);
+            else if (i==4 || i==5)
+                sectors[i].setSectorPrice(20);
+            else
+                sectors[i].setSectorPrice(30);
         }
 
-        this.seatSector = new int[numOfSeats];
-        this.seatRow = new int [numOfSeats];
-        this.seatNumbers = new int[35];
 
-        this.sectorPrices = new int[numOfSectors/2];
-        sectorPrices[0]=10;
-        sectorPrices[1]=15;
-        sectorPrices[2]=20;
-        sectorPrices[3]=30;
-
-        this.freeSeatsInSector = new int [numOfSectors];
 
         assignFirstSecSeat();
         sectorTitles = new String[numOfSectors];
@@ -102,15 +83,14 @@ public class Sector implements SocketListener {
     }
 
     public void assignFirstSecSeat(){
-        startSecSeats = new int[numOfSectors];
 
         int firstSeat = 1;
-        for(int i=0; i<startSecSeats.length; i++){
-            startSecSeats[i] = firstSeat;
+        for(int i=0; i<sectors.length; i++){
+            sectors[i].setStartSecSeat(firstSeat);
             if(i%2 == 0)
                 firstSeat+=7;
             else firstSeat+=63;
-            Log.d(logTag,"First seat dla i = " + i + " = " +  startSecSeats[i]);
+            Log.d(logTag,"First seat dla i = " + i + " = " +  sectors[i].getStartSecSeat());
         }
     }
     public void assignRowToSeat(){
@@ -119,7 +99,7 @@ public class Sector implements SocketListener {
         for (int i = 1; i <= numOfSeats; i++) {
             if ((i - 1) % ((numOfSectors*2)-2) == 0 && i != 1)
                 value++;
-            seatRow[i-1] = value;
+            hall.setSeatRow(i-1, value);
             Log.d(logTag, "Wstawiona wartość <Nr_miejsca, Rząd>= " + "<" + (i-1) + ", " + value + ">");
         }
     }
@@ -133,10 +113,10 @@ public class Sector implements SocketListener {
             for (int j = 1; j <= 35; j++) {
                 if (j == 8 || j == 15 || j == 22 || j == 29) {
                     firstSeat += 7;
-                    seatSector[firstSeat-1] = sectorNumber;
+                    hall.setSeatSector(firstSeat-1, sectorNumber);
                     firstSeat++;
                 } else {
-                    seatSector[firstSeat-1] = sectorNumber;
+                    hall.setSeatSector(firstSeat-1, sectorNumber);
                     firstSeat++;
                 }
 
@@ -151,29 +131,29 @@ public class Sector implements SocketListener {
             for (int j = 1; j <= 35; j++) {
                 if (j == 8 || j == 15 || j == 22 || j == 29) {
                     firstSeat += 7;
-                    seatSector[firstSeat-1] = sectorNumber;
+                    hall.setSeatSector(firstSeat-1, sectorNumber);
                     firstSeat++;
                 } else {
-                    seatSector[firstSeat-1] = sectorNumber;
+                    hall.setSeatSector(firstSeat-1, sectorNumber);
                     firstSeat++;
                 }
             }
             sectorNumber += 2;
         }
-        for(int i =0; i<seatSector.length; i++)
-            Log.d(logTag, "seatSetor[" + i + "] = " + seatSector[i]);
+        for(int i =0; i<hall.getSeatSector().length; i++)
+            Log.d(logTag, "seatSetor[" + i + "] = " + hall.getSeatSector()[i]);
 
     }
     public void updateSectorSeats(){
-        for(int i=0; i<freeSeatsInSector.length; i++)
-            freeSeatsInSector[i] = freeSeatsOfSector(i);
+        for(int i=0; i<sectors.length; i++)
+            sectors[i].setFreeSeats(freeSeatsOfSector(i));
     }
 
 
     public int freeSeatsOfSector(int sectorNum){
         int freeSeats = 35;
-        for(int i = 0; i< takenSeats.length; i++){
-            if(takenSeats[i] && seatSector[i] == (sectorNum+1))
+        for(int i = 0; i< hall.getTakenSeats().length; i++){
+            if(hall.getTakenSeats()[i] && hall.getSeatSector()[i] == (sectorNum+1))
                 freeSeats--;
         }
         return freeSeats;
@@ -181,23 +161,23 @@ public class Sector implements SocketListener {
 
     public int[] seatNumbers(int sectorNumber){
 
-        int startSeat = startSecSeats[sectorNumber];
+        int startSeat = sectors[sectorNumber].getStartSecSeat();
 
         for (int i = 0; i < 35; i++) {
 
             if (i == 7 || i == 14 || i == 21 || i == 28) {
                 startSeat += 7;
-                seatNumbers[i] = startSeat;
+                sectors[i].setSeatNumbers(i,startSeat);
                 Log.d(logTag, "Dodana wartość do siatki: " + startSeat + " dla i = " + i);
                 startSeat++;
             } else {
-                seatNumbers[i] = startSeat;
+                sectors[i].setSeatNumbers(i,startSeat);
                 Log.d(logTag, "Dodana wartość do siatki: " + startSeat + " dla i = " + i);
                 startSeat++;
             }
         }
 
-        return seatNumbers;
+        return sectors[sectorNumber].getSeatNumbers();
     }
     public String sectorSubtitle(int index){
        if(index == 0 || index == 1)
@@ -267,33 +247,26 @@ public class Sector implements SocketListener {
         return columnLabels;
     }
 
-    public void markSeat(int index){
-        int seatNumber = seatNumbers[index];
-        choosedSeats[seatNumber-1] = !choosedSeats[seatNumber-1];
-        choosedSeatsPrev[seatNumber-1] = !choosedSeats[seatNumber-1];
-        Log.d(logTag, "choosedSeats[" + (seatNumber-1) +"] = " + choosedSeats[seatNumber-1] );
+    public void markSeat(int sectorIndex, int seatIndex){
+        int seatNumber = sectors[sectorIndex].getSeatNumbers()[seatIndex];
+        hall.setChoosedSeats((seatNumber-1), !hall.getChoosedSeats()[seatNumber-1]);
+        hall.setChoosedSeatsPrev((seatNumber-1), !hall.getChoosedSeats()[seatNumber-1]);
+        Log.d(logTag, "choosedSeats[" + (seatNumber-1) +"] = " + hall.getChoosedSeats()[seatNumber-1]);
     }
 
     public int numOfSeats(){
         int num=0;
-        for(int i=0; i<choosedSeats.length; i++)
-            if(choosedSeats[i])
+        for(int i=0; i<hall.getChoosedSeats().length; i++)
+            if(hall.getChoosedSeats()[i])
                 num++;
             return num;
     }
     public int seatsPrice() {
         int price = 0;
 
-        for (int i = 0; i < choosedSeats.length; i++) {
-            if (choosedSeats[i]) {
-                if (seatSector[i] == 1 || seatSector[i] == 2)
-                    price += sectorPrices[0];
-                else if (seatSector[i] == 3 || seatSector[i] == 4)
-                    price += sectorPrices[1];
-                else if (seatSector[i] == 5 || seatSector[i] == 6)
-                    price += sectorPrices[2];
-                else if (seatSector[i] == 7 || seatSector[i] == 8)
-                    price += sectorPrices[3];
+        for (int i = 0; i < hall.getChoosedSeats().length; i++) {
+            if (hall.getChoosedSeats()[i]) {
+                price += sectors[i-1].getSectorPrice();
                 Log.d(logTag, "Calculated price = " + price);
             }
         }
@@ -301,15 +274,15 @@ public class Sector implements SocketListener {
     }
 
     public void clearMarkedSeats(){
-        for(int i = 0; i< choosedSeatsPrev.length; i++)
-            choosedSeatsPrev[i]=false;
+        for(int i = 0; i< hall.getChoosedSeatsPrev().length; i++)
+            hall.setChoosedSeatsPrev(i,false);
     }
 
     public void assignSeatsPrev() {
-        System.arraycopy(choosedSeats, 0, choosedSeatsPrev, 0, choosedSeats.length);
+        System.arraycopy(hall.getChoosedSeats(), 0, hall.getChoosedSeatsPrev(), 0, hall.getChoosedSeats().length);
     }
     public void restoreChoosedSeats(){
-        System.arraycopy(choosedSeatsPrev, 0, choosedSeats, 0, choosedSeatsPrev.length);
+        System.arraycopy(hall.getChoosedSeatsPrev(), 0, hall.getChoosedSeats(), 0, hall.getChoosedSeatsPrev().length);
     }
 
     @Override
@@ -327,25 +300,24 @@ public class Sector implements SocketListener {
     }
 
     public void reactOnMessage(boolean[] reservedSeats){
-        for(int i=0; i<takenYourSeats.length; i++)
-            takenYourSeats[i]=false;
+        for(int i=0; i<hall.getTakenYourSeats().length; i++)
+            hall.setTakenYourSeats(i,false);
 
-        for (int i = 0; i < choosedSeats.length; i++) {
-            boolean choosedBefore = choosedSeats[i];
-            choosedSeats [i] = ( choosedSeats[i] ^ reservedSeats[i] ) & choosedSeats[i];
-
-            if(choosedBefore && !choosedSeats[i]){
-                takenSeats[i] = true;
-                takenYourSeats[i]=true;
+        for (int i = 0; i < hall.getChoosedSeats().length; i++) {
+            boolean choosedBefore = hall.getChoosedSeats()[i];
+            hall.setChoosedSeats(i, ( hall.getChoosedSeats()[i] ^ reservedSeats[i] ) & hall.getChoosedSeats()[i]);
+            if(choosedBefore && !hall.getChoosedSeats()[i]){
+                hall.setTakenSeats(i,true);
+                hall.setTakenYourSeats(i,true);
                 Log.d(logTag,"Znaleziona wartość zajętego miejsca = " + i);
 
             }
             else if(reservedSeats[i]) {
-                takenSeats[i] = true;
+                hall.setTakenSeats(i,true);
                 Log.d(logTag,"Znaleziona wartość niezajętego miejsca = " + i);
             }
 
-            if(choosedSeats[i])
+            if(hall.getChoosedSeats()[i])
                 Log.d(logTag, "OnMessage choosedSeats[" + i +"] = " );
         }
             updateSectorSeats();
@@ -354,8 +326,8 @@ public class Sector implements SocketListener {
         public void prepareDialog(){
 
             int sizeOfNumbersArray=0;
-            for(int i=0; i<takenYourSeats.length;i++)
-                if(takenYourSeats[i])
+            for(int i=0; i<hall.getTakenYourSeats().length;i++)
+                if(hall.getTakenYourSeats()[i])
                     sizeOfNumbersArray++;
 
             Log.d(logTag, "sizeofArrayNumber before= " + sizeOfNumbersArray);
@@ -363,8 +335,8 @@ public class Sector implements SocketListener {
             if(sizeOfNumbersArray>0){
                 int [] takenSeatsNumbers = new int[sizeOfNumbersArray];
                 int firstIndex=0;
-                for(int i=0; i<takenYourSeats.length; i++){
-                    if(takenYourSeats[i]) {
+                for(int i=0; i<hall.getTakenYourSeats().length; i++){
+                    if(hall.getTakenYourSeats()[i]) {
                         int seatNumber = i;
                         takenSeatsNumbers[firstIndex] = ++seatNumber;
                         firstIndex++;
@@ -391,12 +363,12 @@ public class Sector implements SocketListener {
 
     public int numOfChoosedSeats(){
         int num=0;
-        for (boolean choosedSeat : choosedSeats)
+        for (boolean choosedSeat : hall.getChoosedSeats())
             if (choosedSeat) num++;
         return num;
     }
     private int seatTypeId(int index){
-        int sectorNum = seatSector[index];
+        int sectorNum = hall.getSeatSector()[index];
         int seatTypeId;
 
         if(sectorNum == 1 || sectorNum == 2)
@@ -412,23 +384,23 @@ public class Sector implements SocketListener {
     }
 
     public void saveToDb(){
-        for(int i=0; i<choosedSeats.length;i++)
-            Log.d(logTag, "takenSeats before = " + takenSeats[i]);
-        for(int i=0; i<choosedSeats.length; i++){
-            if(choosedSeats[i]){
+        for(int i=0; i<hall.getChoosedSeats().length;i++)
+            Log.d(logTag, "takenSeats before = " + hall.getTakenSeats()[i]);
+        for(int i=0; i<hall.getChoosedSeats().length; i++){
+            if(hall.getChoosedSeats()[i]){
                 //TODO przesyłać String reprezentujący id usera
                 int seatNumber = i+1;
                 int seatTypeId = seatTypeId(i);
-                int row = seatRow[i];
-                takenSeats[i] = true;
+                int row = hall.getSeatRow()[i];
+                hall.setTakenSeats(i, true);
                 reservationConnection.saveReservation("1",seatNumber, seatTypeId, row, repertoireId);
             }
         }
-        for(int i=0; i<choosedSeats.length;i++)
-            Log.d(logTag, "takenSeats after = " + takenSeats[i]);
+        for(int i=0; i<hall.getChoosedSeats().length;i++)
+            Log.d(logTag, "takenSeats after = " + hall.getTakenSeats()[i]);
 
         if(myWebSocketListener.getHttpClient() != null){
-            myWebSocketListener.prepareMessage(context,this.webSocket, takenSeats);
+            myWebSocketListener.prepareMessage(context,this.webSocket, hall.getTakenSeats());
         }
         else
             sectorListener.socketCloseError();
@@ -436,18 +408,18 @@ public class Sector implements SocketListener {
     }
 
     public boolean[] getChoosedSeatsPrev() {
-        return choosedSeatsPrev;
+        return hall.getChoosedSeatsPrev();
     }
     public void setTakenSeats(boolean[] takenSeats) {
-        this.takenSeats = takenSeats;
+        this.hall.setTakenSeats(takenSeats);
     }
 
     public boolean[] getTakenSeats() {
-        return takenSeats;
+        return hall.getTakenSeats();
     }
 
-    public int[] getFreeSeatsInSector() {
-        return freeSeatsInSector;
+    public int getFreeSeatsInSector(int index) {
+        return sectors[index].getFreeSeats();
     }
 
     public void setRepertoireId(int repertoireId) {
@@ -458,20 +430,16 @@ public class Sector implements SocketListener {
         return sectorTitles;
     }
 
-    public int[] getSeatNumbers() {
-        return seatNumbers;
+    public int[] getSeatNumbers(int index) {
+        return sectors[index].getSeatNumbers();
     }
 
     public boolean[] getChoosedSeats() {
-        return choosedSeats;
+        return hall.getChoosedSeats();
     }
 
-    public void setSeatNumbers(int[] seatNumbers) {
-        this.seatNumbers = seatNumbers;
-    }
-
-    public void restoreChoosedSeats(boolean[] choosedSeats) {
-        this.choosedSeats = choosedSeats;
+    public void setSeatNumbers(int index, int[] seatNumbers) {
+        this.sectors[index].setSeatNumbers(seatNumbers);
     }
 
 }

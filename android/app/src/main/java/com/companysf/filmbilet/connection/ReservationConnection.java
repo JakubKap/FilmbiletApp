@@ -55,7 +55,6 @@ public class ReservationConnection {
                                 boolean error = json.getBoolean(mContext.getString(R.string.error));
                                 if (error) {
                                     errorListener.callBackOnError();
-                                    //TODO zmiana w php na error = false
                                 } else {
                                     JSONArray reservationsJson = json.getJSONArray(mContext.getString(R.string.resArrayName));
                                     for (int i = 0; i < reservationsJson.length(); i++) {
