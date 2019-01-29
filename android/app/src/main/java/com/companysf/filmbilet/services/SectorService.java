@@ -9,8 +9,10 @@ import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
 import com.companysf.filmbilet.connection.Listener.SectorListener;
 import com.companysf.filmbilet.connection.Listener.SocketListener;
+import com.companysf.filmbilet.entities.Customer;
 import com.companysf.filmbilet.entities.Hall;
 import com.companysf.filmbilet.entities.Sector;
+import com.companysf.filmbilet.utils.SQLiteHandler;
 
 import java.util.Locale;
 
@@ -383,14 +385,18 @@ public class SectorService implements SocketListener {
     public void saveToDb(){
         for(int i=0; i<hall.getChoosedSeats().length;i++)
             Log.d(logTag, "takenSeats before = " + hall.getTakenSeats()[i]);
+
+        SQLiteHandler db = new SQLiteHandler(context);
+        Customer customer = db.getCustomer();
+        int customerId = customer.getId();
+
         for(int i=0; i<hall.getChoosedSeats().length; i++){
             if(hall.getChoosedSeats()[i]){
-                //TODO przesyłać String reprezentujący id usera
                 int seatNumber = i+1;
                 int seatTypeId = seatTypeId(i);
                 int row = hall.getSeatRow()[i];
                 hall.setTakenSeats(i, true);
-                reservationConnection.saveReservation("1",seatNumber, seatTypeId, row, repertoireId);
+                reservationConnection.saveReservation(customerId,seatNumber, seatTypeId, row, repertoireId);
             }
         }
         for(int i=0; i<hall.getChoosedSeats().length;i++)

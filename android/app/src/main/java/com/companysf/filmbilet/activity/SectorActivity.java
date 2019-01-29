@@ -328,9 +328,12 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     String pom = getString(R.string.summaryStartText);
                     secSummaryPrice.setText(pom);
                 }
-                for(int i=0; i<freeSeats.length; i++)
-                    freeSeats[i].setText(String.format(new Locale("pl", "PL"), "%d",
-                            sectorService.getFreeSeatsInSector(i)));
+                for(int i=0; i<freeSeats.length; i++) {
+                    String text = String.format(new Locale("pl", "PL"), "%d",
+                            sectorService.getFreeSeatsInSector(i))
+                            + getString(R.string.currency);
+                    freeSeats[i].setText(text);
+                }
 
             }
         });

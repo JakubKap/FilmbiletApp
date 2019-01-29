@@ -106,12 +106,12 @@ public class ReservationConnection {
         }
     }
 
-    public void saveReservation(String customerIdPar, int seatNumberPar, int seatTypeIdPar, int rowPar,  int repertoireIdPar){
+    public void saveReservation(int customerIdPar, int seatNumberPar, int seatTypeIdPar, int rowPar,  int repertoireIdPar){
 
         if (cd.connected()) {
             Log.d(logTag, "Jest polaczenie inter");
             //final String customerId = customerIdPar;
-            final String customerId = customerIdPar;
+            final String customerId = Integer.toString(customerIdPar);
             final String seatNumber = Integer.toString(seatNumberPar);
             final String seatTypeId = Integer.toString(seatTypeIdPar);
             final String row = Integer.toString(rowPar);

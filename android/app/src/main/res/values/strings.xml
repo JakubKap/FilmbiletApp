@@ -168,7 +168,7 @@
     <string name="opensSansBold">opensans_bold.ttf</string>
 
     <string name="dot">.</string>
-    <string name="currency"> zł</string>
+    <string name="currency"> \u0020zł</string>
     <string name="colon">:</string>
     <string name="zero">0</string>
     <string name="jsonSeatNumbers">seatNumbers</string>
