@@ -278,7 +278,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                         @Override
                         public void onClick(View view) {
                             sectorService.markSeat(finalSectorIndex, index);
-                            int seatNumber = sectorService.getSeatNumbers(index)[index];
+                            int seatNumber = sectorService.getSeatNumbers(finalSectorIndex)[index];
                             markSeat(seatButtons[index], sectorService.getChoosedSeats()[seatNumber - 1], false);
                         }
                     });
