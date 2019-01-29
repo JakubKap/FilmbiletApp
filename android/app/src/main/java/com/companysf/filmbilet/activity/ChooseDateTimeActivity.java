@@ -21,6 +21,7 @@ import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.HoursAdapter;
 import com.companysf.filmbilet.connection.Listener.DateTimeListener;
 import com.companysf.filmbilet.connection.Listener.ErrorListener;
+import com.companysf.filmbilet.entities.DateTimeChoice;
 import com.companysf.filmbilet.entities.Repertoire;
 import com.companysf.filmbilet.services.ChooseDateTime;
 import com.companysf.filmbilet.app.CustomVolleyRequest;
@@ -41,6 +42,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     private HoursAdapter hoursAdapter;
     private ToggleButton[] datesButtons = new ToggleButton[5];
     ChooseDateTime chooseDateTime;
+    DateTimeChoice dateTimeChoice;
 
     private AlertDialog.Builder builder;
 
@@ -53,6 +55,8 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         if (!login.userIsLoggedIn()) {
             switchToLoginActivity();
         }
+
+        dateTimeChoice = new DateTimeChoice();
 
         Intent intent = getIntent();
         Movie movie = (Movie) intent.getSerializableExtra(getString(R.string.movie));
@@ -107,7 +111,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
         builder =  new AlertDialog.Builder(this);
 
-        chooseDateTime = new ChooseDateTime(this, movieId, this, this);
+        chooseDateTime = new ChooseDateTime(this, movieId,dateTimeChoice, this, this);
 
         for (int i = 0; i < datesButtons.length; i++) {
             final int finalI = i;
@@ -116,10 +120,10 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Log.d(logTag, "Stan buttona przed= " + Boolean.toString(datesButtons[finalI].isChecked()));
-                    if(!chooseDateTime.getSelectedDate()[finalI]){
+                    if(!dateTimeChoice.getSelectedDate()[finalI]){
                         chooseDateTime.chooseDate(finalI);
 
-                        for(int j = 0; j< chooseDateTime.getSelectedDate().length; j++)
+                        for(int j = 0; j< dateTimeChoice.getSelectedDate().length; j++)
                             markSeat(datesButtons[j], j);
 
                         chooseDateTime.prepareDateButtons();
@@ -132,11 +136,11 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
                     }
                     else{
                         updateDateButtons();
-                        chooseDateTime.getSelectedDate()[finalI] = true;
+                        dateTimeChoice.getSelectedDate()[finalI] = true;
                     }
                     Log.d(logTag, "\nStan wszystkich przycisków (po kliknięciu dowolnego): ");
-                    for (int k = 0; k < chooseDateTime.getSelectedDate().length; k++)
-                        Log.d(logTag, "Stan po selectedDate[" + k + "]= " + chooseDateTime.getSelectedDate()[k]);
+                    for (int k = 0; k < dateTimeChoice.getSelectedDate().length; k++)
+                        Log.d(logTag, "Stan po selectedDate[" + k + "]= " + dateTimeChoice.getSelectedDate()[k]);
 
                 }
 
@@ -191,7 +195,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (!chooseDateTime.getSelectedDate()[finalIndex]) {
+                if (!dateTimeChoice.getSelectedDate()[finalIndex]) {
                     Log.d(logTag, "normal button index = " + finalIndex);
                     finalButton.setBackgroundResource(R.drawable.normal_date_button);
                     finalButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
@@ -209,7 +213,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            List<Repertoire> uniqueDates = chooseDateTime.getCurrentWeek();
+            List<Repertoire> uniqueDates = dateTimeChoice.getCurrentWeek();
                 int i = 0;
                 for (Repertoire repertoire : uniqueDates) {
                     String text = Integer.toString(repertoire.getDateFormat().getDate().get(Calendar.DAY_OF_MONTH));
@@ -239,7 +243,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
     @Override
     public void callbackOnSetUi() {
         Log.d(logTag, "callbackOnSetUi");
-        hoursAdapter = new HoursAdapter(getApplicationContext(), chooseDateTime);
+        hoursAdapter = new HoursAdapter(getApplicationContext(), dateTimeChoice,chooseDateTime);
 
         GridView hoursGridView = findViewById(R.id.hoursGridView);
         hoursGridView.setNumColumns(2);
@@ -266,7 +270,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity implements Seriali
 
     @Override
     public void callBackSuccess() {
-        int repertoireId = chooseDateTime.getSelectedRepertoires().get(0);
+        int repertoireId = dateTimeChoice.getSelectedRepertoires().get(0);
         Log.d(logTag,"Końcowy repertoireId " + repertoireId);
         Intent intent = new Intent(ChooseDateTimeActivity.this, SectorActivity.class);
         intent.putExtra(getString(R.string.repertoireId), repertoireId);

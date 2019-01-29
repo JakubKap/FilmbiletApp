@@ -11,9 +11,11 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
+import com.companysf.filmbilet.entities.DateTimeChoice;
 import com.companysf.filmbilet.services.ChooseDateTime;
 import com.companysf.filmbilet.entities.Repertoire;
 
+import java.util.Date;
 import java.util.List;
 
 public class HoursAdapter extends BaseAdapter {
@@ -21,15 +23,17 @@ public class HoursAdapter extends BaseAdapter {
     private Context mContext;
     private ChooseDateTime chooseDateTime;
     private List<Repertoire> hoursForDate;
+    private DateTimeChoice dateTimeChoice;
 
-    public HoursAdapter(Context c, ChooseDateTime chooseDateTime) {
+    public HoursAdapter(Context c, DateTimeChoice dateTimeChoice, ChooseDateTime chooseDateTime) {
         mContext = c;
         this.chooseDateTime = chooseDateTime;
-        this.hoursForDate = chooseDateTime.getHoursForDate();
+        this.dateTimeChoice = dateTimeChoice;
+        this.hoursForDate = dateTimeChoice.getHoursForDate();
 
-        if(chooseDateTime.getSelectedRepertoires().size() > 0){
-            chooseDateTime.getSelectedRepertoires().clear();
-            Log.d(logTag, "Size of selectedSchedule = " + chooseDateTime.getSelectedRepertoires().size());
+        if(dateTimeChoice.getSelectedRepertoires().size() > 0){
+            dateTimeChoice.getSelectedRepertoires().clear();
+            Log.d(logTag, "Size of selectedSchedule = " + dateTimeChoice.getSelectedRepertoires().size());
         }
 
     }
