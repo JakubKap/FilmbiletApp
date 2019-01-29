@@ -30,7 +30,7 @@
 			echo json_encode($response);
 			
 		} else {
-			$response["error"] = TRUE;
+			$response["error"] = FALSE;
 			$response["message"] = "Nie ma rezerwacji dla podanego numeru id klienta. Spróbuj ponownie.";
 			echo json_encode($response);
 		}

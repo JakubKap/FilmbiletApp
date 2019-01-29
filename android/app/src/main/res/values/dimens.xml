@@ -3,16 +3,18 @@
     <dimen name="header">20sp</dimen>
     <dimen name="buttons">10sp</dimen>
     <dimen name="summary">15sp</dimen>
-    <dimen name="seatsFontSize">5sp</dimen>
-    <dimen name="seatsSpace">8sp</dimen>
+    <dimen name="seatsFontSize">10sp</dimen>
+    <dimen name="seatsSpace">5sp</dimen>
     <dimen name="icon_size">3sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="seatWidth">15sp</dimen>
-    <dimen name="seatHeight">10sp</dimen>
+    <dimen name="seatWidth">25sp</dimen>
+    <dimen name="seatHeight">20sp</dimen>
     <dimen name="linearLayoutRowsMarginRight">15sp</dimen>
     <dimen name="linearLayoutRowsMarginBottom">5sp</dimen>
     <dimen name="linearLayoutColumnsMarginRight">5sp</dimen>
     <dimen name="linearLayoutRowsWidth">20sp</dimen>
     <dimen name="linearLayoutColumnsHeight">20sp</dimen>
     <dimen name="seatsSmallText">11sp</dimen>
+    <dimen name="columnAndRowMargin">5sp</dimen>
+    <dimen name="topLeftColumnAndRowMargin">25sp</dimen>
 </resources>

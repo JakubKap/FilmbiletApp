@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.TextView;
 import com.companysf.filmbilet.connection.Listener.EmptyFieldsListener;
 import com.companysf.filmbilet.connection.Listener.Listener;
 import com.companysf.filmbilet.services.Login;
@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements Listener, EmptyF
 
         Button loginBtn = findViewById(R.id.btnLogin);
         Button registerBtn = findViewById(R.id.btnRegister);
+        TextView logo = findViewById(R.id.logo);
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         final Login login = new Login(this, this, this);
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements Listener, EmptyF
         imm.hideSoftInputFromWindow(inputEmail.getWindowToken(), 0);
 
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
+        logo.setTypeface(opensansBold);
         loginBtn.setTypeface(opensansBold);
         registerBtn.setTypeface(opensansBold);
 

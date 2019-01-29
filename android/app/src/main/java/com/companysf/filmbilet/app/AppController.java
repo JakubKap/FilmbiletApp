@@ -48,6 +48,4 @@ public class AppController extends Application {
         }
         return this.imageLoader;
     }
-
-
 }

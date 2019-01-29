@@ -13,7 +13,6 @@
     <string name="secondSector">\n15 zł</string>
     <string name="thirdSector">\n20 zł</string>
     <string name="fourthSector">\n30 zł</string>
-
     <string name ="stepNumber1">1</string>
     <string name ="stepNumber2">2</string>
     <string name ="selectSector">Wybierz sektor</string>
@@ -71,8 +70,9 @@
     <string name="currencyAndSeatsText">zł. Miejsca:</string>
     <string name="reservationDateText">Data rezerwacji</string>
     <string name="repertoireDateText">Data seansu</string>
-    <string name="myReservationsText">Moje rezerwacje:</string>
+    <string name="myReservationsText">Moje rezerwacje</string>
     <string name="pdfText">PDF</string>
+    <string name="home">HOME</string>
     <string name="priceText20">Cena za miejsce: </string>
     <string name="sector1Subtitle">Cena za miejsce: 10 zł</string>
     <string name="sector2Subtitle">Cena za miejsce: 15 zł</string>
@@ -102,31 +102,22 @@
     <string name="available">-Dostępne</string>
     <string name="noReservations">Brak rezerwacji</string>
     <string name ="summaryStartText">0 zł</string>
-
     <string name="choosedPlaceTitle">Zajęcie miejsca</string>
     <string name="choosedPlaceMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsce o numerze:\u0020</string>
-
     <string name="choosedPlacesTitle">Zajęcie miejsc</string>
     <string name="choosedPlacesMsg">Inny użytkownik przed chwilą zajął wybrane przez ciebie miejsca o numerach:\u0020</string>
-
     <string name="emptySectorTitle">Brak miejsc w sektorze</string>
     <string name="emptySectorMsg">Niestety, wszystkie miejsca w tym sektorze są zajęte. Spróbuj znaleźć miejsce w innym sektorze.</string>
-
     <string name="noChoosedPlacesTitle">Brak wybranych miejsc</string>
     <string name="noChoosedPlacesMsg">Nie wybrałeś żadnego miejsca</string>
-
     <string name="choosedTakenPlaceTitle">Wybranie zajętego miejsca</string>
     <string name="choosedTakenPlaceMsg">Wybrałeś zajęte miejsce</string>
-
     <string name="serverErrorTitle">Błąd serwera</string>
     <string name="serverErrorMsg">Podczas wysyłania informacji o wybranych miejscach wykryto błąd</string>
-
     <string name="noChoosedHourTitle">Brak wybranej godziny</string>
     <string name="wrongChoosedHourTitle">Wybrałeś więcej niż jedną godzinę</string>
     <string name="wrongNumOfHours">Wybierz jedną interesującą ciebie godzinę</string>
-
     <string name="getResLog">Get reservations request: </string>
-
     <string name="resArrayName">reservation</string>
     <string name="resErrorLog">Reservation error: </string>
     <string name="resJsonLog">reservationJsonLOG </string>
@@ -136,37 +127,29 @@
     <string name="message">message</string>
     <string name="noResForRep">Nie ma rezerwacji dla podanego repertuaru. Spróbuj ponownie.</string>
     <string name="jsonError">Json error: </string>
-
     <string name="getMovieRep">Get movie repertoire request: </string>
     <string name="repertoire">repertoire</string>
     <string name="schedJsonLog">SchedulesJsonLOG </string>
     <string name="date">date</string>
     <string name="getMovieRepError">Get repertoire Error: </string>
     <string name="movieId">movieId</string>
-
-
     <string name="saveResRequest">Save reservation request: </string>
     <string name="saveResErrorLog">Save reservation error: </string>
-
     <string name="id">id</string>
     <string name="resSeatNumber">seatNumber</string>
     <string name="resRow">row</string>
     <string name="repertoireId">repertoireId</string>
-
     <string name="customerId">customerId</string>
     <string name ="seatTypeId">seatTypeId</string>
-
     <string name="registerRequestAdd">req_register</string>
     <string name="loginRequestAdd">req_login</string>
     <string name="getReservationsRequestAdd">req_get_reservations</string>
     <string name="socketFailure">onFailure: </string>
     <string name="socketCloseReason">Zarezerwowowano miejsca</string>
     <string name="socketSendError">sendMessageToServer: client rowny null</string>
-    
     <string name="opensSansRegular">opensans_regular.ttf</string>
     <string name="opensSansItalic">opensans_italic.ttf</string>
     <string name="opensSansBold">opensans_bold.ttf</string>
-
     <string name="dot">.</string>
     <string name="currency"> zł</string>
     <string name="colon">:</string>
@@ -230,4 +213,12 @@
     <string name="costText"> | Koszt:</string>
     <string name="cost">0 zł</string>
     <string name="filmbilet">FilmBilet</string>
+    <string name="allTicketsPrice">Cena wszystkich biletów</string>
+    <string name="reservedSeats">Zarezerwowane miejsca:</string>
+    <string name="repertoireDate">Data seansu:</string>
+    <string name="reservationDate">Data rezerwacji:</string>
+    <string name="myReservationMovieTitle">Tytuł filmu:</string>
+    <string name="reservingTicketsText">Rezerwacja biletów w kinie Filmbilet</string>
+    <string name="pdfAuthor">Kino-filmbilet</string>
+    <string name="emptyString"> </string>
 </resources>

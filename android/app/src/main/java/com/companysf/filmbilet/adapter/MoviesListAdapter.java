@@ -10,16 +10,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.companysf.filmbilet.R;
-// TODO odkomentowac
-//import com.companysf.filmbilet.Activity.ChooseDateTimeActivity;
 import com.companysf.filmbilet.activity.ChooseDateTimeActivity;
 import com.companysf.filmbilet.app.AppController;
 import com.companysf.filmbilet.entities.Movie;
-
 import java.util.List;
 
 public class MoviesListAdapter extends BaseAdapter {
@@ -33,7 +29,8 @@ public class MoviesListAdapter extends BaseAdapter {
     private Typeface opensansItalic;
 
     public MoviesListAdapter(Activity activity, Context context, List<Movie>moviesList,
-                             Typeface opensansRegular, Typeface opensansBold, Typeface opensansItalic) {
+                             Typeface opensansRegular, Typeface opensansBold,
+                             Typeface opensansItalic) {
         this.activity = activity;
         this.context = context;
         this.moviesList = moviesList;

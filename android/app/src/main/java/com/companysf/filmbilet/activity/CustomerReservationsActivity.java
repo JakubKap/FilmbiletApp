@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.companysf.filmbilet.entities.ReservationsList;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.adapter.CustomerReservationsListAdapter;
+import com.companysf.filmbilet.utils.ErrorDialog;
 
 
 public class CustomerReservationsActivity extends AppCompatActivity implements ServerConnectionListener {
@@ -45,15 +47,17 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         swipeRefreshLayout = findViewById(R.id.swiper);
         emptyListRefreshLayout = findViewById(R.id.emptyListRefreshLayout);
         TextView title = findViewById(R.id.title);
+        Button homeBtn = findViewById(R.id.homeBtn);
 
         Typeface opensansRegular = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansRegular));
         Typeface opensansBold = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansBold));
         Typeface opensansItalic = Typeface.createFromAsset(getAssets(), getString(R.string.opensSansItalic));
         title.setTypeface(opensansBold);
+        homeBtn.setTypeface(opensansRegular);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         reservationsList = new ReservationsList();
-        adapter = new CustomerReservationsListAdapter(
+        CustomerReservationsListAdapter adapter = new CustomerReservationsListAdapter(
                 this, reservationsList.getList(), opensansItalic, opensansRegular
         );
 
@@ -72,6 +76,12 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
         customerReservationsConnection.updateDataFromServer();
 
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToMainActivity();
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -95,7 +105,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
     @Override
     public void callBackOnSuccess() {
         Log.d(TAG, "callBack on success w klasie CustomerReservations");
-        emptyListRefreshLayout.setVisibility(View.GONE);
+        makeEmptyListLayoutVisible();
     }
 
     @Override
@@ -116,9 +126,11 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         );
     }
 
-    private void makeRefreshLayoutVisible() {
+    private void makeEmptyListLayoutVisible() {
         if (reservationsList.getList().isEmpty()) {
             emptyListRefreshLayout.setVisibility(View.VISIBLE);
+        } else {
+            emptyListRefreshLayout.setVisibility(View.GONE);
         }
     }
 
@@ -135,5 +147,11 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
                 });
 
         builder.show();
+    }
+
+    private void switchToMainActivity() {
+        Intent intent = new Intent(CustomerReservationsActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

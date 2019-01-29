@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 
+import com.companysf.filmbilet.R;
 import com.companysf.filmbilet.entities.CustomerReservation;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -81,7 +82,7 @@ public class PdfFile {
             this.document.setPageSize(PageSize.A4);
             this.document.addCreationDate();
 
-            this.document.addAuthor("Kino-filmbilet");
+            this.document.addAuthor(context.getString(R.string.pdfAuthor));
 
             float smallSize = 20.0f;
             float normalSize = 26.0f;
@@ -99,33 +100,33 @@ public class PdfFile {
 
             Font titleFont = new Font(myFont, bigSize, Font.NORMAL, BaseColor.BLACK);
             Paragraph titleContent = new Paragraph(
-                    new Chunk("Rezerwacja biletów w kinie Filmbilet", titleFont)
+                    new Chunk(context.getString(R.string.reservingTicketsText), titleFont)
             );
             titleContent.setAlignment(Element.ALIGN_CENTER);
             this.document.add(titleContent);
 
-            createFieldWithOneInfo(
-                    "Tytuł filmu:", reservation.getRepertoire().getMovie().getTitle()
+            createFieldWithOneInfo(context.getString(R.string.myReservationMovieTitle)
+                    , reservation.getRepertoire().getMovie().getTitle()
             );
             createFieldWithOneInfo(
-                    "Data rezerwacji:", reservation.getReservationDateFormat().getStringDateTime()
+                    context.getString(R.string.reservationDate), reservation.getReservationDateFormat().getStringDateTime()
             );
-            createFieldWithOneInfo("Data seansu:",
+            createFieldWithOneInfo(context.getString(R.string.repertoireDate),
                     reservation.getRepertoire().getDateFormat().getStringDateTime()
             );
-            createFieldWithOneInfo("Zarezerwowane miejsca:",
+            createFieldWithOneInfo(context.getString(R.string.reservedSeats),
                     String.format(
-                            new Locale("pl", "PL"),
+                            new Locale(context.getString(R.string.polish), context.getString(R.string.poland)),
                             "%s",
                             reservation.getSeatNumbers()
                     )
             );
-            createFieldWithOneInfo("Cena wszystkich biletów",
+            createFieldWithOneInfo(context.getString(R.string.allTicketsPrice),
                     String.format(
-                            new Locale("pl", "PL"),
+                            new Locale(context.getString(R.string.polish), context.getString(R.string.poland)),
                             "%.2f",
                             reservation.getPrice()
-                    ) + " zł"
+                    ) + context.getString(R.string.currency)
             );
 
             this.document.close();
@@ -147,9 +148,9 @@ public class PdfFile {
             this.document.add(fieldHintParagraph);
             this.document.add(fieldValueParagraph);
 
-            this.document.add(new Paragraph(""));
+            this.document.add(new Paragraph(context.getString(R.string.emptyString)));
             this.document.add(new Chunk(this.lineSeparator));
-            this.document.add(new Paragraph(""));
+            this.document.add(new Paragraph(context.getString(R.string.emptyString)));
         } catch (DocumentException e) {
             e.printStackTrace();
         }

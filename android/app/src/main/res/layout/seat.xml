@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:font="http://schemas.android.com/tools"
     android:id="@+id/seatsLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="0dp"
-    android:layout_marginTop="0dp"
-    android:layout_marginRight="0dp"
-    android:layout_marginBottom="0dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="40dp"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/pop_bg"
     android:orientation="vertical">
 
@@ -66,7 +61,6 @@
         android:id="@+id/gridLayoutContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="45dp"
         app:layout_constraintBottom_toTopOf="@id/legendContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +74,9 @@
             android:columnCount="7"
             android:rowCount="5"
             android:textSize="@dimen/seatsFontSize"
+            android:layout_marginLeft="5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/linearLayoutRows"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayoutColumns">
 
 
@@ -560,7 +554,7 @@
             android:id="@+id/linearLayoutRows"
             android:layout_width="@dimen/linearLayoutRowsWidth"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/linearLayoutColumnsHeight"
+            android:layout_marginTop="@dimen/topLeftColumnAndRowMargin"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/gridLayoutSeats"
@@ -576,7 +570,8 @@
                 android:height="@dimen/seatHeight"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:gravity="center_horizontal"
+                android:gravity="center"
+                android:includeFontPadding="false"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
                 android:text="@string/row1"
@@ -592,12 +587,13 @@
                 android:height="@dimen/seatHeight"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
                 android:text="@string/row2"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/seatsFontSize" />
+                android:textSize="@dimen/seatsFontSize"
+                android:includeFontPadding="false"/>
 
             <Button
                 android:id="@+id/seatsButtonIIIR"
@@ -608,12 +604,13 @@
                 android:height="@dimen/seatHeight"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
                 android:text="@string/row3"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/seatsFontSize" />
+                android:textSize="@dimen/seatsFontSize"
+                android:includeFontPadding="false"/>
 
             <Button
                 android:id="@+id/seatsButtonIVR"
@@ -624,12 +621,13 @@
                 android:height="@dimen/seatHeight"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
                 android:text="@string/row4"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/seatsFontSize" />
+                android:textSize="@dimen/seatsFontSize"
+                android:includeFontPadding="false"/>
 
             <Button
                 android:id="@+id/seatsButtonVR"
@@ -639,20 +637,22 @@
                 android:height="@dimen/seatHeight"
                 android:background="@color/transparent"
                 android:enabled="false"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:minWidth="@dimen/seatHeight"
                 android:minHeight="@dimen/seatHeight"
                 android:text="@string/row5"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/seatsFontSize" />
+                android:textSize="@dimen/seatsFontSize"
+                android:includeFontPadding="false"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutColumns"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/linearLayoutColumnsHeight"
-            android:layout_marginStart="@dimen/linearLayoutRowsWidth"
-            android:layout_marginLeft="@dimen/linearLayoutRowsWidth"
+            android:layout_marginStart="@dimen/topLeftColumnAndRowMargin"
+            android:layout_marginLeft="@dimen/topLeftColumnAndRowMargin"
+            android:layout_marginBottom="@dimen/columnAndRowMargin"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/gridLayoutSeats"
             app:layout_constraintStart_toStartOf="@id/linearLayoutRows"
@@ -759,8 +759,6 @@
                 android:id="@+id/seatsButton7C"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/seatsSpace"
-                android:layout_marginRight="@dimen/seatsSpace"
                 android:width="@dimen/seatWidth"
                 android:height="@dimen/seatHeight"
                 android:background="@color/transparent"
@@ -880,7 +878,10 @@
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/seatsSmallText"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="@id/percent45Line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45"
             style="?android:attr/borderlessButtonStyle"
@@ -900,6 +901,9 @@
             android:textColor="#f9f9f9"
             android:textSize="@dimen/seatsSmallText"
             app:layout_constraintStart_toStartOf="@id/percent55Line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.45"
             style="?android:attr/borderlessButtonStyle"/>
