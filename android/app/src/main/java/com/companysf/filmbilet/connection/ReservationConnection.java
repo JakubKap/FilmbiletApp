@@ -110,7 +110,6 @@ public class ReservationConnection {
 
         if (cd.connected()) {
             Log.d(logTag, "Jest polaczenie inter");
-            //final String customerId = customerIdPar;
             final String customerId = Integer.toString(customerIdPar);
             final String seatNumber = Integer.toString(seatNumberPar);
             final String seatTypeId = Integer.toString(seatTypeIdPar);

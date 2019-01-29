@@ -18,7 +18,7 @@ import java.util.Locale;
 
 import okhttp3.WebSocket;
 
-public class SectorService implements SocketListener {
+public class SectorService implements ReservationConnListener, SocketListener {
     private static final String logTag = SectorService.class.getSimpleName();
 
     private Context context;
@@ -35,14 +35,14 @@ public class SectorService implements SocketListener {
     private Sector [] sectors;
 
 
-    public SectorService(Context context, ErrorListener errorListener,
-                         ReservationConnListener reservationConnListener,
+    public SectorService(int repertoireId,Context context, ErrorListener errorListener,
                          SectorListener sectorListener, int numOfSectors, int numOfSeats){
+        this.repertoireId = repertoireId;
         this.context = context;
         this.sectorListener = sectorListener;
         this.myWebSocketListener = new MyWebSocketListener(this);
         this.reservationConnection = new ReservationConnection(
-                context, errorListener, reservationConnListener
+                context, errorListener, this
         );
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
@@ -62,6 +62,7 @@ public class SectorService implements SocketListener {
         }
 
         assignFirstSecSeat();
+        reservationConnection.getReservations(repertoireId);
     }
 
     public void assignFirstSecSeat(){
@@ -200,6 +201,18 @@ public class SectorService implements SocketListener {
         System.arraycopy(hall.getChoosedSeatsPrev(), 0, hall.getChoosedSeats(), 0, hall.getChoosedSeatsPrev().length);
     }
 
+
+    @Override
+    public void onDbResponseCallback(boolean[] takenSeats) {
+        setTakenSeats(takenSeats);
+        updateSectorSeats();
+
+        for (int i = 0; i < getTakenSeats().length; i++)
+            Log.d(logTag, "Model takenSeats = " + getTakenSeats()[i]);
+
+        sectorListener.updateUiCallback(false);
+    }
+
     @Override
     public void onOpenCallback(WebSocket webSocket) {
         Log.d(logTag, "onOpenCallback");
@@ -210,7 +223,7 @@ public class SectorService implements SocketListener {
     public void onMessageCallback(boolean[] reservedSeats) {
         Log.d(logTag, "onMessage");
         reactOnMessage(reservedSeats);
-        sectorListener.updateUiCallback();
+        sectorListener.updateUiCallback(false);
         prepareDialog();
     }
 

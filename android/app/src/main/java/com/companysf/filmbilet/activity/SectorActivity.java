@@ -31,7 +31,7 @@ import java.util.Locale;
 import static com.companysf.filmbilet.utils.ToastUtils.showLongToast;
 
 
-public class SectorActivity extends AppCompatActivity implements ErrorListener, ReservationConnListener, SectorListener {
+public class SectorActivity extends AppCompatActivity implements ErrorListener, SectorListener {
 
     private static final String logTag = SectorActivity.class.getSimpleName();
 
@@ -73,8 +73,10 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
         builder = new AlertDialog.Builder(this);
 
-        ReservationConnection reservationConnection = new ReservationConnection(this, this, this);
-        sectorService = new SectorService(this, this, this, this, 8, 280);
+        Bundle bundle = getIntent().getExtras();
+        int repertoireId = bundle.getInt(getString(R.string.repertoireId));
+
+        sectorService = new SectorService(repertoireId, this, this, this, 8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -148,11 +150,6 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
         sectorService.assignRowToSeat();
         sectorService.assignSectorToSeat();
-
-        Bundle bundle = getIntent().getExtras();
-        int repertoireId = bundle.getInt(getString(R.string.repertoireId));
-        reservationConnection.getReservations(repertoireId);
-        sectorService.setRepertoireId(repertoireId);
 
 
         for (int i = 0; i < sectorButtons.length; i++) {
@@ -554,21 +551,16 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     }
 
     @Override
-    public void updateUiCallback() {
+    public void updateUiCallback(boolean isMessage) {
         Log.d(logTag, "updateUiCallback");
-        markChoosedPlaces(currentSector);
-        updateSectors(false);
-        updateSummary();
-    }
+        if(isMessage) {
+            markChoosedPlaces(currentSector);
+            updateSectors(false);
+            updateSummary();
+        }
+        else
+            updateSectors(true);
 
-    @Override
-    public void onDbResponseCallback(boolean[] takenSeats) {
-        sectorService.setTakenSeats(takenSeats);
-        sectorService.updateSectorSeats();
-        for (int i = 0; i < sectorService.getTakenSeats().length; i++)
-            Log.d(logTag, "Model takenSeats = " + sectorService.getTakenSeats()[i]);
-
-        updateSectors(true);
     }
 
     @Override
