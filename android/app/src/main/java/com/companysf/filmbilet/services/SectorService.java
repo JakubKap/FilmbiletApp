@@ -34,10 +34,11 @@ public class SectorService implements ReservationConnListener, SocketListener {
     private Sector [] sectors;
 
 
-    public SectorService(int repertoireId,Context context, ErrorListener errorListener,
+    public SectorService(int repertoireId,Context context, Hall hall,Sector [] sectors, ErrorListener errorListener,
                          SectorListener sectorListener, int numOfSectors, int numOfSeats){
         this.repertoireId = repertoireId;
         this.context = context;
+        this.hall = hall;
         this.sectorListener = sectorListener;
         this.myWebSocketListener = new MyWebSocketListener(this);
         this.reservationConnection = new ReservationConnection(
@@ -46,8 +47,7 @@ public class SectorService implements ReservationConnListener, SocketListener {
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
 
-        this.hall = new Hall(numOfSeats);
-        this.sectors = new Sector[numOfSectors];
+        this.sectors = sectors;
 
         for(int i=0; i<sectors.length;i++){
             if(i==0 || i==1)
@@ -203,11 +203,11 @@ public class SectorService implements ReservationConnListener, SocketListener {
 
     @Override
     public void onDbResponseCallback(boolean[] takenSeats) {
-        setTakenSeats(takenSeats);
+        hall.setTakenSeats(takenSeats);
         updateSectorSeats();
 
-        for (int i = 0; i < getTakenSeats().length; i++)
-            Log.d(logTag, "Model takenSeats = " + getTakenSeats()[i]);
+        for (int i = 0; i < hall.getTakenSeats().length; i++)
+            Log.d(logTag, "Model takenSeats = " + hall.getTakenSeats()[i]);
 
         sectorListener.updateUiCallback(false);
     }
@@ -355,29 +355,8 @@ public class SectorService implements ReservationConnListener, SocketListener {
         else
             return 3;
     }
+
     public boolean columnLabelsType(int sectorIndex){
         return (sectorIndex % 2 == 0);
     }
-    public boolean[] getChoosedSeatsPrev() {
-        return hall.getChoosedSeatsPrev();
-    }
-    private void setTakenSeats(boolean[] takenSeats) {
-        this.hall.setTakenSeats(takenSeats);
-    }
-    public boolean[] getTakenSeats() {
-        return hall.getTakenSeats();
-    }
-    public int getFreeSeatsInSector(int index) {
-        return sectors[index].getFreeSeats();
-    }
-    public int[] getSeatNumbers(int index) {
-        return sectors[index].getSeatNumbers();
-    }
-    public boolean[] getChoosedSeats() {
-        return hall.getChoosedSeats();
-    }
-    public void setSeatNumbers(int index, int[] seatNumbers) {
-        this.sectors[index].setSeatNumbers(seatNumbers);
-    }
-
 }

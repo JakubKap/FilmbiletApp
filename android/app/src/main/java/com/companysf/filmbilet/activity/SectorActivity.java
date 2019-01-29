@@ -21,6 +21,8 @@ import com.companysf.filmbilet.connection.Listener.ErrorListener;
 import com.companysf.filmbilet.connection.ReservationConnection;
 import com.companysf.filmbilet.connection.Listener.ReservationConnListener;
 import com.companysf.filmbilet.connection.Listener.SectorListener;
+import com.companysf.filmbilet.entities.Hall;
+import com.companysf.filmbilet.entities.Sector;
 import com.companysf.filmbilet.services.Login;
 import com.companysf.filmbilet.services.SectorService;
 import com.companysf.filmbilet.R;
@@ -59,6 +61,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
     private TextView title, subtitle;
 
     private int currentSector;
+    private Hall hall;
+    private Sector[] sectors;
 
 
     @Override
@@ -76,7 +80,11 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
         Bundle bundle = getIntent().getExtras();
         int repertoireId = bundle.getInt(getString(R.string.repertoireId));
 
-        sectorService = new SectorService(repertoireId, this, this, this, 8, 280);
+        hall = new Hall(280);
+
+        sectors = new Sector[8];
+
+        sectorService = new SectorService(repertoireId, this, hall,sectors,this, this, 8, 280);
 
         sectorButtons = new Button[8];
         seatButtons = new Button[35];
@@ -153,7 +161,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
         for (int i = 0; i < sectorButtons.length; i++) {
             setPopupOnSector(i);
-            sectorService.setSeatNumbers(i, new int[35]);
+            //sectorService.setSeatNumbers(i, new int[35]);
+            sectors[i].setSeatNumbers(new int[35]);
             sectorService.clearMarkedSeats();
         }
         secBtnReserve.setOnClickListener(new View.OnClickListener() {
@@ -180,11 +189,11 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                 currentSector = sectorIndex;
 
                 sectorService.assignSeatsPrev();
-                for (int i = 0; i < sectorService.getChoosedSeatsPrev().length; i++)
-                    if (sectorService.getChoosedSeatsPrev()[i])
+                for (int i = 0; i < hall.getChoosedSeatsPrev().length; i++)
+                    if (hall.getChoosedSeatsPrev()[i])
                         Log.d(logTag, "Marked seat after opening sectorService " + i);
 
-                if (sectorService.getFreeSeatsInSector(sectorIndex) == 0) {
+                if(sectors[sectorIndex].getFreeSeats() == 0){
                     showDialog(
                             getString(R.string.emptySectorTitle),
                             getString(R.string.emptySectorMsg)
@@ -269,8 +278,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                         @Override
                         public void onClick(View view) {
                             sectorService.markSeat(sectorIndex, index);
-                            int seatNumber = sectorService.getSeatNumbers(sectorIndex)[index];
-                            markSeat(seatButtons[index], sectorService.getChoosedSeats()[seatNumber - 1], false);
+                            int seatNumber = sectors[sectorIndex].getSeatNumbers()[index];
+                            markSeat(seatButtons[index], hall.getChoosedSeats()[seatNumber - 1], false);
                         }
                     });
                 }
@@ -291,13 +300,13 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
                         sectorService.restoreChoosedSeats();
 
-                        for (int i = 0; i < sectorService.getChoosedSeatsPrev().length; i++)
-                            if (sectorService.getChoosedSeatsPrev()[i])
+                        for (int i = 0; i < hall.getChoosedSeatsPrev().length; i++)
+                            if (hall.getChoosedSeatsPrev()[i])
                                 Log.d(logTag, "Marked seat after closing sectorService " + i);
 
                         sectorService.restoreChoosedSeats();
-                        for (int i = 0; i < sectorService.getChoosedSeats().length; i++)
-                            if (sectorService.getChoosedSeats()[i])
+                        for (int i = 0; i < hall.getChoosedSeats().length; i++)
+                            if (hall.getChoosedSeats()[i])
                                 Log.d(logTag, "Choosed Mseat after closing sectorService " + i);
 
                         currentSector = -1;
@@ -324,7 +333,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                     String text = String.format(
                             new Locale(getString(R.string.polish), getString(R.string.poland)),
                             "%d",
-                            sectorService.getFreeSeatsInSector(i)
+                            sectors[i].getFreeSeats()
                     )
                             + getString(R.string.currency);
                     freeSeats[i].setText(text);
@@ -455,8 +464,8 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
 
     public void markChoosedPlaces(int sectorIndex) {
         if (sectorIndex > 0) {
-            final boolean[] takenSeats = sectorService.getTakenSeats();
-            final int[] seatNumbers = sectorService.getSeatNumbers(sectorIndex);
+            final boolean[] takenSeats = hall.getTakenSeats();
+            final int[] seatNumbers = sectors[sectorIndex].getSeatNumbers();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -466,7 +475,7 @@ public class SectorActivity extends AppCompatActivity implements ErrorListener, 
                             seatButtons[i].setEnabled(false);
                             markTakenSeat(seatButtons[i]);
                         } else
-                            markSeat(seatButtons[i], sectorService.getChoosedSeats()[seatNumbers[i] - 1], true);
+                            markSeat(seatButtons[i], hall.getChoosedSeats()[seatNumbers[i] - 1], true);
                     }
                 }
             });
