@@ -93,12 +93,12 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
     @Override
     public void callBackOnSuccess() {
         Log.d(TAG, "callBack on success w klasie CustomerReservations");
-        emptyListRefreshLayout.setVisibility(View.GONE);
+        makeEmptyListLayoutVisible();
     }
 
     @Override
     public void callBackOnError() {
-        makeRefreshLayoutVisible();
+        makeEmptyListLayoutVisible();
         ErrorDialog.showErrorDialog(
                 this,
                 getString(R.string.serverErrorTitle),
@@ -108,7 +108,7 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
 
     @Override
     public void callBackOnNoNetwork() {
-        makeRefreshLayoutVisible();
+        makeEmptyListLayoutVisible();
         ErrorDialog.showErrorDialog(
                 this,
                 getString(R.string.networkConnectionErrorTitle),
@@ -116,9 +116,11 @@ public class CustomerReservationsActivity extends AppCompatActivity implements S
         );
     }
 
-    private void makeRefreshLayoutVisible() {
+    private void makeEmptyListLayoutVisible() {
         if (reservationsList.getList().isEmpty()) {
             emptyListRefreshLayout.setVisibility(View.VISIBLE);
+        } else {
+            emptyListRefreshLayout.setVisibility(View.GONE);
         }
     }
 }
