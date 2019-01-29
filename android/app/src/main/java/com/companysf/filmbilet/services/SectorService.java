@@ -50,19 +50,16 @@ public class SectorService implements SocketListener {
         this.hall = new Hall(numOfSeats);
         this.sectors = new Sector[numOfSectors];
 
-
-        for(int i=0; i<sectors.length; i++){
+        for(int i=0; i<sectors.length;i++){
             if(i==0 || i==1)
-                sectors[i].setSectorPrice(10);
+                sectors[i] = new Sector(10);
             else if (i==2 || i==3)
-                sectors[i].setSectorPrice(15);
+                sectors[i]= new Sector(15);
             else if (i==4 || i==5)
-                sectors[i].setSectorPrice(20);
+                sectors[i]= new Sector(20);
             else
-                sectors[i].setSectorPrice(30);
+                sectors[i]= new Sector(30);
         }
-
-
 
         assignFirstSecSeat();
         sectorTitles = new String[numOfSectors];

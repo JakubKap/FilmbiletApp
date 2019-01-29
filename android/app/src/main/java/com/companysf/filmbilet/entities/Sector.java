@@ -7,10 +7,8 @@ public class Sector {
     private int startSecSeat;
     private int sectorPrice;
 
-    public Sector(int freeSeats, int[] seatNumbers, int startSecSeat, int sectorPrice) {
-        this.freeSeats = freeSeats;
-        this.seatNumbers = seatNumbers;
-        this.startSecSeat = startSecSeat;
+    public Sector(int sectorPrice) {
+        this.sectorPrice = sectorPrice;
     }
 
     public int getFreeSeats() {
