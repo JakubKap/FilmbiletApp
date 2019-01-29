@@ -11,11 +11,9 @@ import android.widget.GridView;
 import android.widget.ToggleButton;
 
 import com.companysf.filmbilet.R;
-import com.companysf.filmbilet.entities.DateTimeChoice;
 import com.companysf.filmbilet.services.ChooseDateTime;
 import com.companysf.filmbilet.entities.Repertoire;
 
-import java.util.Date;
 import java.util.List;
 
 public class HoursAdapter extends BaseAdapter {
@@ -23,17 +21,15 @@ public class HoursAdapter extends BaseAdapter {
     private Context mContext;
     private ChooseDateTime chooseDateTime;
     private List<Repertoire> hoursForDate;
-    private DateTimeChoice dateTimeChoice;
 
-    public HoursAdapter(Context c, DateTimeChoice dateTimeChoice, ChooseDateTime chooseDateTime) {
+    public HoursAdapter(Context c, ChooseDateTime chooseDateTime) {
         mContext = c;
         this.chooseDateTime = chooseDateTime;
-        this.dateTimeChoice = dateTimeChoice;
-        this.hoursForDate = dateTimeChoice.getHoursForDate();
+        this.hoursForDate = chooseDateTime.getHoursForDate();
 
-        if(dateTimeChoice.getSelectedRepertoires().size() > 0){
-            dateTimeChoice.getSelectedRepertoires().clear();
-            Log.d(logTag, "Size of selectedSchedule = " + dateTimeChoice.getSelectedRepertoires().size());
+        if(chooseDateTime.getSelectedRepertoires().size() > 0){
+            chooseDateTime.getSelectedRepertoires().clear();
+            Log.d(logTag, "Size of selectedSchedule = " + chooseDateTime.getSelectedRepertoires().size());
         }
 
     }
@@ -62,7 +58,7 @@ public class HoursAdapter extends BaseAdapter {
             toggleButton = new ToggleButton(mContext);
             toggleButton.setLayoutParams(new GridView.LayoutParams(400, 200));
 
-           toggleButton.setBackgroundResource(R.drawable.toggle_button_selector);
+            toggleButton.setBackgroundResource(R.drawable.toggle_button_selector);
 
             toggleButton.setPadding(8, 8, 8, 8);
         }

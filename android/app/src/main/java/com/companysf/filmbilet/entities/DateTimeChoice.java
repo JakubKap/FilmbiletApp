@@ -16,6 +16,8 @@ public class DateTimeChoice {
         this.selectedDate[0] = true;
         for(int i=1; i<selectedDate.length;i++)
             selectedDate[i]=false;
+        hoursForDate = new ArrayList<>();
+        currentWeek = new ArrayList<>();
     }
 
     public List<Integer> getSelectedRepertoires() {
