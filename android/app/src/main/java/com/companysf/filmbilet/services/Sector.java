@@ -19,8 +19,6 @@ public class Sector implements SocketListener {
 
     private Context context;
     private WebSocket webSocket;
-    private ErrorListener errorListener;
-    private ReservationConnListener reservationConnListener;
     private ReservationConnection reservationConnection;
     private SectorListener sectorListener;
     private MyWebSocketListener myWebSocketListener;
@@ -29,12 +27,11 @@ public class Sector implements SocketListener {
     private int numOfSectors;
     private int numOfSeats;
 
-
     private boolean[] takenSeats;
 
     private boolean[] choosedSeats;
     private boolean[] choosedSeatsPrev;
-    boolean [] takenYourSeats;
+    private boolean [] takenYourSeats;
 
     private int[] seatSector;
     private int[] seatRow;
@@ -47,13 +44,15 @@ public class Sector implements SocketListener {
     private String[] sectorTitles;
     private String[] sectorSubitles;
 
-    public Sector(Context context, ErrorListener errorListener, ReservationConnListener reservationConnListener, SectorListener sectorListener, int numOfSectors, int numOfSeats){
+    public Sector(Context context, ErrorListener errorListener,
+                  ReservationConnListener reservationConnListener,
+                  SectorListener sectorListener, int numOfSectors, int numOfSeats){
         this.context = context;
-        this.errorListener = errorListener;
-        this.reservationConnListener = reservationConnListener;
         this.sectorListener = sectorListener;
         this.myWebSocketListener = new MyWebSocketListener(this);
-        this.reservationConnection = new ReservationConnection(context, errorListener, reservationConnListener);
+        this.reservationConnection = new ReservationConnection(
+                context, errorListener, reservationConnListener
+        );
         this.numOfSectors=numOfSectors;
         this.numOfSeats=numOfSeats;
 
@@ -298,9 +297,7 @@ public class Sector implements SocketListener {
                 Log.d(logTag, "Calculated price = " + price);
             }
         }
-
         return price;
-
     }
 
     public void clearMarkedSeats(){
@@ -327,7 +324,6 @@ public class Sector implements SocketListener {
         reactOnMessage(reservedSeats);
         sectorListener.updateUiCallback();
         prepareDialog();
-
     }
 
     public void reactOnMessage(boolean[] reservedSeats){
@@ -352,9 +348,7 @@ public class Sector implements SocketListener {
             if(choosedSeats[i])
                 Log.d(logTag, "OnMessage choosedSeats[" + i +"] = " );
         }
-
             updateSectorSeats();
-
         }
 
         public void prepareDialog(){
@@ -397,14 +391,13 @@ public class Sector implements SocketListener {
 
     public int numOfChoosedSeats(){
         int num=0;
-        for(int i=0; i<choosedSeats.length; i++)
-            if(choosedSeats[i])
-                num++;
+        for (boolean choosedSeat : choosedSeats)
+            if (choosedSeat) num++;
         return num;
     }
-    public int seatTypeId(int index){
+    private int seatTypeId(int index){
         int sectorNum = seatSector[index];
-        int seatTypeId=1;
+        int seatTypeId;
 
         if(sectorNum == 1 || sectorNum == 2)
             seatTypeId = 1;
@@ -412,10 +405,10 @@ public class Sector implements SocketListener {
             seatTypeId = 2;
         else if(sectorNum == 5 || sectorNum == 6)
             seatTypeId = 3;
-        else if(sectorNum == 7 || sectorNum == 8)
+        else
             seatTypeId = 4;
-        return seatTypeId;
 
+        return seatTypeId;
     }
 
     public void saveToDb(){

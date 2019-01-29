@@ -29,7 +29,7 @@ public class HoursAdapter extends BaseAdapter {
 
         if(chooseDateTime.getSelectedRepertoires().size() > 0){
             chooseDateTime.getSelectedRepertoires().clear();
-            Log.d(logTag, "Size of selectedSchedule = " + chooseDateTime.getSelectedSchedules().size());
+            Log.d(logTag, "Size of selectedSchedule = " + chooseDateTime.getSelectedRepertoires().size());
         }
 
     }

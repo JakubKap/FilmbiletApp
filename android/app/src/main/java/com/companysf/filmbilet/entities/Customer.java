@@ -6,9 +6,6 @@ public class Customer {
     private String email;
     private int id;
 
-    public Customer() {
-    }
-
     public Customer(String name, String surname, String email, int id) {
         this.name = name;
         this.surname = surname;
@@ -26,10 +23,6 @@ public class Customer {
 
     public String getSurname() {
         return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getEmail() {
